@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Enforce the project's real-ID/full-name commit subject convention locally."""
+from pathlib import Path
+import subprocess
+import sys
+
+root = Path(subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip())
+sys.path.insert(0, str(root / 'scripts'))
+from check_repository import validate_identity
+
+
+def config(key):
+    p = subprocess.run(['git', 'config', '--local', '--get', key],
+                       text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return p.stdout.strip()
+
+
+try:
+    sid, name = config('cs340.studentId'), config('cs340.fullName')
+    validate_identity(sid, name)
+    if config('user.name') != name:
+        raise ValueError('Local user.name must equal the actual configured full name.')
+    lines = Path(sys.argv[1]).read_text(encoding='utf-8').splitlines()
+    subject = next((line for line in lines if line and not line.startswith('#')), '')
+    prefix = f'[{sid}] {name}: '
+    if not subject.startswith(prefix) or len(subject[len(prefix):].strip()) < 8:
+        raise ValueError(f'Commit subject must start with {prefix!r} and describe the change.')
+except (ValueError, OSError, IndexError) as exc:
+    print(f'CS340 commit rejected: {exc}', file=sys.stderr)
+    raise SystemExit(1)

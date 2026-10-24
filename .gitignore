@@ -1,0 +1,63 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+.cs340-bootstrap.json
+creation_receipt.json
+
+# Build outputs
+build/
+dist/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+a.out
+core
+core.*
+
+# Disk and virtual-machine images
+*.iso
+*.img
+*.qcow
+*.qcow2
+*.vdi
+*.vmdk
+*.vhd
+*.vhdx
+
+# Large local third-party checkouts and downloaded datasets
+vendor/
+downloads/
+large-traces/
+
+# Python caches / local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Editor and operating-system metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Keep experiment logs, CSV files, figures and reports trackable.
+# Do not add blanket *.log / *.csv / results/ ignore rules.
