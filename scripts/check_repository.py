@@ -17,7 +17,7 @@ BANNED_SUFFIXES = {'.o', '.obj', '.a', '.so', '.dylib', '.dll', '.exe', '.iso',
 BANNED_DIRS = {'build', 'dist', 'CMakeFiles', '__pycache__', '.venv', 'venv',
                'large-traces'}
 SECRET_PATTERNS = (
-    re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),
+    re.compile(rb'-----BEGIN (?:RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----'),
     re.compile(rb'\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\b'),
     re.compile(rb'\bAKIA[A-Z0-9]{16}\b'),
 )
@@ -44,9 +44,13 @@ def path_errors(path: str, size: int, data: bytes) -> list[str]:
     errors = []
     if size > MAX_BYTES:
         errors.append('larger than 50,000,000 bytes')
-    if p.suffix.lower() in BANNED_SUFFIXES or any(x in BANNED_DIRS for x in p.parts):
+    if (p.suffix.lower() in BANNED_SUFFIXES
+            or re.search(r'\.so(?:\.\d+)+$', p.name, re.IGNORECASE)
+            or any(x in BANNED_DIRS for x in p.parts)
+            or any(x.startswith('cmake-build-') for x in p.parts[:-1])):
         errors.append('prohibited build output / image / credential or local-environment path')
-    if p.name in {'a.out', 'core', 'credentials.json', 'secrets.json'}:
+    if (p.name in {'a.out', 'core', 'CMakeCache.txt', 'credentials.json', 'secrets.json'}
+            or re.fullmatch(r'core\.\d+', p.name)):
         errors.append('prohibited generated or credential file')
     if (p.name == '.env' or p.name.startswith('.env.')) and p.name != '.env.example':
         errors.append('environment credential/configuration file')
@@ -68,7 +72,8 @@ def check(root: Path, staged: bool = False) -> list[str]:
     if staged and not in_this_repo:
         return ['Staged checking requires the repository root.']
     if in_this_repo:
-        args = ('diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z') if staged else ('ls-files', '-z')
+        # T includes regular-file <-> symlink changes; omitting it bypasses checks.
+        args = ('diff', '--cached', '--name-only', '--diff-filter=ACMRT', '-z') if staged else ('ls-files', '-z')
         names = git(root, *args).stdout.decode('utf-8', 'surrogateescape').split('\0')
         names = [n for n in names if n]
     else:

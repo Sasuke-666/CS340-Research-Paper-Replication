@@ -42,3 +42,26 @@ verification; this log alone is not proof that a push succeeded.
 This work is repository initialization only. No PERIOD experiment, scientific
 result, final `v1.0` tag, collaborator invitation, or group-form submission is
 included. Teaching-team access and group membership remain to be confirmed.
+
+## Repository safeguard regression tests
+
+Date: 2026-10-30 (Beijing time).
+Tool: ChatGPT / Codex; exact deployed model/version not independently verified.
+The authenticated GitHub connection identifies `Sasuke-666`, matching the existing
+`docs/TEAM.csv` record for `1240001201`, `孙皓扬`. The repository owner requested
+the safeguard review, meaningful tests, necessary repairs and a compliant push.
+
+AI work: inspected the original checker and hooks; wrote the regression suite;
+reproduced failures before repairing staged type-change selection, generated-file
+recognition and private-key header recognition; prepared a small CI workflow;
+ran the local checks and documented their outputs. Affected files are the checker,
+tests, workflow, README and the contribution/verification records in `docs/`.
+All test identities and credential samples are synthetic and confined to temporary
+fixtures. No real credential was used. See `docs/REPOSITORY_CHECKS.md` and its logs.
+
+Human contribution recorded here is task specification and authorization. Human
+code review and independent rerunning of the tests remain **pending**. The AI
+performed the recorded code review and test execution; these are not attributed
+to an independent student implementation or a completed human review. The owner
+must understand and review the changes before using them as assessed evidence.
+No PERIOD workload, paper-claim validation or scientific result was produced.

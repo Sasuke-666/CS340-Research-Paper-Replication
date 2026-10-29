@@ -1,0 +1,140 @@
+Started (UTC): 2026-10-29T22:44:57.113971+00:00
+Command: python3 -m unittest discover -s tests -v
+test_description_length_boundary (test_check_repository.CommitHookTests.test_description_length_boundary) ... ok
+test_empty_message_is_rejected (test_check_repository.CommitHookTests.test_empty_message_is_rejected) ... ok
+test_git_author_name_must_match_configured_name (test_check_repository.CommitHookTests.test_git_author_name_must_match_configured_name) ... ok
+test_mismatched_identity_prefixes_are_rejected (test_check_repository.CommitHookTests.test_mismatched_identity_prefixes_are_rejected) ... ok
+test_missing_identity_config_is_rejected (test_check_repository.CommitHookTests.test_missing_identity_config_is_rejected) ... ok
+test_valid_subject_with_comment_preamble_is_accepted (test_check_repository.CommitHookTests.test_valid_subject_with_comment_preamble_is_accepted) ... ok
+test_cli_missing_git_returns_two (test_check_repository.GitAndFilesystemTests.test_cli_missing_git_returns_two) ... ok
+test_cli_rule_violation_returns_one_without_echoing_secret (test_check_repository.GitAndFilesystemTests.test_cli_rule_violation_returns_one_without_echoing_secret) ... ok
+test_cli_staged_without_git_returns_one (test_check_repository.GitAndFilesystemTests.test_cli_staged_without_git_returns_one) ... ok
+test_cli_success_returns_zero (test_check_repository.GitAndFilesystemTests.test_cli_success_returns_zero) ... ok
+test_cli_unknown_option_returns_two (test_check_repository.GitAndFilesystemTests.test_cli_unknown_option_returns_two) ... ok
+test_missing_tracked_path_is_reported (test_check_repository.GitAndFilesystemTests.test_missing_tracked_path_is_reported) ... ok
+test_oversized_worktree_file_is_rejected_without_reading_it (test_check_repository.GitAndFilesystemTests.test_oversized_worktree_file_is_rejected_without_reading_it) ... ok
+test_plain_directory_scan_excludes_git_metadata (test_check_repository.GitAndFilesystemTests.test_plain_directory_scan_excludes_git_metadata) ... ok
+test_staged_check_requires_repository_root (test_check_repository.GitAndFilesystemTests.test_staged_check_requires_repository_root) ... ok
+test_staged_content_is_checked_even_if_worktree_is_clean (test_check_repository.GitAndFilesystemTests.test_staged_content_is_checked_even_if_worktree_is_clean) ... ok
+test_staged_deletion_does_not_read_deleted_blob (test_check_repository.GitAndFilesystemTests.test_staged_deletion_does_not_read_deleted_blob) ... ok
+test_staged_names_with_spaces_unicode_and_newlines (test_check_repository.GitAndFilesystemTests.test_staged_names_with_spaces_unicode_and_newlines) ... ok
+test_staged_regular_file_to_symlink_type_change_is_rejected (test_check_repository.GitAndFilesystemTests.test_staged_regular_file_to_symlink_type_change_is_rejected) ... FAIL
+test_staged_rename_is_checked_under_new_path (test_check_repository.GitAndFilesystemTests.test_staged_rename_is_checked_under_new_path) ... ok
+test_staged_size_is_measured_from_blob_without_loading_large_content (test_check_repository.GitAndFilesystemTests.test_staged_size_is_measured_from_blob_without_loading_large_content) ... ok
+test_staged_symlink_is_rejected_even_if_worktree_is_regular (test_check_repository.GitAndFilesystemTests.test_staged_symlink_is_rejected_even_if_worktree_is_regular) ... ok
+test_staged_symlink_to_regular_file_type_change_is_scanned (test_check_repository.GitAndFilesystemTests.test_staged_symlink_to_regular_file_type_change_is_scanned) ... FAIL
+test_tracked_scan_ignores_untracked_outputs (test_check_repository.GitAndFilesystemTests.test_tracked_scan_ignores_untracked_outputs) ... ok
+test_unstaged_secret_does_not_change_the_index_check (test_check_repository.GitAndFilesystemTests.test_unstaged_secret_does_not_change_the_index_check) ... ok
+test_worktree_symlinks_including_broken_targets_are_rejected (test_check_repository.GitAndFilesystemTests.test_worktree_symlinks_including_broken_targets_are_rejected) ... ok
+test_malformed_and_placeholder_names_are_rejected (test_check_repository.IdentityTests.test_malformed_and_placeholder_names_are_rejected) ... ok
+test_malformed_student_ids_are_rejected (test_check_repository.IdentityTests.test_malformed_student_ids_are_rejected) ... ok
+test_placeholder_and_ta_ids_are_rejected (test_check_repository.IdentityTests.test_placeholder_and_ta_ids_are_rejected) ... ok
+test_valid_shapes_include_unicode_names_and_id_length_boundaries (test_check_repository.IdentityTests.test_valid_shapes_include_unicode_names_and_id_length_boundaries) ... ok
+test_operational_errors_return_two_and_no_success (test_check_repository.MainErrorTests.test_operational_errors_return_two_and_no_success) ... ok
+test_binary_content_is_scanned_and_credential_values_are_redacted (test_check_repository.PathRulesTests.test_binary_content_is_scanned_and_credential_values_are_redacted) ... ok
+test_env_example_is_still_scanned_for_credentials (test_check_repository.PathRulesTests.test_env_example_is_still_scanned_for_credentials) ... ok
+test_generated_filenames_and_environment_files (test_check_repository.PathRulesTests.test_generated_filenames_and_environment_files) ... ok
+test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) ...
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='lib/libperiod.so.1') ... FAIL
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='lib/libperiod.so.1.2') ... FAIL
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='cmake-build-debug/CMakeLists.txt') ... FAIL
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/cmake-build-release/x') ... FAIL
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/CMakeCache.txt') ... FAIL
+  test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/core.1234') ... FAIL
+test_multiple_violations_are_reported (test_check_repository.PathRulesTests.test_multiple_violations_are_reported) ... ok
+test_private_key_headers (test_check_repository.PathRulesTests.test_private_key_headers) ...
+  test_private_key_headers (test_check_repository.PathRulesTests.test_private_key_headers) (kind='DSA ') ... FAIL
+  test_private_key_headers (test_check_repository.PathRulesTests.test_private_key_headers) (kind='ENCRYPTED ') ... FAIL
+test_prohibited_directories_at_any_depth (test_check_repository.PathRulesTests.test_prohibited_directories_at_any_depth) ... ok
+test_prohibited_suffixes_include_case_variants (test_check_repository.PathRulesTests.test_prohibited_suffixes_include_case_variants) ... ok
+test_secret_patterns_detect_supported_token_families (test_check_repository.PathRulesTests.test_secret_patterns_detect_supported_token_families) ... ok
+test_short_tokens_and_embedded_word_fragments_are_not_credentials (test_check_repository.PathRulesTests.test_short_tokens_and_embedded_word_fragments_are_not_credentials) ... ok
+test_size_boundary_uses_decimal_megabytes (test_check_repository.PathRulesTests.test_size_boundary_uses_decimal_megabytes) ... ok
+test_small_research_inputs_and_outputs_are_allowed (test_check_repository.PathRulesTests.test_small_research_inputs_and_outputs_are_allowed) ... ok
+
+======================================================================
+FAIL: test_staged_regular_file_to_symlink_type_change_is_rejected (test_check_repository.GitAndFilesystemTests.test_staged_regular_file_to_symlink_type_change_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 292, in test_staged_regular_file_to_symlink_type_change_is_rejected
+    self.assertIn('symlink requires explicit review', '\n'.join(checker.check(self.root, staged=True)))
+AssertionError: 'symlink requires explicit review' not found in ''
+
+======================================================================
+FAIL: test_staged_symlink_to_regular_file_type_change_is_scanned (test_check_repository.GitAndFilesystemTests.test_staged_symlink_to_regular_file_type_change_is_scanned)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 303, in test_staged_symlink_to_regular_file_type_change_is_scanned
+    self.assertIn('possible credential detected', '\n'.join(checker.check(self.root, staged=True)))
+AssertionError: 'possible credential detected' not found in ''
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='lib/libperiod.so.1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='lib/libperiod.so.1.2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='cmake-build-debug/CMakeLists.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/cmake-build-release/x')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/CMakeCache.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_generated_paths_already_excluded_by_gitignore (test_check_repository.PathRulesTests.test_generated_paths_already_excluded_by_gitignore) (name='nested/core.1234')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 70, in test_generated_paths_already_excluded_by_gitignore
+    self.assertTrue(checker.path_errors(name, 0, b''))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_private_key_headers (test_check_repository.PathRulesTests.test_private_key_headers) (kind='DSA ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 84, in test_private_key_headers
+    self.assertTrue(checker.path_errors('notes.txt', len(data), data))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_private_key_headers (test_check_repository.PathRulesTests.test_private_key_headers) (kind='ENCRYPTED ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_check_repository.py", line 84, in test_private_key_headers
+    self.assertTrue(checker.path_errors('notes.txt', len(data), data))
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.793s
+
+FAILED (failures=10)
+
+Exit code: 1

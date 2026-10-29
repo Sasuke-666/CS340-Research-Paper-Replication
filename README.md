@@ -66,11 +66,16 @@ Requirements: Git and Python 3.9 or newer.
 
 ```sh
 python3 scripts/check_repository.py
+python3 -m unittest discover -s tests -v
 python3 scripts/capture_environment.py
 ```
 
 The first command checks tracked files, or scaffold files before Git initialization.
-The second prints environment information as JSON without collecting credentials,
+The test command exercises file rules, temporary Git repositories, CLI exit codes
+and the commit-message hook using Python's standard library. It needs no external
+test packages. Pushes and pull requests also run these checks in GitHub Actions.
+See `docs/REPOSITORY_CHECKS.md` for coverage, verification records and limitations.
+The environment command prints JSON without collecting credentials,
 usernames, hostnames or environment variables. Inspect its output before saving it.
 These commands **do not build or run PERIOD**. There is no validated main
 experiment command or runtime estimate yet. Add measured runtimes, expected
