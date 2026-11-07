@@ -3,6 +3,8 @@
 set -euo pipefail
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 case_name=${1:?case required}; out=${2:?fresh evidence directory required}
+repetitions=${3:-10}; comparison_seconds=${4:-120}
+[[ "$repetitions" =~ ^[1-9][0-9]*$ && "$comparison_seconds" =~ ^[1-9][0-9]*$ ]] || exit 2
 case "$case_name" in reorder_3|reorder_4|account|lazy01|twostage) ;; *) exit 2;; esac
 [[ $(uname -m) == x86_64 ]] || exit 2
 command -v docker >/dev/null
@@ -25,7 +27,7 @@ timeout 2200 docker run --rm --network none --privileged --hostname period-study
  --mount "type=bind,src=$root/scripts/run_period_comparison.py,dst=/run_period_comparison.py,readonly" \
  --mount "type=bind,src=$root/scripts/run_period_pilot.py,dst=/run_period_pilot.py,readonly" \
  --mount "type=bind,src=$out,dst=/evidence" \
- "$image" bash -c 'set -euo pipefail; cp -a /pinned/. /workdir/PERIOD/; export ROOT_DIR=/workdir/PERIOD; export PATH="$ROOT_DIR/clang+llvm/bin:$PATH"; export LD_LIBRARY_PATH="$ROOT_DIR/clang+llvm/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"; cd "$ROOT_DIR"; { uname -a; clang --version; gcc --version; python3 --version; } > /evidence/versions.txt; grep -R -n "kpNumArray\|SHARE_ARRAY_SIZE" tool/staticAnalysis/DBDS-INSTRU --include="*.h" --include="*.cpp" --include="*.c" > /evidence/runtime_abi_source.txt || true; bash tool/install_staticAnalysis.sh > /evidence/instrumentation_build.txt 2>&1; python3 /compatible.py --case "$1" --output /evidence' bash "$case_name" \
+ "$image" bash -c 'set -euo pipefail; cp -a /pinned/. /workdir/PERIOD/; export ROOT_DIR=/workdir/PERIOD; export PATH="$ROOT_DIR/clang+llvm/bin:$PATH"; export LD_LIBRARY_PATH="$ROOT_DIR/clang+llvm/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"; cd "$ROOT_DIR"; { uname -a; clang --version; gcc --version; python3 --version; } > /evidence/versions.txt; grep -R -n "kpNumArray\|SHARE_ARRAY_SIZE" tool/staticAnalysis/DBDS-INSTRU --include="*.h" --include="*.cpp" --include="*.c" > /evidence/runtime_abi_source.txt || true; bash tool/install_staticAnalysis.sh > /evidence/instrumentation_build.txt 2>&1; python3 /compatible.py --case "$1" --output /evidence --repetitions "$2" --comparison-timeout "$3"' bash "$case_name" "$repetitions" "$comparison_seconds" \
  > "$out/container_console.txt" 2>&1
 code=$?; set -e
 printf '%s\n' "$code" > "$out/container_exit_code.txt"

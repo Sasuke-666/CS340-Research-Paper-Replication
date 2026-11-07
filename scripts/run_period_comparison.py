@@ -62,12 +62,23 @@ def method_order(repetition):
     return pair if repetition%2 else pair[::-1]
 
 
+def new_output_folders(directory, binary, previous_names):
+    """A failed invocation must never inherit an earlier invocation's witnesses."""
+    return sorted((p for p in directory.glob('out_'+binary+'_*')
+                   if p.is_dir() and p.name not in previous_names),
+                  key=lambda p:p.stat().st_mtime)
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--root',type=Path,default=Path('/workdir/PERIOD'))
     ap.add_argument('--output',type=Path,default=Path('/evidence'))
     ap.add_argument('--case',required=True,choices=sorted(CASES))
+    ap.add_argument('--repetitions',type=int,default=10)
+    ap.add_argument('--comparison-timeout',type=int,default=120)
     args=ap.parse_args();root,out=args.root,args.output
+    if args.repetitions<1 or args.comparison_timeout<1:
+        ap.error('Repetitions and comparison timeout must be positive')
     out.mkdir(parents=True,exist_ok=True)
     if (out/'records.json').exists():raise ValueError('Refuse to overwrite a measured batch')
     case,binary=args.case,CASES[args.case]
@@ -80,7 +91,8 @@ def main():
     env={'captured_utc':utc(),'source_commit':PIN,'platform':platform.platform(),
          'python':platform.python_version(),'cpu_affinity':sorted(os.sched_getaffinity(0)),
          'cpu_models':sorted(set(l.split(':',1)[1].strip() for l in Path('/proc/cpuinfo').read_text(encoding='utf-8').splitlines() if l.startswith('model name'))),
-         'os_release':Path('/etc/os-release').read_text(encoding='utf-8'),'paired_methods_same_built_binary':True}
+         'os_release':Path('/etc/os-release').read_text(encoding='utf-8'),'paired_methods_same_built_binary':True,
+         'comparison_settings':{'repetitions_per_method':args.repetitions,'outer_timeout_seconds':args.comparison_timeout,'depth':3,'schedule_budget':10000}}
     (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n',encoding='utf-8')
     source_dir=out/'source';source_dir.mkdir()
     for path in (root/'tool/DBDS').glob('*.py'):shutil.copy2(str(path),str(source_dir/path.name))
@@ -95,15 +107,17 @@ def main():
         if path.is_file() and (path.suffix in ('.c','.cpp','.sh') or path.name.startswith('ConConfig.')):
             shutil.copy2(str(path),str(source_dir/path.name))
     (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n',encoding='utf-8')
-    for repetition in range(1,11):
+    for repetition in range(1,args.repetitions+1):
         order=method_order(repetition)
         for position,method in enumerate(order,1):
             log='{}_r{:02d}.txt'.format(method,repetition)
             cmd=['python3',str(root/'tool/DBDS'/METHODS[method]),'-y','-d','3','-f','10000','./'+binary]
-            r=run(cmd,log,'comparison',120,method=method,repeat=repetition,position=position)
+            previous_names={p.name for p in directory.glob('out_'+binary+'_*')}
+            r=run(cmd,log,'comparison',args.comparison_timeout,method=method,repeat=repetition,position=position,timeout_seconds=args.comparison_timeout)
             r.update(parse_log((out/log).read_text(encoding='utf-8',errors='replace')))
             r['status']='complete' if not r['timed_out'] and r['exit_code']==0 and r['complete_markers'] else 'incomplete'
-            folders=sorted(directory.glob('out_'+binary+'_*'),key=lambda p:p.stat().st_mtime)
+            folders=new_output_folders(directory,binary,previous_names)
+            r['new_witness_folders']=[p.name for p in folders]
             if folders:
                 for p in sorted((folders[-1]/'Errors').glob('*')):
                     if p.is_file() and p.stat().st_size<100000:

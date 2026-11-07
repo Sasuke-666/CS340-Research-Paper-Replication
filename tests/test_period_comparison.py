@@ -2,8 +2,9 @@
 from pathlib import Path
 import sys
 import unittest
+import tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from run_period_comparison import parse_log,diagnostic_source
+from run_period_comparison import parse_log,diagnostic_source,new_output_folders
 
 class ComparisonTests(unittest.TestCase):
     def fixture(self):
@@ -22,5 +23,15 @@ class ComparisonTests(unittest.TestCase):
         out=diagnostic_source(s);self.assertIn('target_returncode',out);self.assertIn('CS340_REPLAY_SCALE',out)
     def test_diagnostic_patch_fails_closed(self):
         with self.assertRaises(ValueError): diagnostic_source('unknown source')
+    def test_failed_invocation_cannot_inherit_old_witnesses(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory=Path(tmp);(directory/'out_target_old').mkdir()
+            self.assertEqual(new_output_folders(directory,'target',{'out_target_old'}),[])
+    def test_only_new_case_directories_supply_witnesses(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory=Path(tmp)
+            for name in ['out_target_old','out_target_new','out_other_new']:(directory/name).mkdir()
+            (directory/'out_target_file').write_text('not a directory')
+            self.assertEqual([p.name for p in new_output_folders(directory,'target',{'out_target_old'})],['out_target_new'])
 
 if __name__=='__main__':unittest.main()

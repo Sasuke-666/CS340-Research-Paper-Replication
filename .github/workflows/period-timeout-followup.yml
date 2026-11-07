@@ -1,0 +1,97 @@
+name: PERIOD four-thread timeout follow-up
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - experiments/2026-11-07/REORDER4_TIMEOUT_FOLLOWUP.md
+permissions:
+  contents: read
+jobs:
+  comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        case: [reorder_4]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Run registered timeout follow-up
+        run: bash scripts/period_container_compatible.sh '${{ matrix.case }}' "$RUNNER_TEMP/period-study" 3 240
+      - name: Preserve every attempt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-deep-${{ matrix.case }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/period-study/
+          if-no-files-found: error
+          retention-days: 30
+  archive:
+    needs: comparison
+    if: always() && !cancelled()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: period-deep-*-${{ github.run_id }}
+          path: ${{ runner.temp }}/downloaded/current
+      - name: Archive exact bytes
+        env:
+          BATCH_RUN: ${{ github.run_id }}
+          PROTOCOL_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,shutil
+          from pathlib import Path
+          batches=[('current',os.environ['BATCH_RUN'],os.environ['PROTOCOL_SHA'],'Registered reorder_4 follow-up: three paired repetitions with a 240-second outer limit')]
+          for label,run,protocol,note in batches:
+              source=Path(os.environ['RUNNER_TEMP'])/'downloaded'/label
+              dest=Path('results/2026-11-07')/('comparison-'+run)
+              if dest.exists():
+                  if label=='initial-failure': continue
+                  raise SystemExit('Refuse evidence overwrite')
+              dest.mkdir(parents=True);counts={}
+              for folder in sorted(source.iterdir()):
+                  prefix='period-deep-';suffix='-'+run
+                  if not folder.name.startswith(prefix) or not folder.name.endswith(suffix): raise SystemExit('Unexpected artifact')
+                  case=folder.name[len(prefix):-len(suffix)]
+                  if case not in {'reorder_3','reorder_4','account','lazy01','twostage'}: raise SystemExit('Unexpected case')
+                  for p in folder.rglob('*'):
+                      if p.is_symlink(): raise SystemExit('Reject symlink')
+                      if not p.is_file(): continue
+                      if p.stat().st_size>50000000: raise SystemExit('Oversized evidence')
+                      target=dest/case/p.relative_to(folder);target.parent.mkdir(parents=True,exist_ok=True)
+                      shutil.copyfile(p,target)
+                  index=dest/case/'records.json'
+                  counts[case]=len(json.loads(index.read_text())) if index.exists() else None
+              files=[]
+              for p in sorted(dest.rglob('*')):
+                  if p.is_file():
+                      b=p.read_bytes();files.append({'path':p.relative_to(dest).as_posix(),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+              (dest/'archive_manifest.json').write_text(json.dumps({'run_id':run,'protocol_commit':protocol,'note':note,'command_records':counts,'files':files},indent=2)+'\n')
+              print(json.dumps({'directory':str(dest),'files':len(files),'record_counts':counts}))
+          PY
+          git add -- "results/2026-11-07/comparison-$GITHUB_RUN_ID"
+          python3 scripts/check_repository.py --staged
+      - name: Publish exact archive
+        env:
+          REPO_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -c core.hooksPath=/dev/null commit -m '[1240001201] 孙皓扬: archive registered four-thread timeout follow-up' -m 'Automated evidence publication requested by the owner. Unmodified-driver failures, adapted measurements and human contributions remain separate; see docs/AI_USAGE.md.'
+          AUTH=$(printf 'x-access-token:%s' "$REPO_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:main
