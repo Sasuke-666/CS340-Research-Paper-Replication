@@ -1,0 +1,13 @@
+case,metric,paper_reference,attempted_runs,complete_runs,measured_n,mean,sample_sd,absolute_difference,relative_difference_percent,comparison_status
+smoke_double_free,first_error_schedule,3,3,3,3,3,0.0,0,0.0,pilot_observation_requires_witness_review
+smoke_double_free,observed_schedule_count,6,3,3,3,6,0.0,0,0.0,pilot_observation_requires_witness_review
+smoke_double_free,reported_buggy_schedules,4,3,3,3,3.6666666666666665,0.5773502691896257,-0.3333333333333335,-8.333333333333337,pilot_observation_requires_witness_review
+smoke_double_free,elapsed_seconds,,3,3,3,7.756688809666675,1.042484404449214,,,pilot_observation_requires_witness_review
+CS.reorder_3_bad,first_error_schedule,6,3,3,3,6,0.0,0,0.0,pilot_observation_requires_witness_review
+CS.reorder_3_bad,observed_schedule_count,27,3,3,3,27,0.0,0,0.0,pilot_observation_requires_witness_review
+CS.reorder_3_bad,reported_buggy_schedules,6,3,3,3,6,0.0,0,0.0,pilot_observation_requires_witness_review
+CS.reorder_3_bad,elapsed_seconds,,3,3,3,7.334859932999994,0.20388812596489228,,,pilot_observation_requires_witness_review
+CS.reorder_4_bad,first_error_schedule,9,3,3,3,11.666666666666666,2.309401076758503,2.666666666666666,29.629629629629623,pilot_observation_requires_witness_review
+CS.reorder_4_bad,observed_schedule_count,100,3,3,3,100,0.0,0,0.0,pilot_observation_requires_witness_review
+CS.reorder_4_bad,reported_buggy_schedules,12,3,3,3,10.666666666666666,2.309401076758503,-1.333333333333334,-11.111111111111116,pilot_observation_requires_witness_review
+CS.reorder_4_bad,elapsed_seconds,,3,3,3,17.474733094333335,3.5082850081813977,,,pilot_observation_requires_witness_review

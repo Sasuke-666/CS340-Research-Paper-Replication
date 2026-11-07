@@ -1,1 +1,13 @@
-item,original_setting,our_setting,reason,paper_reference,evidence_path
+item,original_setting,used_setting,reason_or_limit
+program scope,36 SCTBench programs,2 selected Table 2 programs plus a separate smoke example,Reduced-scale pilot; no full-suite claim
+repetitions,10 per program,3 exploration repetitions per condition; 5 targeted replays per witness,Course minimum met; limited precision
+CPU,Intel Xeon Silver 4214,Pilot model not captured; follow-up AMD EPYC 7763; two permitted CPUs,Hosted machines; no same-hardware performance comparison
+host kernel,Exact release not stated in cited setup,7.0.0-1017-azure recorded in both batches,Container does not pin host kernel; future hosts may differ
+OS userland,Ubuntu 18.04,Ubuntu 18.04.5 container on Ubuntu 24.04 hosted runner,Container userland and host OS distinguished
+compiler,LLVM 10.0 and GCC 7.5,Clang 10.0.0 verified; GCC version not separately captured,Do not assert complete compiler-environment equivalence
+dependencies,Original paper environment,Recorded authors image digest plus rebuilt pinned instrumentation,Installed compiler/SVF dependencies not rebuilt from original source
+depth bound,3 for SCTBench,3 primary; 1/2/3 in declared extension,Other conditions held fixed within extension batch
+schedule budget,10000,10000,Matches selected primary configuration
+outer limits,Not specified in cited setup,90 s exploration; 20 s replay; 180 s build,No recorded invocation reached outer timeout
+comparison tools,PERIOD with multiple competitors,PERIOD only,No comparative superiority or speedup claim
+timing,Published environment,Whole Python-driver wall clock including calibration/reporting,Not native target time; batches not pooled

@@ -27,7 +27,34 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test repository safeguards
+      - name: Test repository and experiment helpers
         run: python -m unittest discover -s tests -v
       - name: Check tracked repository files
         run: python scripts/check_repository.py
+      - name: Verify archived experiment bytes and measurements
+        run: python scripts/verify_period_evidence.py
+      - name: Package tracked source and evidence without Git metadata
+        if: matrix.python-version == '3.12'
+        run: |
+          python - <<'PY'
+          import json,os,subprocess,zipfile
+          from pathlib import Path
+          paths=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          out=Path(os.environ['RUNNER_TEMP'])/'CS340_Progress_20261107.zip'
+          with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as bundle:
+              for name in paths:
+                  if not name: continue
+                  p=Path(name)
+                  if p.is_symlink() or not p.is_file(): raise SystemExit('Invalid tracked file')
+                  bundle.write(p,name)
+              bundle.writestr('SNAPSHOT.json',json.dumps({'commit':os.environ['GITHUB_SHA'],'scope':'Tracked source and archived evidence; Git history and credentials excluded'},indent=2)+'\n')
+          print(out.name)
+          PY
+      - name: Preserve verified source snapshot
+        if: matrix.python-version == '3.12'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cs340-stage-snapshot-${{ github.sha }}
+          path: ${{ runner.temp }}/CS340_Progress_20261107.zip
+          if-no-files-found: error
+          retention-days: 30

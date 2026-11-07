@@ -1,0 +1,17 @@
+{
+  "reorder_3_bad": {
+    "trials": 5,
+    "expected_signature_observed": 4,
+    "outer_timeouts": 0
+  },
+  "reorder_4_bad": {
+    "trials": 5,
+    "expected_signature_observed": 5,
+    "outer_timeouts": 0
+  },
+  "df": {
+    "trials": 5,
+    "expected_signature_observed": 5,
+    "outer_timeouts": 0
+  }
+}

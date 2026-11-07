@@ -1,56 +1,55 @@
-# Reproduction plan — provisional
+# PERIOD reproduction plan
 
-## Planned paper
+Paper: Cheng Wen, Mengda He, Bohao Wu, Zhiwu Xu and Shengchao Qin,
+*Controlled Concurrency Testing via Periodical Scheduling*, ICSE 2022,
+DOI 10.1145/3510003.3510178. Paper 4 in the course list.
+The owner confirmed the group's selection on **7 November 2026**. This records
+confirmation received on that date, not a newly requested change of paper.
 
-Controlled Concurrency Testing via Periodical Scheduling (PERIOD), ICSE 2022.
-This is paper 4 in the instructor's list (page 4).
-Group confirmation: **pending**. Original authors' implementation:
-https://github.com/wcventure/PERIOD
+## Scoped questions
 
-## Feasibility gate
-
-Before committing to the final experimental scope:
-
-1. Inspect the upstream paper, README, license and installation requirements.
-2. Record the exact upstream commit and actual machine/OS/kernel/compiler versions.
-3. Build one original example and run one case tied to a named original table/figure.
-4. Preserve commands, exit status, output and any failure diagnosis.
-5. Have another member reproduce that case from the written instructions.
-
-No gate above is marked completed by the scaffold. If an obstacle requires
-changing paper, apply to the TA within the stated November 1 window.
-
-## Proposed claims, to be finalized against original tables
-
-| Candidate | Proposed question | Required mapping | Current status |
+| ID | Claim and original location | Scope and measurement | Decision rule |
 | --- | --- | --- | --- |
-| C1 | Does PERIOD reproduce the selected original cases' bug-discovery outcomes and exploration counts? | Exact original table/figure, rows, configurations and definitions | Not yet selected or tested |
-| C2 | Are observed mismatches explained by a controlled change of configuration or environment? | C1 plus controlled re-run evidence | Not tested |
-| C3, optional | Does a verified baseline comparison support the scoped comparative claim? | Matching baseline implementation, workloads, budget and metric | Baseline not verified |
+| C1 | Table 2, PDF p. 9: PERIOD detects assertion failures in CS.reorder_3_bad and CS.reorder_4_bad | Original programs; first failing schedule, total explored schedules and buggy schedules, at depth bound 3 and a 10,000-schedule budget | Report each metric and its difference separately. Exact agreement for one row does not establish the entire table. |
+| D1 (supplementary diagnostic) | Robustness of saved-witness replay, motivated by the paper introduction/section 3 | Replay one actual saved witness from each selected program and from the separate double-free smoke example | Report actual expected-error signatures in five trials each; do not generalize five trials into universal determinism. |
 
-Select cases before reviewing final outcomes and record the rationale. Do not
-silently remove failed or inconvenient cases. A reduced scale must be disclosed.
-Do not label the paper's reported numbers as measurements taken by this group.
+The authors' double-free README example is an installation smoke check, not a
+Table 2 result. SERIAL and other tools have not been run; no comparative speedup
+or bug-finding superiority is claimed.
 
-## Measurement plan
+C1 is the single formally scoped paper claim and maps to the two specified
+Table 2 rows. D1 is an additional robustness diagnostic, not an independent
+claim that the original paper reports a particular replay success rate.
 
-At least three independent runs for the relevant measurements. Use more runs
-when feasible and justify the number. Preserve errors and timeouts separately
-from successful runs and bug counts. State whether an output is deterministic.
-For each run keep: run ID, source commit, case, command, inputs, environment ID,
-start/end times, exit code, status, raw-log path and metric definitions.
+## Execution and extension
 
-## Proposed extension
+Upstream source is pinned to `cb8deb9a176e5bb292d70d46557dd61dc0e98069`.
+The executable pipeline and budgets are documented in
+[`PROTOCOL.md`](../experiments/2026-11-07/PROTOCOL.md).
+The first pilot used three invocations per case. All nine runs are retained.
 
-Choose one research question after the first successful run. One possible
-proposal is varying thread count in a suitable original test family while
-holding its other logic, inputs, hardware, compiler and test budget fixed.
-Confirm the chosen points extend the paper, and disclose unsupported assumptions.
-No parameterized benchmark or extension result is provided by this scaffold.
+After observing variation in the smoke and four-thread cases, a separate
+[`FOLLOWUP_PROTOCOL.md`](../experiments/2026-11-07/FOLLOWUP_PROTOCOL.md) was fixed
+before running targeted diagnostics. It changes only the depth bound (1, 2, 3)
+on the unchanged three-thread binary, with three balanced-order repetitions per
+setting. This is a configuration-sensitivity extension, not a new scheduling
+algorithm. Replay checks use exact pattern lines from the first pilot.
 
-## Deliverables
+## Evidence and interpretation
 
-A pinned and documented experiment environment; build/run scripts; actual raw
-logs; Paper vs. Ours comparisons; controlled discrepancy checks; one extension;
-English PDF report; presentation following the separate instruction; actual
-individual contributions; AI disclosure; final `v1.0` tag.
+Read [`PILOT_REPORT.md`](../report/PILOT_REPORT.md) for measured outcomes and
+verdicts, `results/2026-11-07/` for raw evidence and hashes, and
+`docs/DEVIATIONS.csv` for environment and scope differences.
+Report mean and sample standard deviation; preserve null first-error positions
+for runs with no failure. A successful workflow is operational evidence only.
+An assertion or sanitizer signature establishes a target failure; no detected
+failure within a bound does not establish correctness.
+
+## Remaining assessed work
+
+All group members must review and understand the experiments, record their own
+substantive contributions, and have another member rerun the documented pipeline.
+Decide whether to extend the original-case set after reviewing these results;
+retain selection rationale and failed attempts. Obtain the separate presentation
+instructions, produce the final English PDF and presentation, and tag `v1.0`
+only for the final submission. Continue meaningful weekly pushes.
