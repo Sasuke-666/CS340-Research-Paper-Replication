@@ -1,0 +1,22 @@
+{
+  "captured_utc": "2026-11-07T14:31:52.407780+00:00",
+  "source_commit": "cb8deb9a176e5bb292d70d46557dd61dc0e98069",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-Ubuntu-18.04-bionic",
+  "python": "3.6.9",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cpu_models": [
+    "AMD EPYC 9V74 80-Core Processor"
+  ],
+  "os_release": "NAME=\"Ubuntu\"\nVERSION=\"18.04.5 LTS (Bionic Beaver)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 18.04.5 LTS\"\nVERSION_ID=\"18.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=bionic\nUBUNTU_CODENAME=bionic\n",
+  "paired_methods_same_built_binary": true,
+  "binary_sha256": "28c4d2d994766f67735fe83905e65e34afdea7586b6f8e7cd33189e621ac2b0d",
+  "drivers": {
+    "period": "c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f",
+    "author_serialized_abi16": "62c8f7f77641dc31dbf870f93c63e286277535794e49fda3111e9258754c9e7f"
+  }
+}

@@ -1,0 +1,1 @@
+{"case": "reorder_3", "commands": 61, "complete": 60}

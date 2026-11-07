@@ -1,0 +1,293 @@
+--- run_OldPDS.py
++++ run_PDS.py
+@@ -8,10 +8,10 @@
+ #	unsigned int N;								// number of threads concerned
+ #	unsigned int M;								// number of kep points per thread
+ #	unsigned int TestedPeriod;					// It took several period in testing engine
+-#	unsigned int kpNumArray[SHARE_THREAD_NUM];	// the specific kpNum of each My_tid Thread, only consider almost 10 thread
+-#	unsigned int kp[SHARE_ARRAY_SIZE];			// how many times should a thread yield before a kp
+-#	unsigned int kpLoc[SHARE_ARRAY_SIZE];		// the hash ID of Key Point
+-#	unsigned int kpOrder[SHARE_ARRAY_SIZE];		// recored the order of key points
++#	uint16_t kpNumArray[SHARE_THREAD_NUM];	    // the specific kpNum of each My_tid Thread, only consider almost 10 thread
++#	uint16_t kp[SHARE_ARRAY_SIZE];			    // how many times should a thread yield before a kp
++#	uint16_t kpLoc[SHARE_ARRAY_SIZE];		    // the hash ID of Key Point
++#	uint16_t kpOrder[SHARE_ARRAY_SIZE];		    // recored the order of key points
+ # } sched_info;
+ 
+ # =================================================================================
+@@ -50,7 +50,7 @@
+ parentArrayCopy = [0]*SHARE_THREAD_NUM
+ 
+ def setup_share_memroy():
+-    IPC_KEY, MAP_SIZE, IPC_CREAT, IPC_EXCL = 1111, sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+3*SHARE_ARRAY_SIZE), 512, 1024
++    IPC_KEY, MAP_SIZE, IPC_CREAT, IPC_EXCL = 1111, sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + 3*SHARE_ARRAY_SIZE), 512, 1024
+     shmget = cdll.LoadLibrary("libc.so.6").shmget
+     shmat = cdll.LoadLibrary("libc.so.6").shmat
+     shmat.restype = c_void_p
+@@ -68,20 +68,20 @@
+     if T != None:
+         memmove(byref(T), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*2, sizeof(c_uint))
+     if kpNumArray != None:
+-        memmove(byref(kpNumArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3, sizeof(c_uint)*SHARE_THREAD_NUM)
++        memmove(byref(kpNumArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3, sizeof(c_uint16)*SHARE_THREAD_NUM)
+     if kpYieldArray != None:
+-        memmove(byref(kpYieldArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpYieldArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM), sizeof(c_uint16)*(SHARE_ARRAY_SIZE))
+     if kpLocArray != None:
+-        memmove(byref(kpLocArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+SHARE_ARRAY_SIZE), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpLocArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + SHARE_ARRAY_SIZE), sizeof(c_uint16)*SHARE_ARRAY_SIZE)
+     if kpOrderArray != None:
+-        memmove(byref(kpOrderArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+2*SHARE_ARRAY_SIZE), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpOrderArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + 2*SHARE_ARRAY_SIZE), sizeof(c_uint16)*SHARE_ARRAY_SIZE)
+ 
+ def memmove_pattern_list(PatternList):
+     tmp = []
+     for t in PatternList:
+         tmp += t
+-    tmparr = (c_uint * len(tmp))(*tmp)
+-    memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM), tmparr, sizeof(c_uint) * len(tmp))
++    tmparr = (c_uint16 * len(tmp))(*tmp)
++    memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*SHARE_THREAD_NUM, tmparr, sizeof(c_uint16) * len(tmp))
+ 
+ # create subprocess according to the value of check_STDOUT and check_STDERR
+ def create_DBDS_subprocess(check_STDOUT, check_STDERR):
+@@ -353,20 +353,21 @@
+ 
+ # perform dry run
+ print("\n\033[4;36mPerform Dry Run!\033[0m")
+-process = subprocess.Popen(DryRun_Command, close_fds=True, stdout=subprocess.PIPE)
++process = subprocess.Popen(DryRun_Command, close_fds=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+ dryrunstdout, dryrunerrdata = process.communicate(timeout=subprocessTimeout)
++dryrun_context_strings = dryrunerrdata.decode("utf-8")
++
+ if(process.returncode!=0 and process.returncode!=1 and process.returncode!=6 and process.returncode!=-11):
++    print("\033[31m", dryrun_context_strings, "\033[0m")
++    print("Aborted")
+     sys.exit()
+ if(process.returncode==1):
+     exceptionFlag=0
+-    try:
+-        dryrun_context_strings = dryrunerrdata.decode("utf-8")
+-        if ": command not found" in dryrun_context_strings:
+-            print(dryrun_context_strings)
+-            exceptionFlag=1
+-    except:
+-        print("An exception occurred in dry run")
+-        pass
++    dryrun_context_strings = dryrunerrdata.decode("utf-8")
++    if ": command not found" in dryrun_context_strings:
++        print(dryrun_context_strings)
++        print("Aborted")
++        exceptionFlag=1
+     if exceptionFlag == 1:
+         sys.exit()
+ 
+@@ -380,13 +381,19 @@
+ A = c_uint(0)
+ B = c_uint(0)
+ T = c_uint(0)
+-kpNumArray = (c_uint*SHARE_THREAD_NUM)(0)
+-kpYieldArray = (c_uint*SHARE_ARRAY_SIZE)(0)
+-kpLocArray = (c_uint*SHARE_ARRAY_SIZE)(0)
+-kpOrderArray = (c_uint*SHARE_ARRAY_SIZE)(0)
++kpNumArray = (c_uint16*SHARE_THREAD_NUM)(0)
++kpYieldArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
++kpLocArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
++kpOrderArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
+ 
+ get_info_from_share_memory(P,A,B,T,kpNumArray,None,None,None)
+ Period = P.value
++if Period < 1000:
++    memmove(ADDR, byref(c_ulonglong(int(Period*10))), sizeof(c_ulonglong))
++    Period = Period*10
++elif Period < 100:
++    memmove(ADDR, byref(c_ulonglong(int(Period*100))), sizeof(c_ulonglong))
++    Period = Period*100
+ N = A.value
+ if N > SHARE_THREAD_NUM:
+     print("Too many threads...")
+@@ -440,7 +447,7 @@
+ 
+ # report warning if there are too many Key Points or Threads
+ if N > SHARE_THREAD_NUM or M * (N + zero_in_KP) > SHARE_ARRAY_SIZE:
+-    print("ERROR: Too many Key Points or Threads.")
++    print("\033[31m", "ERROR: Too many Key Points or Threads.", "\033[0m")
+     print("N = ", N, "M = ", M)
+     sys.exit(1)
+ 
+@@ -462,10 +469,14 @@
+ 
+ # run the interleaving for yield pattern [0, 0, 0, 0, ..., 0, 1, 1, 1, ..., 1]
+ # ZeroPattern = [[0]*M]*N # worng
+-ZeroPattern = [[row for col in range(M)] for row in range(N)]
+-for each in ZeroPattern:
+-    for i in range(1,len(each)):
+-        each[i] = 0
++if N <= 20:
++    ZeroPattern = [[row for col in range(M)] for row in range(N + zero_in_KP)]
++    for each in ZeroPattern:
++        for i in range(1,len(each)):
++            each[i] = 0
++else:
++    ZeroPattern = [[0]*M]*(N + zero_in_KP)
++
+ memmove_pattern_list(ZeroPattern)
+ 
+ returnNormal = 0
+@@ -509,6 +520,9 @@
+                 returnNormal = returnNormal + 1
+     else:
+         returnNormal = returnNormal + 1
++        if returnNormal == 2:
++            ZeroPattern = [[0]*M]*N
++            memmove_pattern_list(ZeroPattern)
+     
+     if returnNormal == 3:
+         print("There seems to be some errors when executing the default schedule.")
+@@ -518,6 +532,9 @@
+         break
+ 
+ # save the parentArray
++# for i in range(0, N + zero_in_KP):
++#    if kpMaxNumArray[i] == 0:
++#        kpMaxNumArray[i] = 1
+ for i in range(0, A.value + zero_in_KP):
+     parentArray[i] = kpNumArray[i]
+ parentArrayCopy = parentArray.copy()
+@@ -616,18 +633,18 @@
+ 
+ N_after_DryRun = N
+ kpMaxNumArray_after_DryRun = copy.deepcopy(kpMaxNumArray)
+-period_limit = bugDepth + N - 1
+-
+-for iterPeriod in range(N_after_DryRun, period_limit+1):
++period_limit = bugDepth + 1
++
++for iterPeriod in range(2, period_limit+1):
+ 
+     # Iterative Period Bounding
+-    if VarModeFlag == 0 or (iterPeriod - N_after_DryRun + 1 < 2):
++    if VarModeFlag == 0 or iterPeriod == 2:
+         
+         MList = []
+         for i in range(0, N_after_DryRun + zero_in_KP):
+             MList.append(kpMaxNumArray_after_DryRun[i])
+         try:
+-            scheduler = SBPSched(N_after_DryRun + zero_in_KP, MList, iterPeriod)
++            scheduler = SBPMESched(N_after_DryRun + zero_in_KP, MList, iterPeriod)
+         except:
+             print("There is no schedule to satisfy under the constraint:", MList, ", ", iterPeriod)
+             scheduler = None
+@@ -639,7 +656,7 @@
+                 useful_kp_num_list = CurdirectInter[0]
+                 print("\033[4;36mExploration of these KP:\033[0m", CurdirectInter[2])
+                 try:
+-                    scheduler = SBPSched(N + zero_num(useful_kp_num_list, [0]*SHARE_THREAD_NUM, N), useful_kp_num_list, iterPeriod)
++                    scheduler = SBPMESched(N + zero_num(useful_kp_num_list, [0]*SHARE_THREAD_NUM, N), useful_kp_num_list, iterPeriod)
+                 except:
+                     print("There is no schedule to satisfy under the constraint:", useful_kp_num_list, ", ", iterPeriod)
+                     scheduler = None
+@@ -654,7 +671,7 @@
+     parentArray = parentArrayCopy # restore parentArray
+     waited_to_explore = waited_to_explore_save # restore waited_to_explore in every exploration of different bug depth
+     memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*2, byref(c_uint(iterPeriod-1)), sizeof(c_uint)) # tell the program how many periods we used. The program can yield those unrealted thread to the last period
+-    print("Targeting bugs that bug depth =", iterPeriod - N_after_DryRun + 1, ". Iterate for", iterPeriod, "periods")
++    print("Targeting bugs that bug depth =", iterPeriod-1, ". Iterate for", iterPeriod, "periods")
+     
+     reach_runs_limit = 0
+     while True:
+@@ -663,10 +680,10 @@
+ 
+             if scheduler.get_schedule() == None:
+                 break
+-        
++
+             for inter in scheduler:
+-
+-                if DBDS_stage == 1 and iterPeriod - N_after_DryRun + 1 >= 4 and full_deep_run == 0: # for deep bug, explore interesting prefix is enough
++                
++                if DBDS_stage == 1 and iterPeriod-1 >= 4 and full_deep_run == 0: # for deep bug, explore interesting prefix is enough
+                     break
+ 
+                 # Filtering redundant scheduling
+@@ -675,7 +692,7 @@
+ 
+                 rounds = rounds + 1
+                 if not prefix == []:
+-                    if is_redundant_with_prefix(inter, prefix):
++                    if is_redundant_with_prefix(inter, prefix): # we can remove this due to "Mengda Add fix_prefix=True"
+                         rounds = rounds - 1
+                         continue
+                     print("\033[4;36mtest", str(format(rounds,"0>4"))+" for prefix " + str(prefix) + ":\033[0m ", end="")
+@@ -686,7 +703,7 @@
+                     reach_runs_limit = 1
+                     break
+             
+-                if VarModeFlag == 0 or (iterPeriod - N_after_DryRun + 1 < 2):
++                if VarModeFlag == 0 or iterPeriod == 2:
+                     # for each interleaving, get the yield pattern
+                     pattern = scheduler.get_yield_pattern()
+                     # print inter into screen
+@@ -740,7 +757,7 @@
+ 
+                     # update NMKPNUMA and rerun
+                     check_and_update_kpNumMaxArray(kpNumArray, zero_in_KP)
+-                    
++
+                     # The array for storing KP is too small. Reset the array size and perform the test again
+                     while A.value > N or B.value > M:
+ 
+@@ -761,6 +778,7 @@
+                     coverFlag = 0
+                     if new_max_kpNumArray(kpNumArray, parentArray, zero_in_KP):
+                         coverFlag = 1
++                    
+                     parentArray = parentArrayCopy # restore parentArray
+ 
+                     # if new coverage, we save the prefix of interleaving
+@@ -775,6 +793,7 @@
+                         for i in range(0, A.value + zero_in_KP):
+                             kpNumList.append(kpNumArray[i])
+                         # This is a replacement. A sequence with the same hash value that appears later replaces an existing sequence. So if there's anything new than your parents, replace old ones with the same hash value.
++                        #print("[DEBUG] Interesting --> prefix = ", scheduler.get_prefix(), "hash: ", coverage_hashID)
+                         add_to_explore_dict(waited_to_explore, coverage_hashID, scheduler.get_schedule().copy(), pattern.copy(), A.value, B.value, kpNumList.copy(), scheduler.get_prefix().copy())
+                         add_to_explore_dict(waited_to_explore_save, coverage_hashID, scheduler.get_schedule().copy(), pattern.copy(), A.value, B.value, kpNumList.copy(), scheduler.get_prefix().copy())
+                     # save the error message
+@@ -802,7 +821,7 @@
+ 
+         # if cannot find next interleaving
+         if DBDS_stage == 1:
+-            if VarModeFlag == 0 or (iterPeriod - N_after_DryRun + 1 < 2):
++            if VarModeFlag == 0 or iterPeriod == 2:
+                 waited_to_explore_save = copy.deepcopy(waited_to_explore)
+                 DBDS_stage = 2
+             else:
+@@ -811,7 +830,7 @@
+                     useful_kp_num_list = CurdirectInter[0]
+                     print("\033[4;36mExploration of these KP:\033[0m", CurdirectInter[2])
+                     try:
+-                        scheduler = SBPSched(N, useful_kp_num_list, iterPeriod)
++                        scheduler = SBPMESched(N, useful_kp_num_list, iterPeriod)
+                     except:
+                         print("There is no schedule to satisfy under the constraint in stage 1:", MList, ", ", iterPeriod)
+                         scheduler = None
+@@ -823,7 +842,7 @@
+ 
+         if DBDS_stage == 2:
+             
+-            if (iterPeriod - N_after_DryRun + 1 < 2): # bug depth == 0 no need to use prefix
++            if (iterPeriod == 2): # bug depth <= 1 no need to use prefix
+                 DBDS_stage = 1
+                 break
+ 
+@@ -843,8 +862,8 @@
+                 for i in range(0, tempL[2]): # range(0, A.value)
+                     tmpMList.append(tempL[4][i])
+                     parentArray[i] = tempL[4][i]
+-                try:    
+-                    scheduler = SBPSched(tempL[2], tmpMList, iterPeriod, prefix)
++                try:
++                    scheduler = SBPMESched(tempL[2], tmpMList, iterPeriod, prefix, fix_prefix=True) # Mengda Add
+                 except:
+                     print("There is no schedule to satisfy under the constraint in stage 2:", MList, ", ", iterPeriod)
+                     scheduler = None

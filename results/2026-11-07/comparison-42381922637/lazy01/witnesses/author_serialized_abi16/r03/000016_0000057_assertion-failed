@@ -1,0 +1,3 @@
+[[2, 2], [1, 0], [0, 3]]
+sudo: unable to resolve host period-study: Resource temporarily unavailable
+lazy01_bad: ./lazy01_bad.c:27: void *thread3(void *): Assertion `0' failed.

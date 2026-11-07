@@ -1,0 +1,4 @@
+[[0, 0, 2, 0, 0], [1, 0, 0, 0, 0]]
+sudo: unable to resolve host period-study: Resource temporarily unavailable
+Bug found!
+twostage_bad: ./twostage_bad.c:48: void *funcB(void *): Assertion `0' failed.
