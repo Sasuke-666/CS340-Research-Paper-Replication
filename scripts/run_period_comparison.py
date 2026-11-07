@@ -65,20 +65,20 @@ def main():
     case,binary=args.case,CASES[args.case]
     directory=root/'evaluation/CS'/case;records=[]
     def save():
-        (out/'records.json').write_text(json.dumps(records,indent=2)+'\n')
+        (out/'records.json').write_text(json.dumps(records,indent=2)+'\n',encoding='utf-8')
     def run(cmd,log,phase,timeout=120,**extra):
         r=execute(cmd,directory,out/log,timeout)
         r.update(phase=phase,case=case,**extra);records.append(r);save();return r
     env={'captured_utc':utc(),'source_commit':PIN,'platform':platform.platform(),
          'python':platform.python_version(),'cpu_affinity':sorted(os.sched_getaffinity(0)),
-         'cpu_models':sorted(set(l.split(':',1)[1].strip() for l in Path('/proc/cpuinfo').read_text().splitlines() if l.startswith('model name'))),
-         'os_release':Path('/etc/os-release').read_text(),'paired_methods_same_built_binary':True}
-    (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+         'cpu_models':sorted(set(l.split(':',1)[1].strip() for l in Path('/proc/cpuinfo').read_text(encoding='utf-8').splitlines() if l.startswith('model name'))),
+         'os_release':Path('/etc/os-release').read_text(encoding='utf-8'),'paired_methods_same_built_binary':True}
+    (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n',encoding='utf-8')
     source_dir=out/'source';source_dir.mkdir()
     for path in (root/'tool/DBDS').glob('*.py'):shutil.copy2(str(path),str(source_dir/path.name))
     shutil.copy2(str(root/'LICENSE'),str(source_dir/'LICENSE.txt'))
-    diff=difflib.unified_diff((root/'tool/DBDS/run_OldPDS.py').read_text().splitlines(True),(root/'tool/DBDS/run_PDS.py').read_text().splitlines(True),fromfile='run_OldPDS.py',tofile='run_PDS.py')
-    (out/'driver_comparison.diff').write_text(''.join(diff))
+    diff=difflib.unified_diff((root/'tool/DBDS/run_OldPDS.py').read_text(encoding='utf-8').splitlines(True),(root/'tool/DBDS/run_PDS.py').read_text(encoding='utf-8').splitlines(True),fromfile='run_OldPDS.py',tofile='run_PDS.py')
+    (out/'driver_comparison.diff').write_text(''.join(diff),encoding='utf-8')
     r=run(['bash','build.sh'],'build.txt','build',180)
     if r['exit_code']!=0 or not (directory/binary).is_file():return 2
     env['binary_sha256']=hashlib.sha256((directory/binary).read_bytes()).hexdigest()
@@ -86,14 +86,14 @@ def main():
     for path in directory.iterdir():
         if path.is_file() and (path.suffix in ('.c','.cpp','.sh') or path.name.startswith('ConConfig.')):
             shutil.copy2(str(path),str(source_dir/path.name))
-    (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+    (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n',encoding='utf-8')
     for repetition in range(1,11):
         order=['period','author_serialized'] if repetition%2 else ['author_serialized','period']
         for position,method in enumerate(order,1):
             log='{}_r{:02d}.txt'.format(method,repetition)
             cmd=['python3',str(root/'tool/DBDS'/METHODS[method]),'-y','-d','3','-f','10000','./'+binary]
             r=run(cmd,log,'comparison',120,method=method,repeat=repetition,position=position)
-            r.update(parse_log((out/log).read_text(errors='replace')))
+            r.update(parse_log((out/log).read_text(encoding='utf-8',errors='replace')))
             r['status']='complete' if not r['timed_out'] and r['exit_code']==0 and r['complete_markers'] else 'incomplete'
             folders=sorted(directory.glob('out_'+binary+'_*'),key=lambda p:p.stat().st_mtime)
             if folders:
@@ -103,17 +103,17 @@ def main():
                         dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(str(p),str(dest))
             save()
     if case=='reorder_3':
-        original=(root/'tool/DBDS/run_PDS.py').read_text();instrumented=diagnostic_source(original)
-        driver=root/'tool/DBDS/run_PDS_diagnostic.py';driver.write_text(instrumented)
-        (out/'diagnostic_driver.diff').write_text(''.join(difflib.unified_diff(original.splitlines(True),instrumented.splitlines(True),fromfile='original',tofile='diagnostic')))
-        witness=out/'fixed_witness.txt';witness.write_text('[[0, 2], [2, 0], [1, 0]]\n')
+        original=(root/'tool/DBDS/run_PDS.py').read_text(encoding='utf-8');instrumented=diagnostic_source(original)
+        driver=root/'tool/DBDS/run_PDS_diagnostic.py';driver.write_text(instrumented,encoding='utf-8')
+        (out/'diagnostic_driver.diff').write_text(''.join(difflib.unified_diff(original.splitlines(True),instrumented.splitlines(True),fromfile='original',tofile='diagnostic')),encoding='utf-8')
+        witness=out/'fixed_witness.txt';witness.write_text('[[0, 2], [2, 0], [1, 0]]\n',encoding='utf-8')
         for repetition in range(1,21):
             scales=[1.5,6.0] if repetition%2 else [6.0,1.5]
             for position,scale in enumerate(scales,1):
                 label='default' if scale==1.5 else 'expanded';log='diagnostic_{}_r{:02d}.txt'.format(label,repetition)
                 cmd=['env','CS340_REPLAY_SCALE='+str(scale),'python3',str(driver),'-y','-r',str(witness),'./'+binary]
                 r=run(cmd,log,'diagnostic',20,condition=label,repeat=repetition,position=position,scale=scale)
-                text=(out/log).read_text(errors='replace');found=re.search(r'(?m)^CS340_REPLAY (.+)$',text)
+                text=(out/log).read_text(encoding='utf-8',errors='replace');found=re.search(r'(?m)^CS340_REPLAY (.+)$',text)
                 r['target_observation']=json.loads(found[1]) if found else None
                 r['expected_assertion']=bool(re.search(r'Assertion[^\n]*failed',text))
                 r['status']='complete' if found and not r['timed_out'] and r['exit_code']==0 else 'incomplete';save()
@@ -122,7 +122,7 @@ def main():
     for p in sorted(out.rglob('*')):
         if p.is_file() and p.name not in ('container_console.txt','container_exit_code.txt','manifest.json'):
             raw=p.read_bytes();manifest.append({'path':p.relative_to(out).as_posix(),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()})
-    (out/'manifest.json').write_text(json.dumps({'files':manifest,'created_utc':utc()},indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'files':manifest,'created_utc':utc()},indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'case':case,'commands':len(records),'complete':sum(r.get('status')=='complete' for r in records)}))
     return 0 if all(r.get('status','complete')=='complete' for r in records) else 1
 

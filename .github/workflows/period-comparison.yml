@@ -83,7 +83,8 @@ jobs:
           PY
           git add -- "results/2026-11-07/comparison-$GITHUB_RUN_ID"
           python3 scripts/check_repository.py --staged
-          git diff --cached --check
+          # Archived sources and logs retain exact original whitespace; hashes verify them.
+          git diff --cached --stat
       - name: Publish archive with preserved history
         env:
           REPO_TOKEN: ${{ github.token }}

@@ -74,3 +74,14 @@ only bounded source/log evidence and a checksum index to a new run-ID directory.
 Automation commits identify the requesting owner and do not count as another
 member's personal contribution. Required assistance disclosure remains in docs/AI_USAGE.md.
 No final tag or final-grade claim is made. Group review is a separate task.
+
+## Execution amendment on 7 November 2026
+
+Attempt 42380166815 stopped before any benchmark was built or measured because
+Python 3.6 used an ASCII locale while reading the original UTF-8 source.
+The separate archive step then rejected original upstream trailing whitespace.
+Both issues are corrected by explicit UTF-8 source/evidence I/O and retaining
+verbatim upstream bytes in the archive. The case set, methods, order, budgets,
+repetitions and diagnostic conditions are unchanged. Failed-attempt artifacts
+remain linked and will be archived alongside the successful batch; none are
+counted as experimental repetitions. This amendment precedes new measurements.
