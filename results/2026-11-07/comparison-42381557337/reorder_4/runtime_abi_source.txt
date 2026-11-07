@@ -1,0 +1,8 @@
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction_Debug.cpp:38:	unsigned int kpNumArray[SHARE_MEMORY_THREAD_NUM];	// the specific kpNum of each My_tid Thread, only consider almost 10 thread
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction_Debug.cpp:137:	// Initialize kpNumArray
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction_Debug.cpp:139:		si -> kpNumArray[i] = 0;
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction_Debug.cpp:202:			si -> kpNumArray[my_tidMap[Tiditer->first - 1]] = Tiditer->second; // ignore main thread, here need to use (my_tid-1)
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:42:	uint16_t kpNumArray[SHARE_MEMORY_THREAD_NUM];		// the specific kpNum of each My_tid Thread, only consider almost 10 thread
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:289:	// Initialize kpNumArray
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:291:		si -> kpNumArray[i] = 0;
+tool/staticAnalysis/DBDS-INSTRU/llvm-mode/DBDSFunction.cpp:370:			si -> kpNumArray[myThreadIndex] = Tiditer->second;

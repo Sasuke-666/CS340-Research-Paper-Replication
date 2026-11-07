@@ -1,0 +1,49 @@
+[
+  {
+    "started_utc": "2026-11-07T14:26:59.449369+00:00",
+    "finished_utc": "2026-11-07T14:27:00.065465+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 0.6160025119999943,
+    "command": [
+      "bash",
+      "build.sh"
+    ],
+    "log": "build.txt",
+    "log_sha256": "117825ad34608be336c2f14ad74477993c12f890b596ecbca79534e74c611b94",
+    "phase": "build",
+    "case": "lazy01"
+  },
+  {
+    "started_utc": "2026-11-07T14:27:00.067871+00:00",
+    "finished_utc": "2026-11-07T14:27:14.581348+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 14.513354945999993,
+    "command": [
+      "python3",
+      "/workdir/PERIOD/tool/DBDS/run_PDS.py",
+      "-y",
+      "-d",
+      "3",
+      "-f",
+      "10000",
+      "./lazy01_bad"
+    ],
+    "log": "period_r01.txt",
+    "log_sha256": "30192628f6029d613868bb32d62be230ec80c653a7379e69d7b45eb185ff8e73",
+    "phase": "comparison",
+    "case": "lazy01",
+    "method": "period",
+    "repeat": 1,
+    "position": 1,
+    "schedules": 39,
+    "first_error": 8,
+    "buggy_schedules": 12,
+    "error_event_count": 12,
+    "complete_markers": true,
+    "inner_timeouts": 0,
+    "budget_reached": false,
+    "status": "complete"
+  }
+]

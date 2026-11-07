@@ -1,0 +1,49 @@
+[
+  {
+    "started_utc": "2026-11-07T14:27:12.644297+00:00",
+    "finished_utc": "2026-11-07T14:27:13.209684+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 0.5652793520000046,
+    "command": [
+      "bash",
+      "build.sh"
+    ],
+    "log": "build.txt",
+    "log_sha256": "ed3cbf09c0daf6ec4c755a099fb1124ab2015663cda08cd8c6a072968ad46184",
+    "phase": "build",
+    "case": "reorder_4"
+  },
+  {
+    "started_utc": "2026-11-07T14:27:13.211694+00:00",
+    "finished_utc": "2026-11-07T14:27:25.762182+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 12.550385296999991,
+    "command": [
+      "python3",
+      "/workdir/PERIOD/tool/DBDS/run_PDS.py",
+      "-y",
+      "-d",
+      "3",
+      "-f",
+      "10000",
+      "./reorder_4_bad"
+    ],
+    "log": "period_r01.txt",
+    "log_sha256": "cb3f2db32480df768c86d6982264e78effec1708905941f5827508870da2499c",
+    "phase": "comparison",
+    "case": "reorder_4",
+    "method": "period",
+    "repeat": 1,
+    "position": 1,
+    "schedules": 100,
+    "first_error": 9,
+    "buggy_schedules": 11,
+    "error_event_count": 11,
+    "complete_markers": true,
+    "inner_timeouts": 0,
+    "budget_reached": false,
+    "status": "complete"
+  }
+]

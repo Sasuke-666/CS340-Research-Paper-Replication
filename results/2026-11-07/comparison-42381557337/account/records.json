@@ -1,0 +1,49 @@
+[
+  {
+    "started_utc": "2026-11-07T14:27:03.514967+00:00",
+    "finished_utc": "2026-11-07T14:27:04.030416+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 0.515347563999967,
+    "command": [
+      "bash",
+      "build.sh"
+    ],
+    "log": "build.txt",
+    "log_sha256": "87b52ce23be28608aefba43b10052b1cb8d4238bfbfcefcafc63a7d9504d0d6c",
+    "phase": "build",
+    "case": "account"
+  },
+  {
+    "started_utc": "2026-11-07T14:27:04.032410+00:00",
+    "finished_utc": "2026-11-07T14:27:26.666703+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 22.634183022000002,
+    "command": [
+      "python3",
+      "/workdir/PERIOD/tool/DBDS/run_PDS.py",
+      "-y",
+      "-d",
+      "3",
+      "-f",
+      "10000",
+      "./account_bad"
+    ],
+    "log": "period_r01.txt",
+    "log_sha256": "ac05bfc3045482d009f73346888aca040d6e2c6f3332b71f28ba7d8e0cd1b27c",
+    "phase": "comparison",
+    "case": "account",
+    "method": "period",
+    "repeat": 1,
+    "position": 1,
+    "schedules": 65,
+    "first_error": 10,
+    "buggy_schedules": 26,
+    "error_event_count": 26,
+    "complete_markers": true,
+    "inner_timeouts": 0,
+    "budget_reached": false,
+    "status": "complete"
+  }
+]

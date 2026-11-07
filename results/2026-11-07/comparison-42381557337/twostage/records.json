@@ -1,0 +1,49 @@
+[
+  {
+    "started_utc": "2026-11-07T14:26:57.555356+00:00",
+    "finished_utc": "2026-11-07T14:26:58.020776+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 0.46532150999999544,
+    "command": [
+      "bash",
+      "build.sh"
+    ],
+    "log": "build.txt",
+    "log_sha256": "da9ebda78e3d21a7dfa70f1180c21c79a71b5089098694c4851879ebf31bd164",
+    "phase": "build",
+    "case": "twostage"
+  },
+  {
+    "started_utc": "2026-11-07T14:26:58.022509+00:00",
+    "finished_utc": "2026-11-07T14:27:00.192060+00:00",
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 2.169470328999978,
+    "command": [
+      "python3",
+      "/workdir/PERIOD/tool/DBDS/run_PDS.py",
+      "-y",
+      "-d",
+      "3",
+      "-f",
+      "10000",
+      "./twostage_bad"
+    ],
+    "log": "period_r01.txt",
+    "log_sha256": "080af08f05b8e3ff16846d8139bba66f19d31a2f59be2c8a49f46ad8e20f17bd",
+    "phase": "comparison",
+    "case": "twostage",
+    "method": "period",
+    "repeat": 1,
+    "position": 1,
+    "schedules": 33,
+    "first_error": 4,
+    "buggy_schedules": 2,
+    "error_event_count": 2,
+    "complete_markers": true,
+    "inner_timeouts": 0,
+    "budget_reached": false,
+    "status": "complete"
+  }
+]

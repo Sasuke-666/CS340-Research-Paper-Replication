@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/study.py", line 130, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+  File "/study.py", line 80, in main
+    diff=difflib.unified_diff((root/'tool/DBDS/run_OldPDS.py').read_text().splitlines(True),(root/'tool/DBDS/run_PDS.py').read_text().splitlines(True),fromfile='run_OldPDS.py',tofile='run_PDS.py')
+  File "/usr/lib/python3.6/pathlib.py", line 1197, in read_text
+    return f.read()
+  File "/usr/lib/python3.6/encodings/ascii.py", line 26, in decode
+    return codecs.ascii_decode(input, self.errors)[0]
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 1492: ordinal not in range(128)

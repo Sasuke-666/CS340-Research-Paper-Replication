@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/compatible.py", line 77, in <module>
+    if __name__=='__main__': raise SystemExit(main())
+  File "/compatible.py", line 73, in main
+    code = study.main()
+  File "/run_period_comparison.py", line 94, in main
+    cmd=['python3',str(root/'tool/DBDS'/METHODS[method]),'-y','-d','3','-f','10000','./'+binary]
+KeyError: 'author_serialized'
