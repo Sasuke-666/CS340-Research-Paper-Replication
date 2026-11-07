@@ -1,0 +1,5 @@
+Started UTC: 2026-11-07T11:41:58.274961+00:00
+Command: ["/usr/bin/python3", "-c", "import ctypes,json,os\nclass Attr(ctypes.Structure):\n _fields_=[('size',ctypes.c_uint32),('policy',ctypes.c_uint32),('flags',ctypes.c_uint64),('nice',ctypes.c_int32),('priority',ctypes.c_uint32),('runtime',ctypes.c_uint64),('deadline',ctypes.c_uint64),('period',ctypes.c_uint64)]\na=Attr();a.size=ctypes.sizeof(a);a.policy=6;a.runtime=1000000;a.deadline=10000000;a.period=10000000\nlibc=ctypes.CDLL(None,use_errno=True);r=libc.syscall(314,0,ctypes.byref(a),0)\nprint(json.dumps({'sched_setattr_return':r,'errno':ctypes.get_errno(),'observed_policy':os.sched_getscheduler(0)}))\nraise SystemExit(0 if r==0 and os.sched_getscheduler(0)==6 else 1)\n"]
+{"sched_setattr_return": 0, "errno": 0, "observed_policy": 6}
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.064746

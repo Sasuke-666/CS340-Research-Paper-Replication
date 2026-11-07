@@ -1,0 +1,52 @@
+Started UTC: 2026-11-07T11:27:02.991159+00:00
+Command: ["bash", "build.sh"]
+Installation completed. Everything's fine!
++ cd /workdir/PERIOD/test/doubleFree/
++ ./cleanDIR.sh
++ clang -g -emit-llvm -c ./df.c -o df.bc
+./df.c:16:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+./df.c:24:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+2 warnings generated.
++ /workdir/PERIOD/tool/staticAnalysis/staticAnalysis.sh df
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/test/doubleFree
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.df
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root   48 Nov  7 11:27 ConConfig.df
+-rw-r--r-- 1 root root 5.5K Nov  7 11:27 df.bc
+-rw-r--r-- 1 1001 1001  558 Nov  7 11:25 df.c
+-rw-r--r-- 1 root root  833 Nov  7 11:27 mempair.df
+-rw-r--r-- 1 root root 5.2K Nov  7 11:27 mempair.df.npz
+-rw-r--r-- 1 root root  782 Nov  7 11:27 mssa.df
+-rw-r--r-- 1 root root  564 Nov  7 11:27 so.df
+/workdir/PERIOD/test/doubleFree
++ export Con_PATH=/workdir/PERIOD/test/doubleFree/ConConfig.df
++ Con_PATH=/workdir/PERIOD/test/doubleFree/ConConfig.df
++ /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast -g -fsanitize=address -c ./df.c -o df.o
+./df.c:16:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+./df.c:24:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+2 warnings generated.
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/test/doubleFree/ConConfig.df
+[DEBUG]
+[DEBUG] Instrumentation for df.c:11
+[DEBUG] Instrumentation for df.c:13
+[DEBUG] Instrumentation for df.c:20
+[DEBUG] Instrumentation for df.c:22
+[DEBUG] Instrumentation for df.c:28
+[DEBUG] Instrumentation for df.c:29
++ clang++ ./df.o /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/DBDSFunction.o -g -o df -lpthread -fsanitize=address -ldl
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.766214

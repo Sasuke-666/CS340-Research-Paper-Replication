@@ -1,0 +1,13 @@
+Started UTC: 2026-11-07T11:42:29.580814+00:00
+Command: ["python3", "/workdir/PERIOD/tool/DBDS/run_PDS.py", "-y", "-r", "/evidence/reorder_3_bad_fixed_witness.txt", "./reorder_3_bad"]
+sudo: unable to resolve host e5a102dc2fb7: Resource temporarily unavailable
+opts: [('-y', ''), ('-r', '/evidence/reorder_3_bad_fixed_witness.txt')]
+args: ['./reorder_3_bad']
+reproduceFile: /evidence/reorder_3_bad_fixed_witness.txt
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform Reproduction![0m
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.367325

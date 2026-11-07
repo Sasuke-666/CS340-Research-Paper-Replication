@@ -1,0 +1,16 @@
+{
+  "captured_utc": "2026-11-07T11:27:02.988009+00:00",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-Ubuntu-18.04-bionic",
+  "python": "3.6.9",
+  "upstream_pin": "cb8deb9a176e5bb292d70d46557dd61dc0e98069",
+  "affinity": [
+    0,
+    1
+  ],
+  "proc_status": [
+    "CapEff:\t000001ffffffffff",
+    "Seccomp:\t0",
+    "Cpus_allowed_list:\t0-1"
+  ],
+  "os_release": "NAME=\"Ubuntu\"\nVERSION=\"18.04.5 LTS (Bionic Beaver)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 18.04.5 LTS\"\nVERSION_ID=\"18.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=bionic\nUBUNTU_CODENAME=bionic\n"
+}

@@ -1,0 +1,45 @@
+Started UTC: 2026-11-07T11:42:18.983872+00:00
+Command: ["python3", "/workdir/PERIOD/tool/DBDS/run_PDS.py", "-y", "-d", "1", "-f", "10000", "./reorder_3_bad"]
+sudo: unable to resolve host e5a102dc2fb7: Resource temporarily unavailable
+opts: [('-y', ''), ('-d', '1'), ('-f', '10000')]
+args: ['./reorder_3_bad']
+bugDepth: 1
+runs_limit: 10000
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform DBDS Run with default system scheduling![0m
+
+--------------------------------------
+Runtime: 2621
+ThreadNum:  3
+MaxKpNum:  2
+TupleScheduling: 0
+kpNumArray: 2 2 1 
+prefix: []
+coverage_hashID: 4
+--------------------------------------
+Enter 'debug' to view the debug information
+Consider all variables
+
+[4;36mStart Testing![0m
+Targeting bugs that bug depth = 1 . Iterate for 2 periods
+[4;36mtest 0001:[0m [[0, 0], [1, 1, 2]]
+[4;36mtest 0002:[0m [[1, 1], [0, 0, 2]]
+[4;36mtest 0003:[0m [[2], [0, 0, 1, 1]]
+[4;36mEnd Testing!
+[0m
+[1;35m
+Total Error Interleavings: 0
+Total Timeouts Interleavings: 0
+1 status found:
+	 [0]
+0 results found:
+--------------------------------------------------
+	Last New Find		Total
+Round	0			3
+Time	00:00:00.00000		00:00:00.12316
+[0m
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.429728

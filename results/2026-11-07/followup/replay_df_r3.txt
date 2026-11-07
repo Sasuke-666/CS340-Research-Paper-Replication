@@ -1,0 +1,42 @@
+Started UTC: 2026-11-07T11:42:48.602941+00:00
+Command: ["python3", "/workdir/PERIOD/tool/DBDS/run_PDS.py", "-y", "-r", "/evidence/df_fixed_witness.txt", "./df"]
+sudo: unable to resolve host e5a102dc2fb7: Resource temporarily unavailable
+=================================================================
+==1387==ERROR: AddressSanitizer: attempting double-free on 0x602000000010 in thread T1:
+    #0 0x4941dd  (/workdir/PERIOD/test/doubleFree/df+0x4941dd)
+    #1 0x4c6511  (/workdir/PERIOD/test/doubleFree/df+0x4c6511)
+    #2 0x7f5cde6a36da  (/lib/x86_64-linux-gnu/libpthread.so.0+0x76da)
+    #3 0x7f5cdd68171e  (/lib/x86_64-linux-gnu/libc.so.6+0x12171e)
+
+0x602000000010 is located 0 bytes inside of 7-byte region [0x602000000010,0x602000000017)
+freed by thread T2 here:
+    #0 0x4941dd  (/workdir/PERIOD/test/doubleFree/df+0x4941dd)
+    #1 0x4c65b1  (/workdir/PERIOD/test/doubleFree/df+0x4c65b1)
+
+previously allocated by thread T0 here:
+    #0 0x49445d  (/workdir/PERIOD/test/doubleFree/df+0x49445d)
+    #1 0x4c66d0  (/workdir/PERIOD/test/doubleFree/df+0x4c66d0)
+    #2 0x7f5cdd581bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+Thread T1 created by T0 here:
+    #0 0x47f20a  (/workdir/PERIOD/test/doubleFree/df+0x47f20a)
+    #1 0x4c674f  (/workdir/PERIOD/test/doubleFree/df+0x4c674f)
+    #2 0x7f5cdd581bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+Thread T2 created by T0 here:
+    #0 0x47f20a  (/workdir/PERIOD/test/doubleFree/df+0x47f20a)
+    #1 0x4c6772  (/workdir/PERIOD/test/doubleFree/df+0x4c6772)
+    #2 0x7f5cdd581bf6  (/lib/x86_64-linux-gnu/libc.so.6+0x21bf6)
+
+SUMMARY: AddressSanitizer: double-free (/workdir/PERIOD/test/doubleFree/df+0x4941dd) 
+==1387==ABORTING
+opts: [('-y', ''), ('-r', '/evidence/df_fixed_witness.txt')]
+args: ['./df']
+reproduceFile: /evidence/df_fixed_witness.txt
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform Reproduction![0m
+
+Runner exit_code=0 timed_out=False elapsed_seconds=2.129367

@@ -1,0 +1,11 @@
+{
+  "captured_utc": "2026-11-07T11:41:58.271830+00:00",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-Ubuntu-18.04-bionic",
+  "python": "3.6.9",
+  "affinity": [
+    0,
+    1
+  ],
+  "cpu_model": "model name\t: AMD EPYC 7763 64-Core Processor",
+  "source_sha": "cb8deb9a176e5bb292d70d46557dd61dc0e98069"
+}
