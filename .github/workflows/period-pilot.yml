@@ -1,0 +1,36 @@
+name: PERIOD pilot
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/period-pilot.yml'
+      - 'scripts/period_container_pilot.sh'
+      - 'scripts/run_period_pilot.py'
+      - 'experiments/2026-11-07/PROTOCOL.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: period-pilot
+  cancel-in-progress: false
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Run bounded pilot
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/period-evidence"
+          bash scripts/period_container_pilot.sh "$RUNNER_TEMP/period-evidence"
+      - name: Preserve successful and failed evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-pilot-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/period-evidence/
+          if-no-files-found: error
+          retention-days: 30
