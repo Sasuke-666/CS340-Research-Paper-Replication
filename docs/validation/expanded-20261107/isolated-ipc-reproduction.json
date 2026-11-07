@@ -1,0 +1,26 @@
+{
+  "scope": "isolated IPC mechanism probe, not a benchmark repetition",
+  "runtime_struct_bytes": 24008,
+  "old_requested_bytes": 24300,
+  "current_requested_bytes": 12160,
+  "old_return": -1,
+  "old_errno": 22,
+  "current_request_succeeded": true,
+  "current_errno": 0,
+  "invalid_attach_is_minus_one": true,
+  "invalid_attach_errno": 22,
+  "runtime_offsets": {
+    "time": 0,
+    "N": 8,
+    "M": 12,
+    "bounds": 16,
+    "counts": 20,
+    "kp": 220,
+    "loc": 8148,
+    "order": 16076
+  },
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  }
+}

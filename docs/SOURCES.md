@@ -37,3 +37,19 @@ compiler binary, disk image or credentials are redistributed.
 The wrapper uses a fixed `/workdir/PERIOD` location inside the container because
 that is the authors' installed layout. Host paths are derived from the repository
 location and the chosen output directory; no student's home directory is required.
+
+## Serialized baseline adaptation
+
+`scripts/run_period_compatible.py` creates `run_OldPDS_abi16.py` from the pinned
+authors' source. Only three IPC functions and four array element types are
+backported from `run_PDS.py`; the serialized enumeration section is required to
+remain byte-identical. Every measured case preserves `serial_abi16.diff`, the
+original/adapted SHA-256 values, and both source files. The method is always
+identified as `author_serialized_abi16`. The paper does not identify the precise
+script/version of its Serial baseline, so historical identity is not asserted.
+
+The current Python drivers use 1,990-element location/order arrays while the C
+runtime uses 3,964. The minimal adaptation preserves this upstream convention;
+internal actual-order traces are not inferred from those mismatched offsets.
+`scripts/probe_serial_ipc.py` is a separate isolated syscall demonstration, not
+a scheduler implementation or a benchmark repetition.

@@ -1,0 +1,7 @@
+Command: ["python3", "-m", "unittest", "discover", "-s", "tests", "-q"]
+----------------------------------------------------------------------
+Ran 98 tests in 1.684s
+
+OK
+
+Exit code: 0

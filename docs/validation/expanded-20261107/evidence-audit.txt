@@ -1,0 +1,375 @@
+Command: ["make", "audit"]
+python3 scripts/summarize_comparison.py results/2026-11-07/comparison-42380166815 --manifest-only
+{
+  "scope": "manifest-only; no complete scientific sample required",
+  "manifest_count": 1,
+  "checked_file_entries": 135,
+  "integrity_ok": true,
+  "integrity_errors": []
+}
+python3 scripts/summarize_comparison.py results/2026-11-07/comparison-42381557337 --manifest-only
+{
+  "scope": "manifest-only; no complete scientific sample required",
+  "manifest_count": 1,
+  "checked_file_entries": 254,
+  "integrity_ok": true,
+  "integrity_errors": []
+}
+python3 scripts/summarize_comparison.py results/2026-11-07/comparison-42380929383 --output results/2026-11-07/summaries/comparison-42380929383 --check
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 100,
+    "comparison_complete": 50,
+    "comparison_eligible": 50,
+    "diagnostic_attempts": 40
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "/workspace/scratch/d26d9dcf1383/repo/results/2026-11-07/summaries/comparison-42380929383"
+}
+python3 scripts/summarize_comparison.py results/2026-11-07/comparison-42381922637 --output results/2026-11-07/summaries/comparison-42381922637 --check
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 100,
+    "comparison_complete": 90,
+    "comparison_eligible": 90,
+    "diagnostic_attempts": 40
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "/workspace/scratch/d26d9dcf1383/repo/results/2026-11-07/summaries/comparison-42381922637"
+}
+python3 scripts/summarize_comparison.py results/2026-11-07/comparison-42384122902 --cases reorder_4 --repeats 3 --output results/2026-11-07/summaries/comparison-42384122902 --check
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 6,
+    "comparison_complete": 6,
+    "comparison_eligible": 6,
+    "diagnostic_attempts": 0
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "/workspace/scratch/d26d9dcf1383/repo/results/2026-11-07/summaries/comparison-42384122902"
+}
+python3 scripts/verify_period_evidence.py
+{
+  "verified_manifest_files": 126,
+  "verified_command_logs": 40,
+  "replay_expected_signatures": {
+    "reorder_3_bad": {
+      "hits": 4,
+      "trials": 5
+    },
+    "reorder_4_bad": {
+      "hits": 5,
+      "trials": 5
+    },
+    "df": {
+      "hits": 5,
+      "trials": 5
+    }
+  },
+  "pilot_schedule_lists_identical": {
+    "pilot:smoke_double_free": true,
+    "pilot:CS.reorder_3_bad": true,
+    "pilot:CS.reorder_4_bad": true
+  }
+}
+python3 scripts/audit_period_results.py
+{
+  "scope": "Independent re-count of the archived 2026-11-07 study; no new experiments",
+  "raw_files": 126,
+  "command_logs": 40,
+  "test_and_replay_invocations": 33,
+  "phase_counts": {
+    "followup/build": 3,
+    "followup/deadline_probe": 1,
+    "followup/extension": 9,
+    "followup/replay": 15,
+    "pilot/build": 3,
+    "pilot/run": 9
+  },
+  "replays": {
+    "df": {
+      "trials": 5,
+      "signature_hits": 5
+    },
+    "reorder_3_bad": {
+      "trials": 5,
+      "signature_hits": 4
+    },
+    "reorder_4_bad": {
+      "trials": 5,
+      "signature_hits": 5
+    }
+  },
+  "summaries": [
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "first_error_schedule",
+      "measured_n": 0,
+      "missing_n": 3,
+      "mean": null,
+      "sample_sd": null
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 0,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 0.3714896983333347,
+      "sample_sd": 0.09181401000924173
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 13,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 2,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 2.876649674666666,
+      "sample_sd": 0.19804243659557694
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 27,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 5,
+      "sample_sd": 1.7320508075688772
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6.459186292666672,
+      "sample_sd": 1.974968747473522
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0,
+      "paper_reference": 6,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 27,
+      "sample_sd": 0.0,
+      "paper_reference": 27,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0,
+      "paper_reference": 6,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 7.334859932999994,
+      "sample_sd": 0.20388812596489228
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 11.666666666666666,
+      "sample_sd": 2.309401076758503,
+      "paper_reference": 9,
+      "absolute_delta": 2.666666666666666,
+      "relative_delta_percent": 29.629629629629626
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 100,
+      "sample_sd": 0.0,
+      "paper_reference": 100,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 10.666666666666666,
+      "sample_sd": 2.309401076758503,
+      "paper_reference": 12,
+      "absolute_delta": -1.333333333333334,
+      "relative_delta_percent": -11.111111111111116
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 17.474733094333335,
+      "sample_sd": 3.5082850081813977
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3.6666666666666665,
+      "sample_sd": 0.5773502691896257
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 7.756688809666675,
+      "sample_sd": 1.042484404449214
+    }
+  ]
+}
+
+
+Exit code: 0

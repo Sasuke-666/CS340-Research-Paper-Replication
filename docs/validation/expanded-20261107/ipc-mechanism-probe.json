@@ -1,0 +1,25 @@
+{
+  "scope": "isolated local syscall mechanism test, not benchmark measurement",
+  "captured_utc": "2026-11-07T14:26:01.579560+00:00",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "runtime_struct_bytes": 24008,
+  "old_driver_requested_bytes": 24300,
+  "current_driver_requested_bytes": 12160,
+  "old_request_result": -1,
+  "old_request_errno": 22,
+  "old_request_error": "Invalid argument",
+  "current_request_ok": true,
+  "current_request_errno": 0,
+  "invalid_shmat_is_minus_one": true,
+  "invalid_shmat_errno": 22,
+  "runtime_offsets": {
+    "time": 0,
+    "N": 8,
+    "M": 12,
+    "bounds": 16,
+    "counts": 20,
+    "kp": 220,
+    "loc": 8148,
+    "order": 16076
+  }
+}

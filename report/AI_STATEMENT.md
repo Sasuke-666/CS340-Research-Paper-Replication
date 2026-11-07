@@ -1,4 +1,4 @@
-## 8. AI usage statement
+## AI usage statement
 
 An AI assistant supported project scaffolding, script development, hosted
 experiment execution, log analysis and report drafting. Measurements in this

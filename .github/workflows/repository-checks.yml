@@ -35,11 +35,14 @@ jobs:
         run: python scripts/verify_period_evidence.py
       - name: Independently recount raw experiment records
         run: python scripts/audit_period_results.py
+      - name: Audit comparison batches and published summaries
+        run: make audit-comparisons PYTHON=python
       - name: Build readable stage-report exports
         if: matrix.python-version == '3.12'
         run: |
           python -m pip install -r requirements-report.txt
           python scripts/export_stage_report.py
+          python scripts/export_member_checklist.py
       - name: Package tracked source and evidence without Git metadata
         if: matrix.python-version == '3.12'
         run: |

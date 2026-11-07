@@ -5,10 +5,10 @@
 - [x] Confirm PERIOD selection in the project plan.
 - [x] Push substantive protocol and experiment-script work with the owner's
   actual student ID and full name in commit messages.
-- [ ] Record the other group members' verified student IDs, full names and GitHub
-  logins in TEAM.csv. No identities have been invented.
-- [ ] Confirm the teaching team can open this private repository. The assistant's
-  ability to read it is not proof of teaching-team access.
+- [x] Record the three supplied names and student IDs in TEAM.csv.
+- [x] Verify that repository visibility is public.
+- [ ] Confirm 李扬烁 and 何博宇's GitHub handles and the fourth member or teaching-team
+  assignment. Record each person's own actual work.
 - [ ] Retain a receipt or confirmation for the group registration form. Repository
   creation and experiment execution do not submit that form.
 - [ ] Read the report, trace at least one table value to its raw log, and have a
@@ -16,6 +16,8 @@
 
 Completed experiment and evidence checks are recorded in the report and the
 workflow logs. These boxes are not substitutes for experimental evidence.
+The separate Chinese assignment-ready list is [MEMBER_ACTIONS_ZH.md](MEMBER_ACTIONS_ZH.md).
+Use [the review template](reviews/REVIEW_TEMPLATE.md) for a real, dated review.
 
 ## Toward the tentative 1 December presentation
 

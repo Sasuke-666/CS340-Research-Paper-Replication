@@ -62,7 +62,8 @@ larger than 50 MB. Tag the final version `v1.0`.
 3. Exact final-report/final-repository deadline.
 4. Separate Presentation Instruction and its grading details.
 5. Required GitHub identities and access method for the teaching team.
-6. Remaining actual group members and final group approval of the planned paper.
+6. Fourth member or teaching-team assignment, two known members' GitHub handles,
+   and the registration-form receipt. The owner confirmed the PERIOD selection.
 
-Private visibility and the local hooks are implementation choices in this
-scaffold. The teacher does not require either in the supplied document.
+The repository is public as requested by the owner. Local hooks are an
+implementation choice; the teacher does not require them in the supplied document.
