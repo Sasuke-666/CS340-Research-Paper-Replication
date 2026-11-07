@@ -48,3 +48,13 @@ not a benchmark repetition.
 The expected batch contains 100 comparisons, 40 replay diagnostics, five builds
 and five separately recorded ABI probes. Actual coverage controls reporting.
 Original source licenses and the required assistance disclosure are preserved.
+
+## Runner-label correction before adapted comparisons
+
+Run 42381557337 reached one PERIOD invocation in each case, then stopped on a
+runner KeyError because the AB/BA loop still used the old baseline label. Those
+five partial measurements and all build logs are preserved separately. The loop
+now resolves the configured baseline name and has regression tests for the new
+label and invalid method sets. This changes orchestration only, not either
+scheduler or the registered experimental conditions. A fresh batch repeats the
+full fixed design; partial-batch observations are not silently pooled into it.

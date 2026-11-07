@@ -2,8 +2,10 @@
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from run_period_compatible import adapt_serial
+from run_period_comparison import method_order
 
 class CompatibilityTests(unittest.TestCase):
     def fixture(self):
@@ -18,6 +20,13 @@ class CompatibilityTests(unittest.TestCase):
         self.assertIn('return new_abi',out);self.assertEqual(out.count('(c_uint16*'),4)
         start='period_limit = bugDepth + N - 1'
         self.assertEqual(out[out.index(start):],old[old.index(start):])
+    def test_adapted_method_order(self):
+        with patch('run_period_comparison.METHODS',{'period':'p','author_serialized_abi16':'s'}):
+            self.assertEqual(method_order(1),['period','author_serialized_abi16'])
+            self.assertEqual(method_order(2),['author_serialized_abi16','period'])
+    def test_invalid_method_set(self):
+        with patch('run_period_comparison.METHODS',{'period':'p'}):
+            with self.assertRaises(ValueError): method_order(1)
     def test_unexpected_source_is_rejected(self):
         with self.assertRaises(ValueError): adapt_serial('unexpected',self.fixture())
     def test_missing_array_is_rejected(self):

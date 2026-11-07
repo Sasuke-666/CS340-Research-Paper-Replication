@@ -54,6 +54,14 @@ def diagnostic_source(original):
     return source.replace(old,new)
 
 
+def method_order(repetition):
+    others=[m for m in METHODS if m!='period']
+    if 'period' not in METHODS or len(others)!=1:
+        raise ValueError('Exactly one primary and one baseline are required')
+    pair=['period',others[0]]
+    return pair if repetition%2 else pair[::-1]
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--root',type=Path,default=Path('/workdir/PERIOD'))
@@ -88,7 +96,7 @@ def main():
             shutil.copy2(str(path),str(source_dir/path.name))
     (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n',encoding='utf-8')
     for repetition in range(1,11):
-        order=['period','author_serialized'] if repetition%2 else ['author_serialized','period']
+        order=method_order(repetition)
         for position,method in enumerate(order,1):
             log='{}_r{:02d}.txt'.format(method,repetition)
             cmd=['python3',str(root/'tool/DBDS'/METHODS[method]),'-y','-d','3','-f','10000','./'+binary]
@@ -118,7 +126,6 @@ def main():
                 r['expected_assertion']=bool(re.search(r'Assertion[^\n]*failed',text))
                 r['status']='complete' if found and not r['timed_out'] and r['exit_code']==0 else 'incomplete';save()
     manifest=[]
-    # The outer archive hashes console/exit files after the process has finished.
     for p in sorted(out.rglob('*')):
         if p.is_file() and p.name not in ('container_console.txt','container_exit_code.txt','manifest.json'):
             raw=p.read_bytes();manifest.append({'path':p.relative_to(out).as_posix(),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()})
