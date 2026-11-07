@@ -1,0 +1,53 @@
+--- upstream/run_OldPDS.py
++++ adapted/run_OldPDS_abi16.py
+@@ -50,7 +50,7 @@
+ parentArrayCopy = [0]*SHARE_THREAD_NUM
+ 
+ def setup_share_memroy():
+-    IPC_KEY, MAP_SIZE, IPC_CREAT, IPC_EXCL = 1111, sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+3*SHARE_ARRAY_SIZE), 512, 1024
++    IPC_KEY, MAP_SIZE, IPC_CREAT, IPC_EXCL = 1111, sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + 3*SHARE_ARRAY_SIZE), 512, 1024
+     shmget = cdll.LoadLibrary("libc.so.6").shmget
+     shmat = cdll.LoadLibrary("libc.so.6").shmat
+     shmat.restype = c_void_p
+@@ -68,20 +68,20 @@
+     if T != None:
+         memmove(byref(T), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*2, sizeof(c_uint))
+     if kpNumArray != None:
+-        memmove(byref(kpNumArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3, sizeof(c_uint)*SHARE_THREAD_NUM)
++        memmove(byref(kpNumArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3, sizeof(c_uint16)*SHARE_THREAD_NUM)
+     if kpYieldArray != None:
+-        memmove(byref(kpYieldArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpYieldArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM), sizeof(c_uint16)*(SHARE_ARRAY_SIZE))
+     if kpLocArray != None:
+-        memmove(byref(kpLocArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+SHARE_ARRAY_SIZE), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpLocArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + SHARE_ARRAY_SIZE), sizeof(c_uint16)*SHARE_ARRAY_SIZE)
+     if kpOrderArray != None:
+-        memmove(byref(kpOrderArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM+2*SHARE_ARRAY_SIZE), sizeof(c_uint)*SHARE_ARRAY_SIZE)
++        memmove(byref(kpOrderArray), ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*(SHARE_THREAD_NUM + 2*SHARE_ARRAY_SIZE), sizeof(c_uint16)*SHARE_ARRAY_SIZE)
+ 
+ def memmove_pattern_list(PatternList):
+     tmp = []
+     for t in PatternList:
+         tmp += t
+-    tmparr = (c_uint * len(tmp))(*tmp)
+-    memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*(3+SHARE_THREAD_NUM), tmparr, sizeof(c_uint) * len(tmp))
++    tmparr = (c_uint16 * len(tmp))(*tmp)
++    memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*3 + sizeof(c_uint16)*SHARE_THREAD_NUM, tmparr, sizeof(c_uint16) * len(tmp))
+ 
+ # create subprocess according to the value of check_STDOUT and check_STDERR
+ def create_DBDS_subprocess(check_STDOUT, check_STDERR):
+@@ -380,10 +380,10 @@
+ A = c_uint(0)
+ B = c_uint(0)
+ T = c_uint(0)
+-kpNumArray = (c_uint*SHARE_THREAD_NUM)(0)
+-kpYieldArray = (c_uint*SHARE_ARRAY_SIZE)(0)
+-kpLocArray = (c_uint*SHARE_ARRAY_SIZE)(0)
+-kpOrderArray = (c_uint*SHARE_ARRAY_SIZE)(0)
++kpNumArray = (c_uint16*SHARE_THREAD_NUM)(0)
++kpYieldArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
++kpLocArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
++kpOrderArray = (c_uint16*SHARE_ARRAY_SIZE)(0)
+ 
+ get_info_from_share_memory(P,A,B,T,kpNumArray,None,None,None)
+ Period = P.value
