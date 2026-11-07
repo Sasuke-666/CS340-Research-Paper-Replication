@@ -1,0 +1,5 @@
+Started UTC: 2026-11-07T14:21:57.086320+00:00
+Command: ["python3", "/workdir/PERIOD/tool/DBDS/run_OldPDS.py", "-y", "-d", "3", "-f", "10000", "./account_bad"]
+sudo: unable to resolve host period-study: Resource temporarily unavailable
+
+Runner exit_code=-11 timed_out=False elapsed_seconds=0.417748

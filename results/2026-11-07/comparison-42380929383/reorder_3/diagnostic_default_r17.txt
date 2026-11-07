@@ -1,0 +1,16 @@
+Started UTC: 2026-11-07T14:20:13.388484+00:00
+Command: ["env", "CS340_REPLAY_SCALE=1.5", "python3", "/workdir/PERIOD/tool/DBDS/run_PDS_diagnostic.py", "-y", "-r", "/evidence/fixed_witness.txt", "./reorder_3_bad"]
+sudo: unable to resolve host period-study: Resource temporarily unavailable
+Bug found!
+reorder_3_bad: reorder_bad.c:80: void *checkThread(void *): Assertion `0' failed.
+opts: [('-y', ''), ('-r', '/evidence/fixed_witness.txt')]
+args: ['./reorder_3_bad']
+reproduceFile: /evidence/fixed_witness.txt
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform Reproduction![0m
+CS340_REPLAY {"target_returncode": -6, "calibrated_period": 2880, "scale": 1.5}
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.916587

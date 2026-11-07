@@ -1,0 +1,45 @@
+Started UTC: 2026-11-07T14:19:07.529549+00:00
+Command: ["bash", "build.sh"]
+Everything's fine!
++ cd /workdir/PERIOD/evaluation/CS/twostage
++ ./cleanDIR.sh
++ clang -g -emit-llvm -c ./twostage_bad.c -o twostage_bad.bc
++ /workdir/PERIOD/tool/staticAnalysis/staticAnalysis.sh twostage_bad
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/evaluation/CS/twostage
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.twostage_bad
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root  253 Nov  7 14:19 ConConfig.twostage_bad
+-rw-r--r-- 1 root root 1.4K Nov  7 14:19 mempair.twostage_bad
+-rw-r--r-- 1 root root  16K Nov  7 14:19 mempair.twostage_bad.npz
+-rw-r--r-- 1 root root 3.4K Nov  7 14:19 mssa.twostage_bad
+-rw-r--r-- 1 root root 6.1K Nov  7 14:19 so.twostage_bad
+-rw-r--r-- 1 root root  13K Nov  7 14:19 twostage_bad.bc
+-rw-r--r-- 1 1001 1001 3.1K Nov  7 14:17 twostage_bad.c
+/workdir/PERIOD/evaluation/CS/twostage
++ export Con_PATH=/workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
++ Con_PATH=/workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
++ /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast++ -g ./twostage_bad.bc -o twostage_bad -lpthread -ldl
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
+[DEBUG]
+[DEBUG] Instrumentation for twostage_bad.c:19
+[DEBUG] Instrumentation for twostage_bad.c:20
+[DEBUG] Instrumentation for twostage_bad.c:23
+[DEBUG] Instrumentation for twostage_bad.c:24
+[DEBUG] Instrumentation for twostage_bad.c:34
+[DEBUG] Instrumentation for twostage_bad.c:35
+[DEBUG] Instrumentation for twostage_bad.c:39
+[DEBUG] Instrumentation for twostage_bad.c:42
+[DEBUG] Instrumentation for twostage_bad.c:43
+[DEBUG] Instrumentation for twostage_bad.c:68
+[DEBUG] Instrumentation for twostage_bad.c:69
+[DEBUG] Instrumentation for twostage_bad.c:70
+[DEBUG] Instrumentation for twostage_bad.c:74
+[DEBUG] Instrumentation for twostage_bad.c:115
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.515322
