@@ -61,3 +61,6 @@ Thumbs.db
 
 # Keep experiment logs, CSV files, figures and reports trackable.
 # Do not add blanket *.log / *.csv / results/ ignore rules.
+
+# Regenerable PDF/Word exports are included in the CI snapshot artifact.
+report/export/

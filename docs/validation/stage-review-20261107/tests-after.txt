@@ -1,0 +1,11 @@
+Command: python3 -m unittest discover -s tests -v
+Environment: Linux x86_64, Python 3.13.5
+Scope: repository and experiment helper unit tests, including synthetic fixtures.
+
+----------------------------------------------------------------------
+Ran 66 tests in 10.863s
+
+OK
+
+Raw experiment verification: 126 files; 40 command logs; 33 test/replay invocations.
+Independent recount: completed; published pilot/extension statistics and replay counts agree.

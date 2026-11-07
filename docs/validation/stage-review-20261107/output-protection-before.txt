@@ -1,0 +1,36 @@
+test_existing_evidence_is_unchanged (test_period_output.OutputProtectionTests.test_existing_evidence_is_unchanged) ... FAIL
+test_fresh_output_is_accepted (test_period_output.OutputProtectionTests.test_fresh_output_is_accepted) ... ok
+test_invalid_driver_does_not_create_output (test_period_output.OutputProtectionTests.test_invalid_driver_does_not_create_output) ... FAIL
+test_symlink_output_is_rejected_without_modification (test_period_output.OutputProtectionTests.test_symlink_output_is_rejected_without_modification) ... FAIL
+
+======================================================================
+FAIL: test_existing_evidence_is_unchanged (test_period_output.OutputProtectionTests.test_existing_evidence_is_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_period_output.py", line 38, in test_existing_evidence_is_unchanged
+    self.assertNotEqual(result.returncode, 0)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_invalid_driver_does_not_create_output (test_period_output.OutputProtectionTests.test_invalid_driver_does_not_create_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_period_output.py", line 54, in test_invalid_driver_does_not_create_output
+    self.assertFalse(out.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_symlink_output_is_rejected_without_modification (test_period_output.OutputProtectionTests.test_symlink_output_is_rejected_without_modification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repository>/tests/test_period_output.py", line 47, in test_symlink_output_is_rejected_without_modification
+    self.assertNotEqual(result.returncode, 0)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.111s
+
+FAILED (failures=3)

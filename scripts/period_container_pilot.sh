@@ -3,10 +3,18 @@
 set -euo pipefail
 repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 out=${1:?Usage: bash scripts/period_container_pilot.sh OUTPUT_DIRECTORY}
-mkdir -p "$out"
-out=$(cd "$out" && pwd)
+driver=${PERIOD_DRIVER:-run_period_pilot.py}
+[[ "$driver" == run_period_pilot.py || "$driver" == run_period_followup.py ]] || { echo 'Unsupported experiment driver' >&2; exit 2; }
 [[ $(uname -m) == x86_64 ]] || { echo 'Requires x86_64'; exit 2; }
 command -v docker >/dev/null || { echo 'Docker is unavailable'; exit 2; }
+# Create the final directory atomically. Existing directories, files and symlinks
+# are refused before any logs can be overwritten, including an empty directory.
+if [[ -e "$out" || -L "$out" ]]; then
+  echo 'Output already exists; choose a new evidence directory.' >&2; exit 2
+fi
+mkdir -p -- "$(dirname -- "$out")"
+mkdir -- "$out" || { echo 'Cannot create a fresh evidence directory.' >&2; exit 2; }
+out=$(cd -- "$out" && pwd -P)
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 pin=cb8deb9a176e5bb292d70d46557dd61dc0e98069
@@ -26,8 +34,6 @@ cp "$work/upstream/LICENSE" "$out/upstream_LICENSE.txt"
 # No credentials, private .git, host network, or Docker socket are mounted.
 # Privileged mode is the authors' documented execution mode, limited to this
 # ephemeral runner. Built dependencies come from the recorded image digest.
-driver=${PERIOD_DRIVER:-run_period_pilot.py}
-[[ "$driver" == run_period_pilot.py || "$driver" == run_period_followup.py ]] || exit 2
 set +e
 timeout 1000 docker run --rm --network none --privileged \
   --mount "type=bind,src=$work/upstream,dst=/pinned,readonly" \

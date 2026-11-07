@@ -33,6 +33,13 @@ jobs:
         run: python scripts/check_repository.py
       - name: Verify archived experiment bytes and measurements
         run: python scripts/verify_period_evidence.py
+      - name: Independently recount raw experiment records
+        run: python scripts/audit_period_results.py
+      - name: Build readable stage-report exports
+        if: matrix.python-version == '3.12'
+        run: |
+          python -m pip install -r requirements-report.txt
+          python scripts/export_stage_report.py
       - name: Package tracked source and evidence without Git metadata
         if: matrix.python-version == '3.12'
         run: |
@@ -47,6 +54,8 @@ jobs:
                   p=Path(name)
                   if p.is_symlink() or not p.is_file(): raise SystemExit('Invalid tracked file')
                   bundle.write(p,name)
+              for p in sorted(Path('report/export').glob('*')):
+                  if p.suffix in {'.pdf','.docx'}: bundle.write(p,p.as_posix())
               bundle.writestr('SNAPSHOT.json',json.dumps({'commit':os.environ['GITHUB_SHA'],'scope':'Tracked source and archived evidence; Git history and credentials excluded'},indent=2)+'\n')
           print(out.name)
           PY

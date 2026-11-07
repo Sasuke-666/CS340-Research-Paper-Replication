@@ -11,6 +11,7 @@ separately; their work is not attributed to the group.
 | 2026-10-24 | Prepared project structure, documentation and local checks; assisted repository initialization | Initial commit 1829541 and its files | Owner supplied identity and authorized creation. Independent code review is not recorded. |
 | 2026-10-30 | Wrote regression tests, repaired repository-checking defects and prepared continuous checks | Commit 99ec61a; docs/REPOSITORY_CHECKS.md and retained before/after logs | Owner specified and authorized the task. Independent human review remains unrecorded. |
 | 2026-11-07 | Prepared the PERIOD protocols and wrappers; initiated hosted experiments; inspected actual logs; computed statistics and drafted the report | Commits bf5e6de and 5970167; experiments/2026-11-07; results/2026-11-07; report/PILOT_REPORT.md | Owner confirmed the selected paper and requested implementation. Group review, explanation and independent rerunning are still required. |
+| 2026-11-07, second verification | Independently recounted original logs, reproduced and repaired an evidence-output overwrite risk, added regression tests and exported the existing stage report to PDF/Word | scripts/audit_period_results.py; tests/test_period_output.py; docs/VALIDATION_20261107.md; scripts/export_stage_report.py | Owner requested the work. This automated verification does not replace individual group review or rerunning. |
 
 Experimental measurements come from the archived process output, not invented
 values. Automation-generated tests use explicitly synthetic fixtures; those
