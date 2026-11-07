@@ -1,0 +1,78 @@
+name: PERIOD follow-up and evidence archive
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/period-followup.yml'
+      - 'scripts/run_period_followup.py'
+      - 'experiments/2026-11-07/FOLLOWUP_PROTOCOL.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  followup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Controlled extension and replay
+        env:
+          PERIOD_DRIVER: run_period_followup.py
+        run: bash scripts/period_container_pilot.sh "$RUNNER_TEMP/period-followup"
+      - name: Preserve evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-followup-${{ github.run_id }}
+          path: ${{ runner.temp }}/period-followup/
+          retention-days: 30
+          if-no-files-found: error
+  archive:
+    needs: followup
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - name: Download original pilot
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          run-id: 42368129299
+          github-token: ${{ github.token }}
+          name: period-pilot-42368129299-1
+          path: results/2026-11-07/pilot
+      - name: Download follow-up
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: period-followup-${{ github.run_id }}
+          path: results/2026-11-07/followup
+      - name: Check and archive exact evidence
+        env:
+          FOLLOWUP_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path('results/2026-11-07')
+          entries=[]
+          for p in sorted(root.rglob('*')):
+              if p.is_symlink(): raise SystemExit('Symlink refused')
+              if p.is_file() and p.name != 'manifest.json':
+                  if p.stat().st_size > 50000000: raise SystemExit('Oversized evidence refused')
+                  entries.append({'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size})
+          (root/'manifest.json').write_text(json.dumps({'pilot_run_id':42368129299,'followup_run_id':os.environ['FOLLOWUP_RUN_ID'],'files':entries},indent=2)+'\n')
+          PY
+          git add -- results/2026-11-07
+          python3 scripts/check_repository.py --staged
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet && exit 0
+          git commit -m '[1240001201] 孙皓扬: archive PERIOD pilot and controlled follow-up evidence' -m 'Automated experiment evidence archived at the repository owner request; no independent student review is implied. See docs/AI_USAGE.md.'
+          git push origin HEAD:main
