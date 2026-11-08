@@ -304,7 +304,7 @@ The three confirmed member identities are recorded in [the team table](docs/TEAM
 | --- | --- | --- |
 | 孙皓扬 | 1240001201 | Sasuke-666 |
 | 李扬烁 | 1240001156 | Awaiting member confirmation |
-| 何博宇 | 1240000576 | Awaiting member confirmation |
+| 何博宇 | 1240000576 | heboyu0714 |
 
 The fourth member remains to be confirmed through the course's group allocation
 process. Public repository access is available; each contributor's write access,
