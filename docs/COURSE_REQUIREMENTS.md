@@ -62,8 +62,12 @@ larger than 50 MB. Tag the final version `v1.0`.
 3. Exact final-report/final-repository deadline.
 4. Separate Presentation Instruction and its grading details.
 5. Required GitHub identities and access method for the teaching team.
-6. Fourth member or teaching-team assignment, two known members' GitHub handles,
+6. Fourth member or teaching-team assignment, effective member write access,
    and the registration-form receipt. The owner confirmed the PERIOD selection.
+   As verified on 8 November, the known handles are `barkhorn996` (Li Yangshuo)
+   and `heboyu0714` (He Boyu), already recorded in `TEAM.csv`; their effective
+   permissions at inspection were `write` and `read`, respectively. Invitation
+   acceptance must be checked separately from public read access.
 
 The repository is public as requested by the owner. Local hooks are an
 implementation choice; the teacher does not require them in the supplied document.

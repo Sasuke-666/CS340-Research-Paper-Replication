@@ -57,6 +57,49 @@ Earlier results remain unchanged. No experiment is backdated to the first week.
 See `MEMBER_ACTIONS_ZH.md` for work requiring an actual member's execution,
 review, identity or registration evidence.
 
+### Sunday evidence check — 8 November 2026
+
+Inspection started from remote main `0d83c792648e90095b0b81cc103d326ed078ae24`.
+The 2–8 November main-branch window contains 22 commits: 17 associated with
+`Sasuke-666` and five evidence-archive bot commits. Meaningful work is established
+by implementation and result changes, including `6faea36` and `7affd30`, rather
+than by the commit count or later username corrections.
+
+The [push-triggered check for `7affd30`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42386236242)
+was created on 7 November at 23:24:32 UTC+08:00. This is server-side evidence
+that substantive work was already pushed during this week. The
+[checks for inspected main](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42446842786)
+passed on Python 3.9 and 3.12, including raw-evidence and comparison-summary audits.
+
+Completed scientific work remains 106 compatible-comparison attempts:
+96 complete calls, ten censored calls and 43 complete matched pairs across
+separate batches. The failed original-driver study and other diagnostics keep
+their separate denominators. No full experimental repeat was needed for this
+inspection.
+
+Individual contribution evidence remains incomplete. `docs/reviews/` contains
+only the template; the contribution table contains owner-requested work and
+still marks human verification as pending. Neither `barkhorn996` nor
+`heboyu0714` has a substantive commit visible in the inspected main history;
+the inspected branch list contains only main and the PR list is empty.
+Owner and bot commits are not attributed to those members.
+
+Both handles are now recorded in `TEAM.csv`. At inspection, `barkhorn996` had
+`write` permission and `heboyu0714` had only `read`; the latter's invitation
+acceptance and effective write access require checking. The existing
+[member action list](MEMBER_ACTIONS_ZH.md) was updated with a single-case
+independent account rerun, a parallel four-thread censoring/statistics review,
+actual-account submission requirements and preserved evidence paths.
+These are pending member tasks, not completed personal contributions.
+
+The weekly-push rule and the individual-contribution rule are separate;
+the supplied text does not expressly require one commit per person every week.
+The weekly-push requirement has evidence this week, while individual work
+and review still require real completion. The fourth-member allocation,
+registration receipt, check timezone and final submission/presentation
+instructions remain unresolved. The inspection is a maintainer documentation
+review and does not certify a student's independent experimental execution.
+
 ## Subsequent internal milestones
 
 15 November: independent member rerun and evidence-based discrepancy review.
