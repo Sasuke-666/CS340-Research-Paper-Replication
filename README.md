@@ -6,6 +6,29 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 (ICSE 2022). The group confirmed its selection to the project maintainer on
 7 November 2026. This is the date of that confirmation.
 
+## Member submissions — 8 November 2026
+
+Both member submissions are integrated into the default branch with their
+original commits and authors preserved:
+
+- Li Yangshuo, 李扬烁 (1240001156; `barkhorn996`), submitted a new `account`
+  batch: ten complete runs per method on one WSL2 host, with a preserved
+  image-pull failure, environment records and raw evidence. See the
+  [member review](docs/reviews/1240001156-clean-run.md),
+  [batch summary](results/member-reruns/1240001156-account-20261108T122201Z-summary/SUMMARY.md)
+  and [PR #2](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/2).
+- He Boyu, 何博宇 (1240000576; `heboyu0714`), submitted the
+  [four-thread archived-evidence review](docs/reviews/1240000576-evidence-audit.md)
+  with executable recount code, 26 checked comparison logs and a separate
+  treatment of the ten censored serialized runs. See
+  [PR #1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/1).
+
+The new account batch is a separate host scope. It does not change the counts
+or statistics of the 7 November study below. Actual submissions and assistance
+are recorded in [contributions](docs/CONTRIBUTIONS.csv) and
+[the usage statement](docs/AI_USAGE.md). The member recounts and checks add
+verification evidence; no additional experiments were run for integration.
+
 ## Stage progress — 7 November 2026
 
 Read the [expanded English stage report](report/EXPANDED_REPORT.md) for the

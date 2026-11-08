@@ -1,6 +1,6 @@
 # PERIOD: expanded replication and controlled diagnostics
 
-CS340 Operating Systems · Stage report · 7 November 2026
+CS340 Operating Systems · Stage report · 7 November 2026; member contributions updated 8 November 2026
 
 Confirmed member identities: 孙皓扬 (1240001201), 李扬烁 (1240001156), 何博宇 (1240000576). The fourth member remains to be confirmed. Individual contribution and review status are stated in section 8.
 
@@ -191,7 +191,7 @@ The study is limited by purposeful five-case coverage, hosted hardware differenc
 
 The owner confirmed the selected paper, supplied group identities, requested the work and authorized repository publication. The usage statement records the assistance involved in implementation, execution, auditing and drafting. Individual implementation, clean-environment reruns and human review are not assigned to another student without evidence. The known member roster and actual contribution record are maintained in docs/TEAM.csv and docs/CONTRIBUTIONS.csv; the known handles are now recorded, while a fourth member remains to be confirmed.
 
-The next high-value step is a different member's clean-environment rerun followed by an independent table-to-log audit and oral explanation of the mechanisms and limitations. A separate Chinese member checklist assigns suggested tasks, commands and evidence requirements; it is not a record of completed personal contributions. The registration receipt, final submission date and separate presentation rubric still require course-platform verification. This document is an expanded stage report, with final English PDF submission and v1.0 tagging reserved for the actual final version.
+On 8 November, Li Yangshuo (李扬烁, 1240001156; barkhorn996) submitted a new account comparison with ten complete repetitions per method, environment records, a preserved image-pull failure and a member review in commits 8ce522d and 9f30843. The WSL2 batch remains separate from the earlier study and its tables. He Boyu (何博宇, 1240000576; heboyu0714) submitted an archived four-thread evidence review with executable recount code and checks of 26 logs in commit b02adef5. Sun Haoyang (孙皓扬, 1240001201; Sasuke-666) authorized and coordinated repository integration and contribution-record maintenance. The member documents and usage statement disclose assistance with execution, recounting and drafting; personal sign-off and subsequent member-to-member review are not certified by this integration. The original member authors and commits are retained. See docs/reviews/1240001156-clean-run.md, docs/reviews/1240000576-evidence-audit.md and docs/CONTRIBUTIONS.csv for the corresponding evidence. The registration receipt, final submission date and separate presentation rubric still require course-platform verification. This document is an expanded stage report, with final English PDF submission and v1.0 tagging reserved for the actual final version.
 
 ## References
 

@@ -2,7 +2,7 @@
 
 **Submitted by** 何博宇 · 1240000576 · `heboyu0714`  
 **Evidence reviewed** 8 November 2026 (UTC+08:00), repository revision `9be5e176116790a40f7e55c2813f4ae8505e0461`.  
-**Scope** Archived-log review. At the submitter’s request, Codex read the logs, ran the recount below and drafted this record. Individual oral explanation and independent human sign-off are pending.
+**Scope** Archived-log review. At the submitter’s request, an AI assistant read the logs, ran the recount below and drafted this record. Individual oral explanation and independent human sign-off are pending.
 
 The raw logs support the four-thread results in Tables 3–5. In all three matched pairs, PERIOD found the assertion failure by schedule 9 and finished after 100 schedules. The compatible serialized driver first found it at schedule 47 and finished after 384 schedules. No numerical correction to these rows was identified. [Stage report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/9be5e176116790a40f7e55c2813f4ae8505e0461/report/EXPANDED_REPORT.md)
 

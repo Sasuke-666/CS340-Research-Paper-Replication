@@ -100,6 +100,36 @@ registration receipt, check timezone and final submission/presentation
 instructions remain unresolved. The inspection is a maintainer documentation
 review and does not certify a student's independent experimental execution.
 
+### Member submissions and integration — evening of 8 November 2026
+
+The earlier Sunday inspection above predates the member submissions and is
+retained as a historical snapshot. Both confirmed member accounts now have
+`write` access and have pushed substantive work:
+
+- Li Yangshuo (李扬烁, 1240001156; `barkhorn996`): commits `8ce522d` and
+  `9f30843`, PR #2. The new `account` batch has 20 complete invocations, ten per
+  method, plus retained setup-failure evidence and a dated member review.
+  All 880 manifest entries and the submitted statistics passed independent
+  verification. This host batch stays separate from the earlier study.
+- He Boyu (何博宇, 1240000576; `heboyu0714`): commit `b02adef5`, PR #1.
+  The archived four-thread review contains runnable recount code and accurate
+  statistics, including the 26 logged invocations and the 106/96/43 distinction.
+- The owner authorized normal merge commits preserving original authors and
+  commits. The merge commits are `ff254d8` (PR #1) and `c35bd0e` (PR #2).
+  The integration adds the missing contribution row, reconciles the
+  report/roster, fixes two summary references and limits a causal statement to
+  what the recorded observations establish. Generic assistance disclosure is
+  retained; archived measurements and old commit objects are unchanged.
+
+The push-triggered checks for [He Boyu](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42480559005)
+and [Li Yangshuo](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42484025734)
+record actual member-account publication on 8 November. Their respective PRs
+are integrated into main. The earlier 7 November counts remain 106 attempted,
+96 complete and 43 matched pairs; the new account batch is not pooled into them.
+Personal oral explanations and member-to-member cross-review are not certified
+by these automated numerical checks and are not added as instructor Git rules.
+No additional experiment or final `v1.0` release was made for this integration.
+
 ## Subsequent internal milestones
 
 15 November: independent member rerun and evidence-based discrepancy review.
