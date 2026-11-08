@@ -1,0 +1,17 @@
+{
+  "scope": "Read-only requests against the actual runtime key 1111; no memmove on a failed address",
+  "current_16bit": {
+    "requested_bytes": 12160,
+    "shmget_return": 0,
+    "errno": 0
+  },
+  "old_32bit": {
+    "requested_bytes": 24300,
+    "shmget_return": -1,
+    "errno": 22
+  },
+  "invalid_attach": {
+    "failed_sentinel": true,
+    "errno": 22
+  }
+}
