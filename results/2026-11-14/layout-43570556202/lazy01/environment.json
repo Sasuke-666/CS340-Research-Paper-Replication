@@ -1,0 +1,30 @@
+{
+  "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+  "captured_utc": "2026-11-14T07:20:45.317063+00:00",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cpu_models": [
+    "AMD EPYC 9V74 80-Core Processor"
+  ],
+  "drivers": {
+    "capacity1990": "c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f",
+    "capacity3964": "3b2c8422de8654b2dbbb3730b4c7f289566768f4edaf3ead13ab4b24b3cf801d"
+  },
+  "os_release": "NAME=\"Ubuntu\"\nVERSION=\"18.04.5 LTS (Bionic Beaver)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 18.04.5 LTS\"\nVERSION_ID=\"18.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=bionic\nUBUNTU_CODENAME=bionic\n",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-Ubuntu-18.04-bionic",
+  "private_ipc_and_pid_requested_by_wrapper": true,
+  "python": "3.6.9",
+  "same_built_binary": true,
+  "settings": {
+    "depth": 3,
+    "only_driver_change": "SHARE_ARRAY_SIZE = 1990 to 3964",
+    "outer_timeout_seconds": 120,
+    "repetitions_per_condition": 10,
+    "schedule_budget": 10000
+  },
+  "source_commit": "cb8deb9a176e5bb292d70d46557dd61dc0e98069"
+}

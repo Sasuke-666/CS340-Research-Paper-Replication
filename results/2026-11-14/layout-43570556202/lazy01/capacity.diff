@@ -1,0 +1,11 @@
+--- upstream/run_PDS.py
++++ adapted/run_PDS_layout3964.py
+@@ -2,7 +2,7 @@
+ 
+ # This is the structrue of Share Memory class
+ SHARE_THREAD_NUM = 100
+-SHARE_ARRAY_SIZE = 1990
++SHARE_ARRAY_SIZE = 3964
+ # typedef struct Sched_Info {
+ #	uint64_t time;								// the execution time of the program (nsec)
+ #	unsigned int N;								// number of threads concerned
