@@ -53,3 +53,33 @@ runtime uses 3,964. The minimal adaptation preserves this upstream convention;
 internal actual-order traces are not inferred from those mismatched offsets.
 `scripts/probe_serial_ipc.py` is a separate isolated syscall demonstration, not
 a scheduler implementation or a benchmark repetition.
+
+## Controlled capacity diagnostic on 14 November
+
+`scripts/run_period_layout.py` preserves the released `run_PDS.py` and creates
+`run_PDS_layout3964.py` by changing only `SHARE_ARRAY_SIZE = 1990` to `3964`.
+The native runtime and benchmark source are unchanged. Each case retains the
+exact one-line patch and original/revised source hashes. A declaration-only
+compiled probe extracts the actual runtime structure's size and offsets; its
+separate synthetic sentinel demonstration is excluded from workload results.
+The new wrapper resets private IPC state for both conditions and preserves
+all attempted calls. These new-state controls are separate from the old study.
+
+The upstream driver SHA-256 is
+`c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f`;
+the one-constant revision is
+`3b2c8422de8654b2dbbb3730b4c7f289566768f4edaf3ead13ab4b24b3cf801d`;
+the unchanged native runtime is
+`6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61`.
+Hashes refer to exact bytes, including line endings. The raw source and license
+are part of each archived case. See the
+[registered protocol](../experiments/2026-11-14/LAYOUT_PROTOCOL.md).
+
+The original account job finished unsuccessfully without an accessible result
+artifact or job log. Its final API responses are preserved in
+[the original evidence-loss record](../experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json).
+The [recovery protocol](../experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md),
+registered at `ea273fe4`, extracts all four measurement wrapper/helper files
+byte-for-byte from `bddb831`. Its archive separately retains those runner
+sources, their hashes, the activation record and the new batch identity.
+Only evidence preservation changes: Git publication precedes the backup upload.

@@ -2,6 +2,9 @@
 
 Source: `2609_CS340_Research_Paper_Replication(1).pdf`, 5 pages, CS340 Operating
 Systems, Academic Year 2026–2027. Page numbers below refer to that PDF.
+All five original pages were reread on 14 November 2026 and the requirements
+below were checked against them. Later course announcements and the separate
+Presentation Instruction remain outside that source.
 
 ## Team and submission scope — page 1
 

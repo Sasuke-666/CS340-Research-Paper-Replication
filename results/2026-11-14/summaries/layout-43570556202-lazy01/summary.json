@@ -1,0 +1,1182 @@
+{
+  "schema_version": 1,
+  "batch": "layout-43570556202",
+  "upstream_pin": "cb8deb9a176e5bb292d70d46557dd61dc0e98069",
+  "integrity_ok": true,
+  "integrity_errors": [],
+  "design": {
+    "cases": [
+      "lazy01"
+    ],
+    "repetitions_per_condition": 10,
+    "conditions": [
+      "capacity1990",
+      "capacity3964"
+    ],
+    "expected_workload_attempts": 20,
+    "order": "Odd repetition AB; even repetition BA",
+    "same_host_scope": "Within one case and batch only",
+    "eligible_rule": "Complete, intact provenance/design, no inner/outer timeout, no schedule-budget censoring"
+  },
+  "denominators": {
+    "planned_workload_attempts": 20,
+    "workload_attempts": 20,
+    "workload_complete": 20,
+    "workload_eligible": 20,
+    "complete_pairs": 10
+  },
+  "provenance": {
+    "lazy01": {
+      "host_scope": "layout-43570556202/lazy01",
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "cpu_models": [
+        "AMD EPYC 9V74 80-Core Processor"
+      ],
+      "cpu_affinity": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-Ubuntu-18.04-bionic",
+      "manifest_file_count": 300,
+      "driver_sha256": {
+        "capacity1990": "c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f",
+        "capacity3964": "3b2c8422de8654b2dbbb3730b4c7f289566768f4edaf3ead13ab4b24b3cf801d"
+      },
+      "runtime_sha256": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61",
+      "native_layout": {
+        "offsets": {
+          "M": 12,
+          "N": 8,
+          "TestedBounds": 16,
+          "kp": 220,
+          "kpLoc": 8148,
+          "kpNumArray": 20,
+          "kpOrder": 16076,
+          "time": 0
+        },
+        "sizeof": 24008
+      },
+      "synthetic_decode_scope": "Synthetic sentinel evidence; excluded from workload counts"
+    }
+  },
+  "groups": [
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "planned_n": 10,
+      "attempted_n": 10,
+      "missing_n": 0,
+      "complete_n": 10,
+      "eligible_n": 10,
+      "outer_timeout_n": 0,
+      "inner_timeout_trials_n": 0,
+      "budget_censored_n": 0,
+      "bounded_complete_n": 0,
+      "detected_n": 10,
+      "observed_detection_n": 10,
+      "observed_detection_denominator": 10,
+      "observed_assertion_trials_n": 10,
+      "observed_assertion_error_events": 116,
+      "observed_other_error_events": 0,
+      "observed_error_label_trial_counts": {
+        "assertion failed": 10
+      },
+      "default_coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_observed_n": 10,
+      "ambiguous_or_missing_coverage_n": 0,
+      "censored_or_incomplete_prefix": {
+        "n": 0,
+        "interpretation": "Observed schedule requests and error events before stopping; not complete enumeration totals",
+        "printed_schedule_count": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        },
+        "error_event_count": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        },
+        "first_observed_error": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "first_error_condition": "eligible complete trials with an observed error; missing stays null",
+      "schedule_sequence_hashes": {
+        "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5": 10
+      },
+      "schedules": {
+        "n": 10,
+        "mean": 39,
+        "sample_sd": 0.0,
+        "min": 39,
+        "max": 39
+      },
+      "first_error": {
+        "n": 10,
+        "mean": 8.5,
+        "sample_sd": 1.5811388300841898,
+        "min": 8,
+        "max": 13
+      },
+      "buggy_schedules": {
+        "n": 10,
+        "mean": 11.6,
+        "sample_sd": 0.8432740427115678,
+        "min": 10,
+        "max": 12
+      },
+      "elapsed_seconds": {
+        "n": 10,
+        "mean": 10.994347683199996,
+        "sample_sd": 0.721861931484297,
+        "min": 9.64986763799999,
+        "max": 11.608093326000017
+      }
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "planned_n": 10,
+      "attempted_n": 10,
+      "missing_n": 0,
+      "complete_n": 10,
+      "eligible_n": 10,
+      "outer_timeout_n": 0,
+      "inner_timeout_trials_n": 0,
+      "budget_censored_n": 0,
+      "bounded_complete_n": 0,
+      "detected_n": 10,
+      "observed_detection_n": 10,
+      "observed_detection_denominator": 10,
+      "observed_assertion_trials_n": 10,
+      "observed_assertion_error_events": 99,
+      "observed_other_error_events": 0,
+      "observed_error_label_trial_counts": {
+        "assertion failed": 10
+      },
+      "default_coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_observed_n": 10,
+      "ambiguous_or_missing_coverage_n": 0,
+      "censored_or_incomplete_prefix": {
+        "n": 0,
+        "interpretation": "Observed schedule requests and error events before stopping; not complete enumeration totals",
+        "printed_schedule_count": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        },
+        "error_event_count": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        },
+        "first_observed_error": {
+          "n": 0,
+          "mean": null,
+          "sample_sd": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "first_error_condition": "eligible complete trials with an observed error; missing stays null",
+      "schedule_sequence_hashes": {
+        "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5": 10
+      },
+      "schedules": {
+        "n": 10,
+        "mean": 39,
+        "sample_sd": 0.0,
+        "min": 39,
+        "max": 39
+      },
+      "first_error": {
+        "n": 10,
+        "mean": 8.2,
+        "sample_sd": 0.4216370213557839,
+        "min": 8,
+        "max": 9
+      },
+      "buggy_schedules": {
+        "n": 10,
+        "mean": 9.9,
+        "sample_sd": 1.9119507199599983,
+        "min": 7,
+        "max": 12
+      },
+      "elapsed_seconds": {
+        "n": 10,
+        "mean": 9.604638200900002,
+        "sample_sd": 1.6079011416035442,
+        "min": 7.10002884699999,
+        "max": 11.369044262000017
+      }
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "case": "lazy01",
+      "host_scope": "layout-43570556202/lazy01",
+      "n_complete_pairs": 10,
+      "delta_orientation": "capacity3964 minus capacity1990",
+      "same_requested_sequence_pairs": 10,
+      "sequence_comparisons": [
+        {
+          "repeat": 1,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 2,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 3,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 4,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 5,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 6,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 7,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 8,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 9,
+          "equal": true,
+          "first_differing_ordinal": null
+        },
+        {
+          "repeat": 10,
+          "equal": true,
+          "first_differing_ordinal": null
+        }
+      ],
+      "detection_pairs": {
+        "both": 10,
+        "capacity1990_only": 0,
+        "capacity3964_only": 0,
+        "neither": 0
+      },
+      "schedules_delta": {
+        "n": 10,
+        "mean": 0,
+        "sample_sd": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "first_error_delta": {
+        "n": 10,
+        "mean": -0.3,
+        "sample_sd": 1.3374935098492586,
+        "min": -4,
+        "max": 1
+      },
+      "buggy_schedules_delta": {
+        "n": 10,
+        "mean": -1.7,
+        "sample_sd": 2.0027758514399734,
+        "min": -5,
+        "max": 0
+      },
+      "elapsed_seconds_delta": {
+        "n": 10,
+        "mean": -1.3897094822999931,
+        "sample_sd": 1.5245203969758456,
+        "min": -3.9675183409999875,
+        "max": 0.04782744500002423
+      }
+    }
+  ],
+  "trials": [
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 1,
+      "position": 1,
+      "started_utc": "2026-11-14T07:20:45.978863+00:00",
+      "finished_utc": "2026-11-14T07:20:56.525312+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 10.546345416999998,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r01.txt",
+      "log_sha256": "5431c6810de9c3a17cc43ca3bd69a3c0951e818aff42a9a8acc6286cc801cb44",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 1,
+      "position": 2,
+      "started_utc": "2026-11-14T07:20:56.532625+00:00",
+      "finished_utc": "2026-11-14T07:21:03.632755+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 7.10002884699999,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 7,
+      "error_event_count": 7,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r01.txt",
+      "log_sha256": "dce9898557f29999151b06ddd39002831cec9d96c6b658e3b0be0ed11e85f53e",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 7,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 2,
+      "position": 1,
+      "started_utc": "2026-11-14T07:21:03.695567+00:00",
+      "finished_utc": "2026-11-14T07:21:15.064721+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.369044262000017,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r02.txt",
+      "log_sha256": "0958e8b78d5b899cb2ede82830dbc31bf5569040b3e8880515da3ae8eb3e2d80",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 2,
+      "position": 2,
+      "started_utc": "2026-11-14T07:21:15.084717+00:00",
+      "finished_utc": "2026-11-14T07:21:26.448011+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.363191276999999,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r02.txt",
+      "log_sha256": "979c89a3050134c63455c2ea8b69a07f99332f8bae9168f3814f38efd2a80769",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 3,
+      "position": 1,
+      "started_utc": "2026-11-14T07:21:26.456803+00:00",
+      "finished_utc": "2026-11-14T07:21:38.032847+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.575951859000014,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r03.txt",
+      "log_sha256": "3eb2eb4fd50a1ba0ded1cf99386cf00c40fe01acee389ba42938495faf841204",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 3,
+      "position": 2,
+      "started_utc": "2026-11-14T07:21:38.040364+00:00",
+      "finished_utc": "2026-11-14T07:21:48.587746+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 10.547288828999996,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 9,
+      "buggy_schedules": 11,
+      "error_event_count": 11,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r03.txt",
+      "log_sha256": "63281c0bc301e0bc469d68f4ac66812acf1314790828105c3ad3b4c0c18bcb51",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 11,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 4,
+      "position": 1,
+      "started_utc": "2026-11-14T07:21:48.595595+00:00",
+      "finished_utc": "2026-11-14T07:21:59.955335+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.359650748000007,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r04.txt",
+      "log_sha256": "8c8a05d9b3e28bc9a4eb523b92a206842016e64a03dc9ae8d625341426408f2a",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 4,
+      "position": 2,
+      "started_utc": "2026-11-14T07:21:59.963030+00:00",
+      "finished_utc": "2026-11-14T07:22:11.274951+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.311823302999983,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r04.txt",
+      "log_sha256": "105451e4d5121d89a2218161d791916b76ed080a8f894f48be2abc02abc7bfa8",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 5,
+      "position": 1,
+      "started_utc": "2026-11-14T07:22:11.282531+00:00",
+      "finished_utc": "2026-11-14T07:22:22.692224+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.409579207999997,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r05.txt",
+      "log_sha256": "8f3d6aa22403588a55fbb1d74c7cd9f03e78b7ae8a0da7e78343a39bd292962d",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 5,
+      "position": 2,
+      "started_utc": "2026-11-14T07:22:22.699864+00:00",
+      "finished_utc": "2026-11-14T07:22:33.964874+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.264912882000004,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r05.txt",
+      "log_sha256": "feca2301de5597cc951339d2caac06afccbf94daa1e03606db1110be08e773b1",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 6,
+      "position": 1,
+      "started_utc": "2026-11-14T07:22:33.976150+00:00",
+      "finished_utc": "2026-11-14T07:22:41.173388+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 7.197131619000004,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 7,
+      "error_event_count": 7,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r06.txt",
+      "log_sha256": "8759b4399e0212b944aa694b42b23a8767b537cbe5921fee4703b928131d68c8",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 7,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 6,
+      "position": 2,
+      "started_utc": "2026-11-14T07:22:41.181207+00:00",
+      "finished_utc": "2026-11-14T07:22:52.345944+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.164649959999991,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r06.txt",
+      "log_sha256": "429c214368f67d6ff110bc0cda11064d70ac85f5fd4bfd39857d547a47fe69ac",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 7,
+      "position": 1,
+      "started_utc": "2026-11-14T07:22:52.354345+00:00",
+      "finished_utc": "2026-11-14T07:23:03.817846+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.463399766000009,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r07.txt",
+      "log_sha256": "739f92431498471ddce5e1a56ae0775ebdb9497fe3014592dbbe16bb44efd23d",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 7,
+      "position": 2,
+      "started_utc": "2026-11-14T07:23:03.826870+00:00",
+      "finished_utc": "2026-11-14T07:23:13.628680+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 9.801712597999995,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 10,
+      "error_event_count": 10,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r07.txt",
+      "log_sha256": "cc19243c02e0b6724f65e5c023921d132b148d5dff80ef099d06a758dabda3f1",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 10,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 8,
+      "position": 1,
+      "started_utc": "2026-11-14T07:23:13.637112+00:00",
+      "finished_utc": "2026-11-14T07:23:22.489867+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 8.852656013,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 9,
+      "buggy_schedules": 9,
+      "error_event_count": 9,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r08.txt",
+      "log_sha256": "61100588cd23a08e6838b6be7c870947bdfefe873e0d7b6fb30a02e97ef99b2d",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 9,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 8,
+      "position": 2,
+      "started_utc": "2026-11-14T07:23:22.498183+00:00",
+      "finished_utc": "2026-11-14T07:23:32.148150+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 9.64986763799999,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 13,
+      "buggy_schedules": 10,
+      "error_event_count": 10,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r08.txt",
+      "log_sha256": "760713f56ad54ae89e66f88c257b4fb1318e17c9b8b1fdf923780f2a9b084f5e",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 10,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 9,
+      "position": 1,
+      "started_utc": "2026-11-14T07:23:32.157553+00:00",
+      "finished_utc": "2026-11-14T07:23:42.008204+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 9.850575077999963,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 10,
+      "error_event_count": 10,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r09.txt",
+      "log_sha256": "bd92452feea4e7eef13f7c320e1472dfe3e423d34199c027cbb540e0b898838f",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 10,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 9,
+      "position": 2,
+      "started_utc": "2026-11-14T07:23:42.016934+00:00",
+      "finished_utc": "2026-11-14T07:23:51.814408+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 9.797372645999985,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 10,
+      "error_event_count": 10,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r09.txt",
+      "log_sha256": "6d81c5273d4a538b9907d5376d4f674e9f393bd1c7706b9bd72f73158654c175",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 10,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity3964",
+      "repeat": 10,
+      "position": 1,
+      "started_utc": "2026-11-14T07:23:51.823878+00:00",
+      "finished_utc": "2026-11-14T07:24:00.580572+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 8.756583565000028,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 9,
+      "error_event_count": 9,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity3964_r10.txt",
+      "log_sha256": "b3cd2627ba76c13e1c10c7dcae62c0bae6d3d3eb6f963d08f463354622d4c7ba",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 9,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        185480
+      ],
+      "default_coverage_hash_id": 185480,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    },
+    {
+      "case": "lazy01",
+      "condition": "capacity1990",
+      "repeat": 10,
+      "position": 2,
+      "started_utc": "2026-11-14T07:24:00.590290+00:00",
+      "finished_utc": "2026-11-14T07:24:12.198479+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 11.608093326000017,
+      "binary_sha256": "e629771875c451b7e27388d335c4d84e995ecdb38a14f3032d902d23d4e7822c",
+      "schedules": 39,
+      "first_error": 8,
+      "buggy_schedules": 12,
+      "error_event_count": 12,
+      "inner_timeouts": 0,
+      "log": "lazy01/capacity1990_r10.txt",
+      "log_sha256": "8fc22f6c3247376a32758a40f1b13690bf4bc6b6f7ebd8c11d233a6292c33eae",
+      "complete": true,
+      "eligible": true,
+      "integrity_ok": true,
+      "issues": [],
+      "schedule_sequence_sha256": "dda68fd4ae2544888b7782e88e342af79e1833c57cfa7cd46e36d79f8a4d3ee5",
+      "error_labels": [
+        "assertion failed"
+      ],
+      "assertion_error_events": 12,
+      "other_error_events": 0,
+      "coverage_hash_ids": [
+        8
+      ],
+      "default_coverage_hash_id": 8,
+      "coverage_hash_observation_count": 1,
+      "schedule_payload_complete": true,
+      "prefix_schedule_count": 0,
+      "cleanup_killed_before": 0,
+      "cleanup_killed_after": 0,
+      "budget_reached": false,
+      "reported_round_total": 39,
+      "unexecuted_budget_sentinel": false,
+      "parse_problems": []
+    }
+  ],
+  "warnings": [
+    "Requested schedule hashes describe printed requests, not observed memory-operation traces.",
+    "Synthetic sentinel and native layout probes are excluded from workload denominators.",
+    "The default coverage hash is auxiliary stdout evidence; it is reported only when exactly one such value appears. All values remain in each trial record.",
+    "Capacity can change a local outcome without explaining the historical paper discrepancy.",
+    "Repeated trials on one host may be dependent; descriptive means and sample SD are reported.",
+    "All estimates are withheld if any batch integrity or design check fails.",
+    "A complete driver invocation may end at its schedule budget; bounded completions are excluded from complete-enumeration estimates.",
+    "Binary hashes are captured before each call; executables are not retained in the archive."
+  ],
+  "archive_manifest_file_count": 304
+}

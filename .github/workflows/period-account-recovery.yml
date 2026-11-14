@@ -57,6 +57,7 @@ jobs:
           git add -- "$RECOVERY_DEST"
           python3 scripts/check_repository.py --staged
       - name: Publish the exact archive through ordinary Git history
+        timeout-minutes: 8
         if: always() && steps.archive.outcome == 'success'
         env:
           REPO_TOKEN: ${{ github.token }}

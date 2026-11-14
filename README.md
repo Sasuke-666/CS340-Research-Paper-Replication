@@ -6,6 +6,48 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 (ICSE 2022). The group confirmed its selection to the project maintainer on
 7 November 2026. This is the date of that confirmation.
 
+## Third-week study — 14 November 2026
+
+The [current English report](report/EXPANDED_REPORT.md) includes the original
+five-case comparison, the separately submitted independent `account` host,
+and the controlled shared-memory layout study registered in
+[`bddb831`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/commit/bddb831319679c30586d9bbe689fb11b897f1a14).
+The [new protocol](experiments/2026-11-14/LAYOUT_PROTOCOL.md) compares the released
+PERIOD driver (`capacity1990`) with a copy changing just one array-capacity
+constant (`capacity3964`). Native runtime and benchmark code are unchanged.
+Both arms use the same built binary and host within each case, with fresh
+private IPC state and ten AB/BA pairs for each of `account` and `lazy01`.
+The original [workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202)
+archived twenty complete `lazy01` invocations. Its `account` job ended with
+failure; the raw result artifact and job log remained unavailable after two
+final checks. Its actual attempt count and scientific outcomes remain unknown.
+The [original final observations](experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json)
+are preserved. The [separate recovery protocol](experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md)
+was published in `ea273fe4` before
+[account recovery run 43575584325](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325).
+It fixes twenty new account invocations using the original measurement bytes
+on a new host. The original lazy01 and recovery account batches have separate
+audits and are never pooled with the missing original account measurements.
+This is a separate diagnostic question and evidence scope.
+
+Both readable case batches have twenty complete eligible calls and ten pairs.
+The original lazy01 archive has 304 outer-manifest entries; recovery account has
+571. Every entry passed an independent hash check. The one-constant repair
+changes the observed feedback hash while keeping the requested schedules
+unchanged: 65 for account and 39 for lazy01. Corrected first-failure positions
+remain 10.200 ± 0.632 and 8.200 ± 0.422, respectively, against paper references
+2 and 3. Timing and failure-yield changes have mixed directions. These results
+support the existing **partially reproduced** verdict and narrow the diagnosis;
+they do not justify a general speed or detection improvement. See report
+Tables 10–12 and Figure 4 for the actual samples and paired differences.
+
+`make audit` also verifies the merged member batch, including its 880 manifest
+entries and twenty original logs. The updated report includes a complete setup
+deviations table in its exported PDF, alongside source modifications and actual
+contribution records. See the [course-evidence review](docs/QUALITY_REVIEW_20261114.md),
+[current member actions](docs/MEMBER_ACTIONS_ZH.md) and
+[talk and defence outline](presentation/TALK_OUTLINE.md).
+
 ## Member submissions — 8 November 2026
 
 Both member submissions are integrated into the default branch with their
@@ -35,7 +77,7 @@ Read the [expanded English stage report](report/EXPANDED_REPORT.md) for the
 current study, claim-by-claim assessment and limitations. The
 [historical pilot report](report/PILOT_REPORT.md) remains available with its
 original evidence. The overall work is a reduced-scale replication in progress.
-The [dated progress record](docs/WEEKLY_PROGRESS.md) separates the actual two
+The [dated progress record](docs/WEEKLY_PROGRESS.md) preserves the actual
 weeks of work, and the [expanded validation record](docs/VALIDATION_EXPANDED_20261107.md)
 links the 98-test result and independent evidence audits.
 
@@ -118,7 +160,9 @@ make audit
 ```
 
 `make audit` checks the historical pilot/follow-up archive, the original-driver
-comparison and the compatible-driver comparison. Its comparison targets also
+comparison, the compatible-driver comparison, the independent member batch
+and the controlled layout diagnostic.
+Its comparison targets also
 verify startup-failure manifests and compare checked-in summaries against an
 independent recount without rewriting them. The historical archive has 126
 manifest files and 40 command logs; its recorded fixed replay signatures were
@@ -266,6 +310,40 @@ four-thread completion follow-up uses 240 seconds. Whole-driver elapsed time
 includes calibration and reporting. Its interpretation differs
 from native target execution time and from the paper's workstation timings.
 
+## Reproduce the controlled layout diagnostic
+
+Use the same disposable x86_64 Linux and Docker prerequisites as above. Each
+case builds once and runs twenty invocations serially. The two capacity conditions
+alternate AB/BA. Each invocation has a 120-second watchdog; the wrapper bounds
+the container phase at 3,000 seconds and the image pull at 420 seconds. Actual
+elapsed time depends on the host and download cache. Do not run inside a shared
+container with other workloads using IPC key 1111.
+
+```bash
+LAYOUT_ROOT="results/local-layout-$(date -u +%Y%m%dT%H%M%SZ)"
+for STUDY_CASE in account lazy01; do
+  bash scripts/period_container_layout.sh "$STUDY_CASE" "$LAYOUT_ROOT/$STUDY_CASE"
+done
+LAYOUT_SUMMARY_ROOT=$(mktemp -d)
+python3 scripts/summarize_layout.py "$LAYOUT_ROOT" \
+  --output "$LAYOUT_SUMMARY_ROOT/layout"
+```
+
+Inspect the actual denominator and any integrity findings. Native structure and
+scheduling probes are separate from workload counts. Synthetic decoder sentinels
+are explicitly labelled. Every raw file is retained, including a failed or
+censored attempt. The one-constant change and fresh IPC controls are recorded
+with source hashes and per-invocation cleanup logs. Requested schedule sequences
+are compared independently; they do not provide an actual memory-operation trace.
+The historical experiments retain their original source and state behavior.
+
+For the archived 14 November evidence, `make audit-layout` checks two explicit
+case scopes: [original lazy01](results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md)
+and [recovery account](results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md).
+The original account scope has twenty planned invocations and unknown actual
+counts. Its absence is not a zero-detection observation. Recovery was triggered
+by evidence availability, before any recovery outcomes were known.
+
 ## Regenerate figures and export Word/PDF
 
 Use a Python environment with the figure and report dependencies. The expanded
@@ -285,15 +363,20 @@ python3 scripts/summarize_comparison.py \
   --cases reorder_4 --repeats 3 \
   --output results/2026-11-07/summaries/comparison-42384122902
 python3 scripts/plot_comparison_results.py
+make audit-layout
+python3 scripts/plot_layout_results.py
 python3 scripts/export_stage_report.py \
   --source report/EXPANDED_REPORT.md --output report/export
 ```
 
 The expanded figures are saved under `results/2026-11-07/figures/` as
 `expanded_schedule_comparison.svg` and `expanded_paper_gaps.svg`. Checked-in SVGs
-can be viewed without installing plotting dependencies. The export command
-creates `CS340_PERIOD_Expanded_Report_20261107.docx` and
-`CS340_PERIOD_Expanded_Report_20261107.pdf` in `report/export/`; exporting does
+can be viewed without installing plotting dependencies. The separately scoped
+capacity study produces `results/2026-11-14/figures/layout_comparison.svg`, using
+only its independently audited summary and displaying actual metric denominators.
+The export command
+creates `CS340_PERIOD_Expanded_Report_20261114.docx` and
+`CS340_PERIOD_Expanded_Report_20261114.pdf` in `report/export/`; exporting does
 not execute experiments or alter observations.
 
 The [separate Chinese member action checklist](docs/MEMBER_ACTIONS_ZH.md) and
@@ -302,7 +385,7 @@ work still requiring actual completion. To create an editable Word checklist:
 
 ```bash
 python3 scripts/export_member_checklist.py \
-  --output report/export/CS340_Member_Action_Checklist_20261107.docx
+  --output report/export/CS340_Member_Action_Checklist_20261114.docx
 ```
 
 
@@ -312,12 +395,12 @@ python3 scripts/export_member_checklist.py \
 | --- | --- |
 | `scripts/`, `Makefile` | Build, run, parse, verify and summarize commands |
 | `tests/` | Repository and experiment-helper tests |
-| `experiments/2026-11-07/` | Protocols and explicit amendments |
-| `results/2026-11-07/` | Separate raw evidence batches, hashes and derived results |
+| `experiments/2026-11-07/`, `experiments/2026-11-14/` | Protocols and explicit amendments |
+| `results/2026-11-07/`, `results/2026-11-14/`, `results/member-reruns/` | Separate raw evidence batches, hashes and derived results |
 | `report/EXPANDED_REPORT.md` | Current English stage report |
 | `report/PILOT_REPORT.md` | Historical pilot report |
 | `docs/` | Requirements, sources, deviations, team and review records |
-| `presentation/` | Presentation work pending the separate course instructions |
+| `presentation/` | Evidence-linked bilingual explanation and defence outline; final format awaits the separate course instructions |
 
 ## Team and course commitments
 
@@ -330,8 +413,9 @@ The three confirmed member identities are recorded in [the team table](docs/TEAM
 | 何博宇 | 1240000576 | heboyu0714 |
 
 The fourth member remains to be confirmed through the course's group allocation
-process. Public repository access is available; each contributor's write access,
-registration receipt and individual contribution still need their actual checks.
+process. Both member accounts had verified write access on 8 November and their
+substantive submissions are merged, as documented above. The registration receipt
+and any later course allocation still need their actual evidence.
 
 Every commit message includes the actual responsible student's ID and full name,
 including merge and squash messages. Each member uses their own account for
@@ -340,8 +424,8 @@ before Sunday 23:59; late pushes do not recover missed weeks. The source does
 not specify the check timezone, so confirm the course announcement and submit
 early using the group's stated local planning time.
 
-A student's independent rerun and group review remain separate human tasks.
-Use the [Chinese member action list](docs/MEMBER_ACTIONS_ZH.md),
+The submitted independent rerun is complete. Each member's own understanding and
+any new review still require actual participation. Use the [Chinese member action list](docs/MEMBER_ACTIONS_ZH.md),
 [individual review template](docs/reviews/REVIEW_TEMPLATE.md) and
 [course requirement checklist](docs/COURSE_REQUIREMENTS.md).
 Presentation is tentatively 1 December 2026. Its separate rubric and the exact

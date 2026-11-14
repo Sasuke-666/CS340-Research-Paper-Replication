@@ -130,9 +130,55 @@ Personal oral explanations and member-to-member cross-review are not certified
 by these automated numerical checks and are not added as instructor Git rules.
 No additional experiment or final `v1.0` release was made for this integration.
 
+## Third full week after formation — 9 to 15 November
+
+14 November: commit `bddb831319679c30586d9bbe689fb11b897f1a14` registered the
+capacity-only diagnostic before its measurements and added the isolated runner,
+container wrapper, workflow and source-patch checks. The
+[push-triggered workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202)
+was created at 07:19:28 UTC (15:19:28 Macau/Beijing). This is server-side evidence
+that substantive work was pushed in the 9–15 November planning week. The
+[registered protocol](../experiments/2026-11-14/LAYOUT_PROTOCOL.md) preserves all
+planned attempts and keeps its new host scopes separate from 7 and 8 November.
+
+The original lazy01 archive was preserved by commit `1b92bed` after twenty
+complete calls. The original account job finished with failure at 08:16:50 UTC;
+its artifact and job log were unavailable in two final inspections. Its actual
+attempt count and failure cause remain unknown. The complete API observations
+are retained under `experiments/2026-11-14/account-evidence-failure`. Registration
+`ea273fe4` and the push-triggered recovery run `43575584325`, created at
+08:23:14 UTC (16:23:14 Macau/Beijing), fix a new, separately scoped twenty-call
+account batch using the exact original measurement code. The recovery is
+triggered by lost evidence, with no original scientific outcomes available for
+selection. It preserves original raw bytes through Git before a secondary ZIP.
+
+Recovery run `43575584325` completed successfully at 08:32:48 UTC. Its raw
+archive reached main in commit `8fbc34d` before the backup upload. Both readable
+case batches now contain twenty complete eligible invocations and ten pairs,
+with no timeout or budget censoring. The separate audit summaries preserve
+their actual CPU/host scopes and leave the original account denominator unknown.
+The verified correction changes feedback hashes, preserves requested schedules
+and leaves large first-failure gaps. Mixed timing/failure-yield effects are
+reported directly, without a general improvement claim.
+
+The same revision work adds the merged member batch to the default audit and
+continuous checks, places its independent-host statistics in the report, and
+puts the complete consequential-deviation table inside the exported report.
+The current member list credits the two completed submissions and records only
+new suggested review work. The presentation outline links each claim to its
+raw evidence and explains the causal limits of requested schedule descriptions.
+The [course-evidence mapping](QUALITY_REVIEW_20261114.md) records why these
+changes matter to the supplied criteria. Actual experiment results and final
+verification are recorded in [the dated validation receipt](VALIDATION_20261114.md).
+
+This week does not replace, backdate or duplicate an earlier week's evidence.
+The group weekly-push rule remains separate from the requirement for each
+member to submit substantive work from their own account. Existing member
+authors and original commits remain intact.
+
 ## Subsequent internal milestones
 
-15 November: independent member rerun and evidence-based discrepancy review.
+15 November: finish the current diagnostic interpretation and member cross-review.
 22 November: finish the English report and extension interpretation.
 29 November: presentation rehearsal and final clean-environment reproduction.
 These are proposed internal milestones, not additional instructor deadlines.

@@ -37,6 +37,10 @@ jobs:
         run: python scripts/audit_period_results.py
       - name: Audit comparison batches and published summaries
         run: make audit-comparisons PYTHON=python
+      - name: Audit merged independent member evidence
+        run: make audit-member PYTHON=python
+      - name: Audit controlled layout evidence and published conclusions
+        run: make audit-layout PYTHON=python
       - name: Build readable stage-report exports
         if: matrix.python-version == '3.12'
         run: |
@@ -50,7 +54,7 @@ jobs:
           import json,os,subprocess,zipfile
           from pathlib import Path
           paths=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
-          out=Path(os.environ['RUNNER_TEMP'])/'CS340_Progress_20261107.zip'
+          out=Path(os.environ['RUNNER_TEMP'])/'CS340_Progress_20261114.zip'
           with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as bundle:
               for name in paths:
                   if not name: continue
@@ -67,6 +71,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: cs340-stage-snapshot-${{ github.sha }}
-          path: ${{ runner.temp }}/CS340_Progress_20261107.zip
+          path: ${{ runner.temp }}/CS340_Progress_20261114.zip
           if-no-files-found: error
           retention-days: 30
