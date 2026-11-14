@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "original_run_id": "43570556202",
+  "original_job_id": "132373799340",
+  "original_protocol_commit": "bddb831319679c30586d9bbe689fb11b897f1a14",
+  "original_artifact_name": "period-layout-account-43570556202",
+  "activation_basis": "original account evidence transfer finished unsuccessfully and no readable original account artifact is available",
+  "original_job_final_status": "completed",
+  "original_job_final_conclusion": "failure",
+  "original_job_completed_at": "2026-11-14T08:16:50Z",
+  "artifact_readable": false,
+  "artifact_check_utc": "2026-11-14T08:18:16Z",
+  "artifact_check_url": "https://api.github.com/repos/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202/artifacts",
+  "preserved_original_metadata_path": "experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json",
+  "preserved_original_log_path": "experiments/2026-11-14/account-evidence-failure/account_job_log_api_response_081816.json",
+  "note": "Activated after the original run completed and two final evidence checks found no readable account artifact or job log. Original scientific outcomes and actual invocation count remain unknown. New measurements form a separate fixed batch."
+}

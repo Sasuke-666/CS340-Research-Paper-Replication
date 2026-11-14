@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-11-14T08:17:33Z",
+  "original_run_id": "43570556202",
+  "original_job_id": "132373799340",
+  "original_job_status": "completed",
+  "original_job_conclusion": "failure",
+  "original_job_started_at": "2026-11-14T07:19:32Z",
+  "original_job_completed_at": "2026-11-14T08:16:50Z",
+  "measurement_step_completed_at": "2026-11-14T07:30:52Z",
+  "measurement_step_conclusion": "failure",
+  "artifact_count": 1,
+  "artifact_names": [
+    "period-layout-lazy01-43570556202"
+  ],
+  "account_artifact_readable": false,
+  "account_log_readable": false,
+  "note": "Job metadata marks upload step in_progress despite completed failed job. No account raw records available; actual trial counts and measurement failure cause remain unknown. One delayed finalization recheck is planned."
+}
+

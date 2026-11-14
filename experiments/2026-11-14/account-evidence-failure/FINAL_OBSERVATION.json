@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-11-14T08:18:16Z",
+  "original_run_id": "43570556202",
+  "original_job_id": "132373799340",
+  "original_job_status": "completed",
+  "original_job_conclusion": "failure",
+  "original_job_completed_at": "2026-11-14T08:16:50Z",
+  "account_artifact_present": false,
+  "account_artifact_readable": false,
+  "artifact_count": 1,
+  "account_job_log_readable": false,
+  "account_job_log_error": "GitHub API error 404 BlobNotFound",
+  "measurement_step_conclusion": "failure",
+  "measurement_step_completed_at": "2026-11-14T07:30:52Z",
+  "measurement_failure_cause": "unknown; raw account job log and artifacts were not available after original run completion",
+  "note": "Read-only recheck after completed final run. No account scientific outcome was available to select a replacement batch. Original planned invocations=20; actual completed count remains unknown."
+}

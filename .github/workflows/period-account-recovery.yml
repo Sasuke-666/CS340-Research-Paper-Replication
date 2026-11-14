@@ -1,0 +1,97 @@
+name: PERIOD conditional account evidence recovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - experiments/2026-11-14/ACCOUNT_RECOVERY_ACTIVATION.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: period-account-evidence-recovery
+  cancel-in-progress: false
+
+jobs:
+  recovery:
+    runs-on: ubuntu-24.04
+    # Leave preservation time after the original wrapper's pull/build/run limits.
+    timeout-minutes: 80
+    permissions:
+      contents: write
+    env:
+      RECOVERY_DEST: results/2026-11-14/layout-recovery-${{ github.run_id }}
+    steps:
+      - name: Check out the public event revision without credentials
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]
+          git init .
+          git remote add origin https://github.com/Sasuke-666/CS340-Research-Paper-Replication.git
+          git fetch --no-tags origin main
+          git checkout --detach "$GITHUB_SHA"
+      - name: Verify conditional activation and recover exact original runner bytes
+        id: prepare
+        run: |
+          RECOVERY_WORK="$RUNNER_TEMP/account-recovery-$GITHUB_RUN_ID"
+          RECOVERY_ZIP="$RUNNER_TEMP/account-recovery-$GITHUB_RUN_ID.zip"
+          printf 'RECOVERY_WORK=%s\nRECOVERY_ZIP=%s\n' "$RECOVERY_WORK" "$RECOVERY_ZIP" >> "$GITHUB_ENV"
+          python3 scripts/archive_layout_recovery.py prepare \
+            --root . \
+            --activation experiments/2026-11-14/ACCOUNT_RECOVERY_ACTIVATION.json \
+            --work "$RECOVERY_WORK"
+      - name: Run the complete registered account sample once
+        id: measurement
+        run: |
+          bash "$RECOVERY_WORK/pinned-runner/scripts/period_container_layout.sh" \
+            account "$RECOVERY_WORK/evidence" 10 120
+      - name: Preserve every original evidence byte before any artifact upload
+        if: always() && steps.prepare.outcome == 'success'
+        id: archive
+        run: |
+          python3 "$RECOVERY_WORK/registration/archive_helper.py" archive \
+            --work "$RECOVERY_WORK" --destination "$RECOVERY_DEST"
+          git add -- "$RECOVERY_DEST"
+          python3 scripts/check_repository.py --staged
+      - name: Publish the exact archive through ordinary Git history
+        if: always() && steps.archive.outcome == 'success'
+        env:
+          REPO_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -c core.hooksPath=/dev/null commit \
+            -m '[1240001201] 孙皓扬: preserve complete account recovery attempt before artifact upload' \
+            -m 'Conditional evidence-transfer recovery. Original attempts remain linked; inspect the archived outcomes and generic assistance statement.'
+          AUTH=$(printf 'x-access-token:%s' "$REPO_TOKEN" | base64 -w0)
+          printf '::add-mask::%s\n' "$AUTH"
+          published=0
+          for attempt in 1 2 3; do
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" fetch origin main
+            git -c core.hooksPath=/dev/null rebase origin/main
+            if git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:main; then
+              published=1
+              break
+            fi
+          done
+          test "$published" = 1
+      - name: Create one independent backup ZIP
+        if: always() && steps.prepare.outcome == 'success'
+        id: backup
+        run: |
+          python3 "$RECOVERY_WORK/registration/archive_helper.py" zip \
+            --work "$RECOVERY_WORK" --zip-output "$RECOVERY_ZIP"
+      - name: Upload the single ZIP as the secondary preservation channel
+        if: always() && steps.backup.outcome == 'success'
+        timeout-minutes: 8
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-account-recovery-${{ github.run_id }}
+          path: ${{ env.RECOVERY_ZIP }}
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 90
