@@ -1,0 +1,38 @@
+{
+  "activation_record": {
+    "activation_basis": "original account evidence transfer finished unsuccessfully and no readable original account artifact is available",
+    "artifact_check_url": "https://api.github.com/repos/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202/artifacts",
+    "artifact_check_utc": "2026-11-14T08:18:16Z",
+    "artifact_readable": false,
+    "enabled": true,
+    "note": "Activated after the original run completed and two final evidence checks found no readable account artifact or job log. Original scientific outcomes and actual invocation count remain unknown. New measurements form a separate fixed batch.",
+    "original_artifact_name": "period-layout-account-43570556202",
+    "original_job_completed_at": "2026-11-14T08:16:50Z",
+    "original_job_final_conclusion": "failure",
+    "original_job_final_status": "completed",
+    "original_job_id": "132373799340",
+    "original_protocol_commit": "bddb831319679c30586d9bbe689fb11b897f1a14",
+    "original_run_id": "43570556202",
+    "preserved_original_log_path": "experiments/2026-11-14/account-evidence-failure/account_job_log_api_response_081816.json",
+    "preserved_original_metadata_path": "experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json"
+  },
+  "archive_helper_sha256": "cdee96ac62d27b38418582e19132691149a0658092a764a087591b9640fa34fb",
+  "case": "account",
+  "depth": 3,
+  "measurement_source_sha256": {
+    "period_container_layout.sh": "85fa370e3274c5809cd59d6244f7a2e374af6f00547ac684d9fba643f2e91276",
+    "run_period_comparison.py": "2c1937d0aabe004bc05a7bdeb9d6c9cca2616f24956aca2d156a464f7c927ef2",
+    "run_period_layout.py": "36d51ac69e676b1ec4a02c7c88c14f78c08c2005d9b113ac9b2293f8f5fe4a35",
+    "run_period_pilot.py": "475a6fcf3e7a0190997921216ec5349d77db59da2c44a5a64fb131eed31932a7"
+  },
+  "original_job_id": "132373799340",
+  "original_protocol_commit": "bddb831319679c30586d9bbe689fb11b897f1a14",
+  "original_run_id": "43570556202",
+  "outcomes_used_for_activation": false,
+  "outer_timeout_seconds": 120,
+  "planned_repetitions_per_condition": 10,
+  "reason": "Evidence-transfer recovery only; full fixed account sample on a new host",
+  "recovery_registration_commit": "ea273fe4b6e49bd1f8f5c5b7c964c02aaf22d144",
+  "recovery_run_id": "43575584325",
+  "schedule_budget": 10000
+}

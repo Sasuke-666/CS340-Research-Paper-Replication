@@ -1,0 +1,10 @@
+{
+  "key_absent": true,
+  "killed_target_pids": [],
+  "post_errno": 2,
+  "post_shmget": -1,
+  "previous_errno": 2,
+  "previous_segment": null,
+  "previous_shmid": -1,
+  "scope": "Container-private IPC/PID namespaces; key 1111 and this built binary only"
+}

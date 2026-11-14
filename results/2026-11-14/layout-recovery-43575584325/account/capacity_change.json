@@ -1,0 +1,6 @@
+{
+  "adapted_sha256": "3b2c8422de8654b2dbbb3730b4c7f289566768f4edaf3ead13ab4b24b3cf801d",
+  "only_changed_declaration": "SHARE_ARRAY_SIZE = 1990 -> SHARE_ARRAY_SIZE = 3964",
+  "original_sha256": "c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f",
+  "runtime_sha256": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61"
+}

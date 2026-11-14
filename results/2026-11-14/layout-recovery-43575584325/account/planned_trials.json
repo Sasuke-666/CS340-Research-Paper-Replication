@@ -1,0 +1,142 @@
+[
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 1
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 1
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 2
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 2
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 3
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 3
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 4
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 4
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 5
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 5
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 6
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 6
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 7
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 7
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 8
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 8
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 9
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 9
+  },
+  {
+    "case": "account",
+    "condition": "capacity3964",
+    "phase": "layout",
+    "position": 1,
+    "repeat": 10
+  },
+  {
+    "case": "account",
+    "condition": "capacity1990",
+    "phase": "layout",
+    "position": 2,
+    "repeat": 10
+  }
+]

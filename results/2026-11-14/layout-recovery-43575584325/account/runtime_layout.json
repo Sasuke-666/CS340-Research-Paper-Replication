@@ -1,0 +1,18 @@
+{
+  "observed_layout": {
+    "offsets": {
+      "M": 12,
+      "N": 8,
+      "TestedBounds": 16,
+      "kp": 220,
+      "kpLoc": 8148,
+      "kpNumArray": 20,
+      "kpOrder": 16076,
+      "time": 0
+    },
+    "sizeof": 24008
+  },
+  "probe_source_sha256": "35bb4c3eca97e77965d3be081db400c2c94ff21c094689f61772e8836257ff53",
+  "runtime_source_sha256": "6e5001f8a79851f24f3074b4a6d84cf2550b52b947946f8a330f8877e44e4f61",
+  "scope": "Native sizeof/offsetof compiled from actual pinned runtime declaration"
+}

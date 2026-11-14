@@ -1,0 +1,25 @@
+{
+  "conditions": {
+    "capacity1990": {
+      "decoded_location": 101,
+      "decoded_order": 202,
+      "offsets": {
+        "kp": 220,
+        "kpLoc": 4200,
+        "kpOrder": 8180
+      }
+    },
+    "capacity3964": {
+      "decoded_location": 202,
+      "decoded_order": 303,
+      "offsets": {
+        "kp": 220,
+        "kpLoc": 8148,
+        "kpOrder": 16076
+      }
+    }
+  },
+  "expected_location_value": 202,
+  "expected_order_value": 303,
+  "scope": "Synthetic sentinel bytes using the compiled runtime offsets; no workload execution"
+}

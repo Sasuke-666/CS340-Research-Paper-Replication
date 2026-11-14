@@ -1,0 +1,4 @@
+Started UTC: 2026-11-14T08:24:26.912865+00:00
+Command: ["g++", "-std=c++11", "/evidence/source/runtime_layout_probe.cpp", "-o", "/workdir/PERIOD/cs340_runtime_layout_probe"]
+
+Runner exit_code=0 timed_out=False elapsed_seconds=0.065072
