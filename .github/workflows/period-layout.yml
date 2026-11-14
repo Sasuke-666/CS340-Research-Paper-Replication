@@ -1,0 +1,115 @@
+name: PERIOD controlled shared-memory layout study
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - experiments/2026-11-14/LAYOUT_PROTOCOL.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: period-layout-study
+  cancel-in-progress: false
+
+jobs:
+  layout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        case: [account, lazy01]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Run preregistered capacity comparison
+        run: bash scripts/period_container_layout.sh '${{ matrix.case }}' "$RUNNER_TEMP/period-layout" 10 120
+      - name: Preserve successful and failed attempts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-layout-${{ matrix.case }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/period-layout/
+          if-no-files-found: error
+          retention-days: 90
+
+  archive:
+    needs: layout
+    if: always() && !cancelled()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: period-layout-*-${{ github.run_id }}
+          path: ${{ runner.temp }}/layout-downloads
+      - name: Archive the original evidence bytes
+        env:
+          STUDY_RUN: ${{ github.run_id }}
+          STUDY_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, shutil
+          from pathlib import Path
+          source = Path(os.environ['RUNNER_TEMP']) / 'layout-downloads'
+          run = os.environ['STUDY_RUN']
+          dest = Path('results/2026-11-14') / ('layout-' + run)
+          if dest.exists():
+              raise SystemExit('Refuse to replace an existing evidence batch')
+          dest.mkdir(parents=True)
+          counts = {}
+          for folder in sorted(source.iterdir()):
+              prefix, suffix = 'period-layout-', '-' + run
+              if not folder.name.startswith(prefix) or not folder.name.endswith(suffix):
+                  raise SystemExit('Unexpected artifact name')
+              case = folder.name[len(prefix):-len(suffix)]
+              if case not in {'account', 'lazy01'} or case in counts:
+                  raise SystemExit('Unexpected or duplicated case')
+              for path in sorted(folder.rglob('*')):
+                  if path.is_symlink():
+                      raise SystemExit('Evidence symlink is not accepted')
+                  if not path.is_file():
+                      continue
+                  if path.stat().st_size > 50_000_000:
+                      raise SystemExit('Evidence exceeds the course file-size limit')
+                  target = dest / case / path.relative_to(folder)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(path, target)
+              index = dest / case / 'records.json'
+              counts[case] = len(json.loads(index.read_text())) if index.exists() else None
+          files = []
+          for path in sorted(dest.rglob('*')):
+              if path.is_file():
+                  raw = path.read_bytes()
+                  files.append({'path': path.relative_to(dest).as_posix(),
+                                'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()})
+          (dest / 'archive_manifest.json').write_text(json.dumps({
+              'run_id': run, 'protocol_commit': os.environ['STUDY_SHA'],
+              'note': 'Preregistered capacity1990 versus capacity3964 diagnostic; preserve every attempt and inspect completion before interpretation',
+              'command_records': counts, 'files': files}, indent=2) + '\n')
+          print(json.dumps({'directory': str(dest), 'files': len(files), 'records': counts}))
+          PY
+          git add -- "results/2026-11-14/layout-$GITHUB_RUN_ID"
+          python3 scripts/check_repository.py --staged
+      - name: Publish exact evidence archive
+        env:
+          REPO_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -c core.hooksPath=/dev/null commit -m '[1240001201] 孙皓扬: archive controlled shared-memory layout experiment' -m 'Automated evidence publication requested by the owner. Outcomes remain separate from historical batches; see docs/AI_USAGE.md.'
+          AUTH=$(printf 'x-access-token:%s' "$REPO_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:main
