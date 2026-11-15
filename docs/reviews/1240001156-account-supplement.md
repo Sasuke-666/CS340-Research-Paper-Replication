@@ -1,15 +1,32 @@
-# Supplementary member review: account reruns and host scope
+# Supplementary evidence audit: account observation provenance and limits
 
 **Prepared by:** 李扬烁, student ID 1240001156, GitHub `barkhorn996`
 
 **Review date:** 14 November 2026, Asia/Shanghai (UTC+08:00)
 
 **Reviewed repository state:** `fd0d807f39a9d972dcd4929486d002f53ae4e4f3`
-**Scope:** review of the independent account comparison, the original primary account batch, and the 14 November capacity diagnostic
+**Scope:** provenance review of the independent account comparison, the original primary account batch, and the 14 November capacity diagnostic
 
 This supplement adds no new workload measurements. It checks the relationships among existing batches, reproduces the reported descriptive statistics from their records, and audits whether the current report states a stronger causal conclusion than the evidence supports. AI assistance performed the requested comparison and drafting; personal oral explanation and member-to-member cross-review remain pending.
 
-## 1. Questions reviewed
+## 1. Provenance and contribution boundary
+
+This document is a secondary analysis of already published evidence. It must not be presented as a new account experiment or as independent ownership of the 14 November capacity study.
+
+| Material in this document | Producer and date | Role in PR #3 |
+| --- | --- | --- |
+| Twenty `account` calls comparing `period` and `author_serialized_abi16` on the WSL2 host | 李扬烁, 8 November 2026; previously submitted in PR #2 and merged into `main` | Primary measurements from the author's earlier independent work; reused here for comparison |
+| Original five-case account measurements and summary | Group repository work published 7 November 2026 | Secondary data; inspected and compared, not independently produced in PR #3 |
+| Capacity1990 versus capacity3964 protocol, execution, probes, source patch, recovery run and scientific interpretation | Group repository work published 14 November 2026 | Secondary data and prior analysis; cited and audited, not independently produced in PR #3 |
+| Paper Table 2 references | Wen et al., ICSE 2022 | External reference values |
+| Normalized request-sequence hashing across the member and original batches | Work added in PR #3 using existing raw logs | New analytical check, but no new workload execution |
+| Cross-batch descriptive comparison and report-language audit | Work added in PR #3 | Secondary review contribution |
+
+The new work in this PR is therefore limited to evidence organization and independent analysis. It does not claim authorship of the capacity correction, the native-layout probe, the recovery protocol, the recovery run, or their separate scientific conclusions.
+
+PR #3 should be classified as a **supplementary evidence audit** unless the group separately determines that its analytical checks warrant another contribution category. It should not be described as a new experimental extension.
+
+## 2. Questions reviewed
 
 1. Which account metrics agree across the three observation sets?
 2. Which differences are controlled within one batch?
@@ -17,7 +34,7 @@ This supplement adds no new workload measurements. It checks the relationships a
 4. Does the report accurately distinguish structural schedule agreement from failure-observation agreement?
 5. Does the report's explanation of the remaining first-failure gap use evidence consistent with the stated limits?
 
-## 2. Observation sets
+## 3. Observation sets
 
 | Set | Evidence path | Scope | Host and kernel | Methods or conditions |
 | --- | --- | --- | --- | --- |
@@ -29,7 +46,7 @@ All three sets use the same pinned upstream source revision `cb8deb9a176e5bb292d
 
 The first two sets compare two different driver implementations. The third set answers a different question: whether one change to the Python driver's key-point-array capacity changes behavior when both arms use the PERIOD scheduler. It is a mechanism diagnostic, not another PERIOD-versus-serialized baseline comparison.
 
-## 3. Recorded results
+## 4. Recorded results
 
 Values are mean plus or minus sample standard deviation with denominator `n - 1`; every complete arm has `n = 10`. First failure is the one-based schedule-test ordinal at which an assertion is first observed.
 
@@ -49,9 +66,9 @@ Paper Table 2 provides the following account references:
 | PERIOD | 2 | 65 | 26 |
 | Serial | 4 | 136 | 56 |
 
-## 4. What agrees
+## 5. What agrees
 
-### 4.1 Structural enumeration
+### 5.1 Structural enumeration
 
 Every account observation set reproduces the paper's two total enumeration counts under the selected implementation labels:
 
@@ -60,7 +77,7 @@ Every account observation set reproduces the paper's two total enumeration count
 
 The zero sample SD is a description of these finite repeated outputs, not proof of universal determinism. It supports the narrower claim that the released schedule generator produced the same requested count in every observed repetition.
 
-### 4.2 Independent member batch
+### 5.2 Independent member batch
 
 The independent batch is closest to two paper reference values:
 
@@ -72,13 +89,13 @@ The independent batch is closest to two paper reference values:
 
 These agreements support the structural schedule comparison and show a useful independent-host corroboration. They do not establish complete Table 2 replication because the PERIOD first-failure mean is still 8.8 versus 2.
 
-### 4.3 Original primary batch
+### 5.3 Original primary batch
 
 The original batch also reproduces both total enumeration counts, but its PERIOD first-failure mean is 10.1 and its serialized first-failure distribution is much more dispersed: 7.7 ± 7.889. Its serialized buggy-schedule mean is 49.2 versus the paper's 56.
 
 Thus the cross-host agreement is strongest for the structural schedule totals. Failure-related metrics are sensitive to the concrete run or host scope even when the printed enumeration is identical.
 
-## 5. Printed requests versus failure observations
+## 6. Printed requests versus failure observations
 
 As an additional check, I normalized ANSI control sequences, extracted the printed `test` lines from all account logs, and hashed the complete ordered sequence in each invocation.
 
@@ -95,9 +112,9 @@ This supports the report's distinction between a requested schedule and the real
 
 The result does not identify the realized mutex order in any invocation. The source-level account example in the report remains a conditional mechanism, not a measured trace. A claim that a particular first failure was caused by a particular thread order would require validated instrumentation of that execution.
 
-## 6. What changes across batches
+## 7. What changes across batches
 
-### 6.1 Independent rerun versus original primary batch
+### 7.1 Independent rerun versus original primary batch
 
 The following factors change together:
 
@@ -109,7 +126,7 @@ The following factors change together:
 
 The independent host is therefore a corroborating scope, not a controlled host intervention. Its lower wall times and different failure counts cannot be assigned separately to CPU, kernel, WSL2 scheduling, calibration or another environmental factor.
 
-### 6.2 Original capacities within the 14 November recovery
+### 7.2 Original capacities within the 14 November recovery
 
 The diagnosis is controlled differently. Within the recovery batch:
 
@@ -132,7 +149,7 @@ The correction aligns the location and order offsets and changes the observed de
 
 The capacity diagnostic therefore addresses a real implementation threat. It does not explain the larger first-failure gap between the independent host and the original batch, because those batches differ in multiple host and procedure dimensions.
 
-## 7. Report audit
+## 8. Report audit
 
 The reviewed report language is appropriately limited in the relevant sections:
 
@@ -149,7 +166,7 @@ No material overstatement was found in the report's account discussion. The curr
 
 One wording requirement should continue to be enforced: `author_serialized_abi16` is not proven identical to the paper's historical Serial executable. Its first-failure agreement in the independent batch is encouraging but is not evidence of historical implementation equivalence.
 
-## 8. Findings and conclusion
+## 9. Findings and conclusion
 
 The evidence supports the following statements:
 
@@ -168,7 +185,18 @@ The unresolved item is the cause of the PERIOD first-failure discrepancy. Existi
 
 A valid causal test would require a separately registered controlled factor or a verified execution trace. More text-only interpretation should not be used to claim that one of these possibilities has been established.
 
-## 9. Evidence links
+## 10. Contribution classification
+
+The following classification is provided so that the final contribution record can be accurate:
+
+- **Previously owned experiment:** the 8 November WSL2 account comparison and its 20 complete method calls.
+- **Secondary evidence reviewed:** the 7 November original account batch and the 14 November capacity study.
+- **New in PR #3:** normalization and hashing of all printed request sequences, cross-batch statistical comparison, and audit of report claims and limits.
+- **Not performed independently in PR #3:** capacity source modification, layout probe, synthetic sentinel test, recovery protocol design, recovery measurements, and the conditional mutex-order analysis of the benchmark source.
+
+No result in this document should be used to transfer authorship of the group's 7 November or 14 November experiments to the author of this review.
+
+## 11. Evidence links
 
 - Independent batch: `results/member-reruns/1240001156-account-20261108T122201Z/`
 - Independent summary: `results/member-reruns/1240001156-account-20261108T122201Z-summary/`
