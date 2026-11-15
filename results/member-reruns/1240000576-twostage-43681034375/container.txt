@@ -1,0 +1,210 @@
++ date -u
+Sun Nov 15 05:26:45 UTC 2026
++ cp -a /pin/. /workdir/PERIOD/
++ cd /workdir/PERIOD
++ export ROOT_DIR=/workdir/PERIOD
++ ROOT_DIR=/workdir/PERIOD
++ export PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ export LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ uname -a
+Linux period-study 7.0.0-1017-azure #17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
++ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="18.04.5 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.5 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
++ clang --version
+clang version 10.0.0 
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /workdir/PERIOD/clang+llvm/bin
++ gcc --version
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
++ python3 --version
+Python 3.6.9
++ getconf _NPROCESSORS_ONLN
+4
++ taskset -pc 1
+pid 1's current affinity list: 0-3
++ bash tool/install_staticAnalysis.sh
++ '[' -d /workdir/PERIOD/clang+llvm ']'
++ export ROOT_DIR=/workdir/PERIOD
++ ROOT_DIR=/workdir/PERIOD
++ export PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ export LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ export CC=clang
++ CC=clang
++ export CXX=clang++
++ CXX=clang++
++ cd /workdir/PERIOD/tool/staticAnalysis/LLVM-PASS
++ rm -rf CMakeFiles
++ rm -rf CMakeCache.txt
++ rm -rf SensitiveOperationsPass/CMakeFiles
++ rm -rf SensitiveOperationsPass/CMakeCache.txt
++ cmake .
+-- The C compiler identification is Clang 10.0.0
+-- The CXX compiler identification is Clang 10.0.0
+-- Check for working C compiler: /workdir/PERIOD/clang+llvm/bin/clang
+-- Check for working C compiler: /workdir/PERIOD/clang+llvm/bin/clang -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /workdir/PERIOD/clang+llvm/bin/clang++
+-- Check for working CXX compiler: /workdir/PERIOD/clang+llvm/bin/clang++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workdir/PERIOD/tool/staticAnalysis/LLVM-PASS
++ make
+Scanning dependencies of target SensitiveOperationsPass
+[ 10%] Building CXX object SensitiveOperationsPass/CMakeFiles/SensitiveOperationsPass.dir/SensitiveOperationsPass.cpp.o
+[ 20%] Linking CXX shared module libSensitiveOperationsPass.so
+[ 20%] Built target SensitiveOperationsPass
+Scanning dependencies of target DryRunPass
+[ 30%] Building CXX object DryRunPass/CMakeFiles/DryRunPass.dir/DryRunPass.cpp.o
+[ 40%] Linking CXX shared module libDryRunPass.so
+[ 40%] Built target DryRunPass
+Scanning dependencies of target instruFunction
+[ 50%] Building CXX object DryRunPass/CMakeFiles/instruFunction.dir/instruFunction.cpp.o
+[ 60%] Linking CXX static library libinstruFunction.a
+[ 60%] Built target instruFunction
+Scanning dependencies of target DBDSPass
+[ 70%] Building CXX object DBDSPass/CMakeFiles/DBDSPass.dir/DBDSPass.cpp.o
+[ 80%] Linking CXX shared module libDBDSPass.so
+[ 80%] Built target DBDSPass
+Scanning dependencies of target DBDSFunction
+[ 90%] Building CXX object DBDSPass/CMakeFiles/DBDSFunction.dir/DBDSFunction.cpp.o
+[100%] Linking CXX static library libDBDSFunction.a
+[100%] Built target DBDSFunction
++ cd /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode
++ make clean
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../dbds-clang-fast ../dbds-llvm-pass.so ../DBDSFunction.o ../dbds-clang-fast++
++ make
+[*] Checking for working 'llvm-config'...
+[*] Checking for working 'clang'...
+[+] All set and ready to build.
+clang -O3 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DAFL_PATH=\"/usr/local/lib/afl\" -DBIN_PATH=\"/usr/local/bin\" -DVERSION=\"1.01b\"  dbds-clang-fast.c -o ../dbds-clang-fast 
+ln -sf dbds-clang-fast ../dbds-clang-fast++
+clang++ `llvm-config --cxxflags` -Wl,-znodelete -fno-rtti -fpic -O0 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DVERSION=\"1.01b\" -Wno-variadic-macros -shared dbds-llvm-pass.so.cc -o ../dbds-llvm-pass.so `llvm-config --ldflags` 
+clang++ -O0 -g -O0 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DVERSION=\"1.01b\" -Wno-variadic-macros -fPIC -c DBDSFunction.cpp -o ../DBDSFunction.o
+[*] Testing the CXX wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN AFL_INST_RATIO; AFL_QUIET=1 AFL_PATH=. AFL_CC=clang ../dbds-clang-fast -O3 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DAFL_PATH=\"/usr/local/lib/afl\" -DBIN_PATH=\"/usr/local/bin\" -DVERSION=\"1.01b\"  -Wno-return-type -c ./test.c -o test.o  #-fsanitize=address
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/ConConfig
+[DEBUG]
+[DEBUG] Instrumentation for test.c:20
+[DEBUG] Instrumentation for test.c:30
+clang++ ./test.o ../DBDSFunction.o -g -O0 -o test-instr -pthread -ldl #-fsanitize=address
+[+] All right, the instrumentation seems to be working!
+[+] All done! You can now use '../dbds-clang-fast' to compile programs.
++ echo 'Installation completed. Everything'\''s fine!'
+Installation completed. Everything's fine!
++ cd evaluation/CS/twostage
++ sha256sum twostage_bad.c /witness
+e22d0ae9cf49cf00f8225fd9a712b461f224be1167c2494cab3f6995d13d6ce4  twostage_bad.c
+fc55bbedbf9a5469327c9ecbb84465bc1c000745882e2dac476739ce3568d262  /witness
++ bash build.sh
+Everything's fine!
++ cd /workdir/PERIOD/evaluation/CS/twostage
++ ./cleanDIR.sh
++ clang -g -emit-llvm -c ./twostage_bad.c -o twostage_bad.bc
++ /workdir/PERIOD/tool/staticAnalysis/staticAnalysis.sh twostage_bad
+[*] Making static analysis directory
+[*] DIR: /workdir/PERIOD/evaluation/CS/twostage
+[*] ROOT_DIR: /workdir/PERIOD
+[*] Generating mssa.twostage_bad
+[*] Change format for instrumentation
+[*] Analyze Sensitive Memory Operations
+[*] Update Memory Group with Sensitive Memory Operations
+[*] Dumps mempairs and save it into .npz file
+-rw-r--r-- 1 root root  253 Nov 15 05:27 ConConfig.twostage_bad
+-rw-r--r-- 1 root root 1.4K Nov 15 05:27 mempair.twostage_bad
+-rw-r--r-- 1 root root  16K Nov 15 05:27 mempair.twostage_bad.npz
+-rw-r--r-- 1 root root 3.4K Nov 15 05:27 mssa.twostage_bad
+-rw-r--r-- 1 root root 6.1K Nov 15 05:27 so.twostage_bad
+-rw-r--r-- 1 root root  13K Nov 15 05:27 twostage_bad.bc
+-rw-r--r-- 1 1001 1001 3.1K Nov 15 05:25 twostage_bad.c
+/workdir/PERIOD/evaluation/CS/twostage
++ export Con_PATH=/workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
++ Con_PATH=/workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
++ /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/dbds-clang-fast++ -g ./twostage_bad.bc -o twostage_bad -lpthread -ldl
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/evaluation/CS/twostage/ConConfig.twostage_bad
+[DEBUG]
+[DEBUG] Instrumentation for twostage_bad.c:19
+[DEBUG] Instrumentation for twostage_bad.c:20
+[DEBUG] Instrumentation for twostage_bad.c:23
+[DEBUG] Instrumentation for twostage_bad.c:24
+[DEBUG] Instrumentation for twostage_bad.c:34
+[DEBUG] Instrumentation for twostage_bad.c:35
+[DEBUG] Instrumentation for twostage_bad.c:39
+[DEBUG] Instrumentation for twostage_bad.c:42
+[DEBUG] Instrumentation for twostage_bad.c:43
+[DEBUG] Instrumentation for twostage_bad.c:68
+[DEBUG] Instrumentation for twostage_bad.c:69
+[DEBUG] Instrumentation for twostage_bad.c:70
+[DEBUG] Instrumentation for twostage_bad.c:74
+[DEBUG] Instrumentation for twostage_bad.c:115
++ sha256sum ./twostage_bad /workdir/PERIOD/tool/DBDS/run_PDS.py ConConfig.twostage_bad
+df747746b563700f9230cbf66073062c6f2ba73e84c28898163c5e85f7db9c61  ./twostage_bad
+c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f  /workdir/PERIOD/tool/DBDS/run_PDS.py
+7cf1d98f934bdbab37fea353ea41fcf41a155d107a036bbd57fb1565a4bb2804  ConConfig.twostage_bad
++ export PYTHONUNBUFFERED=1
++ PYTHONUNBUFFERED=1
++ for i in 1 2 3 4 5
++ log=/out/replay-1.txt
++ date -u +%FT%TZ
+2026-11-15T05:27:04Z
++ code=0
++ timeout -k 5s 30s python3 /workdir/PERIOD/tool/DBDS/run_PDS.py -y -r /witness ./twostage_bad
++ printf '%s\n' 0
++ for i in 1 2 3 4 5
++ log=/out/replay-2.txt
++ date -u +%FT%TZ
+2026-11-15T05:27:05Z
++ code=0
++ timeout -k 5s 30s python3 /workdir/PERIOD/tool/DBDS/run_PDS.py -y -r /witness ./twostage_bad
++ printf '%s\n' 0
++ for i in 1 2 3 4 5
++ log=/out/replay-3.txt
++ date -u +%FT%TZ
+2026-11-15T05:27:06Z
++ code=0
++ timeout -k 5s 30s python3 /workdir/PERIOD/tool/DBDS/run_PDS.py -y -r /witness ./twostage_bad
++ printf '%s\n' 0
++ for i in 1 2 3 4 5
++ log=/out/replay-4.txt
++ date -u +%FT%TZ
+2026-11-15T05:27:07Z
++ code=0
++ timeout -k 5s 30s python3 /workdir/PERIOD/tool/DBDS/run_PDS.py -y -r /witness ./twostage_bad
++ printf '%s\n' 0
++ for i in 1 2 3 4 5
++ log=/out/replay-5.txt
++ date -u +%FT%TZ
+2026-11-15T05:27:07Z
++ code=0
++ timeout -k 5s 30s python3 /workdir/PERIOD/tool/DBDS/run_PDS.py -y -r /witness ./twostage_bad
++ printf '%s\n' 0
++ exit 0

@@ -1,0 +1,11 @@
+opts: [('-y', ''), ('-r', '/witness')]
+args: ['./twostage_bad']
+reproduceFile: /witness
+
+
+[4;36mPerform Dry Run![0m
+
+[4;36mPerform Reproduction![0m
+sudo: unable to resolve host period-study: Resource temporarily unavailable
+Bug found!
+twostage_bad: ./twostage_bad.c:48: void *funcB(void *): Assertion `0' failed.

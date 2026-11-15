@@ -1,0 +1,165 @@
++ date -u
+Sun Nov 15 05:25:45 UTC 2026
++ uname -a
+Linux runnervm8axu0 7.0.0-1017-azure #17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+++ uname -s
++ [[ Linux == Linux ]]
+++ uname -m
++ [[ x86_64 == x86_64 ]]
++ git -C /home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication rev-parse HEAD
+62cbb795567a644bf6809227af140d21735eef9d
++ lscpu
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           48 bits physical, 57 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  4
+On-line CPU(s) list:                     0-3
+Vendor ID:                               GenuineIntel
+Model name:                              INTEL(R) XEON(R) PLATINUM 8573C
+CPU family:                              6
+Model:                                   207
+Thread(s) per core:                      2
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                2
+CPU(s) scaling MHz:                      135%
+CPU max MHz:                             2300.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4599.99
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm arch_capabilities
+Virtualization:                          VT-x
+Hypervisor vendor:                       Microsoft
+Virtualization type:                     full
+L1d cache:                               96 KiB (2 instances)
+L1i cache:                               64 KiB (2 instances)
+L2 cache:                                4 MiB (2 instances)
+L3 cache:                                260 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-3
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Vulnerable
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown
+Vulnerability Vmscape:                   Not affected
++ docker version
+Client: Docker Engine - Community
+ Version:           28.0.4
+ API version:       1.48
+ Go version:        go1.23.7
+ Git commit:        b8034c0
+ Built:             Tue Mar 25 15:07:16 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          28.0.4
+  API version:      1.48 (minimum version 1.24)
+  Go version:       go1.23.7
+  Git commit:       6430e49
+  Built:            Tue Mar 25 15:07:16 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.2
+  GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc:
+  Version:          1.5.2
+  GitCommit:        v1.5.2-0-g29dd3dc2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
++ archive=/home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage
++ witness=/home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage/witnesses/period/r01/000001_0000004_assertion-failed
++ printf '%s  %s\n' fc55bbedbf9a5469327c9ecbb84465bc1c000745882e2dac476739ce3568d262 /home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage/witnesses/period/r01/000001_0000004_assertion-failed
++ sha256sum -c -
+/home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage/witnesses/period/r01/000001_0000004_assertion-failed: OK
+++ mktemp -d
++ work=/tmp/tmp.T8ABiOPoLl
++ trap 'rm -rf -- "$work"' EXIT
++ git -C /tmp/tmp.T8ABiOPoLl init --quiet
++ git -C /tmp/tmp.T8ABiOPoLl fetch --quiet --depth 1 https://github.com/wcventure/PERIOD.git cb8deb9a176e5bb292d70d46557dd61dc0e98069
++ git -C /tmp/tmp.T8ABiOPoLl checkout --quiet --detach FETCH_HEAD
+++ git -C /tmp/tmp.T8ABiOPoLl rev-parse HEAD
++ [[ cb8deb9a176e5bb292d70d46557dd61dc0e98069 == \c\b\8\d\e\b\9\a\1\7\6\e\5\b\b\2\9\2\d\7\0\d\4\6\5\5\7\d\d\6\1\d\c\0\e\9\8\0\6\9 ]]
++ cmp /home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage/source/twostage_bad.c /tmp/tmp.T8ABiOPoLl/evaluation/CS/twostage/twostage_bad.c
++ timeout 420s docker pull wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc
+docker.io/wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc: Pulling from wcventure/period
+f22ccc0b8772: Pulling fs layer
+3cf8fb62ba5f: Pulling fs layer
+e80c964ece6a: Pulling fs layer
+6b21c50a9fb7: Pulling fs layer
+208a0efdb733: Pulling fs layer
+7c6c7822574b: Pulling fs layer
+2eb002f06aa3: Pulling fs layer
+b419ff8b26e7: Pulling fs layer
+bd70a27a2d06: Pulling fs layer
+56a30865dfcf: Pulling fs layer
+b760a76598b2: Pulling fs layer
+da4989139322: Pulling fs layer
+208a0efdb733: Waiting
+7c6c7822574b: Waiting
+2eb002f06aa3: Waiting
+b419ff8b26e7: Waiting
+bd70a27a2d06: Waiting
+56a30865dfcf: Waiting
+b760a76598b2: Waiting
+da4989139322: Waiting
+6b21c50a9fb7: Waiting
+3cf8fb62ba5f: Verifying Checksum
+3cf8fb62ba5f: Download complete
+e80c964ece6a: Verifying Checksum
+e80c964ece6a: Download complete
+f22ccc0b8772: Verifying Checksum
+f22ccc0b8772: Download complete
+208a0efdb733: Verifying Checksum
+208a0efdb733: Download complete
+7c6c7822574b: Verifying Checksum
+7c6c7822574b: Download complete
+6b21c50a9fb7: Verifying Checksum
+6b21c50a9fb7: Download complete
+bd70a27a2d06: Verifying Checksum
+bd70a27a2d06: Download complete
+f22ccc0b8772: Pull complete
+2eb002f06aa3: Verifying Checksum
+2eb002f06aa3: Download complete
+b760a76598b2: Verifying Checksum
+b760a76598b2: Download complete
+3cf8fb62ba5f: Pull complete
+b419ff8b26e7: Verifying Checksum
+b419ff8b26e7: Download complete
+56a30865dfcf: Verifying Checksum
+56a30865dfcf: Download complete
+e80c964ece6a: Pull complete
+da4989139322: Download complete
+6b21c50a9fb7: Pull complete
+208a0efdb733: Pull complete
+7c6c7822574b: Pull complete
+2eb002f06aa3: Pull complete
+b419ff8b26e7: Pull complete
+bd70a27a2d06: Pull complete
+56a30865dfcf: Pull complete
+b760a76598b2: Pull complete
+da4989139322: Pull complete
+Digest: sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc
+Status: Downloaded newer image for wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc
+docker.io/wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc
++ docker image inspect --format '{{.Id}} {{.RepoDigests}}' wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc
+sha256:fcd0a751293a4f6b3d567989357333b0b9bf9448b0b2f6a38580cd691069f312 [wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc]
++ timeout -k 10s 1200s docker run --rm --privileged --network none --hostname period-study --mount type=bind,src=/tmp/tmp.T8ABiOPoLl,dst=/pin,readonly --mount type=bind,src=/home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/results/2026-11-07/comparison-42381922637/twostage/witnesses/period/r01/000001_0000004_assertion-failed,dst=/witness,readonly --mount type=bind,src=/home/runner/work/CS340-Research-Paper-Replication/CS340-Research-Paper-Replication/scripts/replay_twostage.sh,dst=/replay.sh,readonly --mount type=bind,src=/home/runner/work/_temp/twostage-evidence,dst=/out wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc bash /replay.sh --inside
++ rm -rf -- /tmp/tmp.T8ABiOPoLl
