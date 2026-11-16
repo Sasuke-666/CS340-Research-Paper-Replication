@@ -1,0 +1,82 @@
+name: Prepare verified member closeout
+
+on:
+  push:
+    branches: ['maintenance/prepare-closeout-20261116']
+    paths: ['.github/workflows/prepare-closeout.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-tree:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      BASE_COMMIT: 9bb7e6c7d561eafe30d10d01f545c10105d48601
+      BASE_TREE: 18c05686e6c8529bc274dd2f49dee34da62958e2
+      EXPECTED_TREE: 4ed3816798432a511fa09f739a94b000f7353f3c
+    steps:
+      - name: Read owner-authorized staging material
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Verify patch and apply to exact merged main
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import gzip,hashlib,os
+          from pathlib import Path
+          patch=gzip.decompress(Path('.maintenance/closeout-20261116.patch.gz').read_bytes())
+          if hashlib.sha256(patch).hexdigest() != 'f882fd3a34558f659044f3c4f0ad12abda7642f6ac0a9a21dce435464f28a628':
+              raise SystemExit('Patch digest mismatch')
+          Path(os.environ['RUNNER_TEMP'],'closeout.patch').write_bytes(patch)
+          PY
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_COMMIT"
+          git checkout --detach "$BASE_COMMIT"
+          git apply --check "$RUNNER_TEMP/closeout.patch"
+          git apply --index "$RUNNER_TEMP/closeout.patch"
+          test "$(git write-tree)" = "$EXPECTED_TREE"
+          git diff --cached --check
+      - name: Test and audit the exact prepared source
+        run: |
+          make check
+          make audit
+      - name: Upload verified Git objects without moving any branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64,json,os,subprocess,urllib.request
+          from pathlib import Path
+          api='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
+          def post(path,payload):
+              request=urllib.request.Request(api+path,data=json.dumps(payload).encode(),method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'})
+              with urllib.request.urlopen(request,timeout=30) as response:
+                  return json.load(response)
+          names=subprocess.check_output(['git','diff','--cached','--name-only','-z']).decode().split('\0')
+          tree=[]
+          for name in names:
+              if not name: continue
+              if name.startswith('results/') or name.startswith('.maintenance/'):
+                  raise SystemExit('Unexpected raw-evidence or staging-file change')
+              entry=subprocess.check_output(['git','ls-files','-s','--',name]).decode().split()
+              mode,expected_blob=entry[0:2]
+              data=subprocess.check_output(['git','show',':'+name])
+              actual=post('/git/blobs',{'content':base64.b64encode(data).decode(),'encoding':'base64'})['sha']
+              if actual != expected_blob: raise SystemExit('Blob digest mismatch: '+name)
+              tree.append({'path':name,'mode':mode,'type':'blob','sha':actual})
+          result=post('/git/trees',{'base_tree':os.environ['BASE_TREE'],'tree':tree})
+          if result['sha'] != os.environ['EXPECTED_TREE']: raise SystemExit('Tree digest mismatch')
+          receipt={'base_commit':os.environ['BASE_COMMIT'],'tree':result['sha'],'changed_files':len(tree),'checks':'make check and make audit passed','refs_modified':False}
+          Path(os.environ['RUNNER_TEMP'],'prepared-tree.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          print(json.dumps(receipt))
+          PY
+      - name: Preserve preparation receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: prepared-closeout-tree
+          path: ${{ runner.temp }}/prepared-tree.json
+          retention-days: 30
