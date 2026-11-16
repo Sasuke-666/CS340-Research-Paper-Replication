@@ -1,0 +1,40 @@
+name: Check closeout report references
+on:
+  push:
+    branches: ['maintenance/prepare-closeout-20261116']
+    paths: ['.github/workflows/check-closeout-references.yml']
+permissions:
+  contents: write
+jobs:
+  reference-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: c85b56a4168a277d451cf5761a31a16fc7212efa
+          persist-credentials: false
+      - name: Resolve reference collision and verify exact bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,json,os,re,urllib.request
+          from pathlib import Path
+          p=Path('report/EXPANDED_REPORT.md'); s=p.read_text()
+          s=s.replace("Li Yangshuo's later supplementary review [9]", "Li Yangshuo's later supplementary review [10]").replace('d907517 [9]', 'd907517 [10]').replace('[9] Li Yangshuo, supplementary', '[10] Li Yangshuo, supplementary')
+          for start in ["He Boyu's separate source-level study",'The selected input is PERIOD repetition 1', '| He Boyu,', '| Twostage witness follow-up', '[8] He Boyu,']:
+              lines=s.splitlines(keepends=True); found=0
+              for i,line in enumerate(lines):
+                  if line.startswith(start): lines[i]=line.replace('[8]','[9]'); found+=1
+              if found != 1: raise SystemExit('Unexpected reference anchor')
+              s=''.join(lines)
+          if re.findall(r'^\[(\d+)\] ',s,re.M) != [str(n) for n in range(1,11)]: raise SystemExit('Non-unique references')
+          data=s.encode('utf-8')
+          expected='0730194990ff4eefef1f03c43908583eb7db62a8'
+          if hashlib.sha1(('blob '+str(len(data))+'\0').encode()+data).hexdigest() != expected: raise SystemExit('Unexpected report bytes')
+          request=urllib.request.Request('https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/git/blobs',data=json.dumps({'encoding':'base64','content':base64.b64encode(data).decode()}).encode(),method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'})
+          with urllib.request.urlopen(request,timeout=30) as response: result=json.load(response)
+          if result['sha'] != expected: raise SystemExit('Remote blob mismatch')
+          print(json.dumps({'report_blob':expected,'references':10,'refs_modified':False}))
+          PY
