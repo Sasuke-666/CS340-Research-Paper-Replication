@@ -1,0 +1,18 @@
+period r01, failing IDs: [4, 17] schedule 4: [[0, 0], [1, 1, 1, 1, 1], [0, 0]]
+period first failures: [4, 17, 4, 4, 4, 4, 4, 4, 4, 4] failure counts: [2, 1, 2, 2, 2, 2, 2, 2, 2, 2]
+  first: 5.300 +/- 4.111
+  failing: 1.900 +/- 0.316
+  seconds: 2.664 +/- 0.296
+author_serialized_abi16 r01, failing IDs: [4, 17] schedule 4: [[0, 0], [1, 1, 1, 1, 1], [0, 0]]
+identical r01 printed schedules: 33 / 33
+author_serialized_abi16 first failures: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4] failure counts: [2, 2, 2, 3, 2, 2, 2, 2, 2, 3]
+  first: 4.000 +/- 0.000
+  failing: 2.200 +/- 0.422
+  seconds: 2.652 +/- 0.378
+selected witness SHA-256: fc55bbedbf9a5469327c9ecbb84465bc1c000745882e2dac476739ce3568d262
+replay 1: driver/wrapper exit=0, matching assertion
+replay 2: driver/wrapper exit=0, matching assertion
+replay 3: driver/wrapper exit=0, matching assertion
+replay 4: driver/wrapper exit=0, matching assertion
+replay 5: driver/wrapper exit=0, matching assertion
+target assertion observed in 5/5 attempts
