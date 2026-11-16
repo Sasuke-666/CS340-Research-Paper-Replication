@@ -1,6 +1,6 @@
 # PERIOD Replication and Controlled Diagnostics
 
-CS340 Operating Systems · Stage report revised 14 November 2026. Original measurements retain their actual 7 and 8 November dates; the third-week diagnostic is a separate study.
+CS340 Operating Systems · Stage report revised 16 November 2026. Original measurements retain their actual dates; the 14 November layout diagnostic and 15 November twostage replay are separate studies.
 
 Confirmed member identities: 孙皓扬 (1240001201), 李扬烁 (1240001156), 何博宇 (1240000576). The fourth member remains to be confirmed. Individual contribution and review status are stated in section 10.
 
@@ -161,6 +161,12 @@ Each later diagnostic batch uses the same fixed witness and built binary within 
 
 The diagnostic outcome is **inconclusive for the cause of the earlier miss**. Both new batches reached a ceiling of all observed hits, leaving the setting effect unresolved. The original 4/5 observation and the two later batches retain their separate denominators. Same-host consecutive repetitions can be dependent, so the evidence is descriptive. A causal test of the timing explanation would require a correctly decoded parent-only trace and a separately registered timing intervention.
 
+### 5.5 Member twostage witness verification, 15 November
+
+He Boyu's separate source-level study traces the default one-writer/one-reader twostage program to the assertion at line 48. The writer publishes two related values under separate mutexes; the reader can sample local t1 = 1 and t2 = 0, violating t2 = t1 + 1. These values and their necessary partial order follow from the pinned source and matching assertion. The archive does not expose a timed, instruction-by-instruction trace or a unique realized lock order [8].
+
+The selected input is PERIOD repetition 1, test 4 in archive 42381922637. Five fresh invocations on 15 November, run 43681034375, rebuild the pinned source in the recorded image and replay the same witness with the stock driver. Each output contains the line-48 funcB assertion after the reproduction marker; the 12 host/build/replay files are checksummed. The recorded rebuilt target hash equals the original archive's target hash. A zero wrapper exit alone is not the target outcome. These five calls establish observed repeatability for one input on that host, not unconditional reliability or a new matched exploration experiment [8]. They remain outside every earlier exploration denominator and statistical table.
+
 ## 6. Single-factor depth-bound extension
 
 The original follow-up remains a separate controlled extension. On one reorder_3 binary and host it varied only the requested depth bound among 1, 2 and 3, with balanced repetition orders (1,2,3), (3,1,2), (2,3,1), the same input and budget, and three repetitions per condition. Bounds 1 and 2 extend the paper's selected depth-3 configuration. These observations are not combined with the expanded batch's timings.
@@ -191,6 +197,8 @@ Li Yangshuo's submitted 8 November batch reruns account on an Intel Core i5-1449
 | author_serialized_abi16 | 4.000 ± 0.000 | 136.000 ± 0.000 | 55.900 ± 0.316 | 12.167 ± 0.396 |
 
 The schedule reduction is again 52.21%. The paired whole-driver difference, serialized minus PERIOD, is 5.312 ± 0.377 seconds. These values corroborate account's structural comparison on an additional host. The PERIOD first-failure mean remains 6.800 positions above the paper's reference of 2 (+340.00%), so that discrepancy persists outside the initial hosted environment. PERIOD's buggy-schedule difference from the paper's 26 is +0.400 (+1.54%); serialized buggy schedules differ from 56 by -0.100 (-0.18%). The other displayed count differences from the corresponding paper references are zero. Hardware, kernel and calibration changed together across batches; the smaller elapsed times and changed failure counts do not isolate one causal factor. Both batches remain visible with their own denominators [5].
+
+Li Yangshuo's later supplementary review [9] distinguishes his 8 November measurements from secondary analysis of the group's 7 and 14 November evidence. Normalizing full printed test lines yields one request-sequence hash per driver across the original and member batches, while failure observations vary. PR #3 adds no measured invocations, ownership of the capacity repair, or automatic first-discovery claim. The maintainer's `make audit-member-reviews` reproduces those 40 sequence checks from checksummed raw logs.
 
 ## 8. Controlled shared-memory capacity diagnostic
 
@@ -266,6 +274,8 @@ The new diagnostic has separate checked summaries for original lazy01 and recove
 
 The independent audit imports no parser from the measurement runner. Unit-test data are explicitly synthetic and never enter measured summaries. First-failure values remain missing when no target error is observed. The two primary source/measurement streams and their bounded failure witnesses are retained with their upstream license; instructor material and compiled outputs are not redistributed. Reproduction instructions, expected outputs and runtime limits are in README.md; make audit and make summarize regenerate the checks and descriptive summaries. The report and figures can be regenerated from their maintained source and audited data.
 
+The 16 November integration adds a strict offline member-review check to the default audit and continuous checks. It verifies all 12 new replay-file digests and requires the matching assertion after the reproduction marker in all five completed calls; missing evidence, a timeout or a missing assertion fails validation. Synthetic negative tests exercise these failure paths. This maintenance check is not a new replay or proof of student oral understanding.
+
 The original pilot/follow-up comprises 33 test/replay invocations, six builds and one capability probe. The latter successfully requested SCHED_DEADLINE in that earlier environment; it is not proof about every instruction of later execution. Expanded comparisons, diagnostics, setup failures and partial attempts are reported separately above. Logs and actual commit dates preserve this chronology.
 
 The dated progress record separates initial repository preparation on 24 October, substantive safeguard/test work on 30 October, and the measured PERIOD studies on 7 November. Nothing is backdated to fill a previous week. Weekly progress continues beyond this stage; the supplied course document sets Sunday 23:59 checks but does not explicitly identify the timezone or first calendar check. Group planning uses Macau/Beijing local time and an earlier internal cutoff [3].
@@ -280,9 +290,9 @@ The study is limited by purposeful five-case coverage, hosted hardware differenc
 
 | Member | Recorded contribution | Submission evidence |
 | --- | --- | --- |
-| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed the paper and group identities, specified and authorized studies, coordinated PR integration and requested the current diagnostic/report revision | Protocol bddb831; integration commits ff254d8, c35bd0e and 0dc19a8; dated contribution record |
-| Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent account comparison, 20 complete calls, environment records, the failed image-pull attempt and a review | Commits 8ce522d and 9f30843, PR #2, separate host summary [5] |
-| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted an archived four-thread review with executable recount code and checks of 26 logs | Commit b02adef5, PR #1, member evidence review [7] |
+| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed identities, authorized studies and integration; classified secondary review separately from new witness evidence; requested strict offline checks and synchronized documentation | Protocol bddb831; earlier integration 0dc19a8; merges 94d0e9b and 9bb7e6c; dated contribution record [7] |
+| Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent 20-call account rerun and retained setup failure; later added supplementary cross-batch evidence review and provenance clarification, with no new measurements | PR #2: 8ce522d and 9f30843 [5]; PR #3: 94a35c3 and d907517 [9] |
+| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit; later submitted twostage source analysis, a trace evidence table, five fresh witness replays, scripts and a Chinese summary | PR #1: b02adef5 [7]; PR #4: 62cbb795, 6f186ddc and c78fd1c; run 43681034375 [8] |
 
 The required usage statement below records assistance with implementation, execution, auditing and drafting. Member submissions establish the work actually published through those accounts. Personal explanation and subsequent human cross-review remain to be recorded by the members themselves. The fourth-member allocation, registration receipt, final submission date and separate presentation rubric require the actual course communication. This expanded stage report supports the current review; final English PDF submission and v1.0 tagging belong to the verified final version.
 
@@ -308,6 +318,7 @@ The required usage statement below records assistance with implementation, execu
 | Replay diagnostic | Released replay multiplier 1.5 | Twenty repeated replays per setting at 1.5 and 6.0 within each separate diagnostic host | Diagnostic copy logs return code and calibration; all-hit results do not explain the earlier miss |
 | Timing metric | Published experimental environment and metrics | Whole Python-driver wall time, including calibration and reporting | Secondary implementation observation; neither native execution time nor separately measured time-to-first-failure |
 | Layout evidence recovery | Original two-case protocol, ten pairs each | Original lazy01 archive retained; original account failed without readable logs or results; new account batch separately registered with original runner bytes | Original account actual counts remain unknown; recovery host and all outcomes remain separate |
+| Twostage witness follow-up | Archived two-worker input from PERIOD test 4 | Five stock-driver replays on 15 November; Intel Xeon Platinum 8573C, four permitted CPUs, kernel 7.0.0-1017-azure, pinned container; 30-second wrapper limit | Separate input/host scope, no capacity modification; five observed assertions do not establish universal replay reliability [8] |
 | Evidence and dependency limits | Paper's original testbed | Source, commands, logs, manifests and binary hashes retained; generated binaries excluded | Binary hashes record provenance; rebuilds can differ; no unsupported byte-for-byte binary replication claim |
 
 ## References
@@ -332,9 +343,16 @@ Recovery registration ea273fe4 and separate account evidence:
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/ea273fe4b6e49bd1f8f5c5b7c964c02aaf22d144/experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325
 
-[7] Dated contributions and member evidence reviews, revised 14 November 2026.
+[7] Dated contributions and member evidence reviews, revised 16 November 2026.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/CONTRIBUTIONS.csv
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/main/docs/reviews
 
 [8] Independent scientific review of the controlled layout diagnostic, 14 November 2026.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/LAYOUT_DIAGNOSTIC_REVIEW_20261114.md
+
+[8] He Boyu, twostage source and witness study, PR #4, submitted 15 November 2026; integrated 16 November.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/reviews/1240000576-twostage-witness-review.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43681034375
+
+[9] Li Yangshuo, supplementary account evidence review, PR #3, 14 November 2026; provenance clarification 15 November; integrated 16 November.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/reviews/1240001156-account-supplement.md

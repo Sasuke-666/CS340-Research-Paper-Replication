@@ -6,7 +6,8 @@ includes the five-case matched comparison, original-driver failures, compatibili
 repair, replay diagnostics, the earlier single-factor depth study, the separately
 audited member-host rerun, and the preregistered capacity-layout diagnostic. A
 complete setup-deviation table is included in the report itself. It is a
-stage report; final submission requires actual group review and the instructor's
+stage report revised on 16 November with the integrated twostage witness study
+and supplementary account review, each retaining its own dates and scope; final submission requires actual group review and the instructor's
 final instructions.
 
 From the repository root:
@@ -17,12 +18,12 @@ make report
 ```
 
 Exports are created in `report/export/` as
-`CS340_PERIOD_Expanded_Report_20261114.pdf` and
-`CS340_PERIOD_Expanded_Report_20261114.docx`. The generated files are excluded from
+`CS340_PERIOD_Expanded_Report_20261116.pdf` and
+`CS340_PERIOD_Expanded_Report_20261116.docx`. The generated files are excluded from
 Git and are included in the Python 3.12 verification job's downloadable snapshot.
 The report includes the required AI usage statement. Figures, tables and references
 are preserved. For scientific provenance, use the maintained source, raw manifests,
-protocols, `make audit` and the archived workflow runs. The dated verification
+protocols, `make audit` and the archived workflow runs. The current integration receipt is `docs/INTEGRATION_20261116.md`. The earlier verification
 receipt is `docs/VALIDATION_20261114.md`; the course-criteria mapping is
 `docs/QUALITY_REVIEW_20261114.md`.
 

@@ -6,6 +6,37 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 (ICSE 2022). The group confirmed its selection to the project maintainer on
 7 November 2026. This is the date of that confirmation.
 
+## Member integration — 16 November 2026
+
+PRs [#3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3)
+and [#4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
+are merged with their original member commits and authors preserved.
+The [closeout record](docs/INTEGRATION_20261116.md) records the decision and scope.
+
+- Li Yangshuo: [supplementary account evidence review](docs/reviews/1240001156-account-supplement.md).
+  This is secondary analysis of existing batches. The independent 8 November
+  experiment remains credited through PR #2; prior group work retains its
+  attribution. No new experiment or first-discovery claim is added by PR #3.
+- He Boyu: [twostage source analysis](docs/reviews/1240000576-twostage-witness-review.md),
+  [trace evidence table](docs/reviews/1240000576-twostage-trace.md),
+  [Chinese summary](docs/reviews/1240000576-twostage-summary-zh.md) and
+  [five-replay record](results/member-reruns/1240000576-twostage-43681034375/README.md).
+  Five fresh calls on 15 November produced the selected assertion. This single
+  witness and new host remain separate from earlier exploration statistics.
+
+`make audit-member-reviews` independently checks 40 account request sequences,
+all 12 new replay-file checksums, and the assertion after the reproduction marker
+in each of five calls. A missing assertion, timeout or digest mismatch fails the
+check. It is included in `make audit` and both continuous-check environments.
+The scripts introduced for this integration are maintainer verification work,
+not another student's new experiment. Original member scripts and logs are unchanged.
+
+`make report` exports the revised English report as
+`CS340_PERIOD_Expanded_Report_20261116.pdf` and `.docx`; contributions and the
+new witness scope are included. Member delivery dates remain 14–15 November;
+these merges and integration checks occurred on 16 November. This is a stage
+closeout, with personal explanation and final course submission still separate.
+
 ## Third-week study — 14 November 2026
 
 The [current English report](report/EXPANDED_REPORT.md) includes the original

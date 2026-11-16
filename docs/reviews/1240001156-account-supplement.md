@@ -4,6 +4,9 @@
 
 **Review date:** 14 November 2026, Asia/Shanghai (UTC+08:00)
 
+**Provenance clarification:** 15 November 2026, commit `d907517`.
+**Integration decision:** accepted as supplementary evidence review on 16 November 2026; see [the closeout record](../INTEGRATION_20261116.md).
+
 **Reviewed repository state:** `fd0d807f39a9d972dcd4929486d002f53ae4e4f3`
 **Scope:** provenance review of the independent account comparison, the original primary account batch, and the 14 November capacity diagnostic
 

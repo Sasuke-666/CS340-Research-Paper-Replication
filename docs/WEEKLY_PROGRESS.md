@@ -176,6 +176,32 @@ The group weekly-push rule remains separate from the requirement for each
 member to submit substantive work from their own account. Existing member
 authors and original commits remain intact.
 
+## Member delivery update — 14–15 November
+
+Li Yangshuo submitted the supplementary account review in `94a35c3` on
+14 November and clarified primary/secondary attribution in `d907517` on
+15 November (PR #3). No new workload measurements were added. He Boyu submitted
+the separate twostage task in `62cbb795`, `6f186ddc` and `c78fd1c` on
+15 November (PR #4), with source analysis, a bounded trace table, five fresh
+hosted witness replays and retained outputs from run `43681034375`.
+These original delivery dates remain attached to the member submissions.
+
+## Fourth full week — integration on 16 November
+
+The owner authorized completion of the reviewed repository closeout. PR #4 was
+merged in `94d0e9b4d16a4cd1907c440f47bcf8242d2c7a72`; PR #3 was then merged in
+`9bb7e6c7d561eafe30d10d01f545c10105d48601`. Both are normal merges preserving
+all five original member commits. PR #3 is classified as supplementary evidence
+review, with its former hold resolved by that explicit decision. The twostage
+replay is separate from the old 106-attempt/96-complete/43-pair comparison.
+
+The [integration record](INTEGRATION_20261116.md) documents updated navigation,
+contributions and report evidence. The maintainer added strict offline audits
+and synthetic regression tests; these checks create no new experimental batch.
+The merges and current checks belong to 16 November. They are not backdated or
+used to replace earlier weekly-push evidence. Personal oral explanation remains
+unrecorded; no final `v1.0` release is created at this stage.
+
 ## Subsequent internal milestones
 
 15 November: finish the current diagnostic interpretation and member cross-review.
