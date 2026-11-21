@@ -6,6 +6,8 @@ from pathlib import Path
 import posixpath
 import re
 
+from report_config import revision_date
+
 
 def clean(value):
     value=re.sub(r'\[([^\]]+)\]\(([^)]+)\)',r'\1',value)
@@ -20,6 +22,7 @@ def export(source, target):
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
     from docx.opc.constants import RELATIONSHIP_TYPE as RT
+    report_date=revision_date(source.resolve().parents[1])
     doc=Document();sec=doc.sections[0]
     sec.page_width,sec.page_height=Cm(21),Cm(29.7)
     sec.left_margin=sec.right_margin=Cm(1.8)
@@ -38,7 +41,7 @@ def export(source, target):
     header=sec.header.paragraphs[0];header.text='CS340 操作系统｜组员行动清单'
     header.runs[0].font.size=Pt(8)
     footer=sec.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
-    footer.add_run('2026 年 11 月 14 日｜第 ').font.size=Pt(8)
+    footer.add_run('%d 年 %d 月 %d 日｜第 ' % (report_date.year,report_date.month,report_date.day)).font.size=Pt(8)
     field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
     footer.add_run(' 页').font.size=Pt(8)
     doc.core_properties.title='CS340 PERIOD 组员本人行动清单'
@@ -139,5 +142,7 @@ def export(source, target):
 if __name__=='__main__':
     root=Path(__file__).resolve().parents[1]
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--output',type=Path,default=root/'report/export/CS340_Member_Action_Checklist_20261114.docx')
-    args=p.parse_args();export(root/'docs/MEMBER_ACTIONS_ZH.md',args.output)
+    p.add_argument('--output',type=Path)
+    args=p.parse_args()
+    target=args.output or root/('report/export/CS340_Member_Action_Checklist_'+revision_date(root).strftime('%Y%m%d')+'.docx')
+    export(root/'docs/MEMBER_ACTIONS_ZH.md',target)

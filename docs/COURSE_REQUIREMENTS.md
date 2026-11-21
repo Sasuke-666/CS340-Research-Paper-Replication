@@ -1,9 +1,10 @@
 # Instructor requirements and verification status
 
-Source: `2609_CS340_Research_Paper_Replication(1).pdf`, 5 pages, CS340 Operating
-Systems, Academic Year 2026–2027. Page numbers below refer to that PDF.
-All five original pages were reread on 14 November 2026 and the requirements
-below were checked against them. Later course announcements and the separate
+Source: instructor-provided CS340 Research Paper Replication, 5 pages,
+Academic Year 2026–2027. The earlier supplied copy was checked on 14 November.
+All five pages of the supplied `2609_CS340_Research_Paper_Replication(9).pdf`
+were checked again on 22 November 2026; the requirements below are unchanged.
+Page numbers refer to that source. Later course announcements and the separate
 Presentation Instruction remain outside that source.
 
 ## Team and submission scope — page 1

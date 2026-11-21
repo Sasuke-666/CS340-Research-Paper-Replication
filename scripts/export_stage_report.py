@@ -11,6 +11,8 @@ from pathlib import Path
 import re
 import tempfile
 
+from report_config import revision_date
+
 
 def register_pdf_fonts():
     """Embed the TrueType family shipped with the pinned ReportLab package.
@@ -123,7 +125,10 @@ def export(root, output, source=None, stem=None, report_date=None):
     from reportlab.pdfgen.canvas import Canvas
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, CondPageBreak
 
-    report_date = report_date or date(2026, 11, 14)
+    canonical_date = revision_date(root)
+    if report_date is not None and report_date != canonical_date:
+        raise ValueError('--date must match report/REVISION_DATE and the report header')
+    report_date = canonical_date
     display_date = '%d %s %d' % (report_date.day, report_date.strftime('%B'), report_date.year)
     source = source or (root / 'report/EXPANDED_REPORT.md' if (root / 'report/EXPANDED_REPORT.md').is_file() else root / 'report/PILOT_REPORT.md')
     text = source.read_text(encoding='utf-8')
@@ -298,7 +303,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path)
     parser.add_argument('--source', type=Path)
     parser.add_argument('--stem')
-    parser.add_argument('--date', type=date.fromisoformat, default=date(2026, 11, 14),
-                        help='Report revision date in YYYY-MM-DD format; original experiment dates remain in the source')
+    parser.add_argument('--date', type=date.fromisoformat,
+                        help='Optional consistency check; must match report/REVISION_DATE')
     args = parser.parse_args(); root = Path(__file__).resolve().parents[1]
     export(root, args.output.resolve() if args.output else root / 'report/export', args.source.resolve() if args.source else None, args.stem, args.date)

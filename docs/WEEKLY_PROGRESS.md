@@ -202,10 +202,30 @@ The merges and current checks belong to 16 November. They are not backdated or
 used to replace earlier weekly-push evidence. Personal oral explanation remains
 unrecorded; no final `v1.0` release is created at this stage.
 
+## Fourth full week — completion work on 22 November
+
+Li Yangshuo submitted PR #5 (`7ac3a655`) at 00:06 on 22 November in the group
+planning timezone (UTC+8). It audits report traceability and adds the missing
+narrative references. The maintainer checked the exact submitted head and its
+successful continuous checks, then merged it normally as `7ba2d8f`, preserving
+the original author. A raw-log locator was clarified without changing numbers.
+
+This revision adds an executable connection from report Tables 2–12 to the
+separate evidence sources, plus negative tests for erroneous statistics,
+denominators, direction, scope and references. A maintained revision-date file
+now controls both report and checklist exports. The current member list and
+rehearsal sources include the accepted work. The [validation record](VALIDATION_20261122.md)
+records actual verification; the scientific observations keep their original
+dates. No new benchmark is added for this maintenance work.
+
+These changes and the 16 November integration both belong to the 16–22 November
+week. Earlier studies are not relabelled as new measurements. Group weekly
+progress and individual contributions remain separate course requirements.
+
 ## Subsequent internal milestones
 
-15 November: finish the current diagnostic interpretation and member cross-review.
-22 November: finish the English report and extension interpretation.
+The earlier 15 November delivery and 22 November report milestones are recorded
+above with their actual contributions and remaining personal preparation.
 29 November: presentation rehearsal and final clean-environment reproduction.
 These are proposed internal milestones, not additional instructor deadlines.
 Continue substantive weekly work and push it before each weekly check.

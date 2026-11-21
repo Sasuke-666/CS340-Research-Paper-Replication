@@ -6,6 +6,33 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 (ICSE 2022). The group confirmed its selection to the project maintainer on
 7 November 2026. This is the date of that confirmation.
 
+## Current revision — 22 November 2026
+
+The [current report](report/EXPANDED_REPORT.md) includes the accepted member
+studies and [PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5),
+Li Yangshuo's report traceability audit. Original authors and experiment dates
+are preserved. This revision adds automatic numerical checks and synchronized
+report/checklist exports. See the [validation record](docs/VALIDATION_20261122.md)
+and [current member actions](docs/MEMBER_ACTIONS_ZH.md).
+
+`make audit` verifies raw evidence and checked summaries, then checks report
+Tables 2–12 against those records. The report check covers sample sizes,
+means and sample standard deviations, reported gaps, paired-difference
+signs, missing observations and separate batch scopes. It also checks all
+18 numbered captions, their narrative references and four figure paths.
+It does not independently validate every prose claim, the paper itself or
+rendered figure/document layout. The synthetic regression cases never enter
+experimental results.
+
+`make deliverables` creates the English PDF/Word report and Chinese member
+checklist in `report/export/`. Their default names and dates come from
+`report/REVISION_DATE`, currently **2026-11-22**, which must agree with the
+report header. Dependencies are in `requirements-report.txt`.
+The [14-slide rehearsal source](presentation/SLIDES.md) and
+[Chinese explanation and defence outline](presentation/TALK_OUTLINE.md)
+include the five twostage witness replays and the separate member/diagnostic
+scopes. The formal presentation instructions still need course confirmation.
+
 ## Member integration — 16 November 2026
 
 PRs [#3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3)
@@ -31,9 +58,8 @@ check. It is included in `make audit` and both continuous-check environments.
 The scripts introduced for this integration are maintainer verification work,
 not another student's new experiment. Original member scripts and logs are unchanged.
 
-`make report` exports the revised English report as
-`CS340_PERIOD_Expanded_Report_20261116.pdf` and `.docx`; contributions and the
-new witness scope are included. Member delivery dates remain 14–15 November;
+The 16 November report revision included the contributions and new witness scope.
+Current exports use the revision date documented above. Member delivery dates remain 14–15 November;
 these merges and integration checks occurred on 16 November. This is a stage
 closeout, with personal explanation and final course submission still separate.
 
@@ -396,8 +422,7 @@ python3 scripts/summarize_comparison.py \
 python3 scripts/plot_comparison_results.py
 make audit-layout
 python3 scripts/plot_layout_results.py
-python3 scripts/export_stage_report.py \
-  --source report/EXPANDED_REPORT.md --output report/export
+make deliverables
 ```
 
 The expanded figures are saved under `results/2026-11-07/figures/` as
@@ -406,17 +431,16 @@ can be viewed without installing plotting dependencies. The separately scoped
 capacity study produces `results/2026-11-14/figures/layout_comparison.svg`, using
 only its independently audited summary and displaying actual metric denominators.
 The export command
-creates `CS340_PERIOD_Expanded_Report_20261114.docx` and
-`CS340_PERIOD_Expanded_Report_20261114.pdf` in `report/export/`; exporting does
+creates `CS340_PERIOD_Expanded_Report_20261122.docx` and
+`CS340_PERIOD_Expanded_Report_20261122.pdf` in `report/export/`; exporting does
 not execute experiments or alter observations.
 
 The [separate Chinese member action checklist](docs/MEMBER_ACTIONS_ZH.md) and
-[individual review template](docs/reviews/REVIEW_TEMPLATE.md) describe the human
-work still requiring actual completion. To create an editable Word checklist:
+[individual review template](docs/reviews/REVIEW_TEMPLATE.md) distinguish accepted
+contributions from remaining group preparation. To create an editable Word checklist:
 
 ```bash
-python3 scripts/export_member_checklist.py \
-  --output report/export/CS340_Member_Action_Checklist_20261114.docx
+make checklist
 ```
 
 

@@ -1,9 +1,12 @@
 # PERIOD replication: talk and defence outline
 
-Prepared for group study on 14 November 2026. This is a content outline, not a
-fixed slide count, time allocation or claim of completed presentation. Official
-presentation requirements remain to be verified. The maintained
-[report](../report/EXPANDED_REPORT.md) is authoritative for the latest findings.
+Revised for group study on 22 November 2026, Macau/Beijing time. The
+[fourteen-slide rehearsal source](SLIDES.md) provides English screen text,
+Chinese speaker notes and per-slide citations. The slide count is an internal
+content choice. Official duration, speaking allocation and marking details
+remain to be verified. The maintained [report](../report/EXPANDED_REPORT.md)
+is authoritative for the latest findings. No completed personal presentation
+is inferred from these materials.
 
 ## 1. The problem and method
 
@@ -48,6 +51,8 @@ separate; preserve every failed or censored attempt.
 | Registered four-thread follow-up | 6 complete calls at a 240-second outer limit | 3 complete pairs on its follow-up host |
 | Combined accounting of those two scopes | 106 attempts, 96 complete calls | 43 complete pairs; timings remain within their case and host |
 | Li Yangshuo's separate `account` rerun | 20 complete calls, 10 per method | Independent host corroboration; separate statistics |
+| Readable capacity diagnostic | 40 complete calls across two case/host scopes | 10 complete pairs per case; separate statistics |
+| He Boyu's `twostage` witness study | 5 completed replays of one selected input | Separate build/host observation; no paired exploration design |
 
 说明：一次配对需要同批次的两个条件都完整结束。原批次四线程 PERIOD 的十次结果
 仍是完整观测，但没有对应的完整序列化运行，因而不能组成十个完整耗时配对。
@@ -130,6 +135,27 @@ failure observations.
 这是源码支持的条件解释；确定某一次记录实际走了哪条顺序，还需要验证过的执行轨迹。
 它不能充当新批次某次结果的实测原因。[S2，§8.3；S9]
 
+### Twostage source mechanism and the member replay
+
+**English message:** Separate field locks permit the reader to observe a
+partially published update. The source and assertion constrain a necessary
+partial order.
+
+默认输入只有一个写线程A和一个读线程B。A在第一把锁下写入字段1=1并解锁，
+再在第二把锁下更新字段2。B通过第一个字段的非零检查，保存t1=1，再读取第二
+个字段。到达第48行断言意味着B保存了t2=0，违反t2=t1+1。这个偏序由源码和
+断言共同推出。A是否在B取样后、断言终止前已经写入2，原记录没有给出答案。
+讲解表必须标注“source-derived partial order”，保留具体指令顺序未知的范围。[S14]
+
+何博宇选择主批次PERIOD第1次运行的第4个请求及其错误见证，在11月15日的新
+宿主上固定重放五次，五次都在重放标记之后出现相同的funcB第48行断言。
+重建目标的记录哈希与原归档一致。见证第一行是yield矩阵，后面的历史报错文字
+不会作为目标程序输入。驱动返回0本身不足以判断断言是否发生。[S14；S15]
+
+这五次观测说明该输入在记录的build和host上五次命中。它不增加106/96/43的
+探索实验分母。早期reorder_3的4/5与后来两批每种倍率20/20仍分别保留，早期
+漏报原因继续未明；twostage是不同程序及不同输入的研究。[S2，§5.4–§5.5]
+
 ## 6. A controlled extension
 
 **English message:** On the selected `reorder_3` program, depth 2 detected the
@@ -153,6 +179,23 @@ known failure while exploring fewer schedules than depth 3.
 
 演示现成归档或已准备好的复算命令即可。正式现场运行方式需结合最终展示要求。
 
+这些总数来自驱动的`Round`/`Total`行和顺序test记录；runner footer记录退出码、
+超时状态与总耗时。可以在仓库根目录运行`make audit`，验证现有原始文件和汇总。
+该命令只检查归档，不启动新工作负载。
+
+补充见证演示：打开
+`results/member-reruns/1240000576-twostage-43681034375/replay-1.txt`，
+定位`Perform Reproduction!`之后的匹配断言，再运行`make audit-member-reviews`，
+核验40份account序列和五次twostage重放证据。现场可用实际保存的检查输出。[S15]
+
+### Contribution attribution
+
+孙皓扬组织实验协议、组内测量、仓库整合与报告。李扬烁提交独立account宿主结果，
+之后在PR #3补充序列核对和来源审查，并在PR #5核对报告追溯路径、补齐正文图表
+引用。何博宇先提交四线程核数，再在PR #4提交twostage源码、偏序说明和五次重放。
+按各自原始PR和提交记录归属，二次审查按实际工作范围说明。实施、执行和写作
+辅助见报告的使用说明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S16]
+
 ## 8. Questions to prepare
 
 | Likely question | Accurate response and evidence |
@@ -169,6 +212,9 @@ known failure while exploring fewer schedules than depth 3.
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
 | What did each member do? | Name the actual commits and evidence in `docs/CONTRIBUTIONS.csv`; distinguish submitted work from human review or explanation still awaiting completion. |
+| Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
+| What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
+| Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
 
 ## 9. Closing message
 
@@ -211,3 +257,12 @@ both audited cases. Our overall verdict is partial reproduction.
   original run `43570556202`, 20 complete calls and ten complete pairs.
 - S13. [Audited account recovery summary](../results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md),
   new-host run `43575584325`, 20 complete calls and ten complete pairs.
+- S14. [Twostage source and assertion analysis](../docs/reviews/1240000576-twostage-witness-review.md)
+  and [source-derived partial order](../docs/reviews/1240000576-twostage-trace.md),
+  submitted in [PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4).
+- S15. [Five-call twostage replay record](../results/member-reruns/1240000576-twostage-43681034375/README.md),
+  original measurement run `43681034375`, 15 November 2026.
+- S16. [Supplementary account provenance audit](../docs/reviews/1240001156-account-supplement.md),
+  [PR #3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3), and
+  [PR #5 report traceability audit](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5),
+  submitted 22 November 2026, Macau/Beijing time.

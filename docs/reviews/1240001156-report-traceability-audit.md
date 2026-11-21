@@ -42,7 +42,7 @@ Trace:
 | Summary | `results/2026-11-07/summaries/comparison-42381922637/summary.json`, account `schedule_reduction_pct` | 52.2058823529412 |
 | Pair count | Same summary object | n = 10 |
 | Per-trial counts | `results/2026-11-07/comparison-42381922637/account/records.json` | PERIOD 65; serialized 136 in every complete trial |
-| Raw logs | `period_r01.txt` and `author_serialized_abi16_r01.txt` runner footers | 65 and 136 explored schedules |
+| Raw logs | `period_r01.txt` and `author_serialized_abi16_r01.txt` driver Round/Total summaries, checked against sequential test records | 65 and 136 explored schedules |
 | Calculation | `(136 - 65) / 136 × 100` | 52.20588235294117% |
 
 The report's `52.21%` is the correct two-decimal rounding.
@@ -178,3 +178,7 @@ The PDF was also rendered to page images to exercise the rendering pipeline. Fin
 This audit samples representative values rather than retyping or rechecking every number in every table. The repository-wide automated audits cover all retained evidence and generated summaries. Visual judgment of typography and figure legibility is not replaced by these structural checks.
 
 Completed by: 李扬烁, 22 November 2026.
+
+## Maintainer integration note, 22 November 2026
+
+PR #5 was merged in `7ba2d8f966fcaa1dd13e32d5cc4ee662df59d340` with the original member commit preserved. The raw-log locator in section 2.1 was clarified during integration: schedule totals occur in the driver summaries and test records. Wrapper footers record process status and elapsed time. This correction changes no measurement or original audit date.

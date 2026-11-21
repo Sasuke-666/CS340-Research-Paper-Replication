@@ -43,12 +43,13 @@ jobs:
         run: make audit-layout PYTHON=python
       - name: Audit integrated member review evidence
         run: make audit-member-reviews PYTHON=python
+      - name: Check report tables against audited measurements
+        run: make audit-report PYTHON=python
       - name: Build readable stage-report exports
         if: matrix.python-version == '3.12'
         run: |
           python -m pip install -r requirements-report.txt
-          python scripts/export_stage_report.py --date 2026-11-16
-          python scripts/export_member_checklist.py
+          make deliverables PYTHON=python
       - name: Package tracked source and evidence without Git metadata
         if: matrix.python-version == '3.12'
         run: |
@@ -56,7 +57,8 @@ jobs:
           import json,os,subprocess,zipfile
           from pathlib import Path
           paths=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
-          out=Path(os.environ['RUNNER_TEMP'])/'CS340_Progress_20261116.zip'
+          revision=Path('report/REVISION_DATE').read_text().strip()
+          out=Path(os.environ['RUNNER_TEMP'])/('CS340_Progress_'+revision.replace('-','')+'.zip')
           with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as bundle:
               for name in paths:
                   if not name: continue
@@ -65,7 +67,7 @@ jobs:
                   bundle.write(p,name)
               for p in sorted(Path('report/export').glob('*')):
                   if p.suffix in {'.pdf','.docx'}: bundle.write(p,p.as_posix())
-              bundle.writestr('SNAPSHOT.json',json.dumps({'commit':os.environ['GITHUB_SHA'],'scope':'Tracked source and archived evidence; Git history and credentials excluded'},indent=2)+'\n')
+              bundle.writestr('SNAPSHOT.json',json.dumps({'commit':os.environ['GITHUB_SHA'],'report_revision':revision,'scope':'Tracked source and archived evidence; Git history and credentials excluded'},indent=2)+'\n')
           print(out.name)
           PY
       - name: Preserve verified source snapshot
@@ -73,6 +75,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: cs340-stage-snapshot-${{ github.sha }}
-          path: ${{ runner.temp }}/CS340_Progress_20261116.zip
+          path: ${{ runner.temp }}/CS340_Progress_*.zip
           if-no-files-found: error
           retention-days: 30
