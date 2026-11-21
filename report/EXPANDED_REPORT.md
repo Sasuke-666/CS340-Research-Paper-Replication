@@ -87,7 +87,7 @@ All values below are arithmetic mean ± sample standard deviation (denominator n
 
 **Figure 1.** First-failure positions and buggy-schedule counts for PERIOD. Error bars are sample SD, not confidence intervals. The five explored-schedule counts all match the paper exactly and are shown separately in Figure 2.
 
-The PERIOD exploration-count agreement is exact throughout its ten primary repetitions per case. Failure observations show separate discrepancies: account's first-failure mean is 10.100, versus the paper's 2, a signed gap of +8.100 (+405.00%); lazy01 first fails at 8.000 versus 3; twostage produces 1.900 ± 0.316 buggy schedules versus 3. These quantities establish which parts of the paper's result were reproduced.
+The PERIOD exploration-count agreement is exact throughout its ten primary repetitions per case. Figure 1 visualizes the failure-related counts. Failure observations show separate discrepancies: account's first-failure mean is 10.100, versus the paper's 2, a signed gap of +8.100 (+405.00%); lazy01 first fails at 8.000 versus 3; twostage produces 1.900 ± 0.316 buggy schedules versus 3. These quantities establish which parts of the paper's result were reproduced.
 
 **C1 verdict: partially supported.** Failure detection and explored-schedule counts are supported for the five selected cases; exact first-failure and buggy-count replication is partial. This conclusion concerns the chosen implementation and environments, using the sample sizes and batch scopes stated in Tables 2 and 3.
 
@@ -102,6 +102,8 @@ The PERIOD exploration-count agreement is exact throughout its ten primary repet
 | account | 65 | 136 | 52.21% |
 | lazy01 | 39 | 60 | 35.00% |
 | twostage | 33 | 33 | 0.00% |
+
+Figure 2 visualizes the matched explored-schedule counts in Table 4.
 
 ![Matched schedule exploration comparison](../results/2026-11-07/figures/expanded_schedule_comparison.svg)
 
@@ -149,7 +151,7 @@ For each complete case-method condition, the ordered sequence of printed schedul
 
 The original follow-up observed the expected assertion in 4/5 replays of the fixed reorder_3 witness [[0,2],[2,0],[1,0]]. The first replay had no expected assertion and did not reach the outer timeout. Its outer driver exit code was zero. That result is retained.
 
-Each later diagnostic batch uses the same fixed witness and built binary within its own host scope, twenty repetitions at multiplier 1.5 and twenty at 6.0, alternating AB/BA. A diagnostic copy changes the multiplier and prints the target return code and measured calibration after execution. The benchmark binary is unchanged. Every invocation recalibrates as the original driver does: fourfold multiplier is not a guarantee of fourfold realized kernel deadline because calibration and piecewise runtime conversion vary.
+Each later diagnostic batch uses the same fixed witness and built binary within its own host scope, twenty repetitions at multiplier 1.5 and twenty at 6.0, alternating AB/BA. A diagnostic copy changes the multiplier and prints the target return code and measured calibration after execution. The benchmark binary is unchanged. Every invocation recalibrates as the original driver does: fourfold multiplier is not a guarantee of fourfold realized kernel deadline because calibration and piecewise runtime conversion vary. Table 6 summarizes the three separate replay batches.
 
 **Table 6. Replay observations, kept separate by batch.**
 
@@ -169,7 +171,7 @@ The selected input is PERIOD repetition 1, test 4 in archive 42381922637. Five f
 
 ## 6. Single-factor depth-bound extension
 
-The original follow-up remains a separate controlled extension. On one reorder_3 binary and host it varied only the requested depth bound among 1, 2 and 3, with balanced repetition orders (1,2,3), (3,1,2), (2,3,1), the same input and budget, and three repetitions per condition. Bounds 1 and 2 extend the paper's selected depth-3 configuration. These observations are not combined with the expanded batch's timings.
+The original follow-up remains a separate controlled extension. On one reorder_3 binary and host it varied only the requested depth bound among 1, 2 and 3, with balanced repetition orders (1,2,3), (3,1,2), (2,3,1), the same input and budget, and three repetitions per condition. Table 7 reports the measured results. Bounds 1 and 2 extend the paper's selected depth-3 configuration. These observations are not combined with the expanded batch's timings.
 
 **Table 7. Depth-bound extension, mean ± sample SD, n=3.**
 
@@ -178,6 +180,8 @@ The original follow-up remains a separate controlled extension. On one reorder_3
 | 1 | 3.000 ± 0.000 | 0.000 ± 0.000 | 0/3 | Not observed | 0.371 ± 0.092 |
 | 2 | 13.000 ± 0.000 | 2.000 ± 0.000 | 3/3 | 6.000 ± 0.000 | 2.877 ± 0.198 |
 | 3 | 27.000 ± 0.000 | 5.000 ± 1.732 | 3/3 | 6.000 ± 0.000 | 6.459 ± 1.975 |
+
+Figure 3 visualizes the depth-bound results.
 
 ![Depth-bound exploration and failure counts](../results/2026-11-07/figures/depth_extension.svg)
 
@@ -188,6 +192,8 @@ Depth 2 found the known failure in all three repetitions with 51.85% fewer explo
 ## 7. Independent host corroboration
 
 Li Yangshuo's submitted 8 November batch reruns account on an Intel Core i5-14490F host with 16 permitted CPUs and WSL2 kernel 6.18.33.2-microsoft-standard-WSL2. It uses the same source pin, image, depth, budget and two driver versions as the original compatible comparison. Twenty invocations completed without recorded inner or outer timeouts, providing ten paired repetitions. This host is a separate experimental scope. The 880 manifest entries, raw logs and checked-in statistics are independently verified by make audit-member and included in make audit and continuous checks.
+
+Table 8 reports the independent-host results.
 
 **Table 8. Independent account rerun, mean ± sample SD, n=10 per method.** The reported whole-driver times belong only to the WSL2 batch.
 
@@ -224,6 +230,8 @@ The original lazy01 job produced a readable twenty-call archive. The original ac
 
 Recovery registration ea273fe4 preceded workflow 43575584325. It fixes a new twenty-call account batch on a new host, using the exact four original measurement wrapper/helper files from bddb831. Only preservation changes: original raw evidence is committed to Git before a backup ZIP upload. The decision was based on evidence unavailability, with no original account results available to select a favorable outcome. The successful original lazy01 batch is not repeated [6].
 
+Table 10 separates the planned, readable and complete workload denominators.
+
 **Table 10. Planned and observable workload denominators.** Each original case planned ten pairs. Recovery is a distinct fixed sample on a new host. Eligible calls require complete enumeration and no inner timeout, outer timeout or budget censoring; probes and builds are excluded.
 
 | Scope | Planned | Recorded | Complete | Eligible | Complete pairs |
@@ -233,6 +241,8 @@ Recovery registration ea273fe4 preceded workflow 43575584325. It fixes a new twe
 | Recovery account, run 43575584325 | 20 | 20 | 20 | 20 | 10 |
 
 The forty readable calls all completed and exposed the target assertion, with no recorded inner or outer timeout, budget censoring or other error type. Each case provides ten eligible pairs. These forty calls belong to two separate case/host batches. Original account attempts remain unknown, so the combined original protocol cannot be described as forty observed calls. The original lazy01 host reports AMD EPYC 9V74; recovery account reports AMD EPYC 9V45. Both permit CPUs [0, 1, 2, 3] and record kernel 7.0.0-1017-azure, Ubuntu 18.04.5 userland and Python 3.6.9.
+
+Table 11 reports the controlled capacity outcomes.
 
 **Table 11. Controlled capacity results, mean ± sample SD.** A denotes released capacity1990; B denotes corrected capacity3964. First-failure means use complete eligible calls with a detected error; here every eligible call detected the assertion. Account and lazy01 retain their separate batches from Table 10.
 
@@ -245,12 +255,16 @@ The forty readable calls all completed and exposed the target assertion, with no
 
 Both capacities reproduce the paper's exploration totals of 65 for account and 39 for lazy01, with zero absolute and relative gaps. For account, A/B first-failure gaps from the reference 2 are +8.500 (+425.00%) and +8.200 (+410.00%); buggy-count gaps from 26 are -3.100 (-11.92%) and -1.700 (-6.54%). For lazy01, A/B first-failure gaps from 3 are +5.500 (+183.33%) and +5.200 (+173.33%); buggy-count gaps from 12 are -0.400 (-3.33%) and -2.100 (-17.50%). The correction leaves substantial first-failure discrepancies in both cases.
 
+Table 12 reports the within-pair changes.
+
 **Table 12. Within-pair change, B minus A, mean ± sample SD.** Each row contains ten complete pairs on its own case host. A negative time difference means a shorter corrected-driver invocation; these observations do not estimate paper-workstation speedups.
 
 | Case / pairs | First-failure delta | Schedule-count delta | Buggy-count delta | Elapsed-second delta |
 | --- | ---: | ---: | ---: | ---: |
 | account / 10 | -0.300 ± 1.160 | +0.000 ± 0.000 | +1.400 ± 4.402 | +1.070 ± 4.323 |
 | lazy01 / 10 | -0.300 ± 1.337 | +0.000 ± 0.000 | -1.700 ± 2.003 | -1.390 ± 1.525 |
+
+Figure 4 visualizes the controlled capacity outcomes.
 
 ![Controlled capacity intervention on separate account and lazy01 hosts](../results/2026-11-14/figures/layout_comparison.svg)
 
@@ -286,6 +300,8 @@ The dated progress record separates initial repository preparation on 24 October
 
 The study is limited by purposeful five-case coverage, hosted hardware differences, preserved upstream driver differences, the historical shared-memory layout mismatch, original account evidence loss in the new diagnostic, repeated observations on one host per case, a three-pair follow-up for the most expensive case, and unresolved causes of some failure variability. The main comparison supports a structural reduction against one explicitly adapted released baseline. It does not establish the full paper's broader effectiveness or runtime claims. Historical partial results, original crashes and replay exceptions remain visible. The additional controlled diagnostic verifies an interface defect and its effect on feedback decoding. Its corrected runs retain the same requested sequences and substantial first-failure gaps. This narrows the causal investigation and reinforces the partial-replication verdict without replacing the historical measurements.
 
+Table 13 records the member contributions and their source submissions.
+
 **Table 13. Recorded member contributions.** Original commits and authors remain in the repository. The dated record identifies assistance and actual review status [7].
 
 | Member | Recorded contribution | Submission evidence |
@@ -297,6 +313,8 @@ The study is limited by purposeful five-case coverage, hosted hardware differenc
 The required usage statement below records assistance with implementation, execution, auditing and drafting. Member submissions establish the work actually published through those accounts. Personal explanation and subsequent human cross-review remain to be recorded by the members themselves. The fourth-member allocation, registration receipt, final submission date and separate presentation rubric require the actual course communication. This expanded stage report supports the current review; final English PDF submission and v1.0 tagging belong to the verified final version.
 
 ## Appendix A Complete setup deviations
+
+Table A1 consolidates the consequential deviations from the paper setup.
 
 **Table A1. Consequential differences and controlled extensions.** Paper settings are taken from [1, section 4.1.3 and Table 2]. Where the paper does not supply a value or exact implementation identity, that uncertainty is stated. The full machine-readable record is docs/DEVIATIONS.csv. Host-level differences are recorded even when a container dependency is pinned.
 
