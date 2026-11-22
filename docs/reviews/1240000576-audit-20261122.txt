@@ -1,0 +1,95 @@
+Local PowerShell transcript. The checkout directory in traceback paths is shown as <checkout>.
+2026-11-22T20:20:58+08:00
+8b3102c64214e53782ca0496b61c81f50fb17ff1
+review/1240000576-twostage-acceptance-20261122
+Microsoft Windows NT 10.0.26300.0
+GNU Make 4.2.1
+Built for x86_64-w64-mingw32
+Python 3.12.6
+PowerShell: Set-Alias make mingw32-make.exe
+Environment: PYTHON=python, PYTHONUTF8=1, PYTHONDONTWRITEBYTECODE=1
+Command: make audit-member-reviews
+python scripts/audit_member_reviews.py
+PASS: 40 archived account logs match the two declared request sequences; 12 replay files match their checksums; 5/5 post-reproduction assertions.
+Offline evidence verification only; no new measurements or personal explanation certified.
+Exit: 0
+2026-11-22T20:20:58+08:00
+Command: make audit-acceptance
+python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
+Traceback (most recent call last):
+  File "<checkout>\scripts\check_acceptance.py", line 108, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "<checkout>\scripts\check_acceptance.py", line 97, in main
+    audit.check_outputs(summary, output)
+  File "<checkout>\scripts\summarize_comparison.py", line 509, in check_outputs
+    compare(summary, load_json(output / "summary.json"))
+  File "<checkout>\scripts\summarize_comparison.py", line 497, in compare
+    compare(expected[key], actual[key], location + "/" + str(key))
+  File "<checkout>\scripts\summarize_comparison.py", line 502, in compare
+    compare(left, right, location + "/" + str(index))
+  File "<checkout>\scripts\summarize_comparison.py", line 497, in compare
+    compare(expected[key], actual[key], location + "/" + str(key))
+  File "<checkout>\scripts\summarize_comparison.py", line 508, in compare
+    raise ValueError(location + ": published value differs")
+ValueError: summary/trials/0/log: published value differs
+mingw32-make: *** [Makefile:50: audit-acceptance] Error 1
+Exit: 2
+2026-11-22T20:20:59+08:00
+
+Branch CI at the same audited commit (Ubuntu 24.04, Python 3.12.16)
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45021783702/job/137206085700
+Steps 11 and 12 both concluded success (exit 0 under bash -e).
+GitHub job log excerpt for both complete steps, timestamps UTC, ANSI styling removed:
+2026-11-22T12:20:50.0251512Z ##[group]Run make audit-member-reviews PYTHON=python
+2026-11-22T12:20:50.0251746Z make audit-member-reviews PYTHON=python
+2026-11-22T12:20:50.0267378Z shell: /usr/bin/bash -e {0}
+2026-11-22T12:20:50.0267649Z env:
+2026-11-22T12:20:50.0267762Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-22T12:20:50.0267933Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0268162Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-22T12:20:50.0268498Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0268698Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0268898Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0269099Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-22T12:20:50.0269270Z ##[endgroup]
+2026-11-22T12:20:50.0317077Z python scripts/audit_member_reviews.py
+2026-11-22T12:20:50.0621288Z PASS: 40 archived account logs match the two declared request sequences; 12 replay files match their checksums; 5/5 post-reproduction assertions.
+2026-11-22T12:20:50.0622066Z Offline evidence verification only; no new measurements or personal explanation certified.
+2026-11-22T12:20:50.0687852Z ##[group]Run make audit-acceptance PYTHON=python
+2026-11-22T12:20:50.0688191Z make audit-acceptance PYTHON=python
+2026-11-22T12:20:50.0708932Z shell: /usr/bin/bash -e {0}
+2026-11-22T12:20:50.0709142Z env:
+2026-11-22T12:20:50.0709317Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-22T12:20:50.0709603Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0709972Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+2026-11-22T12:20:50.0710327Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0710642Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0710952Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+2026-11-22T12:20:50.0711271Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+2026-11-22T12:20:50.0711543Z ##[endgroup]
+2026-11-22T12:20:50.0759959Z python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
+2026-11-22T12:20:50.1802743Z {
+2026-11-22T12:20:50.1802941Z   "schema_version": 1,
+2026-11-22T12:20:50.1803261Z   "scope": "Fresh-host engineering acceptance; separate from historical estimates",
+2026-11-22T12:20:50.1803539Z   "batch": "acceptance-45015126850-attempt1",
+2026-11-22T12:20:50.1803703Z   "cases": [
+2026-11-22T12:20:50.1803811Z     "reorder_3",
+2026-11-22T12:20:50.1803917Z     "reorder_4",
+2026-11-22T12:20:50.1804019Z     "account",
+2026-11-22T12:20:50.1804118Z     "lazy01",
+2026-11-22T12:20:50.1804219Z     "twostage"
+2026-11-22T12:20:50.1804317Z   ],
+2026-11-22T12:20:50.1804424Z   "repeats_per_method": 3,
+2026-11-22T12:20:50.1804556Z   "outer_timeout_seconds": 240,
+2026-11-22T12:20:50.1804686Z   "accepted": true,
+2026-11-22T12:20:50.1804795Z   "problems": [],
+2026-11-22T12:20:50.1804907Z   "comparison_counts": {
+2026-11-22T12:20:50.1805032Z     "comparison_attempts": 30,
+2026-11-22T12:20:50.1805168Z     "comparison_complete": 30,
+2026-11-22T12:20:50.1805306Z     "comparison_eligible": 30,
+2026-11-22T12:20:50.1805436Z     "diagnostic_attempts": 40
+2026-11-22T12:20:50.1805555Z   },
+2026-11-22T12:20:50.1805653Z   "complete_pairs": 15,
+2026-11-22T12:20:50.1805773Z   "diagnostic_eligible": 40
+2026-11-22T12:20:50.1805888Z }
