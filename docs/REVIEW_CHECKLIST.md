@@ -1,6 +1,17 @@
-# Submission and human-review checklist
+# Historical submission checklist — 8 November 2026
 
-## Before the 8 November weekly check
+This file preserves the early planning checkpoint and its original checkbox
+states. Current accepted member work and remaining tasks are maintained in
+[MEMBER_ACTIONS_ZH.md](MEMBER_ACTIONS_ZH.md); both member accounts and their
+substantive submissions have since been confirmed. The independent account
+rerun was delivered on 8 November. See the
+[dated progress record](WEEKLY_PROGRESS.md),
+[current report](../report/EXPANDED_REPORT.md) and
+[22 November validation](VALIDATION_20261122.md) for subsequent completion.
+The [course requirements](COURSE_REQUIREMENTS.md) remain the source for published
+conditions and unresolved course information.
+
+## Historical checkpoint before the 8 November weekly check
 
 - [x] Confirm PERIOD selection in the project plan.
 - [x] Push substantive protocol and experiment-script work with the owner's
@@ -19,7 +30,7 @@ workflow logs. These boxes are not substitutes for experimental evidence.
 The separate Chinese assignment-ready list is [MEMBER_ACTIONS_ZH.md](MEMBER_ACTIONS_ZH.md).
 Use [the review template](reviews/REVIEW_TEMPLATE.md) for a real, dated review.
 
-## Toward the tentative 1 December presentation
+## Historical internal milestones toward the tentative 1 December presentation
 
 The following dates are an internal plan, not additional instructor deadlines.
 
@@ -36,7 +47,7 @@ local time and confirm any separate announcement. A missed week cannot be
 repaired by backdating or late pushing. Do not create cosmetic commits to fill
 weeks.
 
-## Required final deliverables
+## Final-deliverable requirements recorded at this checkpoint
 
 An English report submitted as PDF; a presentation following the separate
 Presentation Instruction; reproducible code and documented environment;
@@ -44,7 +55,13 @@ traceable raw logs; all members' actual contributions; the required AI usage
 statement; and a final `v1.0` tag. The exact final report deadline and the
 presentation rubric are not in the currently supplied project document.
 
-## Review questions
+## Study and review questions
+
+These are group preparation prompts. The instructor's supplied document does
+not require an oral sign-off or a particular cross-review file as a Git-history
+assessment condition. The current
+[talk outline](../presentation/TALK_OUTLINE.md) supplies the updated evidence
+demonstration and question set.
 
 Explain what a scheduling point and a period mean; why a buggy schedule is not
 a distinct bug; why identical enumeration need not guarantee identical observed

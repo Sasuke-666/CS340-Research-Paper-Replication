@@ -1,0 +1,143 @@
+name: PERIOD fresh-host acceptance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md
+permissions:
+  contents: read
+jobs:
+  comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        case: [reorder_3, reorder_4, account, lazy01, twostage]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Run registered fresh-host acceptance
+        id: measurement
+        shell: bash
+        run: bash scripts/period_container_compatible.sh '${{ matrix.case }}' "$RUNNER_TEMP/period-study" 3 240 2>&1 | tee "$RUNNER_TEMP/acceptance-outer.txt"
+      - name: Preserve setup failures after the wrapper exits
+        if: always()
+        env:
+          CASE_NAME: ${{ matrix.case }}
+          RUN_OUTCOME: ${{ steps.measurement.outcome }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/period-study"
+          if test -f "$RUNNER_TEMP/acceptance-outer.txt"; then
+            cp "$RUNNER_TEMP/acceptance-outer.txt" "$RUNNER_TEMP/period-study/host_wrapper_console.txt"
+          fi
+          python3 - <<'PY'
+          import datetime,json,os,platform
+          from pathlib import Path
+          data={'case':os.environ['CASE_NAME'],'workflow_step_outcome':os.environ['RUN_OUTCOME'],
+                'captured_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                'host_platform':platform.platform(),'run_id':os.environ['GITHUB_RUN_ID'],
+                'run_attempt':int(os.environ['GITHUB_RUN_ATTEMPT']),
+                'protocol_commit':os.environ['GITHUB_SHA']}
+          path=Path(os.environ['RUNNER_TEMP'])/'period-study/host_workflow_record.json'
+          path.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Preserve every available attempt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: period-acceptance-${{ matrix.case }}-${{ github.run_id }}-attempt${{ github.run_attempt }}
+          path: ${{ runner.temp }}/period-study/
+          if-no-files-found: error
+          retention-days: 30
+  archive:
+    needs: comparison
+    if: always() && !cancelled()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    env:
+      BATCH_NAME: acceptance-${{ github.run_id }}-attempt${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: period-acceptance-*-${{ github.run_id }}-attempt${{ github.run_attempt }}
+          path: ${{ runner.temp }}/downloaded
+      - name: Archive exact bytes before assessing success
+        env:
+          BATCH_RUN: ${{ github.run_id }}
+          BATCH_ATTEMPT: ${{ github.run_attempt }}
+          PROTOCOL_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,shutil
+          from pathlib import Path
+          source=Path(os.environ['RUNNER_TEMP'])/'downloaded'
+          dest=Path('results/2026-11-22')/os.environ['BATCH_NAME']
+          if dest.exists(): raise SystemExit('Refuse evidence overwrite')
+          dest.mkdir(parents=True); counts={}; record_errors={}
+          suffix='-'+os.environ['BATCH_RUN']+'-attempt'+os.environ['BATCH_ATTEMPT']
+          for folder in sorted(source.iterdir()):
+              prefix='period-acceptance-'
+              if folder.is_symlink() or not folder.is_dir() or not folder.name.startswith(prefix) or not folder.name.endswith(suffix):
+                  raise SystemExit('Unexpected artifact')
+              case=folder.name[len(prefix):-len(suffix)]
+              if case not in {'reorder_3','reorder_4','account','lazy01','twostage'}: raise SystemExit('Unexpected case')
+              for path in sorted(folder.rglob('*')):
+                  if path.is_symlink(): raise SystemExit('Reject symlink')
+                  if not path.is_file(): continue
+                  if path.stat().st_size>50000000: raise SystemExit('Oversized evidence')
+                  target=dest/case/path.relative_to(folder); target.parent.mkdir(parents=True,exist_ok=True)
+                  shutil.copyfile(path,target)
+              index=dest/case/'records.json'
+              counts[case]=None
+              if index.exists():
+                  try:
+                      records=json.loads(index.read_text())
+                      if not isinstance(records,list): raise ValueError('Command records must be an array')
+                      counts[case]=len(records)
+                  except (ValueError,UnicodeError,OSError) as error:
+                      record_errors[case]=type(error).__name__+': '+str(error)
+          files=[]
+          for path in sorted(dest.rglob('*')):
+              if path.is_file():
+                  data=path.read_bytes()
+                  files.append({'path':path.relative_to(dest).as_posix(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
+          manifest={'run_id':os.environ['BATCH_RUN'],'run_attempt':int(os.environ['BATCH_ATTEMPT']),
+                    'protocol_commit':os.environ['PROTOCOL_SHA'],
+                    'note':'Registered fresh-host engineering acceptance; separate host scopes, no pooling with historical studies',
+                    'command_records':counts,'record_parse_errors':record_errors,'files':files}
+          (dest/'archive_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          print(json.dumps({'directory':str(dest),'files':len(files),'command_records':counts}))
+          PY
+      - name: Independently recount and assess acceptance
+        id: acceptance
+        continue-on-error: true
+        run: python3 scripts/check_acceptance.py "results/2026-11-22/$BATCH_NAME" --output "results/2026-11-22/summaries/$BATCH_NAME"
+      - name: Publish retained evidence and available audit
+        env:
+          REPO_TOKEN: ${{ github.token }}
+        run: |
+          git add -- "results/2026-11-22/$BATCH_NAME"
+          if test -d "results/2026-11-22/summaries/$BATCH_NAME"; then
+            git add -- "results/2026-11-22/summaries/$BATCH_NAME"
+          fi
+          python3 scripts/check_repository.py --staged
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -c core.hooksPath=/dev/null commit -m '[1240001201] 孙皓扬: archive registered fresh-host acceptance evidence' -m 'Owner-requested automated evidence preservation. Acceptance outcomes are separate from historical replication estimates; see the registered protocol and usage statement.'
+          AUTH=$(printf 'x-access-token:%s' "$REPO_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:main
+      - name: Require the declared acceptance criteria
+        if: steps.acceptance.outcome != 'success'
+        run: exit 1

@@ -1,4 +1,14 @@
-# PERIOD reproduction plan
+# Historical PERIOD pilot plan — 7 November 2026
+
+This document preserves the initial pilot's questions and proposed next steps.
+The later five-case comparison, adapted baseline, member studies and capacity
+diagnostic are defined in the
+[current report](../report/EXPANDED_REPORT.md),
+[comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md),
+[compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md) and
+[capacity protocol](../experiments/2026-11-14/LAYOUT_PROTOCOL.md).
+Use [MEMBER_ACTIONS_ZH.md](MEMBER_ACTIONS_ZH.md) for the current group plan and
+[WEEKLY_PROGRESS.md](WEEKLY_PROGRESS.md) for actual delivery dates.
 
 Paper: Cheng Wen, Mengda He, Bohao Wu, Zhiwu Xu and Shengchao Qin,
 *Controlled Concurrency Testing via Periodical Scheduling*, ICSE 2022,
@@ -6,7 +16,7 @@ DOI 10.1145/3510003.3510178. Paper 4 in the course list.
 The owner confirmed the group's selection on **7 November 2026**. This records
 confirmation received on that date, not a newly requested change of paper.
 
-## Scoped questions
+## Questions scoped for the pilot
 
 | ID | Claim and original location | Scope and measurement | Decision rule |
 | --- | --- | --- | --- |
@@ -14,11 +24,11 @@ confirmation received on that date, not a newly requested change of paper.
 | D1 (supplementary diagnostic) | Robustness of saved-witness replay, motivated by the paper introduction/section 3 | Replay one actual saved witness from each selected program and from the separate double-free smoke example | Report actual expected-error signatures in five trials each; do not generalize five trials into universal determinism. |
 
 The authors' double-free README example is an installation smoke check, not a
-Table 2 result. SERIAL and other tools have not been run; no comparative speedup
-or bug-finding superiority is claimed.
+Table 2 result. At the pilot stage, SERIAL and other tools had not yet been run;
+the pilot made no comparative speedup or bug-finding superiority claim.
 
-C1 is the single formally scoped paper claim and maps to the two specified
-Table 2 rows. D1 is an additional robustness diagnostic, not an independent
+C1 was the pilot's single formally scoped paper claim and mapped to the two
+specified Table 2 rows. D1 was an additional robustness diagnostic, not an independent
 claim that the original paper reports a particular replay success rate.
 
 ## Execution and extension
@@ -45,11 +55,16 @@ for runs with no failure. A successful workflow is operational evidence only.
 An assertion or sanitizer signature establishes a target failure; no detected
 failure within a bound does not establish correctness.
 
-## Remaining assessed work
+## Next steps proposed at the pilot stage
 
-All group members must review and understand the experiments, record their own
-substantive contributions, and have another member rerun the documented pipeline.
-Decide whether to extend the original-case set after reviewing these results;
-retain selection rationale and failed attempts. Obtain the separate presentation
-instructions, produce the final English PDF and presentation, and tag `v1.0`
-only for the final submission. Continue meaningful weekly pushes.
+The group proposed studying the results, tracing table values to raw evidence
+and arranging an independent member rerun before deciding whether to broaden
+the original-case set. Those were internal quality steps; subsequent work and
+the completed independent rerun are recorded in the current links above.
+Retain the original selection rationale, failed attempts and measurement dates.
+
+The published requirements include substantive contributions from each member's
+own account, meaningful weekly pushes, a final English PDF, a presentation
+following the separate instruction and a final `v1.0` tag. Current registration,
+team-allocation and final-submission information still requires the actual
+course evidence identified in [COURSE_REQUIREMENTS.md](COURSE_REQUIREMENTS.md).

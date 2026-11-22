@@ -1,6 +1,5 @@
 PYTHON ?= python3
 EVIDENCE_DIR ?= results/local-$(shell date -u +%Y%m%dT%H%M%SZ)
-CASE ?= reorder_3
 
 .PHONY: help check pilot followup comparison summarize report checklist deliverables audit summarize-comparisons audit-comparisons audit-member layout audit-layout summarize-layout audit-member-reviews audit-report
 help:
@@ -12,6 +11,7 @@ pilot:
 	bash scripts/period_container_pilot.sh "$(EVIDENCE_DIR)"
 followup:
 	PERIOD_DRIVER=run_period_followup.py bash scripts/period_container_pilot.sh "$(EVIDENCE_DIR)"
+comparison: CASE ?= reorder_3
 comparison:
 	bash scripts/period_container_compatible.sh "$(CASE)" "$(EVIDENCE_DIR)"
 summarize: summarize-comparisons
@@ -22,9 +22,11 @@ audit: audit-comparisons audit-member audit-layout audit-member-reviews
 	$(PYTHON) scripts/verify_period_evidence.py
 	$(PYTHON) scripts/audit_period_results.py
 	$(PYTHON) scripts/audit_report.py
+	$(PYTHON) scripts/audit_report_explanations.py
 
 audit-report:
 	$(PYTHON) scripts/audit_report.py
+	$(PYTHON) scripts/audit_report_explanations.py
 
 summarize-comparisons:
 	$(PYTHON) scripts/summarize_comparison.py results/2026-11-07/comparison-42380929383 --output results/2026-11-07/summaries/comparison-42380929383
@@ -44,6 +46,7 @@ audit-member-reviews:
 audit-member:
 	$(PYTHON) scripts/summarize_comparison.py results/member-reruns/1240001156-account-20261108T122201Z --cases account --repeats 10 --output results/member-reruns/1240001156-account-20261108T122201Z-summary --check
 
+layout: CASE ?= account
 layout:
 	bash scripts/period_container_layout.sh "$(CASE)" "$(EVIDENCE_DIR)"
 

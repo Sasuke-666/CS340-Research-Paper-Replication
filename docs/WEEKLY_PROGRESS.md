@@ -222,6 +222,24 @@ These changes and the 16 November integration both belong to the 16–22 Novembe
 week. Earlier studies are not relabelled as new measurements. Group weekly
 progress and individual contributions remain separate course requirements.
 
+### Strict entry-point and interpretation review — 22 November
+
+A further owner-requested review found and repaired three concrete gaps:
+the pilot workflow precreated an output directory its wrapper rejects;
+`make layout` inherited an unsupported case default; and current comparison
+archiving depended unnecessarily on an already archived historical artifact.
+Regression checks exercise these entry points and preserve the no-overwrite
+rule. Current report/presentation navigation now distinguishes historical plans
+from the latest deliverables.
+
+The report adds source-backed depth/period definitions, first-failure frequency
+interpretation and a mechanism for the nested depth extension. Existing raw
+observations and estimates are unchanged. A separate
+[fresh-host acceptance protocol](../experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md)
+registers five cases, three method pairs each and the existing separately counted
+replay diagnostic before execution. Its run-specific archive and validation
+record must determine actual completion; registration alone is not a result.
+
 ## Subsequent internal milestones
 
 The earlier 15 November delivery and 22 November report milestones are recorded

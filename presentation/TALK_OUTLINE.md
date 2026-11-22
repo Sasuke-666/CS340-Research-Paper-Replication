@@ -104,7 +104,7 @@ failure observations.
 首次失败位置仍未复现论文的 PERIOD 值 2。宿主、校准和执行环境同时变化，
 跨批次差值本身不能单独识别原因。[S6]
 
-本周布局诊断的讲解应按“已观察到的接口差异—只改变的因素—实际结果—允许的结论”
+11 月 14 日布局诊断的讲解应按“已观察到的接口差异—只改变的因素—实际结果—允许的结论”
 展开。使用对应协议、补丁和原始日志说明控制条件。原 `account` 档案不可用的状态
 与新宿主恢复研究分别记录，研究结论以可审计的真实结果为依据。[S8；S10]
 
@@ -171,20 +171,32 @@ known failure while exploring fewer schedules than depth 3.
 选择一个能当场解释的数字，演示“报告—汇总—记录—原始日志—摘要校验”的路径。
 建议使用四线程后续批次，因为六条调用及三对关系清晰。[S5；S7]
 
-1. 在报告 Table 4 找到 PERIOD 100 与序列化 384。
-2. 打开 `results/2026-11-07/comparison-42384122902/reorder_4/records.json`。
-3. 对照 `period_r01.txt` 和 `author_serialized_abi16_r01.txt` 的完成标记与计数。
+1. 在[报告第 4 节的 Table 4](../report/EXPANDED_REPORT.md#4-matched-comparison-and-efficiency-interpretation)找到 PERIOD 100 与序列化 384，再对照[该批次独立汇总](../results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)。
+2. 打开[六条调用的 records.json](../results/2026-11-07/comparison-42384122902/reorder_4/records.json)，确认方法、重复编号和实际状态。
+3. 对照[period_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/period_r01.txt)和[author_serialized_abi16_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/author_serialized_abi16_r01.txt)的完成标记与计数。
 4. 解释 `(384 - 100) / 384 = 73.96%`，并展示另两对得到相同总数。
 5. 说明清单摘要验证文件完整性，独立复算验证统计口径；两者各有用途。
 
-演示现成归档或已准备好的复算命令即可。正式现场运行方式需结合最终展示要求。
+在仓库根目录运行下面的独立复算命令，核对同一六调用批次及其已保存汇总：
+
+```sh
+python3 scripts/summarize_comparison.py \
+  results/2026-11-07/comparison-42384122902 \
+  --cases reorder_4 --repeats 3 \
+  --output results/2026-11-07/summaries/comparison-42384122902 \
+  --check
+```
+
+预期核对范围为六次完整调用、两种方法各三次、三组完整配对；两方法的枚举均值
+分别为 100 和 384，样本标准差均为 0。`--check` 核对已保存汇总并保留原始档案，
+该命令不会启动新实验。正式现场演示方式仍结合最终展示要求安排。
 
 这些总数来自驱动的`Round`/`Total`行和顺序test记录；runner footer记录退出码、
 超时状态与总耗时。可以在仓库根目录运行`make audit`，验证现有原始文件和汇总。
 该命令只检查归档，不启动新工作负载。
 
 补充见证演示：打开
-`results/member-reruns/1240000576-twostage-43681034375/replay-1.txt`，
+[twostage 第一次重放日志](../results/member-reruns/1240000576-twostage-43681034375/replay-1.txt)，
 定位`Perform Reproduction!`之后的匹配断言，再运行`make audit-member-reviews`，
 核验40份account序列和五次twostage重放证据。现场可用实际保存的检查输出。[S15]
 

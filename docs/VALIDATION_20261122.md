@@ -3,7 +3,9 @@
 Date: 22 November 2026, Macau/Beijing time (UTC+8).
 Integration baseline: `7ba2d8f966fcaa1dd13e32d5cc4ee662df59d340`.
 The owner requested completion and stronger quality of the current stage.
-This maintenance work adds no measured workload and changes no archived result.
+Sections 1–5 describe the earlier traceability closeout, which added no measured
+workload. Section 6 records the subsequent stricter review and separately
+registered live acceptance work. Historical archived results are unchanged.
 
 ## 1. Accepted member work
 
@@ -111,3 +113,38 @@ The group still needs the actual registration receipt and fourth-member
 allocation, final submission deadline/portal and formal presentation guidance.
 Members must prepare their own explanation of the submitted work. Final PDF
 submission and `v1.0` tagging belong to the actual verified final version.
+
+## 6. Subsequent strict review and live acceptance
+
+The owner's follow-up requested reasonable grading-risk inference and concrete
+improvements. The supplied rubric remains the source of official requirements.
+The choice of a concise reviewer entry point, deeper distribution/mechanism
+explanations and this bounded acceptance design is the group's quality decision.
+No score or unannounced instructor rule is inferred as fact.
+
+Three actual defects were found beyond the earlier offline checks. The pilot
+workflow precreated an output directory that the wrapper rejects; the layout
+Make target inherited `reorder_3`, although only account/lazy01 are supported;
+and the compatible-comparison archive unconditionally downloaded an old run
+whose bytes are already in Git. Fixes preserve output non-overwrite, choose
+target-specific defaults and archive only the current run's artifacts.
+
+The report now distinguishes bug depth from absolute period count and limits
+C2 to the released driver configurations. It explains persistent and occasional
+first-failure shifts using actual frequency counts and connects the nested
+depth extension to the selected request and benchmark source. These additions
+use existing checksummed evidence; no actual instruction trace is reconstructed.
+`scripts/audit_report_explanations.py`, included in `make audit-report` and
+`make audit`, independently checks 66 files (61 logs and five source/configuration
+files), then recounts the five failure-index distributions and all nine depth
+extension sequences. Explicit checks remain active with Python optimization.
+This verifies the source facts supporting those passages; it does not bind
+arbitrary natural-language claims or prove a causal execution trace.
+
+The [fresh-host protocol](../experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md)
+is registered before measurement. It plans 30 comparison calls (15 pairs),
+40 separate replay calls and five benchmark builds across five case hosts.
+Its acceptance check requires integrity, complete observations, explicit
+provenance and no inner timeout or schedule-budget truncation. It does not
+require historical timing/failure metrics to match. The actual workflow result
+and archive will be recorded after the run; this registration is not a pass.

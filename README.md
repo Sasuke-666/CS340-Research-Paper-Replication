@@ -6,13 +6,33 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 (ICSE 2022). The group confirmed its selection to the project maintainer on
 7 November 2026. This is the date of that confirmation.
 
+## Review the current submission
+
+| Review question | Report and evidence entry |
+| --- | --- |
+| What was reproduced? | [Report §§1–4, Tables 2–5](report/EXPANDED_REPORT.md): two bounded claims, paper gaps, complete/censored samples and matched method comparisons |
+| Are the discrepancies explained? | [Report §5](report/EXPANDED_REPORT.md#5-discrepancy-analysis-and-controlled-checks) and [capacity diagnostic §8](report/EXPANDED_REPORT.md#8-controlled-shared-memory-capacity-diagnostic): scoped interface repair, failure distributions and controlled checks |
+| What is the original extension? | [Report §6, Table 7](report/EXPANDED_REPORT.md#6-single-factor-depth-bound-extension), [registered protocol](experiments/2026-11-07/FOLLOWUP_PROTOCOL.md) and [retained depth logs](results/2026-11-07/followup/) |
+| Can a reader build and verify it? | [Clone and audit](#clone-and-verify-the-archived-evidence), [fresh build/run instructions](#independently-rebuild-and-run-a-comparison), [new-host acceptance protocol](experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md), [source and license](docs/SOURCES.md) |
+| Are setup differences and contributions explicit? | [Report Appendix A](report/EXPANDED_REPORT.md#appendix-a-complete-setup-deviations), [contributions](docs/CONTRIBUTIONS.csv), [member reviews](docs/reviews/) and [dated weekly progress](docs/WEEKLY_PROGRESS.md) |
+| Where are the readable deliverables and demonstration? | [Report exports](report/README.md), [presentation source and delivered rehearsal formats](presentation/README.md), [one-number evidence demonstration](presentation/TALK_OUTLINE.md) |
+| Which requirements are confirmed? | [Supplied course criteria and unresolved external items](docs/COURSE_REQUIREMENTS.md), [current member actions](docs/MEMBER_ACTIONS_ZH.md) and [validation record](docs/VALIDATION_20261122.md) |
+
+The current verdict is **partially reproduced**. Schedule-count agreement and
+configuration-specific reductions coexist with failure-discovery discrepancies.
+The report explains the method-specific meaning of depth, the shape of the
+observed failure distributions and the mechanism behind the depth extension.
+The acceptance protocol tests present-day execution in a separate new-host
+scope; its result never replaces the historical studies or missing observations.
+
 ## Current revision — 22 November 2026
 
 The [current report](report/EXPANDED_REPORT.md) includes the accepted member
 studies and [PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5),
 Li Yangshuo's report traceability audit. Original authors and experiment dates
-are preserved. This revision adds automatic numerical checks and synchronized
-report/checklist exports. See the [validation record](docs/VALIDATION_20261122.md)
+are preserved. This revision adds automatic numerical checks, deeper source/log
+analysis, corrected execution entry points and synchronized report/checklist
+exports. See the [validation record](docs/VALIDATION_20261122.md)
 and [current member actions](docs/MEMBER_ACTIONS_ZH.md).
 
 `make audit` verifies raw evidence and checked summaries, then checks report
@@ -20,6 +40,8 @@ Tables 2–12 against those records. The report check covers sample sizes,
 means and sample standard deviations, reported gaps, paired-difference
 signs, missing observations and separate batch scopes. It also checks all
 18 numbered captions, their narrative references and four figure paths.
+The additional explanation audit verifies 66 checksummed source/log files and
+recounts the new failure frequencies, depth layers and nested request prefixes.
 It does not independently validate every prose claim, the paper itself or
 rendered figure/document layout. The synthetic regression cases never enter
 experimental results.

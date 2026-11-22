@@ -294,8 +294,8 @@ Original contributions and assistance statements appear in report section 10.
 
 ### Sources
 
-- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
-- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/docs/CONTRIBUTIONS.csv)
+- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/b8e7d213cc1111f773811506f31271149bf69143/report/EXPANDED_REPORT.md)
+- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/b8e7d213cc1111f773811506f31271149bf69143/docs/CONTRIBUTIONS.csv)
 - [Li Yangshuo report traceability PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5)
 - [He Boyu twostage PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
 

@@ -17,7 +17,6 @@ jobs:
       - name: Run bounded pilot
         shell: bash
         run: |
-          mkdir -p "$RUNNER_TEMP/period-evidence"
           bash scripts/period_container_pilot.sh "$RUNNER_TEMP/period-evidence"
       - name: Preserve successful and failed evidence
         if: always()

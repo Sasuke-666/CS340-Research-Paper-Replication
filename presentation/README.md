@@ -13,8 +13,26 @@ The scope includes the paper's method, two tested claims, the five-case
 comparison, depth extension, capacity diagnostic, independent account host and
 twostage source/witness study. It credits the supplementary account audit and
 later report traceability review. The twelve-slide draft dated 14 November
-remains an earlier delivery. Updating this source alone does not establish
-that a new deck has been rendered or visually checked.
+remains an earlier delivery.
+
+## Delivered rehearsal and maintained source
+
+The previous 22 November delivery already includes a fourteen-slide editable
+PowerPoint and its PDF preview:
+
+- `CS340_PERIOD_Presentation_20261122.pptx`
+- `CS340_PERIOD_Presentation_20261122.pdf`
+
+That rehearsal deck contains Chinese speaker notes, nine editable native tables
+and one native chart. These generated delivery files are separate from the
+tracked content source. The current source revision also corrects the
+contribution references to the published 22 November report and adds clickable
+evidence and a scoped recount command to the talk outline. Source changes are
+carried into subsequent delivery files by exporting and inspecting the updated
+deck. An actual rehearsal or formal presentation by the members remains a
+separate activity.
+
+## Course format and scope
 
 The instructor's project document refers to a separate Presentation Instruction.
 That source is not in the inspected repository. The tentative presentation date
