@@ -20,7 +20,7 @@ Revised 22 November 2026, Macau/Beijing time. Fourteen total slides. English scr
 ### Sources
 
 - [Wen et al., ICSE 2022, DOI 10.1145/3510003.3510178](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
-- [Group report, sections 1 and 10](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, sections 1 and 10](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 
 ## Slide 02: Periods and bounded search
 
@@ -40,26 +40,26 @@ A requested schedule constrains execution. The realized order still needs eviden
 ### Sources
 
 - [Paper, sections 2.2 and 3](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
-- [Group report, section 1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, section 1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 
 ## Slide 03: Claims and experimental setup
 
 ### English screen text
 
 - C1: Do the selected Table 2 counts and failure metrics reproduce?
-- C2: Does PERIOD explore fewer schedules while still finding the failure?
-- Five programs from four families. Depth 3. Budget 10,000.
-- Baseline: author_serialized_abi16. Matched methods share a case host and binary.
+- C2: Under released depth rules, does PERIOD reduce search and still find failure?
+- Five programs from four families. Depth d=3. Budget 10,000.
+- Baseline: author_serialized_abi16. Different period bounds. Same case host and binary.
 
 Source cb8deb9. Image sha256:8f47d8b9…59fbc. Full pins and deviations appear in the report.
 
 ### Chinese speaker notes
 
-C1同时比较枚举总数、首次失败位置和错误调度数。C2关注与明确适配的发布版序列化驱动相比，搜索量是否减少且仍能暴露目标错误。源代码固定在cb8deb9，镜像固定到摘要；每批次另记录宿主和内核。原序列化接口需要最小适配才能执行，其历史可执行程序同一性仍未证明。五程序是有目的的缩小范围，结论适用于这些程序与设置。
+C1同时比较枚举总数、首次失败位置和错误调度数。C2比较两个发布版驱动各自深度规则下的配置：PERIOD遍历period数p=2到d+1，序列化驱动遍历p=N到d+N−1，N为枚举开始时观测到的线程数。三线程d=3时，两者分别覆盖p=2、3、4与p=3、4、5。因此数值相同的depth并不对应相同的绝对period边界，保留的驱动差异也使本比较无法把效果单独归因于调度器。源代码固定在cb8deb9，镜像固定到摘要，每批次另记录宿主和内核。原序列化接口需要最小适配，其历史可执行程序同一性仍未证明。结论限于五个选定程序和上述配置。
 
 ### Sources
 
-- [Group report, sections 1–2 and Appendix A](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, sections 1–2 and Appendix A](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Registered comparison protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPARISON_PROTOCOL.md)
 - [Compatibility protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
 
@@ -82,7 +82,7 @@ Separate evidence: 20 independent-host calls, 40 readable capacity calls and 5 t
 
 ### Sources
 
-- [Group report, sections 2, 5.2, 7 and 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, sections 2, 5.2, 7 and 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Four-thread completion summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)
 
 ## Slide 05: Four cases require fewer schedules
@@ -104,11 +104,11 @@ Explored schedules. n=10 pairs per case, except reorder_4 n=3. Twostage ties at 
 
 ### Chinese speaker notes
 
-五行均为同案例同宿主的比较。四线程使用独立完成研究的三对，其余四案例使用十对，每行枚举数的样本标准差为0。减少比例依次是10.00%、73.96%、52.21%、35.00%、0%。每次完整调用均发现目标错误。这支持限定范围的C2，调度总数的减少不能直接推导首次失败更早或所有程序更快。
+五行均为同案例同宿主的比较，两种发布驱动各自使用第3页说明的depth到period映射。四线程使用独立完成研究的三对，其余四案例使用十对，每行枚举数的样本标准差为0。减少比例依次是10.00%、73.96%、52.21%、35.00%、0%。每次完整调用均发现目标错误。这支持限定配置内的C2，调度总数的减少不能直接推导首次失败更早或所有程序更快。
 
 ### Sources
 
-- [Group report, Table 4 and C2 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, Table 4 and C2 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Primary comparison summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42381922637/SUMMARY.md)
 - [Four-thread follow-up summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)
 
@@ -128,11 +128,11 @@ Mean ± sample SD, n=10. First failure is an enumeration position.
 
 ### Chinese speaker notes
 
-这里展示原主批次PERIOD的三个代表性首次失败差距，数值是均值加减样本标准差，每行n=10。account相对论文多8.1个位置，即405%；lazy01多5个，即166.67%；twostage多1.3个，即32.5%。首次失败指一基的枚举位置。五个程序的探索总数全部匹配，首次失败和部分错误调度数仍有偏差，所以总体保持部分复现。
+这里展示原主批次PERIOD的三个代表性首次失败差距，数值是均值加减样本标准差，每行n=10。account有九次在第10个请求首次失败、一次在第11个，lazy01十次均在第8个，说明它们相对论文2和3的偏移在每次重复中都存在。twostage有九次在第4个、一次在第17个，单次较晚发现使均值升到5.300；错误调度数则九次为2、一次为1，均低于论文的3。首次失败指一基的枚举位置。频数帮助解释均值与离散程度，不能确定延迟所对应的真实执行顺序。五个程序的探索总数全部匹配，首次失败和部分错误调度数仍有偏差，所以总体保持部分复现。
 
 ### Sources
 
-- [Group report, Table 2 and C1 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, Table 2 and C1 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Paper Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
 
 ## Slide 07: A controlled capacity correction
@@ -155,7 +155,7 @@ One driver constant changes within each pair. Target binary and native runtime r
 
 ### Sources
 
-- [Group report, section 8.1 and Table 9](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, section 8.1 and Table 9](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Registered capacity protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-14/LAYOUT_PROTOCOL.md)
 
 ## Slide 08: The correction leaves first-failure gaps
@@ -179,7 +179,7 @@ Mean ± sample SD, n=10 per condition. Original account outcomes remain unknown.
 
 ### Sources
 
-- [Group report, Tables 10–12 and section 8.3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, Tables 10–12 and section 8.3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Account recovery summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md)
 - [Original lazy01 summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md)
 
@@ -198,11 +198,11 @@ Mean ± sample SD, n=3. Depth 2 explores 51.85% fewer schedules than depth 3.
 
 ### Chinese speaker notes
 
-这项单因素扩展在同一reorder_3二进制和宿主上，只改变深度1、2、3，每个条件三次，顺序平衡。深度2在三次观测中都找到已知错误，相对深度3减少51.85%的探索。深度3平均有更多失败调度，仍可能对应同一个程序缺陷。深度1没有发现错误，只表明该边界中的观察结果。
+这项单因素扩展在同一reorder_3二进制和宿主上，只改变深度1、2、3，每个条件三次，顺序平衡。九份日志均显示嵌套请求前缀：depth 1的3个请求、depth 2的13个请求均是depth 3的27个请求的前缀。depth 3依次包含p=2的3个、p=3的10个、p=4的14个请求。depth 2与3的六次运行都在第6个请求[[0],[2],[0,1,1]]首次失败，位于新增加的三period层。源码中两个setter依次写a=1和b=−1，checker只接受(0,0)或(1,−1)；该请求将一个setter的首个关键点与剩余工作分开，并将checker放在两者之间，允许观察中间状态(1,0)。这是请求顺序和源码支持的机制解释，原记录没有逐条内存操作的真实轨迹。深度2三次均找到已知错误，相对深度3减少51.85%的探索。深度3的更多失败调度仍可能对应同一个缺陷。深度1的未发现结果只描述该边界内的观察。
 
 ### Sources
 
-- [Group report, section 6 and Table 7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, section 6 and Table 7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Registered follow-up protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/FOLLOWUP_PROTOCOL.md)
 
 ## Slide 10: Independent account host corroboration
@@ -224,7 +224,7 @@ Mean ± sample SD, n=10 per method. Keep this host separate from the primary bat
 
 ### Sources
 
-- [Group report, section 7 and Table 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, section 7 and Table 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Independent account summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/member-reruns/1240001156-account-20261108T122201Z-summary/SUMMARY.md)
 - [Supplementary account audit](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/docs/reviews/1240001156-account-supplement.md)
 
@@ -273,7 +273,7 @@ These are separate studies. Later diagnostics leave the earlier reorder_3 miss u
 ### Sources
 
 - [Twostage replay evidence](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/member-reruns/1240000576-twostage-43681034375/README.md)
-- [Group report, sections 5.4–5.5 and Table 6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, sections 5.4–5.5 and Table 6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 
 ## Slide 13: Contributions and evidence trail
 
@@ -294,8 +294,8 @@ Original contributions and assistance statements appear in report section 10.
 
 ### Sources
 
-- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/b8e7d213cc1111f773811506f31271149bf69143/report/EXPANDED_REPORT.md)
-- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/b8e7d213cc1111f773811506f31271149bf69143/docs/CONTRIBUTIONS.csv)
+- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/docs/CONTRIBUTIONS.csv)
 - [Li Yangshuo report traceability PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5)
 - [He Boyu twostage PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
 
@@ -316,5 +316,5 @@ Verification entry point: make audit
 
 ### Sources
 
-- [Group report, verdicts and limitations](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/report/EXPANDED_REPORT.md)
+- [Group report, verdicts and limitations](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Repository and reproducibility instructions](https://github.com/Sasuke-666/CS340-Research-Paper-Replication)

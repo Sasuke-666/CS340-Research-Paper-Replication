@@ -1,7 +1,7 @@
 PYTHON ?= python3
 EVIDENCE_DIR ?= results/local-$(shell date -u +%Y%m%dT%H%M%SZ)
 
-.PHONY: help check pilot followup comparison summarize report checklist deliverables audit summarize-comparisons audit-comparisons audit-member layout audit-layout summarize-layout audit-member-reviews audit-report
+.PHONY: help check pilot followup comparison summarize report checklist deliverables audit summarize-comparisons audit-comparisons audit-member layout audit-layout summarize-layout audit-member-reviews audit-report audit-acceptance
 help:
 	@printf '%s\n' 'make check: unit tests and repository checks' 'make pilot: build and run the pinned three-case pilot in Docker' 'make followup: controlled depth extension and fixed-witness replay' 'make comparison CASE=reorder_3: ten paired repetitions with the compatible serialized baseline' 'make summarize: regenerate the archived summaries' 'make audit: verify raw evidence, summaries and report tables' 'make audit-report: check report numbers, scope and references' 'make deliverables: export the dated report and member checklist' 'make layout CASE=account: run the capacity-only diagnostic in Docker' 'make summarize-layout: regenerate the registered diagnostic tables' 'Override EVIDENCE_DIR for a fresh experiment output directory.'
 check:
@@ -18,7 +18,7 @@ summarize: summarize-comparisons
 	$(PYTHON) scripts/summarize_period.py results/2026-11-07/pilot
 	$(PYTHON) scripts/summarize_followup.py
 
-audit: audit-comparisons audit-member audit-layout audit-member-reviews
+audit: audit-comparisons audit-member audit-layout audit-member-reviews audit-acceptance
 	$(PYTHON) scripts/verify_period_evidence.py
 	$(PYTHON) scripts/audit_period_results.py
 	$(PYTHON) scripts/audit_report.py
@@ -45,6 +45,9 @@ audit-member-reviews:
 
 audit-member:
 	$(PYTHON) scripts/summarize_comparison.py results/member-reruns/1240001156-account-20261108T122201Z --cases account --repeats 10 --output results/member-reruns/1240001156-account-20261108T122201Z-summary --check
+
+audit-acceptance:
+	$(PYTHON) scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
 
 layout: CASE ?= account
 layout:

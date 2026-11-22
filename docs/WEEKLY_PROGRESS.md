@@ -240,6 +240,16 @@ registers five cases, three method pairs each and the existing separately counte
 replay diagnostic before execution. Its run-specific archive and validation
 record must determine actual completion; registration alone is not a result.
 
+The first [registered run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
+then completed all five case jobs and archiving on 22 November, 19:00–19:06
+UTC+8. Archive `7284180` preserves 948 raw files. Independent verification found
+30 complete eligible comparison calls, 15 pairs, 40 complete diagnostic calls
+and five successful builds. These are new engineering-acceptance observations
+with separate case/host scopes; no earlier study denominator is changed.
+`make audit-acceptance` and continuous checks retain this acceptance criterion.
+The revised English PDF/Word preserve clickable evidence links, and the
+fourteen-slide rehearsal incorporates the more precise scientific explanations.
+
 ## Subsequent internal milestones
 
 The earlier 15 November delivery and 22 November report milestones are recorded

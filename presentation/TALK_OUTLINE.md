@@ -4,7 +4,7 @@ Revised for group study on 22 November 2026, Macau/Beijing time. The
 [fourteen-slide rehearsal source](SLIDES.md) provides English screen text,
 Chinese speaker notes and per-slide citations. The slide count is an internal
 content choice. Official duration, speaking allocation and marking details
-remain to be verified. The maintained [report](../report/EXPANDED_REPORT.md)
+remain to be verified. The maintained [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 is authoritative for the latest findings. No completed personal presentation
 is inferred from these materials.
 
@@ -28,13 +28,18 @@ T1 的指定前缀运行，最后让剩余工作并行。这个例子只解释�
 **English messages:**
 
 - C1: Do the selected Table 2 results reproduce with the released implementation?
-- C2: Does PERIOD explore fewer schedules than the explicitly adapted serialized
-  driver while still exposing the target failure?
+- C2: Under the released drivers' respective depth rules, does PERIOD explore
+  fewer schedules than the adapted serialized driver while exposing the failure?
 
 中文讲解：C1 对照论文中的首次失败位置、枚举总数和错误调度数。
 C2 在相同宿主、程序、输入和已构建二进制上比较两个具体实现。
 五案例为 `reorder_3`、`reorder_4`、`account`、`lazy01`、`twostage`，来自四个程序系列。
 这是有目的的小规模选择，结论覆盖这批条件。[S2，§1–§3；S3]
+
+这里的depth是发布驱动的bug-depth参数d。PERIOD遍历p=2到d+1，序列化驱动
+遍历p=N到d+N−1，N是枚举开始时观测到的线程数。以三线程d=3为例，
+PERIOD的period数为2、3、4，序列化为3、4、5。C2比较这两个已发布配置，
+绝对period边界和其他保留的驱动差异均属于比较范围，不能据此单独归因于调度器。[S2，§2]
 
 序列化方法名称始终使用 `author_serialized_abi16`。原作者旧驱动与当前运行时存在
 共享内存接口不兼容，本组按已记录补丁完成最小适配。论文历史 Serial 可执行程序
@@ -98,6 +103,11 @@ failure observations.
 原主批次 `account` 的 PERIOD 首次失败均值为 10.100 ± 0.316，论文参考值为 2，
 差 8.100，即 +405.00%。`lazy01` 为 8，对照论文 3。
 这两个差异应与成功复现的调度总数一起讲清。[S2，Table 2]
+
+逐次频数能解释均值：account有九次首次失败在10、一次在11，lazy01十次均在8，
+两案例相对论文的偏移在每次重复中都存在。twostage有九次首次失败在4、一次在17，
+单次较晚发现将均值升至5.300；其错误调度数九次为2、一次为1，十次都低于论文3。
+这些频数描述重复观测，尚不能识别导致延迟的真实执行顺序。[S2，§3]
 
 李扬烁独立 `account` 批次的 PERIOD 首次失败位置为 8.8 ± 2.044，调度总数仍为
 65 ± 0。序列化方法分别为 4 ± 0 和 136 ± 0。这一新宿主结果提供独立证据，
@@ -166,12 +176,19 @@ known failure while exploring fewer schedules than depth 3.
 它说明这个程序上的覆盖与搜索成本取舍；深度 1 的未发现结果仅对应这个边界。
 更深的设置发现更多触发失败的调度，但没有据此增加“不同缺陷”的数量。[S2，§6]
 
+九份扩展日志显示相同的嵌套结构：3个depth-1请求和13个depth-2请求均为27个
+depth-3请求的前缀。depth 3按顺序含3个两period、10个三period、14个四period请求。
+depth 2和3的六次运行都在第6个请求`[[0],[2],[0,1,1]]`首次失败，位于新增的
+三period层。源码的setter依次写`a=1`、`b=-1`，checker只接受`(0,0)`或`(1,-1)`。
+该请求分开一个setter的首个关键点与剩余工作，让checker在两者之间运行，允许
+出现中间状态`(1,0)`。讲解应标明依据是请求和源码，逐条内存操作的真实轨迹仍未知。[S2，§6]
+
 ## 7. Evidence demonstration
 
 选择一个能当场解释的数字，演示“报告—汇总—记录—原始日志—摘要校验”的路径。
 建议使用四线程后续批次，因为六条调用及三对关系清晰。[S5；S7]
 
-1. 在[报告第 4 节的 Table 4](../report/EXPANDED_REPORT.md#4-matched-comparison-and-efficiency-interpretation)找到 PERIOD 100 与序列化 384，再对照[该批次独立汇总](../results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)。
+1. 在[报告第 4 节的 Table 4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md#4-matched-comparison-and-efficiency-interpretation)找到 PERIOD 100 与序列化 384，再对照[该批次独立汇总](../results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)。
 2. 打开[六条调用的 records.json](../results/2026-11-07/comparison-42384122902/reorder_4/records.json)，确认方法、重复编号和实际状态。
 3. 对照[period_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/period_r01.txt)和[author_serialized_abi16_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/author_serialized_abi16_r01.txt)的完成标记与计数。
 4. 解释 `(384 - 100) / 384 = 73.96%`，并展示另两对得到相同总数。
@@ -217,13 +234,14 @@ python3 scripts/summarize_comparison.py \
 | Does the first failing schedule measure time to bug? | It is a one-based enumeration position. Whole-driver elapsed time includes calibration and other work; time to the first error was not separately measured. |
 | Is 120 seconds the serialized completion time? | The ten runs were stopped at the outer bound. Their completion times and final totals are missing; the observed prefixes remain available. |
 | Why did the old serialized driver crash? | Source and syscall evidence supports the shared-memory size/type incompatibility; archived probes and the scoped adapter are in report §5.1. |
+| Does depth 3 impose the same period bound on both drivers? | PERIOD enumerates p=2 through d+1; the released serialized driver enumerates p=N through d+N−1. Three threads at d=3 give 2–4 versus 3–5 periods. C2 concerns these released configurations. See report §2. |
 | Does the adapter prove historical Serial identity? | Its changes are documented and the serialized scheduling section is preserved. Other released-driver differences remain, and the exact historical executable is unverified. |
 | Is the result a general speedup? | Timing observations concern the specified implementations within matched cases and hosts. Case totals and host times are not pooled into a universal speedup. |
 | Why preserve the replay miss? | The original fixed witness hit 4/5. Later two-setting diagnostics each hit 20/20 per setting and did not explain that miss. These batches retain separate scopes. |
 | Does a zero standard deviation prove determinism? | It describes the observed repeated metric. Execution traces and other failure metrics can still vary, and a finite sample does not establish universal behavior. |
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
-| What did each member do? | Name the actual commits and evidence in `docs/CONTRIBUTIONS.csv`; distinguish submitted work from human review or explanation still awaiting completion. |
+| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
 | Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
 | What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
 | Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
@@ -244,8 +262,8 @@ both audited cases. Our overall verdict is partial reproduction.
   ICSE 2022, DOI: 10.1145/3510003.3510178.
   [Original paper](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf),
   sections 2.2 and 3 for the method; Table 2 for paper references.
-- S2. [Expanded report](../report/EXPANDED_REPORT.md), with numbered tables,
-  figures, scoped verdicts and original data references.
+- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md), with numbered tables,
+  figures, scoped verdicts and original data references, frozen at publication `2de3787` for this rehearsal.
 - S3. [Registered comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md).
 - S4. [Compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
   and [source/attribution record](../docs/SOURCES.md).

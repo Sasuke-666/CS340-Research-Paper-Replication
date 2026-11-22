@@ -43,12 +43,15 @@ jobs:
         run: make audit-layout PYTHON=python
       - name: Audit integrated member review evidence
         run: make audit-member-reviews PYTHON=python
+      - name: Audit completed fresh-host acceptance evidence
+        run: make audit-acceptance PYTHON=python
       - name: Check report tables against audited measurements
         run: make audit-report PYTHON=python
       - name: Build readable stage-report exports
         if: matrix.python-version == '3.12'
         run: |
           python -m pip install -r requirements-report.txt
+          python -m unittest discover -s tests -p test_report_exports.py -v
           make deliverables PYTHON=python
       - name: Package tracked source and evidence without Git metadata
         if: matrix.python-version == '3.12'

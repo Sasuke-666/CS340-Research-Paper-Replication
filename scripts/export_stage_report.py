@@ -9,9 +9,51 @@ from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
 import re
+import subprocess
 import tempfile
+from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 from report_config import revision_date
+
+
+REPOSITORY_URL = 'https://github.com/Sasuke-666/CS340-Research-Paper-Replication'
+INLINE_LINK = re.compile(r'\[([^\]]+)\]\(([^)]+)\)|(https?://[^\s<>]+)')
+
+
+def link_parts(text):
+    """Keep Markdown link labels and destinations distinct during export."""
+    for match in INLINE_LINK.finditer(text):
+        label, target, bare = match.groups()
+        yield match.start(), match.end(), label or bare, target or bare
+
+
+def repository_revision(root):
+    """Pin local evidence to this checkout; source archives use main navigation."""
+    try:
+        revision = subprocess.check_output(
+            ['git', '-C', str(root), 'rev-parse', '--verify', 'HEAD'],
+            text=True, stderr=subprocess.DEVNULL).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return 'main'
+    return revision if re.fullmatch(r'[0-9a-f]{40,64}', revision) else 'main'
+
+
+def resolve_report_link(target, root, source, repository_ref='main'):
+    parts = urlsplit(target)
+    if parts.scheme in ('https', 'http') and parts.netloc:
+        return target
+    if parts.scheme or parts.netloc:
+        raise ValueError('Unsupported evidence link: ' + target)
+    root, source = root.resolve(), source.resolve()
+    local = (source.parent / unquote(parts.path)).resolve() if parts.path else source
+    if (root != local and root not in local.parents) or not local.exists():
+        raise ValueError('Missing/outside evidence link: ' + target)
+    kind = 'tree' if local.is_dir() else 'blob'
+    relative = quote(local.relative_to(root).as_posix(), safe='/')
+    url = REPOSITORY_URL + '/' + kind + '/' + quote(repository_ref, safe='') + '/' + relative
+    parsed = urlsplit(url)
+    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parts.query,
+                       quote(unquote(parts.fragment), safe='-._~')))
 
 
 def register_pdf_fonts():
@@ -109,7 +151,7 @@ def blocks(text):
         yield ('paragraph', ' '.join(paragraph).removeprefix('- '))
 
 
-def export(root, output, source=None, stem=None, report_date=None):
+def export(root, output, source=None, stem=None, report_date=None, repository_ref=None):
     import cairosvg
     from docx import Document
     from docx.shared import Inches, Pt
@@ -126,6 +168,7 @@ def export(root, output, source=None, stem=None, report_date=None):
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, CondPageBreak
 
     canonical_date = revision_date(root)
+    repository_ref = repository_ref or repository_revision(root)
     if report_date is not None and report_date != canonical_date:
         raise ValueError('--date must match report/REVISION_DATE and the report header')
     report_date = canonical_date
@@ -162,7 +205,8 @@ def export(root, output, source=None, stem=None, report_date=None):
     fld = OxmlElement('w:fldSimple'); fld.set(qn('w:instr'), 'PAGE'); footer._p.append(fld)
     register_pdf_fonts()
     body = ParagraphStyle('Body', fontName='CS340Sans', fontSize=10.2, leading=14,
-                          spaceAfter=6, splitLongWords=True, alignment=TA_LEFT)
+                          spaceAfter=6, splitLongWords=True, alignment=TA_LEFT,
+                          allowWidows=False, allowOrphans=False)
     title = ParagraphStyle('Title', parent=body, fontName='CS340Sans-Bold', fontSize=21,
                            leading=25, spaceAfter=12, textColor=colors.HexColor('#000000'))
     heading = ParagraphStyle('Heading', parent=body, fontName='CS340Sans-Bold', fontSize=13,
@@ -172,17 +216,24 @@ def export(root, output, source=None, stem=None, report_date=None):
     story = []
     width = A4[0] - 84
 
-    def inline(value):
-        value = pdf_names(value)
-        value = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', value)
+    def inline_text(value):
         value = escape(value)
-        value = re.sub(r'https?://[^\s<>]+',
-                       lambda match: '<link href="%s" color="#1F4E79">%s</link>' %
-                       (match[0], match[0]), value)
         value = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', value)
         value = re.sub(r'`([^`]+)`', r'<font name="CS340Sans" size="8.6">\1</font>', value)
         value = re.sub(r'(?<!\*)\*([^*]+)\*(?!\*)', r'<i>\1</i>', value)
         return value
+
+    def inline(value):
+        value = pdf_names(value)
+        parts, position = [], 0
+        for start, end, label, target in link_parts(value):
+            parts.append(inline_text(value[position:start]))
+            destination = escape(resolve_report_link(target, root, source, repository_ref), quote=True)
+            parts.append('<link href="%s" color="#1F4E79">%s</link>' %
+                         (destination, inline_text(label)))
+            position = end
+        parts.append(inline_text(value[position:]))
+        return ''.join(parts)
 
     with tempfile.TemporaryDirectory() as tmp:
         for n, block in enumerate(parsed):
@@ -196,18 +247,19 @@ def export(root, output, source=None, stem=None, report_date=None):
             elif kind == 'paragraph':
                 text = block[1]
                 p = doc.add_paragraph()
-                visible = plain(text); position = 0
-                for match in re.finditer(r'https?://\S+', visible):
-                    p.add_run(visible[position:match.start()])
+                position = 0
+                for start, end, label, target in link_parts(text):
+                    p.add_run(plain(text[position:start]))
+                    destination = resolve_report_link(target, root, source, repository_ref)
                     link = OxmlElement('w:hyperlink')
-                    link.set(qn('r:id'), p.part.relate_to(match[0], RT.HYPERLINK, is_external=True))
+                    link.set(qn('r:id'), p.part.relate_to(destination, RT.HYPERLINK, is_external=True))
                     run = OxmlElement('w:r'); properties = OxmlElement('w:rPr')
                     color = OxmlElement('w:color'); color.set(qn('w:val'), '1F4E79'); properties.append(color)
                     underline = OxmlElement('w:u'); underline.set(qn('w:val'), 'single'); properties.append(underline)
-                    run.append(properties); value = OxmlElement('w:t'); value.text = match[0]
+                    run.append(properties); value = OxmlElement('w:t'); value.text = plain(label)
                     run.append(value); link.append(run); p._p.append(link)
-                    position = match.end()
-                p.add_run(visible[position:])
+                    position = end
+                p.add_run(plain(text[position:]))
                 if text.startswith('**Table '): p.paragraph_format.keep_with_next = True
                 if text.startswith('**Figure '):
                     for run in p.runs: run.italic = True; run.font.size = Pt(9)
@@ -269,7 +321,8 @@ def export(root, output, source=None, stem=None, report_date=None):
                 doc.paragraphs[-1].paragraph_format.keep_with_next = True
                 doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
                 image = Image(str(target)); ratio = image.imageHeight / image.imageWidth
-                figure=Image(str(target), width=width*scale, height=width*ratio*scale)
+                pdf_scale = .95 if path.name == 'expanded_schedule_comparison.svg' else scale
+                figure=Image(str(target), width=width*pdf_scale, height=width*ratio*pdf_scale)
                 figure.keepWithNext=True
                 story.append(figure)
         for tree in (doc._element,doc.styles.element):

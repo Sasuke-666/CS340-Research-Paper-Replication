@@ -142,9 +142,88 @@ This verifies the source facts supporting those passages; it does not bind
 arbitrary natural-language claims or prove a causal execution trace.
 
 The [fresh-host protocol](../experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md)
-is registered before measurement. It plans 30 comparison calls (15 pairs),
+was registered in `2de378771adbeeced2709f9bc4ca436799848197` before measurement.
+It plans 30 comparison calls (15 pairs),
 40 separate replay calls and five benchmark builds across five case hosts.
 Its acceptance check requires integrity, complete observations, explicit
 provenance and no inner timeout or schedule-budget truncation. It does not
-require historical timing/failure metrics to match. The actual workflow result
-and archive will be recorded after the run; this registration is not a pass.
+require historical timing/failure metrics to match.
+
+### Observed live result
+
+[Workflow 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
+ran on 22 November, 19:00–19:06 in UTC+8. All five comparison jobs and the archive
+job completed successfully on the first attempt. The workflow published exact
+evidence in `7284180dfccb7d90d3b182246f957e059cf0ecc5`.
+The [independent acceptance receipt](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)
+was recomputed locally with `--check` after fetching that archive.
+
+| Acceptance observation | Actual outcome |
+| --- | --- |
+| Main comparisons | 30 attempted, 30 complete eligible; three calls per method for each of five cases |
+| Matched pairs | 15 complete; each case's pairs confined to its own host and binary |
+| Fixed-witness diagnostic | 40 complete eligible calls; 20 at each predeclared scale; actual matching assertions in all 40 |
+| Benchmark builds | Five successful builds; source, image and built-binary provenance retained |
+| Timeouts and budget | No comparison inner timeout, outer timeout or schedule-budget truncation |
+| Raw archive | 948 manifest-listed files; all sizes/hashes match and the listed set equals the actual raw-file set |
+| Protocol identity | Outer manifest records the pre-measurement commit `2de3787`, run ID and attempt 1 |
+| Independent check | `make audit-acceptance` passes; included in `make audit` and continuous checks |
+
+The [case summaries](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)
+report their own mean/sample SD and n=3. The observed schedule-request counts
+are PERIOD/serialized 27/30, 100/384, 65/136, 39/60 and 33/33 for reorder_3,
+reorder_4, account, lazy01 and twostage. These agree with the earlier structural
+counts. Failure yields and times retain their actual new observations rather
+than being forced to historical values. The four-thread host used an Intel
+Xeon 6975P-C and kernel 7.0.0-1014-aws; the other case hosts recorded different
+processors and kernel 7.0.0-1017-azure. CPU model labels never join host scopes.
+This engineering batch is not added to the historical report's 106 attempts,
+96 complete calls or 43 complete pairs.
+
+### Why these changes address plausible grading risks
+
+| Published criterion | Concrete improvement | Scope of the inference |
+| --- | --- | --- |
+| Git reproducibility/environment, 25%; README/code, 25% | Corrected actual broken entry points; live five-case rebuild/run; direct review navigation | Successful fresh-host execution provides stronger evidence for the existing criterion; no new instructor test is invented |
+| Report critical analysis, 30% | Method-specific depth definitions and actual failure distributions | Addresses a plausible concern that means and parameter labels alone under-explain discrepancies |
+| Report extension, 15% | Nested request layers connected to the selected source-level failure condition | Explains the observed intervention using existing evidence while keeping execution-trace uncertainty explicit |
+| Report writing, 10% | Version-consistent entry points and clickable exported evidence links | Makes claims easier to verify; generated presentation remains a rehearsal pending the actual instruction |
+
+The new entry-point and acceptance regressions exercise both successful paths
+and deliberate failure conditions. In separate temporary checks, a wrapper
+failure survived `tee` with its nonzero status, startup logs were preserved only
+after wrapper exit, and malformed records were archived byte-for-byte with an
+unknown count and parse-error note. A repeated destination was rejected without
+changing retained evidence. These are synthetic software checks, not research
+observations.
+
+Report export now preserves source-link labels and targets in DOCX external
+relationships and PDF link annotations. Relative evidence resolves to an
+immutable exporting checkout revision when Git metadata is present; an exported
+source package without Git uses current repository navigation. File, directory,
+fragment, query-string and rejection cases are checked. The package-level
+regression also runs in the dependency-equipped continuous export job.
+
+### Completed local closeout checks
+
+The final dependency-equipped local suite passed **147 tests with no skips**.
+The full `make audit` passed, including the new live-acceptance archive and
+66-file explanation recount. The earlier published registration revision also
+passed [run 45015126904](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126904)
+on Python 3.9 and 3.12. The final publication's own workflow is checked separately
+at delivery; that earlier run is not substituted for it.
+
+The regenerated report PDF has **18 pages**; editable Word renders as **15 pages**
+in the available office renderer. Every page of both formats was visually
+checked. All four figures and their captions remain readable; Appendix A repeats
+its table header across PDF pages 15–16 and Word pages 13–14. All 27 distinct
+external links are present in both formats, including 12 local-evidence targets
+resolved to published revision `7284180` at export time.
+
+The revised rehearsal export has **14 slides**, nine native editable tables,
+one native chart with an embedded workbook and Chinese notes on every slide.
+All 14 presentation previews and 14 PDF pages were inspected individually.
+Current report/contribution sources are fixed at `2de3787`; historical data
+retain their original fixed references. This slide set presents the scientific
+study and deeper explanations, not the separate new-host acceptance statistics.
+No actual student rehearsal or final presentation submission is claimed.

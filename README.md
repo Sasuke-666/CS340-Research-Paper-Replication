@@ -25,6 +25,18 @@ observed failure distributions and the mechanism behind the depth extension.
 The acceptance protocol tests present-day execution in a separate new-host
 scope; its result never replaces the historical studies or missing observations.
 
+**Fresh-host acceptance passed on 22 November:**
+[run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
+rebuilt and ran all five cases. The independent
+[acceptance receipt](results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)
+confirms **30/30 complete eligible comparison calls, 15 complete method pairs,
+40/40 complete diagnostic calls and five successful benchmark builds**.
+All 948 archived evidence files match their manifest, with no missing or extra
+files. No comparison had an inner timeout, outer timeout or budget truncation.
+Run `make audit-acceptance` to verify this batch without launching a workload.
+Its [per-case results](results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)
+retain their own hosts and dates.
+
 ## Current revision — 22 November 2026
 
 The [current report](report/EXPANDED_REPORT.md) includes the accepted member
@@ -45,6 +57,9 @@ recounts the new failure frequencies, depth layers and nested request prefixes.
 It does not independently validate every prose claim, the paper itself or
 rendered figure/document layout. The synthetic regression cases never enter
 experimental results.
+Word and PDF exports preserve clickable source links; local evidence links
+resolve to the exporting checkout's immutable repository revision when Git
+metadata is available.
 
 `make deliverables` creates the English PDF/Word report and Chinese member
 checklist in `report/export/`. Their default names and dates come from
@@ -240,7 +255,7 @@ make audit
 
 `make audit` checks the historical pilot/follow-up archive, the original-driver
 comparison, the compatible-driver comparison, the independent member batch
-and the controlled layout diagnostic.
+and the controlled layout diagnostic, plus the completed fresh-host acceptance.
 Its comparison targets also
 verify startup-failure manifests and compare checked-in summaries against an
 independent recount without rewriting them. The historical archive has 126
@@ -320,7 +335,41 @@ censored. Save failures and inspect the actual records before reporting
 completion. A later study with a different outer limit has its own protocol and
 archive and does not replace these observations.
 
-For a complete five-case rerun and an independent summary, use:
+To repeat the measurement design of the **22 November five-case acceptance**,
+use three pairs and a 240-second watchdog explicitly. These are the exact
+wrapper arguments exercised by its successful fresh-host workflow:
+
+```bash
+ACCEPTANCE_ROOT="results/local-acceptance-$(date -u +%Y%m%dT%H%M%SZ)"
+for STUDY_CASE in reorder_3 reorder_4 account lazy01 twostage; do
+  if bash scripts/period_container_compatible.sh "$STUDY_CASE" \
+    "$ACCEPTANCE_ROOT/$STUDY_CASE" 3 240; then
+    printf 'Completed case: %s\n' "$STUDY_CASE"
+  else
+    printf 'Incomplete case; preserve and inspect: %s\n' "$STUDY_CASE" >&2
+  fi
+done
+ACCEPTANCE_SUMMARY=$(mktemp -d)
+python3 scripts/summarize_comparison.py "$ACCEPTANCE_ROOT" --repeats 3 \
+  --output "$ACCEPTANCE_SUMMARY/acceptance"
+```
+
+This local loop runs cases sequentially on the reader's machine, with a fresh
+container per case. The hosted acceptance assigned a separate fresh machine
+to each case. Both use the same host and built binary within each method pair;
+separate local case directories do not imply separate physical hosts.
+The local command reproduces each case's measurement settings and independent
+recounting. The hosted workflow additionally archives the outer console, workflow provenance
+and a full-batch manifest, then applies the strict acceptance gate. A local
+integrity-only summary is not a complete acceptance receipt: inspect completion,
+timeouts and budget status as specified in the [protocol](experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md).
+In the recorded acceptance, the six comparison calls per case took approximately
+40.2 seconds (`reorder_3`), 288.1 (`reorder_4`), 237.0 (`account`),
+109.4 (`lazy01`) and 12.9 (`twostage`) in total on each respective host.
+Allow additional time for downloads, instrumentation, builds and the separate
+40-call `reorder_3` diagnostic. New-machine times can differ substantially.
+
+To repeat the original ten-pair, 120-second five-case design, use:
 
 ```bash
 COMPARISON_ROOT="results/local-comparison-$(date -u +%Y%m%dT%H%M%SZ)"
