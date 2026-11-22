@@ -1,0 +1,79 @@
++ '[' -d /workdir/PERIOD/clang+llvm ']'
++ export ROOT_DIR=/workdir/PERIOD
++ ROOT_DIR=/workdir/PERIOD
++ export PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ export LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:/workdir/PERIOD/clang+llvm/lib:
++ export CC=clang
++ CC=clang
++ export CXX=clang++
++ CXX=clang++
++ cd /workdir/PERIOD/tool/staticAnalysis/LLVM-PASS
++ rm -rf CMakeFiles
++ rm -rf CMakeCache.txt
++ rm -rf SensitiveOperationsPass/CMakeFiles
++ rm -rf SensitiveOperationsPass/CMakeCache.txt
++ cmake .
+-- The C compiler identification is Clang 10.0.0
+-- The CXX compiler identification is Clang 10.0.0
+-- Check for working C compiler: /workdir/PERIOD/clang+llvm/bin/clang
+-- Check for working C compiler: /workdir/PERIOD/clang+llvm/bin/clang -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /workdir/PERIOD/clang+llvm/bin/clang++
+-- Check for working CXX compiler: /workdir/PERIOD/clang+llvm/bin/clang++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workdir/PERIOD/tool/staticAnalysis/LLVM-PASS
++ make
+Scanning dependencies of target SensitiveOperationsPass
+[ 10%] Building CXX object SensitiveOperationsPass/CMakeFiles/SensitiveOperationsPass.dir/SensitiveOperationsPass.cpp.o
+[ 20%] Linking CXX shared module libSensitiveOperationsPass.so
+[ 20%] Built target SensitiveOperationsPass
+Scanning dependencies of target DryRunPass
+[ 30%] Building CXX object DryRunPass/CMakeFiles/DryRunPass.dir/DryRunPass.cpp.o
+[ 40%] Linking CXX shared module libDryRunPass.so
+[ 40%] Built target DryRunPass
+Scanning dependencies of target instruFunction
+[ 50%] Building CXX object DryRunPass/CMakeFiles/instruFunction.dir/instruFunction.cpp.o
+[ 60%] Linking CXX static library libinstruFunction.a
+[ 60%] Built target instruFunction
+Scanning dependencies of target DBDSPass
+[ 70%] Building CXX object DBDSPass/CMakeFiles/DBDSPass.dir/DBDSPass.cpp.o
+[ 80%] Linking CXX shared module libDBDSPass.so
+[ 80%] Built target DBDSPass
+Scanning dependencies of target DBDSFunction
+[ 90%] Building CXX object DBDSPass/CMakeFiles/DBDSFunction.dir/DBDSFunction.cpp.o
+[100%] Linking CXX static library libDBDSFunction.a
+[100%] Built target DBDSFunction
++ cd /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode
++ make clean
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../dbds-clang-fast ../dbds-llvm-pass.so ../DBDSFunction.o ../dbds-clang-fast++
++ make
+[*] Checking for working 'llvm-config'...
+[*] Checking for working 'clang'...
+[+] All set and ready to build.
+clang -O3 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DAFL_PATH=\"/usr/local/lib/afl\" -DBIN_PATH=\"/usr/local/bin\" -DVERSION=\"1.01b\"  dbds-clang-fast.c -o ../dbds-clang-fast 
+ln -sf dbds-clang-fast ../dbds-clang-fast++
+clang++ `llvm-config --cxxflags` -Wl,-znodelete -fno-rtti -fpic -O0 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DVERSION=\"1.01b\" -Wno-variadic-macros -shared dbds-llvm-pass.so.cc -o ../dbds-llvm-pass.so `llvm-config --ldflags` 
+clang++ -O0 -g -O0 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DVERSION=\"1.01b\" -Wno-variadic-macros -fPIC -c DBDSFunction.cpp -o ../DBDSFunction.o
+[*] Testing the CXX wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN AFL_INST_RATIO; AFL_QUIET=1 AFL_PATH=. AFL_CC=clang ../dbds-clang-fast -O3 -funroll-loops -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -DAFL_PATH=\"/usr/local/lib/afl\" -DBIN_PATH=\"/usr/local/bin\" -DVERSION=\"1.01b\"  -Wno-return-type -c ./test.c -o test.o  #-fsanitize=address
+[DEBUG] The ConConfig file was successfully opened.
+[DEBUG] The file is /workdir/PERIOD/tool/staticAnalysis/DBDS-INSTRU/llvm-mode/ConConfig
+[DEBUG]
+[DEBUG] Instrumentation for test.c:20
+[DEBUG] Instrumentation for test.c:30
+clang++ ./test.o ../DBDSFunction.o -g -O0 -o test-instr -pthread -ldl #-fsanitize=address
+[+] All right, the instrumentation seems to be working!
+[+] All done! You can now use '../dbds-clang-fast' to compile programs.
++ echo 'Installation completed. Everything'\''s fine!'
+Installation completed. Everything's fine!

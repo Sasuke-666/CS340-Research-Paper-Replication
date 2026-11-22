@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Fresh-host engineering acceptance; separate from historical estimates",
+  "batch": "acceptance-45015126850-attempt1",
+  "cases": [
+    "reorder_3",
+    "reorder_4",
+    "account",
+    "lazy01",
+    "twostage"
+  ],
+  "repeats_per_method": 3,
+  "outer_timeout_seconds": 240,
+  "accepted": true,
+  "problems": [],
+  "comparison_counts": {
+    "comparison_attempts": 30,
+    "comparison_complete": 30,
+    "comparison_eligible": 30,
+    "diagnostic_attempts": 40
+  },
+  "complete_pairs": 15,
+  "diagnostic_eligible": 40
+}

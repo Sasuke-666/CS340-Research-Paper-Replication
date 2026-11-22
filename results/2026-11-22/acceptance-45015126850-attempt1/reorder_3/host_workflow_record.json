@@ -1,0 +1,9 @@
+{
+  "case": "reorder_3",
+  "workflow_step_outcome": "success",
+  "captured_utc": "2026-11-22T11:02:34.510895+00:00",
+  "host_platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "run_id": "45015126850",
+  "run_attempt": 1,
+  "protocol_commit": "2de378771adbeeced2709f9bc4ca436799848197"
+}

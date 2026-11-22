@@ -1,0 +1,19 @@
+--- original
++++ diagnostic
+@@ -430,7 +430,7 @@
+             # print("+ KPNum:", KPNum, " KPNum:", M)
+             
+             # write the config to shared memory
+-            memmove(ADDR, byref(c_ulonglong(int(Period*1.5))), sizeof(c_ulonglong)) # amplify period limit
++            memmove(ADDR, byref(c_ulonglong(int(Period*float(os.environ["CS340_REPLAY_SCALE"])))), sizeof(c_ulonglong)) # amplify period limit
+             memmove(ADDR + sizeof(c_ulonglong), byref(c_uint(threadNum)), sizeof(c_uint))
+             memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint), byref(c_uint(KPNum)), sizeof(c_uint))
+             memmove(ADDR + sizeof(c_ulonglong) + sizeof(c_uint)*2, byref(c_uint(maxYieldNum)), sizeof(c_uint)) # tell the program how many periods we used. The program can yield those unrealted thread to the last period
+@@ -439,6 +439,7 @@
+         print("\n\033[4;36mPerform Reproduction!\033[0m")
+         process = subprocess.Popen(DBDS_Command, close_fds=True)
+         process.communicate()
++        print("CS340_REPLAY " + __import__("json").dumps({"target_returncode":process.returncode,"calibrated_period":Period,"scale":float(os.environ["CS340_REPLAY_SCALE"])}), flush=True)
+         sys.exit()
+                     
+     except IOError:

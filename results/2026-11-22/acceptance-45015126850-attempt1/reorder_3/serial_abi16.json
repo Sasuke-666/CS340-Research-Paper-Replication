@@ -1,0 +1,5 @@
+{
+  "scope": "IPC block and four array types only; scheduler section byte-identical",
+  "original_sha256": "a16575f2480d51496cb3a8387a548efb7ebf04ce2fa6856a0c6785932ee966e1",
+  "adapted_sha256": "62c8f7f77641dc31dbf870f93c63e286277535794e49fda3111e9258754c9e7f"
+}

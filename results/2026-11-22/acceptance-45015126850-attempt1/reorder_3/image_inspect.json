@@ -1,0 +1,71 @@
+[
+    {
+        "Id": "sha256:fcd0a751293a4f6b3d567989357333b0b9bf9448b0b2f6a38580cd691069f312",
+        "RepoTags": [],
+        "RepoDigests": [
+            "wcventure/period@sha256:8f47d8b9148f2db579627842026e722d0f205ddeab13e70ee41a8df3dbd59fbc"
+        ],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2022-01-17T02:55:03.970023478Z",
+        "DockerVersion": "20.10.7",
+        "Author": "",
+        "Config": {
+            "Hostname": "c3fe1676f687",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/workdir/PERIOD/clang+llvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LD_LIBRARY_PATH=/workdir/PERIOD/clang+llvm/lib:",
+                "ROOT_DIR=/workdir/PERIOD"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "542e7da5270a",
+            "Volumes": null,
+            "WorkingDir": "/workdir/PERIOD",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 4204322194,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/b16a1f343cbf9b571a38a2c1b335d346b96f588f2cff73c05fe8c1757273fdad/diff:/var/lib/docker/overlay2/34c1a7f7c1bd721036f01fead25c7ff91b8d11a2b2035130837c2cbcab00be98/diff:/var/lib/docker/overlay2/8bb54768233c6ee46b72cb5aa89ad12e2e49f5503dd63a3714f0bad4b1959dc2/diff:/var/lib/docker/overlay2/cf13227e54a50bd82fee97a121f558d98cf71737c841fb70fcf9cecc50701e4d/diff:/var/lib/docker/overlay2/bb0b5777011dba03386686a9969b93d8bf94d49a9cd5e2c82955663a819a188d/diff:/var/lib/docker/overlay2/8ba3e9cbe677388745740e0ad5c013c8284bbecf62a766d4ab077e4d1f8914aa/diff:/var/lib/docker/overlay2/ffbbe092e66975e32bee561ae04d12ad4907cdab5d06d867d185ac6e5ac91716/diff:/var/lib/docker/overlay2/0695c9c89db77af8087a77a6c7cfbd10221442b362d3795b05fc287e8bd21444/diff:/var/lib/docker/overlay2/4b015c9fc78964864721587fca8eb91652533e64e0b789fd9af6757d958dc755/diff:/var/lib/docker/overlay2/5fbef99251311c409d2f587d4355528d7de053993cd6a9444bc1b669df267c27/diff:/var/lib/docker/overlay2/1522d9cdcd104c071361f1474b69e443f8962746ad131a77235a300ab93c5fdd/diff",
+                "MergedDir": "/var/lib/docker/overlay2/a1a1afb4ccd1e121d6ab44c4f17ff7a9e750d430afce6711983c5ce8831c993a/merged",
+                "UpperDir": "/var/lib/docker/overlay2/a1a1afb4ccd1e121d6ab44c4f17ff7a9e750d430afce6711983c5ce8831c993a/diff",
+                "WorkDir": "/var/lib/docker/overlay2/a1a1afb4ccd1e121d6ab44c4f17ff7a9e750d430afce6711983c5ce8831c993a/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:b43408d5f11b7b2faf048ae4eb25c296536c571fb2f937b4f1c3883386e93d64",
+                "sha256:23135df75b44a66efa9d8dc1a10051768c27bd95388f436eb9553e0eb17211f6",
+                "sha256:fe6d8881187d429af3f636c574911690455825998c9f366e985eab646665e711",
+                "sha256:194e8ae91b4c643809d4b201a944fb1fc3cad588868fc54f0beb7eb9aa893437",
+                "sha256:098e000f7fcc9b1ccc377f3e8c5db751db5a6b09918441aa471907c2ce0fd004",
+                "sha256:5bedc2c86604437a8de10d29f654bb759a5d1288811b8339f3cba83cc94b6363",
+                "sha256:ba9344cbf99de36b2bcc10392865d93189568fcaca32dea6f49920a6cf597d1c",
+                "sha256:435af7f0628caf9aea6688478eeee66478564f0e65c7f95ff4ac1764aa894c57",
+                "sha256:b959228947d7b2e705390390663f741d1dedeab7da8f06a7d110f78c12735ecb",
+                "sha256:f2ff494d19d42d49c6034dcb6bb0932fe6fdca55deb88b305ba48304d6242960",
+                "sha256:9826a5854c734da838a47e2b7cd12ce3883bf952e0d4a1499e67e2255f44610e",
+                "sha256:852e65d8940af7681ac5daf89cbf1136d908743a1d41ff515d169fe92215eba8"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
