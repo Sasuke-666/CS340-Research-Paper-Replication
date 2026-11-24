@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "tag": "v1.0",
+  "status": "ready",
+  "report_revision": "2026-11-24",
+  "source_commit": "d64fe8001b8f4f7caae5d4606902a66430ffddd9",
+  "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45350993838",
+  "sources": [
+    {
+      "path": "README.md",
+      "size_bytes": 35695,
+      "sha256": "e7ee37a8dcbcb0daa2dcf53c5506a2d4bfe3c353a4aa14d133be94aa608519da"
+    },
+    {
+      "path": "docs/AI_USAGE.md",
+      "size_bytes": 10045,
+      "sha256": "11cabf6a5ff3cc65628cc02306dea2ebd70ce46577775384443b64142fa83646"
+    },
+    {
+      "path": "docs/CONTRIBUTIONS.csv",
+      "size_bytes": 8067,
+      "sha256": "f2dfe77295e816064b621c24e2bfb5c9db95f247965d985204cdcf6b0150d79d"
+    },
+    {
+      "path": "docs/COURSE_REQUIREMENTS.md",
+      "size_bytes": 5983,
+      "sha256": "b1d24ef78e6ef84033d72a7afc3347bb43b08a1defa87142ca9473b99325dae9"
+    },
+    {
+      "path": "docs/DEVIATIONS.csv",
+      "size_bytes": 7037,
+      "sha256": "61c8257daa17615bbeb595ee910558274062b2aea47ac59d843083f6d0a12b70"
+    },
+    {
+      "path": "docs/FINAL_SUBMISSION_CHECKLIST.md",
+      "size_bytes": 7673,
+      "sha256": "50a9c01507403d1d4445dc907e85d1f529452765684bd24f3908b70ff574b942"
+    },
+    {
+      "path": "docs/MEMBER_ACTIONS_ZH.md",
+      "size_bytes": 7509,
+      "sha256": "a595f78068f2d38c08a20c7a322407e2e397714f59d4d24cf3a3f2151f34a2d3"
+    },
+    {
+      "path": "docs/TEAM.csv",
+      "size_bytes": 305,
+      "sha256": "904c5f3d5464e1d112a125d3fc812e7c360268a1f3e5293a41b47c9d711a3932"
+    },
+    {
+      "path": "presentation/README.md",
+      "size_bytes": 6152,
+      "sha256": "cd3e5c0530fef2640538b879cf55c8dbbe34f2fcda6d12a5f5357f9b037aa3ba"
+    },
+    {
+      "path": "presentation/SLIDES.md",
+      "size_bytes": 22774,
+      "sha256": "c9b77b5075c0b521ffa9e02fe10af74c14041bc6d5bf458f34d81b15dddd46ce"
+    },
+    {
+      "path": "presentation/TALK_OUTLINE.md",
+      "size_bytes": 25276,
+      "sha256": "e38edb6af69231a8a4d651848cee307fd21fd607c754f1aa3c211e2a9f229898"
+    },
+    {
+      "path": "report/AI_STATEMENT.md",
+      "size_bytes": 1592,
+      "sha256": "de5f6a66b0b8517e862d72db6ca0d1843a5eafe77583d3a2c4009ff2bba34459"
+    },
+    {
+      "path": "report/EXPANDED_REPORT.md",
+      "size_bytes": 60231,
+      "sha256": "77969658041f3af5cf8f2b971b4bc4e26c1830b7d7c20c17f1a688b28caf48b9"
+    },
+    {
+      "path": "report/README.md",
+      "size_bytes": 4042,
+      "sha256": "4769a0de54ca0042e9fbce11a93512d83929b634ec9b2c49fbc98632643ff89c"
+    },
+    {
+      "path": "report/REVISION_DATE",
+      "size_bytes": 11,
+      "sha256": "eb5b165e2afa714fd1f2f6999fb8c7c530468b42fa5a22f5e1d8cf8539991ba1"
+    },
+    {
+      "path": "requirements-report.txt",
+      "size_bytes": 52,
+      "sha256": "2950e437e79b61187ebaba5ab79b196fc53bdf67d654b45b765042e2939b6c53"
+    },
+    {
+      "path": "results/2026-11-07/figures/depth_extension.svg",
+      "size_bytes": 9836,
+      "sha256": "46c456a02ff2272494005b35908fb0542a75f97fec0b186d74aa483c2368367a"
+    },
+    {
+      "path": "results/2026-11-07/figures/expanded_paper_gaps.svg",
+      "size_bytes": 47394,
+      "sha256": "33b7637695ea9796563818b2f5a14f09b7f7c3174e64e887e9328bee4a9f96b7"
+    },
+    {
+      "path": "results/2026-11-07/figures/expanded_schedule_comparison.svg",
+      "size_bytes": 47634,
+      "sha256": "c6133f98acc9e3c5a5436af886051641296c0e8a1bcdb514a180af899f139d8e"
+    },
+    {
+      "path": "results/2026-11-14/figures/layout_comparison.svg",
+      "size_bytes": 22808,
+      "sha256": "4ec31b2805c7eb0995e84b1a7899a45f0b4dc183c5193367020eb972201c3709"
+    },
+    {
+      "path": "scripts/export_member_checklist.py",
+      "size_bytes": 8550,
+      "sha256": "a3c3de185af3768057ed905ae6ec7b0b2cd58ee579f7559465f757535b0a0e3b"
+    },
+    {
+      "path": "scripts/export_stage_report.py",
+      "size_bytes": 19638,
+      "sha256": "3acb4df0e124735f5538687969a3f5c3bdaee05e1c53cf016cde04389b30fb9c"
+    },
+    {
+      "path": "scripts/report_config.py",
+      "size_bytes": 1078,
+      "sha256": "fcea891dde256c59e53dbfec28aee512063cbef0e8a0a86bccfd3c0d81db6424"
+    },
+    {
+      "path": "submission/README.md",
+      "size_bytes": 2356,
+      "sha256": "4a9395266917e97014a06caf274a64c9f21bf7f03cb2695b1002a6fb5656f5d0"
+    },
+    {
+      "path": "submission/RELEASE_NOTES.md",
+      "size_bytes": 2081,
+      "sha256": "89ee2866051d41c919603c934b3078d281e08ba8e66d9364289789850cc0ca2c"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "submission/CS340_Final_Submission_Handbook_20261124.docx",
+      "size_bytes": 43260,
+      "sha256": "e727b20858c89c8a9329d96cdfe531d3bd48b7a4584bb20dc7e5e1f11f6c6c80",
+      "reviewed_rendered_pages": 3
+    },
+    {
+      "path": "submission/CS340_Final_Submission_Handbook_20261124.pdf",
+      "size_bytes": 308865,
+      "sha256": "54903562c28bc417c56806170cbda1e17d18997764cbb0da7e54e1cd704611fb",
+      "reviewed_rendered_pages": 3
+    },
+    {
+      "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pdf",
+      "size_bytes": 258741,
+      "sha256": "f1873892f7a3bdd0eb722016eacf466b69bfc73b42b8c2ff42f0d1cd6c418f6c",
+      "reviewed_slides_or_pages": 14
+    },
+    {
+      "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pptx",
+      "size_bytes": 83908,
+      "sha256": "61e186c62cb48b9fbf4ed6935471fc44b9d4d369dd808bc6aa39b637b163554f",
+      "reviewed_slides_or_pages": 14
+    },
+    {
+      "path": "submission/CS340_PERIOD_Final_Report_20261124.docx",
+      "size_bytes": 341144,
+      "sha256": "e39196358c719e91aca7a309d4ac0bd1c2a2c48979953c60b0de5b6d7aef7f9d",
+      "reviewed_rendered_pages": 16
+    },
+    {
+      "path": "submission/CS340_PERIOD_Final_Report_20261124.pdf",
+      "size_bytes": 490282,
+      "sha256": "3311ccc32b6f4b396c43ae34d1ffa5eab825d5d954ee581471440d2514f99bb1",
+      "reviewed_rendered_pages": 20
+    }
+  ],
+  "review": {
+    "individual_page_review": "passed for all six files",
+    "office_conversion": "LibreOffice; native Microsoft Office was not used",
+    "presentation_structure": {
+      "slides": 14,
+      "native_tables": 9,
+      "native_charts": 1,
+      "embedded_workbooks": 1,
+      "chinese_speaker_notes": 14,
+      "source_links": 44
+    },
+    "science_scope": "No new measurements; all historical, member and acceptance scopes remain separate."
+  }
+}

@@ -70,11 +70,28 @@ workbook, 14 Chinese notes and 44 source links. PDF/Word evidence hyperlinks
 were retained. Word and presentation conversion used LibreOffice; no native
 Microsoft Office or in-person rehearsal is claimed.
 
-The source-freeze workflow result and the subsequent frozen-document manifest
-are recorded below after publication. The final document release runs the same
-Linux/Windows gates again at its exact commit before creating `v1.0` and
-publishing its six documents and complete ZIP. This gate cannot move an existing
-tag or replace mismatched published assets.
+Source freeze `d64fe8001b8f4f7caae5d4606902a66430ffddd9` was published on
+24 November. [Its workflow 45350993838](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45350993838)
+completed successfully: Linux Python 3.9 and 3.12 repository checks, the report
+export checks on Python 3.12, and native Windows archived-evidence verification.
+The source-only commit correctly skipped document publication because it had
+no final manifest. This supplies revision-specific evidence for the Windows
+path/newline repair, without claiming Windows benchmark execution.
+
+The [final manifest](../submission/FINAL_RELEASE.json) binds all six reviewed
+documents to this source commit and the exact source-file bytes. Current tracked
+source content and Office XML/relationships/PDF text were scanned for unwanted
+tool branding, with no matches. Required generic assistance disclosures and
+upstream credit remain. Original Git history was preserved.
+
+The frozen-document commit runs the Linux/Windows gates again at its exact
+commit before its publishing job creates `v1.0` and uploads the six documents
+and complete ZIP. The [release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0)
+identifies the final commit and assets; the corresponding [workflow run](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/workflows/repository-checks.yml)
+records its checks and publishing outcome. This gate cannot move an existing
+tag or replace mismatched published assets. `DELIVERY.json` in the ZIP and the
+manifest retain the source, repository and document identities independently
+of a download filename.
 
 ## 5. Course-facing actions
 
