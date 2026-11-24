@@ -2,9 +2,9 @@
 
 ## Actual identities
 
-Each member contributes using their own GitHub account and their own verified
-student ID and full name. Never attribute AI-generated or another member's work
-to a student without recording the actual contribution and review.
+Each member contributes using their own GitHub account and verified student ID
+and full name. Record each person's actual contribution, the source of reused
+work and its review status.
 
 Before contributing from a new clone, configure the following values **locally**
 with real values, not the documentation placeholders:
@@ -59,8 +59,7 @@ necessary permission. Preserve upstream licenses and attribution.
 Record the exact upstream starting commit, changes, environment, inputs,
 commands, failed runs and deviations. Record actual contributions in
 `docs/CONTRIBUTIONS.csv` and actual AI use in `docs/AI_USAGE.md`.
-Use generic assistance terminology in maintained prose and commit messages.
-Keep the actual scope of assistance and review status clear, with academic
-sources and original contributors credited separately.
+Keep the documented work scope, review status and source attribution accurate.
+Credit academic sources and original contributors separately.
 Do not generate results, student identities or progress dates to fill a template.
 Do not backdate history or create empty commits to simulate weekly progress.

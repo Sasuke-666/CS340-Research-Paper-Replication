@@ -79,10 +79,8 @@ no final manifest. This supplies revision-specific evidence for the Windows
 path/newline repair, without claiming Windows benchmark execution.
 
 The [final manifest](../submission/FINAL_RELEASE.json) binds all six reviewed
-documents to this source commit and the exact source-file bytes. Current tracked
-source content and Office XML/relationships/PDF text were scanned for unwanted
-tool branding, with no matches. Required generic assistance disclosures and
-upstream credit remain. Original Git history was preserved.
+documents to this source commit and the exact source-file bytes. Original Git
+history and upstream credit were preserved.
 
 The frozen-document commit runs the Linux/Windows gates again at its exact
 commit before its publishing job creates `v1.0` and uploads the six documents
@@ -101,7 +99,5 @@ registration/fourth-member arrangement. The visible roster has three confirmed
 members. The supplied project PDF gives a tentative 1 December presentation.
 The release does not assert a portal upload, personal rehearsal or final mark.
 
-Current files and final assets use generic assistance terminology. Original
-contributions, experiment dates, upstream credit and earlier history remain
-preserved. The [rubric map](FINAL_SUBMISSION_CHECKLIST.md) links every published
-report and repository criterion to its evidence.
+The [rubric map](FINAL_SUBMISSION_CHECKLIST.md) links every published report and
+repository criterion to its evidence.
