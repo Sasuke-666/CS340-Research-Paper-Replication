@@ -19,23 +19,45 @@ METHODS = {'period':'run_PDS.py','author_serialized':'run_OldPDS.py'}
 def parse_log(text, budget=10000):
     text = re.sub(r'\x1b\[[0-9;]*m', '', text)
     seen, failed, current = [], [], None
-    for line in text.splitlines():
+    end_count, end_at, total_at, footer_at = 0, None, None, None
+    invalid_order = False
+    for index, line in enumerate(text.splitlines()):
+        if line == 'End Testing!':
+            end_count += 1
+            end_at = index
+            continue
         m = re.match(r'^test\s+(\d+)(?: for prefix [^:]+)?:\s*(.+)$', line)
-        if m and int(m[1]) <= budget:
-            current = int(m[1]); seen.append(current)
+        if m:
+            ordinal = int(m[1])
+            if ordinal > budget:
+                invalid_order = True
+            else:
+                current = ordinal
+                seen.append(current)
+        if re.match(r'^Total Error Interleavings:', line):
+            total_at = index
+        if re.match(r'^Round\s+0\s+\d+\s*$', line):
+            footer_at = index
         if '[Error Found]:' in line:
             failed.append(current)
-    total = re.search(r'(?m)^Total Error Interleavings:\s*(\d+)', text)
-    rounds = re.search(r'(?m)^Round\s+\d+\s+(\d+)\s*$', text)
-    errors = int(total[1]) if total else None
+        if end_at is not None and (m or '[Error Found]:' in line):
+            invalid_order = True
+    totals = re.findall(r'(?m)^Total Error Interleavings:\s*(\d+)', text)
+    rounds = re.findall(r'(?m)^Round\s+0\s+(\d+)\s*$', text)
+    total = totals[0] if len(totals) == 1 else None
+    round_count = rounds[0] if len(rounds) == 1 else None
+    ordered_footer = (end_at is not None and total_at is not None and footer_at is not None and
+                      end_at < total_at < footer_at)
+    errors = int(total) if total is not None else None
     valid = (bool(seen) and len(seen) == len(set(seen)) and
-             seen == list(range(1, len(seen) + 1)) and rounds is not None and
-             min(int(rounds[1]), budget) == len(seen) and total is not None and
-             errors == len(failed) and None not in failed and 'End Testing!' in text)
+             seen == list(range(1, len(seen) + 1)) and round_count is not None and
+             min(int(round_count), budget) == len(seen) and total is not None and
+             errors == len(failed) and None not in failed and end_count == 1 and
+             ordered_footer and not invalid_order)
     return {'schedules':len(seen),'first_error':failed[0] if failed else None,
             'buggy_schedules':errors,'error_event_count':len(failed),
             'complete_markers':valid,'inner_timeouts':len(re.findall(r'\[Timeout\s',text)),
-            'budget_reached':bool(rounds and int(rounds[1]) >= budget)}
+            'budget_reached':bool(round_count is not None and int(round_count) >= budget)}
 
 
 def diagnostic_source(original):

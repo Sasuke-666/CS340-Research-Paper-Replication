@@ -77,7 +77,9 @@ def parse_raw_log(text):
     """Recover event order, aggregate counters and runner footer from raw text."""
     clean = ANSI.sub("", text)
     ordinals, errors, error_numbers, current = [], [], [], None
-    for line in clean.splitlines():
+    end_count, end_at, total_at, round_at, footer_at = 0, None, None, None, None
+    after_end = False
+    for index, line in enumerate(clean.splitlines()):
         match = re.fullmatch(r"test\s+(\d+)(?:\s+for prefix\s+[^:]+)?:\s*(.+)", line)
         if match:
             current = int(match.group(1))
@@ -86,6 +88,18 @@ def parse_raw_log(text):
             errors.append(current)
             number = re.search(r"\[Error Found\]:\s*NO\.(\d+)", line)
             error_numbers.append(int(number.group(1)) if number else None)
+        if line == "End Testing!":
+            end_count += 1
+            end_at = index
+        elif re.fullmatch(r"Total Error Interleavings:\s*\d+", line):
+            total_at = index
+        elif re.fullmatch(r"Round\s+\d+\s+\d+", line):
+            round_at = index
+        elif re.fullmatch(r"Runner exit_code=-?\d+ timed_out=(?:True|False) "
+                          r"elapsed_seconds=[\d.]+", line):
+            footer_at = index
+        if end_at is not None and (match or "[Error Found]:" in line):
+            after_end = True
     totals = re.findall(r"^Total Error Interleavings:\s*(\d+)\s*$", clean, re.M)
     timeouts = re.findall(r"^Total Timeouts Interleavings:\s*(\d+)\s*$", clean, re.M)
     rounds = re.findall(r"^Round\s+(\d+)\s+(\d+)\s*$", clean, re.M)
@@ -118,8 +132,15 @@ def parse_raw_log(text):
         problems.append("error event numbers are not exactly 1..E")
     if len(rounds) != 1 or int(rounds[0][1]) != len(ordinals):
         problems.append("round total disagrees with enumerated schedules")
-    if "End Testing!" not in clean:
+    if end_count == 0:
         problems.append("no end-testing marker")
+    elif end_count > 1:
+        problems.append("repeated end-testing marker")
+    markers_present = (end_at is not None and total_at is not None and
+                       round_at is not None and footer_at is not None)
+    if after_end or (end_count == 1 and markers_present and
+                     not (end_at < total_at < round_at < footer_at)):
+        problems.append("invalid completion marker order or events after end marker")
     inner_timeouts = len(re.findall(r"\[Timeout\s", clean))
     if len(timeouts) != 1 or int(timeouts[0]) != inner_timeouts:
         problems.append("timeout events disagree with timeout-total footer")
