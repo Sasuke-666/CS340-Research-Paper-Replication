@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "tag": "v1.0.1",
-  "status": "preparing",
+  "status": "ready",
   "report_revision": "2026-11-24",
-  "source_commit": "d64fe8001b8f4f7caae5d4606902a66430ffddd9",
-  "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45350993838",
+  "source_commit": "58266473e462e096f1701e91f9a136cd98cf0300",
+  "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45383684921",
   "sources": [
     {
       "path": "README.md",
-      "size_bytes": 35695,
-      "sha256": "e7ee37a8dcbcb0daa2dcf53c5506a2d4bfe3c353a4aa14d133be94aa608519da"
+      "size_bytes": 29656,
+      "sha256": "55dd9afe8f08115fa8676ce7da41e3649f317ff71d4caf31050abc6322ecfc88"
     },
     {
       "path": "docs/AI_USAGE.md",
@@ -33,13 +33,13 @@
     },
     {
       "path": "docs/FINAL_SUBMISSION_CHECKLIST.md",
-      "size_bytes": 7673,
-      "sha256": "50a9c01507403d1d4445dc907e85d1f529452765684bd24f3908b70ff574b942"
+      "size_bytes": 7733,
+      "sha256": "f7af57d4836b4550074e84d627aa5045f0e3b66ed9c08d94fce82bfc0e9548b0"
     },
     {
       "path": "docs/MEMBER_ACTIONS_ZH.md",
       "size_bytes": 7509,
-      "sha256": "a595f78068f2d38c08a20c7a322407e2e397714f59d4d24cf3a3f2151f34a2d3"
+      "sha256": "c59207c465baa60e71c7c8bdd5630f3a38ac538d45cfa5a5ed4329490526a2d9"
     },
     {
       "path": "docs/TEAM.csv",
@@ -48,33 +48,33 @@
     },
     {
       "path": "presentation/README.md",
-      "size_bytes": 6152,
-      "sha256": "cd3e5c0530fef2640538b879cf55c8dbbe34f2fcda6d12a5f5357f9b037aa3ba"
+      "size_bytes": 5268,
+      "sha256": "c150e62edb5499d2fc188c14bc91329b176d74b179580d3b72b9ac7ca0f0a389"
     },
     {
       "path": "presentation/SLIDES.md",
-      "size_bytes": 22774,
-      "sha256": "c9b77b5075c0b521ffa9e02fe10af74c14041bc6d5bf458f34d81b15dddd46ce"
+      "size_bytes": 24684,
+      "sha256": "bbbe95d68124d8529f48ff226a908d299ebd4fd9e38e9a0ac9dcced62a536344"
     },
     {
       "path": "presentation/TALK_OUTLINE.md",
-      "size_bytes": 25276,
-      "sha256": "e38edb6af69231a8a4d651848cee307fd21fd607c754f1aa3c211e2a9f229898"
+      "size_bytes": 24765,
+      "sha256": "01466b5f8aeedc0b3e427a8d8c88d414b18e9603b5f162dcdbc2b3e391c68763"
     },
     {
       "path": "report/AI_STATEMENT.md",
-      "size_bytes": 1592,
-      "sha256": "de5f6a66b0b8517e862d72db6ca0d1843a5eafe77583d3a2c4009ff2bba34459"
+      "size_bytes": 1443,
+      "sha256": "50a81256379c0734568801434fad9044fa4065d0aa857d095e51606caffe3f52"
     },
     {
       "path": "report/EXPANDED_REPORT.md",
-      "size_bytes": 60231,
-      "sha256": "77969658041f3af5cf8f2b971b4bc4e26c1830b7d7c20c17f1a688b28caf48b9"
+      "size_bytes": 58156,
+      "sha256": "849c6e4145e76beaf9911c98785126fe91adad689f636373be543574af267fe0"
     },
     {
       "path": "report/README.md",
-      "size_bytes": 4042,
-      "sha256": "4769a0de54ca0042e9fbce11a93512d83929b634ec9b2c49fbc98632643ff89c"
+      "size_bytes": 3369,
+      "sha256": "e198e989e55a6198c74a59b1886ac2bd4505375e8c6479ba326cb8c0221ea42d"
     },
     {
       "path": "report/REVISION_DATE",
@@ -108,13 +108,13 @@
     },
     {
       "path": "scripts/export_member_checklist.py",
-      "size_bytes": 8550,
-      "sha256": "a3c3de185af3768057ed905ae6ec7b0b2cd58ee579f7559465f757535b0a0e3b"
+      "size_bytes": 8586,
+      "sha256": "435c330061fb47d7bd4ab2dcd366d39a489230659fc9a1cc4210e8209386bde3"
     },
     {
       "path": "scripts/export_stage_report.py",
-      "size_bytes": 19638,
-      "sha256": "3acb4df0e124735f5538687969a3f5c3bdaee05e1c53cf016cde04389b30fb9c"
+      "size_bytes": 19676,
+      "sha256": "e044b80a123385dc20113bab9da3e262fdba8a33fa4070f09faa625b36a35c85"
     },
     {
       "path": "scripts/report_config.py",
@@ -123,51 +123,51 @@
     },
     {
       "path": "submission/README.md",
-      "size_bytes": 2356,
-      "sha256": "4a9395266917e97014a06caf274a64c9f21bf7f03cb2695b1002a6fb5656f5d0"
+      "size_bytes": 2565,
+      "sha256": "03582612968bb18a2fc89cc9ffba73476ec4d107e2778a6838414ec0a038d582"
     },
     {
       "path": "submission/RELEASE_NOTES.md",
-      "size_bytes": 2081,
-      "sha256": "89ee2866051d41c919603c934b3078d281e08ba8e66d9364289789850cc0ca2c"
+      "size_bytes": 2107,
+      "sha256": "68e2a6c1f0e3ef87d65e3ca85cfc93bb205be9cdd57e961ffe855a5a64cc484f"
     }
   ],
   "artifacts": [
     {
       "path": "submission/CS340_Final_Submission_Handbook_20261124.docx",
-      "size_bytes": 43260,
-      "sha256": "e727b20858c89c8a9329d96cdfe531d3bd48b7a4584bb20dc7e5e1f11f6c6c80",
+      "size_bytes": 43249,
+      "sha256": "c41eb8bb1d610fabd9008929a4513b85c8eb63a4e8583214dcce02aa79cbbd0d",
       "reviewed_rendered_pages": 3
     },
     {
       "path": "submission/CS340_Final_Submission_Handbook_20261124.pdf",
-      "size_bytes": 308865,
-      "sha256": "54903562c28bc417c56806170cbda1e17d18997764cbb0da7e54e1cd704611fb",
+      "size_bytes": 307232,
+      "sha256": "f3934adac25cf36975518fc1377566dd4c0147880ec5568238b6c492fca3090c",
       "reviewed_rendered_pages": 3
     },
     {
       "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pdf",
-      "size_bytes": 258741,
-      "sha256": "f1873892f7a3bdd0eb722016eacf466b69bfc73b42b8c2ff42f0d1cd6c418f6c",
+      "size_bytes": 258059,
+      "sha256": "06b000ecb580c40d003263bd012f632cda69ca794a480ba8d4a88f4439c080e7",
       "reviewed_slides_or_pages": 14
     },
     {
       "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pptx",
-      "size_bytes": 83908,
-      "sha256": "61e186c62cb48b9fbf4ed6935471fc44b9d4d369dd808bc6aa39b637b163554f",
+      "size_bytes": 85521,
+      "sha256": "7169c8cfee4a7ffca77b405b496441b8fe41759840125625e835abb2fcb3c7f0",
       "reviewed_slides_or_pages": 14
     },
     {
       "path": "submission/CS340_PERIOD_Final_Report_20261124.docx",
-      "size_bytes": 341144,
-      "sha256": "e39196358c719e91aca7a309d4ac0bd1c2a2c48979953c60b0de5b6d7aef7f9d",
+      "size_bytes": 340466,
+      "sha256": "1fd881a341110eb843e6bc7742bf0094d54c248f70ba1a88580e29270a976f31",
       "reviewed_rendered_pages": 16
     },
     {
       "path": "submission/CS340_PERIOD_Final_Report_20261124.pdf",
-      "size_bytes": 490282,
-      "sha256": "3311ccc32b6f4b396c43ae34d1ffa5eab825d5d954ee581471440d2514f99bb1",
-      "reviewed_rendered_pages": 20
+      "size_bytes": 489673,
+      "sha256": "102588a4e5c1ed1905752f1ded2bb536018db4d98bdb5e66474a3f497bc2284b",
+      "reviewed_rendered_pages": 19
     }
   ],
   "review": {
@@ -181,6 +181,23 @@
       "chinese_speaker_notes": 14,
       "source_links": 44
     },
-    "science_scope": "No new measurements; all historical, member and acceptance scopes remain separate."
+    "science_scope": "No new measurements; all historical, member and acceptance scopes remain separate.",
+    "report_structure": {
+      "word_tables": 14,
+      "word_table_cells": 493,
+      "figures": 4,
+      "unchanged_table_cells": true,
+      "unique_evidence_links": 33,
+      "pdf_link_annotations": 52
+    },
+    "handbook_layout": {
+      "tables": 2,
+      "table_cells": 26,
+      "unchanged_table_cells": true,
+      "section_page_breaks": [
+        "member roles",
+        "defence questions"
+      ]
+    }
   }
 }

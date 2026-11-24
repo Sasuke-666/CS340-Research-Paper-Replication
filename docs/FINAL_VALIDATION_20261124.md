@@ -119,3 +119,28 @@ report cells and the explanation check's 66 source/log files. The added release
 tests verify that a document patch publishes separately while preserving the
 existing `v1.0` tag and all its assets. A preparing manifest skips publication;
 only a ready, verified document manifest can trigger it.
+
+Source freeze `58266473e462e096f1701e91f9a136cd98cf0300` passed
+[workflow 45383684921](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45383684921),
+including Linux Python 3.9 and 3.12, the report export checks and native Windows
+archive verification. Its preparing manifest correctly skipped publication.
+
+The revised English PDF has 19 pages; the Word rendering has 16. Every page of
+both was checked, including the four figures and long tables. The Word file's
+14 tables and 493 cells match the original delivery exactly. Both formats retain
+33 distinct evidence URLs; the PDF has 52 clickable regions because some links
+span lines. Current local sources point to the frozen commit above.
+
+All fourteen presentation pages were checked. The deck retains nine native
+tables, one native chart, its embedded workbook, fourteen Chinese notes and
+44 source links. The chart XML, workbook and internal chart relationship are
+byte-identical to the original package. New text and notes match the frozen
+slide source. The three-page Chinese handbook was also checked, with section
+page breaks added before member roles and defence questions. Its two tables
+and 26 cells are unchanged. No clipping, overlap or missing characters were
+found. Office previews were rendered with LibreOffice.
+
+The [current manifest](../submission/FINAL_RELEASE.json) records the six revised
+files and their 25 source files. The [v1.0.1 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1)
+uses the same checks before publishing the documents and complete repository
+bundle. The original `v1.0` release remains unchanged.
