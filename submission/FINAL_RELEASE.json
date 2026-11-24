@@ -1,25 +1,30 @@
 {
   "schema_version": 1,
   "tag": "v1.0.2",
-  "status": "preparing",
+  "status": "ready",
   "report_revision": "2026-11-25",
-  "source_commit": "58266473e462e096f1701e91f9a136cd98cf0300",
-  "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45383684921",
+  "source_commit": "0940ffbebb7556d515c85281adc2a8d87449eb34",
+  "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45479682950",
   "sources": [
     {
+      "path": "CONTRIBUTING.md",
+      "size_bytes": 3718,
+      "sha256": "44946c091abdd6d02acc54440a1fc8b6de1bf0bb009119d4956abccfa592e5da"
+    },
+    {
       "path": "README.md",
-      "size_bytes": 29656,
-      "sha256": "55dd9afe8f08115fa8676ce7da41e3649f317ff71d4caf31050abc6322ecfc88"
+      "size_bytes": 30655,
+      "sha256": "7ccc9d08d345171b3fe9cdf8ad8708ea9ea90f44780e4d37925590be09e621ec"
     },
     {
       "path": "docs/AI_USAGE.md",
-      "size_bytes": 10045,
-      "sha256": "11cabf6a5ff3cc65628cc02306dea2ebd70ce46577775384443b64142fa83646"
+      "size_bytes": 11010,
+      "sha256": "7eea080d180bd64feab8ff4a38ac12d963956d2596645b450cae85251096bc0b"
     },
     {
       "path": "docs/CONTRIBUTIONS.csv",
-      "size_bytes": 8067,
-      "sha256": "f2dfe77295e816064b621c24e2bfb5c9db95f247965d985204cdcf6b0150d79d"
+      "size_bytes": 9772,
+      "sha256": "1783ca7683b06a3208407e2adde8dffa9fd22f96dd296282cc0a160dd36f14dd"
     },
     {
       "path": "docs/COURSE_REQUIREMENTS.md",
@@ -33,13 +38,18 @@
     },
     {
       "path": "docs/FINAL_SUBMISSION_CHECKLIST.md",
-      "size_bytes": 7733,
-      "sha256": "f7af57d4836b4550074e84d627aa5045f0e3b66ed9c08d94fce82bfc0e9548b0"
+      "size_bytes": 8012,
+      "sha256": "edf5f726160277cd3fbdf6c9c53271e01db65480df5326bd476c7aab23537779"
     },
     {
       "path": "docs/MEMBER_ACTIONS_ZH.md",
-      "size_bytes": 7509,
-      "sha256": "c59207c465baa60e71c7c8bdd5630f3a38ac538d45cfa5a5ed4329490526a2d9"
+      "size_bytes": 8037,
+      "sha256": "a08085c1b3a7bd0b6e5ec4a2337e1722c3a8fad55ef4282905de14379be503a6"
+    },
+    {
+      "path": "docs/PROJECT_CLOSEOUT_20261125.md",
+      "size_bytes": 5013,
+      "sha256": "5b33c340899a23c758c84ad66a55f39b18cbdb9fb26f9155cc0127335ed4c5e9"
     },
     {
       "path": "docs/TEAM.csv",
@@ -48,38 +58,38 @@
     },
     {
       "path": "presentation/README.md",
-      "size_bytes": 5268,
-      "sha256": "c150e62edb5499d2fc188c14bc91329b176d74b179580d3b72b9ac7ca0f0a389"
+      "size_bytes": 5386,
+      "sha256": "6d39b99bc2be581f59cceb2df58ace968d7766e0163a0e98552fe66e6c5e72eb"
     },
     {
       "path": "presentation/SLIDES.md",
-      "size_bytes": 24684,
-      "sha256": "bbbe95d68124d8529f48ff226a908d299ebd4fd9e38e9a0ac9dcced62a536344"
+      "size_bytes": 25543,
+      "sha256": "379a11269fc0c39ecb3f108a7d342d0865b00863ed48c5e14d03d12b50603eec"
     },
     {
       "path": "presentation/TALK_OUTLINE.md",
-      "size_bytes": 24765,
-      "sha256": "01466b5f8aeedc0b3e427a8d8c88d414b18e9603b5f162dcdbc2b3e391c68763"
+      "size_bytes": 26602,
+      "sha256": "b9be8778659c65ecabaad730261c8f543676dd6dfbd63e3260b21a0587d759cc"
     },
     {
       "path": "report/AI_STATEMENT.md",
-      "size_bytes": 1443,
-      "sha256": "50a81256379c0734568801434fad9044fa4065d0aa857d095e51606caffe3f52"
+      "size_bytes": 1713,
+      "sha256": "30f05d99681dd3f8b914baba04900590321a459eb64f2efdb097282c39214797"
     },
     {
       "path": "report/EXPANDED_REPORT.md",
-      "size_bytes": 58156,
-      "sha256": "849c6e4145e76beaf9911c98785126fe91adad689f636373be543574af267fe0"
+      "size_bytes": 59694,
+      "sha256": "6f9d81dbdc0fcb189fa8cfd1c2c0d19d36f3d9145b6abd73dcce752097903ce8"
     },
     {
       "path": "report/README.md",
-      "size_bytes": 3369,
-      "sha256": "e198e989e55a6198c74a59b1886ac2bd4505375e8c6479ba326cb8c0221ea42d"
+      "size_bytes": 3478,
+      "sha256": "07f4c4657fabbda0e3df4655c5815b5620934fa42bd6cb29688487f7ab8b4641"
     },
     {
       "path": "report/REVISION_DATE",
       "size_bytes": 11,
-      "sha256": "eb5b165e2afa714fd1f2f6999fb8c7c530468b42fa5a22f5e1d8cf8539991ba1"
+      "sha256": "16a63ff94e85362f8797ff93d4d93b52d1c09d31499e1cde7a4bf2bf4c8cc59d"
     },
     {
       "path": "requirements-report.txt",
@@ -109,7 +119,7 @@
     {
       "path": "scripts/export_member_checklist.py",
       "size_bytes": 8586,
-      "sha256": "435c330061fb47d7bd4ab2dcd366d39a489230659fc9a1cc4210e8209386bde3"
+      "sha256": "fccb0eb042fe3417c5103574ae7ff11c5fdd612325f8025d2d756e04630d8846"
     },
     {
       "path": "scripts/export_stage_report.py",
@@ -123,51 +133,51 @@
     },
     {
       "path": "submission/README.md",
-      "size_bytes": 2565,
-      "sha256": "03582612968bb18a2fc89cc9ffba73476ec4d107e2778a6838414ec0a038d582"
+      "size_bytes": 2733,
+      "sha256": "d3f66c46bc9f31568e24d0223f882f557ec70f6054946ae289aadadce51b99b0"
     },
     {
       "path": "submission/RELEASE_NOTES.md",
-      "size_bytes": 2107,
-      "sha256": "68e2a6c1f0e3ef87d65e3ca85cfc93bb205be9cdd57e961ffe855a5a64cc484f"
+      "size_bytes": 2826,
+      "sha256": "5268c6bf17af649f6f923a018afe659e70c978a518a545d5e5e73024eac4339f"
     }
   ],
   "artifacts": [
     {
-      "path": "submission/CS340_Final_Submission_Handbook_20261124.docx",
-      "size_bytes": 43249,
-      "sha256": "c41eb8bb1d610fabd9008929a4513b85c8eb63a4e8583214dcce02aa79cbbd0d",
+      "path": "submission/CS340_Final_Submission_Handbook_20261125.docx",
+      "size_bytes": 43549,
+      "sha256": "719c36eb879f22b17c92eab132c1fdf01fe27be91bd10775e8af35b44669e5b2",
       "reviewed_rendered_pages": 3
     },
     {
-      "path": "submission/CS340_Final_Submission_Handbook_20261124.pdf",
-      "size_bytes": 307232,
-      "sha256": "f3934adac25cf36975518fc1377566dd4c0147880ec5568238b6c492fca3090c",
+      "path": "submission/CS340_Final_Submission_Handbook_20261125.pdf",
+      "size_bytes": 314349,
+      "sha256": "7dfe398213e6c075b243c2fe743685b21eaab38647cc3ef5482cacc248e81848",
       "reviewed_rendered_pages": 3
     },
     {
-      "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pdf",
-      "size_bytes": 258059,
-      "sha256": "06b000ecb580c40d003263bd012f632cda69ca794a480ba8d4a88f4439c080e7",
+      "path": "submission/CS340_PERIOD_Final_Presentation_20261125.pdf",
+      "size_bytes": 258114,
+      "sha256": "85c919ea99c2a56ab3dbd1d686d568e4f1e23844dbeec4d29b1a0013cd150bbd",
       "reviewed_slides_or_pages": 14
     },
     {
-      "path": "submission/CS340_PERIOD_Final_Presentation_20261124.pptx",
-      "size_bytes": 85521,
-      "sha256": "7169c8cfee4a7ffca77b405b496441b8fe41759840125625e835abb2fcb3c7f0",
+      "path": "submission/CS340_PERIOD_Final_Presentation_20261125.pptx",
+      "size_bytes": 85945,
+      "sha256": "fd5dffd99137dbcac62ac9cfbeb292755e18465638d3bd1417349093a7239fc1",
       "reviewed_slides_or_pages": 14
     },
     {
-      "path": "submission/CS340_PERIOD_Final_Report_20261124.docx",
-      "size_bytes": 340466,
-      "sha256": "1fd881a341110eb843e6bc7742bf0094d54c248f70ba1a88580e29270a976f31",
+      "path": "submission/CS340_PERIOD_Final_Report_20261125.docx",
+      "size_bytes": 341098,
+      "sha256": "945460e34ef1b0b4169eaf197a57b6e8028074089ccf74c998256e1bfd42c7ff",
       "reviewed_rendered_pages": 16
     },
     {
-      "path": "submission/CS340_PERIOD_Final_Report_20261124.pdf",
-      "size_bytes": 489673,
-      "sha256": "102588a4e5c1ed1905752f1ded2bb536018db4d98bdb5e66474a3f497bc2284b",
-      "reviewed_rendered_pages": 19
+      "path": "submission/CS340_PERIOD_Final_Report_20261125.pdf",
+      "size_bytes": 492211,
+      "sha256": "6da1ea59c610adf47f4e2eae4863211c1817dd896235f44eb2ce7dd6cb6e0448",
+      "reviewed_rendered_pages": 20
     }
   ],
   "review": {
@@ -179,25 +189,29 @@
       "native_charts": 1,
       "embedded_workbooks": 1,
       "chinese_speaker_notes": 14,
-      "source_links": 44
+      "source_links": 47,
+      "original_chart_and_workbook_bytes_preserved": true
     },
-    "science_scope": "No new measurements; all historical, member and acceptance scopes remain separate.",
+    "science_scope": "No new measurements. Scientific result table cells, figures and raw measurements retain their original scope and values. Contribution Table 13 incorporates the two new member submissions.",
     "report_structure": {
       "word_tables": 14,
       "word_table_cells": 493,
       "figures": 4,
-      "unchanged_table_cells": true,
-      "unique_evidence_links": 33,
-      "pdf_link_annotations": 52
+      "captions": 18,
+      "table_cells_match_frozen_source": true,
+      "unique_evidence_links": 36,
+      "pdf_link_annotations": 56
     },
     "handbook_layout": {
       "tables": 2,
       "table_cells": 26,
-      "unchanged_table_cells": true,
       "section_page_breaks": [
         "member roles",
         "defence questions"
-      ]
+      ],
+      "main_links_pinned_to_source_commit": 12,
+      "unique_evidence_links": 13,
+      "pdf_link_annotations": 15
     }
   }
 }

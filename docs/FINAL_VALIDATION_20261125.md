@@ -57,14 +57,45 @@ Local integrated checks used Python 3.12.14 with the pinned report dependencies
 | Raw-record preservation | All 11 original PR #8 command transcripts equal their original Git blobs; experimental results and figure sources retain the baseline bytes |
 | Whitespace review | `git -c core.whitespace=cr-at-eol diff --check HEAD` passed; original Windows CRLF logs preserved |
 
-The source manifest is prepared before export. Exact source and final-delivery
-workflow links are recorded with the completed document freeze below.
+Source freeze `0940ffbebb7556d515c85281adc2a8d87449eb34` passed
+[workflow 45479682950](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45479682950).
+Linux Python 3.9 and 3.12, the Python 3.12 report exports, and the native Windows
+archived-evidence audit all passed. The new independent acceptance and manifest
+checks ran in both platforms. The preparing manifest correctly skipped document
+publication. The same commit is the recorded PR #8 integration, with the original
+member head preserved as its second parent.
 
 ## 4. Document freeze and delivery
 
-The source commit, exact source workflow, six document sizes and SHA-256 values
-are bound in [FINAL_RELEASE.json](../submission/FINAL_RELEASE.json). The delivery
-commit and complete ZIP metadata identify the final packaged repository.
+All six exports use source `0940ffbebb7556d515c85281adc2a8d87449eb34`.
+The English report PDF has 20 pages and the Word rendering has 16. Every page
+was visually reviewed. The Word file's 14 tables and 493 cells match the frozen
+source; the four figures and 18 captions remain complete. Both formats retain
+36 distinct evidence URLs. Contribution Table 13 includes PRs #7 and #8.
+
+The presentation has 14 slides, nine native tables, one native chart with its
+embedded workbook, 14 Chinese notes and 47 source URLs. All 14 slide previews
+and 14 PDF pages were inspected. Its 39 relationship files resolve all 94 internal
+targets. The chart, workbook and chart relationship are byte-identical to v1.0.1.
+Only the cover and contribution slide change their displayed text; the other
+12 slide XML parts are unchanged. Speaker notes match the frozen source.
+
+The Chinese handbook has three pages in Word and PDF. All pages were checked,
+including member duties, rehearsal and the course arrangements still awaiting
+confirmation. Its two tables contain 26 cells. Page breaks before member roles
+and defence questions keep those sections together; 12 navigation links formerly
+using main are fixed to the source commit. Office previews used LibreOffice.
+
+No clipping, overlap or missing text was found in the final page checks. An
+initial visual concern about two report captions was resolved by inspecting the
+PDF content and full-page renders; no exporter or document defect was confirmed.
+
+[FINAL_RELEASE.json](../submission/FINAL_RELEASE.json) binds the six reviewed
+exports and 27 source files to the source commit and source workflow. The ready
+manifest is checked before publication. The final repository commit is identified
+by the `v1.0.2` tag and by `DELIVERY.json` in the complete ZIP. The publishing
+workflow rechecks the source and document bytes, requires passing Linux/Windows
+jobs at that delivery commit, and verifies all seven release asset digests.
 Earlier v1.0/v1.0.1 tags and assets are retained.
 
 Course registration, submission receipts and personal rehearsal are tracked in
