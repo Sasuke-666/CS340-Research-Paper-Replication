@@ -1,9 +1,9 @@
 # Final submission and rubric map
 
 Prepared 24 November 2026, Macau/Beijing time (UTC+08:00). The owner confirmed
-23–29 November as the final working week. PR #6 is integrated. The `v1.0`
-release gate requires passing Linux/Windows checks and a verified six-document
-manifest before creating the final tag. This map uses the five-page instructor
+23–29 November as the final working week. PR #6 is integrated, and `v1.0` is
+published. The `v1.0.1` document revision uses the same Linux/Windows checks and
+six-document manifest. This map uses the five-page instructor
 project document, read in full on 24 November. [The requirements record](COURSE_REQUIREMENTS.md)
 distinguishes its clauses from internal preparation choices. Actual publication,
 tag and delivery status are recorded in [final validation](FINAL_VALIDATION_20261124.md).
@@ -77,8 +77,9 @@ a unique measured instruction trace is unavailable.
 2. The release checks `make check`, `make audit`, native Windows archive
    verification, and the frozen export/source hashes. Final page/slide review
    and the published revision's own CI results appear in the validation record.
-3. The release creates `v1.0` at the verified final commit. Its `submission/`
-   manifest and delivery bundle retain the exact document/source identities.
+3. The initial release is tagged `v1.0`. The clearer report and presentation
+   revision is `v1.0.1`; its `submission/` manifest and bundle record the exact
+   source commit and document hashes. Both releases remain available.
 4. Submit through the confirmed course route and retain the actual receipt.
    Use [the Chinese guide](MEMBER_ACTIONS_ZH.md) for member preparation and the
    internal ten-minute rehearsal. Personal explanation is established by the

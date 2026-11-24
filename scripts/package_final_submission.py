@@ -65,7 +65,7 @@ def package(root, output):
                 'In an extracted bundle, document/source hashes are checked locally;\n'
                 'Git ancestry requires the checkout at the repository commit below.\n'
                 'Repository commit: ' + commit + '\n'
-                'Release: https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0\n'
+                'Release: https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/' + receipt['tag'] + '\n'
             ).encode())
         require(not subprocess.check_output(['git', '-C', str(root), 'status', '--porcelain',
                                              '--untracked-files=no']),

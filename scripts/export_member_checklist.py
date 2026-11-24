@@ -46,6 +46,7 @@ def export(source, target):
     footer.add_run(' 页').font.size=Pt(8)
     doc.core_properties.title='CS340 PERIOD 最终提交与三人答辩手册'
     doc.core_properties.author='CS340 project repository'
+    doc.core_properties.comments=''
     doc.core_properties.created=datetime.now(timezone.utc)
     doc.core_properties.modified=doc.core_properties.created
 

@@ -1,55 +1,54 @@
 # PERIOD replication: talk and defence outline
 
-Final content revision: 24 November 2026, Macau/Beijing time. The
-[fourteen-slide presentation source](SLIDES.md) provides English screen text,
-Chinese speaker notes and per-slide citations. The slide count is an internal
-content choice. Official duration, speaking allocation and marking details
-remain to be verified. The maintained [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
-is authoritative for the latest findings. No completed personal presentation
-is inferred from these materials.
+Content revision: 24 November 2026, Macau/Beijing time (v1.0.1).
+Use this outline with the [fourteen slides](SLIDES.md). It explains the results
+in Chinese, gives concise English messages and provides an offline demonstration
+and answers to likely questions. The [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md)
+contains the full analysis. Confirm the official duration and speaking
+arrangements before choosing how much of the material to present.
 
 ## 1. The problem and method
 
-**English message:** Concurrent programs can fail under particular thread
-interleavings. PERIOD organizes key operations into execution periods and
-systematically explores bounded schedules.
+**English message:** Concurrent failures depend on thread interleavings.
+PERIOD groups key operations into execution periods and explores bounded
+schedules systematically.
 
-中文讲解：同样的输入，线程以不同顺序访问共享状态，可能得到不同结果。
-PERIOD 把关键操作放进有先后关系的 period；前一个 period 结束，后一个才执行。
-其实现允许不同线程的操作进入最后一个共同 period。生成器、执行器和反馈分析器
-组成循环，已执行路径的信息继续指导搜索。[S1，§2.2、§3]
+同样的输入，线程访问共享变量的顺序一变，程序就可能出错。PERIOD 用 period
+给关键操作划分执行阶段：前一个阶段完成，后一个阶段才能开始。最后一个
+period 可以容纳多个线程的剩余操作。驱动提出调度请求、运行程序、读取反馈，
+再决定后续探索；已执行路径的信息因此能够参与下一步搜索。[S1，§2.2、§3]
 
-可用一个自拟的概念例子说明 period 的先后约束：先完成 T0 的指定前缀，再让
-T1 的指定前缀运行，最后让剩余工作并行。这个例子只解释机制，不充当本组测量。
-如果使用论文原图，应明确标注作者、论文及图号。
+解释 period 时，可以用一个概念例子：先运行 T0 的指定前缀，再运行 T1 的指定
+前缀，最后让剩余工作并行。注明这是机制示意；若展示论文原图，标明作者、论文
+和图号。
 
 ## 2. Our two questions
 
 **English messages:**
 
-- C1: Do the selected Table 2 results reproduce with the released implementation?
-- C2: Under the released drivers' respective depth rules, does PERIOD explore
-  fewer schedules than the adapted serialized driver while exposing the failure?
+- C1: Can we reproduce the selected Table 2 results with the released implementation?
+- C2: Under the released drivers' respective depth rules, does PERIOD search
+  fewer schedules than the adapted serialized driver and still expose the failure?
 
-中文讲解：C1 对照论文中的首次失败位置、枚举总数和错误调度数。
-C2 在相同宿主、程序、输入和已构建二进制上比较两个具体实现。
-五案例为 `reorder_3`、`reorder_4`、`account`、`lazy01`、`twostage`，来自四个程序系列。
-这是有目的的小规模选择，结论覆盖这批条件。[S2，§1–§3；S3]
+C1 对照三个指标：首次失败位置、枚举总数和错误调度数。C2 把两种方法放在
+同一个宿主、程序、输入和已构建二进制上比较。选取的五个案例是 `reorder_3`、
+`reorder_4`、`account`、`lazy01` 和 `twostage`，来自四个程序系列；结论适用于
+这组有目的选取的小规模样本。[S2，§1–§3；S3]
 
-这里的depth是发布驱动的bug-depth参数d。PERIOD遍历p=2到d+1，序列化驱动
-遍历p=N到d+N−1，N是枚举开始时观测到的线程数。以三线程d=3为例，
-PERIOD的period数为2、3、4，序列化为3、4、5。双线程twostage则都是2、3、4。
-C2比较这两个已发布配置；线程数决定绝对边界是否不同，其他保留的驱动差异也
-属于比较范围，不能据此单独归因于调度器。[S2，§2]
+depth 是发布版驱动的 bug-depth 参数 d。PERIOD 遍历 p=2 到 d+1，序列化驱动
+遍历 p=N 到 d+N−1，N 是开始枚举时观测到的线程数。例如，三线程取 d=3，
+两种驱动分别覆盖 2、3、4 和 3、4、5 个 period；双线程 twostage 则都覆盖
+2、3、4。C2 比较的是这两套发布配置，包括它们保留的驱动差异。要单独判断
+调度器的效果，还需要进一步控制实验。[S2，§2]
 
-序列化方法名称始终使用 `author_serialized_abi16`。原作者旧驱动与当前运行时存在
-共享内存接口不兼容，本组按已记录补丁完成最小适配。论文历史 Serial 可执行程序
-与这个发布版本的同一性尚未建立。[S2，§5.1；S4]
+序列化方法在图表中统一标为 `author_serialized_abi16`。原作者旧驱动与当前
+运行时的共享内存接口不兼容，本组按记录的补丁做了最小适配。这个发布版本与
+论文当年的 Serial 可执行程序是否完全相同，现有材料还无法确认。[S2，§5.1；S4]
 
 ## 3. Design and evidence accounting
 
-**English message:** Keep attempts, completed observations and matched pairs
-separate; preserve every failed or censored attempt.
+**English message:** Report attempts, completed calls and matched pairs
+separately. Failed and censored attempts remain part of the record.
 
 | Evidence scope | Attempts and completed results | Use in the analysis |
 | --- | --- | --- |
@@ -61,35 +60,32 @@ separate; preserve every failed or censored attempt.
 | He Boyu's `twostage` witness study | 5 completed replays of one selected input | Separate build/host observation; no paired exploration design |
 | 22 November engineering acceptance | 30 complete comparison calls; 40 additional diagnostic calls | 15 comparison pairs across five separate case hosts; independent n=3 summaries |
 
-说明：一次配对需要同批次的两个条件都完整结束。原批次四线程 PERIOD 的十次结果
-仍是完整观测，但没有对应的完整序列化运行，因而不能组成十个完整耗时配对。
-增加时限后的三对来自新宿主，两种方法都重新执行。[S2，§2–§5；S5]
+一次完整配对需要同批次的两个条件都完整结束。主批次的四线程 PERIOD 虽有
+十次完整观测，对应的十次序列化调用却都超时，所以这一部分没有完整耗时配对。
+后续研究在新宿主上把外层时限增加到 240 秒，两种方法重新各运行三次，形成
+三对完整结果。[S2，§2–§5；S5]
 
-新布局诊断按其独立协议和实际归档单列。讲解时使用发布报告中的真实样本数，
-保留它与上述比较研究的不同问题和不同条件。
-其预先登记提交为 `bddb831`；两个条件都运行 PERIOD，分别使用容量 1,990 和 3,964。
-每个案例只有该驱动常数变化，原生运行时和构建好的目标程序相同。
-它检验接口布局对行为的影响，未加入新的序列化比较方法。[S8]
+容量诊断研究另一个问题：读取接口的布局是否影响运行结果。它先以 `bddb831`
+登记协议，再在每个案例内比较容量 1,990 和 3,964。两个条件都运行 PERIOD，
+只改驱动中的容量常数，原生运行时和已构建目标保持相同。[S8]
 
-原工作流 `43570556202` 的 `lazy01` 有 20 次完整且合格的调用、10 组完整配对。[S12]
-原 `account` 作业已终止失败，最终 artifact 列表没有该案例档案，日志端点返回 404；
-尝试数、完整数和工作负载失败原因均未知。[S10]
-恢复协议先以 `ea273fe4` 发布，再启动 `43575584325`，固定在新宿主另做 `account`
-十对，使用新的运行标识并独立分析。[S11]
-恢复批次已完成 20 次尝试，全部完整且合格，共十对；Git 归档与备用 ZIP 均已保存。[S13]
-它的新观测不能替代原作业的缺失观测，
-也不能把原作业的未知尝试数记为零。演示按实际归档分别讲清案例和宿主范围。
+原工作流 `43570556202` 中，`lazy01` 有 20 次完整且合格的调用、10 对。[S12]
+原 `account` 作业失败后，最终 artifact 列表中没有它的档案，日志端点返回 404。
+因此，这个作业的尝试数、完整数和工作负载失败原因都记为未知。[S10]
+恢复协议 `ea273fe4` 发布后，新的 `43575584325` 在另一宿主固定运行 `account`
+十对。20 次调用全部完整且合格，结果同时保存为 Git 归档和备用 ZIP。[S11；S13]
+原作业的缺失结果与恢复批次分列，未知尝试数也继续记为未知。
 
-11月22日验收预先以`2de3787`登记，随后运行`45015126850` attempt 1。
-五个程序各在新宿主完成两种方法、每种三次比较，共30次、15对；另有40次
-reorder_3固定见证诊断，两种倍率各20次。所有比较均完整且无内外超时或预算截断。
-这验证了记录环境中的构建和执行入口。验收使用独立汇总，不扩大历史106/96/43，
-也不保证换一台机器后每次都会得到相同的失败位置。[S17]
+11 月 22 日验收先以 `2de3787` 登记，再执行 `45015126850` attempt 1。
+五个程序各在新宿主运行两种方法，每种三次，共 30 次、15 对；另有 40 次
+reorder_3 固定见证诊断，两种倍率各 20 次。所有比较都完整结束，无内外层超时
+或预算截断。这说明构建和执行入口在记录环境中通过了验收。它使用自己的
+n=3 汇总，与历史 106/96/43 分列；未来换宿主后的失败位置仍可能变化。[S17]
 
 ## 4. The clearest result
 
 **English message:** PERIOD explored fewer schedules in four of the five
-matched cases; one case tied.
+matched cases; twostage tied.
 
 | Case | PERIOD | Adapted serialized driver | Reduction |
 | --- | ---: | ---: | ---: |
@@ -99,108 +95,115 @@ matched cases; one case tied.
 | lazy01 | 39 | 60 | 35.00% |
 | twostage | 33 | 33 | 0.00% |
 
-用报告 Figure 2 展示。四线程行用独立后续批次 n=3，其余行 n=10。
-总调度数的样本标准差为零。完整运行均发现目标错误；这些数字支持此范围内的
-搜索量减少。[S2，Table 4；S5]
+展示报告 Figure 2。四线程这一行来自后续批次，n=3；其余各行 n=10。总调度数的
+样本标准差都为零，每次完整运行也都发现了目标错误。这是 C2 最直接的依据：
+在这组比较条件下，四个案例用较少的请求完成了搜索。[S2，Table 4；S5]
 
 ## 5. The discrepancies that matter
 
-**English message:** Matching the schedule count does not guarantee matching
-failure observations.
+**English message:** The exploration totals match the paper, while several
+failure metrics still differ.
 
-原主批次 `account` 的 PERIOD 首次失败均值为 10.100 ± 0.316，论文参考值为 2，
-差 8.100，即 +405.00%。`lazy01` 为 8，对照论文 3。
-这两个差异应与成功复现的调度总数一起讲清。[S2，Table 2]
+主批次 `account` 的 PERIOD 首次失败均值为 10.100 ± 0.316，论文参考值为 2，
+差 8.100，即 +405.00%。`lazy01` 的均值为 8，论文为 3。报告把这些差距与
+匹配的枚举总数一起呈现。[S2，Table 2]
 
-逐次频数能解释均值：account有九次首次失败在10、一次在11，lazy01十次均在8，
-两案例相对论文的偏移在每次重复中都存在。twostage有九次首次失败在4、一次在17，
-单次较晚发现将均值升至5.300；其错误调度数九次为2、一次为1，十次都低于论文3。
-这些频数描述重复观测，尚不能识别导致延迟的真实执行顺序。[S2，§3]
+看逐次记录，更容易理解这些均值。account 有九次在第 10 个请求首次失败，
+一次在第 11 个；lazy01 十次都在第 8 个。它们与论文的偏移每次都存在。
+twostage 有九次在第 4 个、一次在第 17 个，较晚的那次把均值拉到 5.300。
+它的错误调度数九次为 2、一次为 1，十次都低于论文的 3。频数说明了重复观测
+怎样构成均值和波动，具体执行顺序仍需轨迹证据解释。[S2，§3]
 
-李扬烁独立 `account` 批次的 PERIOD 首次失败位置为 8.8 ± 2.044，调度总数仍为
-65 ± 0。序列化方法分别为 4 ± 0 和 136 ± 0。这一新宿主结果提供独立证据，
-首次失败位置仍未复现论文的 PERIOD 值 2。宿主、校准和执行环境同时变化，
-跨批次差值本身不能单独识别原因。[S6]
+李扬烁独立 `account` 批次的 PERIOD 首次失败位置为 8.8 ± 2.044，调度总数仍是
+65 ± 0；序列化方法分别为 4 ± 0 和 136 ± 0。这台宿主支持相同的搜索量比较，
+PERIOD 的首次失败位置仍高于论文的 2。CPU、内核、校准和执行环境同时变化，
+所以跨批次差值还无法归结到某一个因素。[S6]
 
-11 月 14 日布局诊断的讲解应按“已观察到的接口差异—只改变的因素—实际结果—允许的结论”
-展开。使用对应协议、补丁和原始日志说明控制条件。原 `account` 档案不可用的状态
-与新宿主恢复研究分别记录，研究结论以可审计的真实结果为依据。[S8；S10]
+### What changed in the capacity experiment?
 
-`lazy01` 的正式布局对照两臂各十次，均完整且无内外层超时。修正前、后首次失败位置
-为 8.500 ± 1.581 与 8.200 ± 0.422；错误调度数为 11.600 ± 0.843 与
-9.900 ± 1.912，均为均值 ± 样本标准差。两臂都请求 39 个调度，打印的请求序列一致。
-默认反馈哈希从 8 变为 185,480，说明实际反馈读取受到干预；修正后的首次失败仍高于
-论文参考值 3。这个案例支持字段解码已对齐、观察到的反馈已改变，同时保留失败发现的
-偏差。哈希值是辅助 stdout 证据，其数值变大不表示覆盖率更高。[S12；S2，§8]
+11 月 14 日的诊断先定位字段偏移，再只改变容量常数，最后看运行结果。
+对应协议、补丁和日志给出了控制条件。这里要用原 `lazy01` 批次和恢复的
+`account` 批次分别说明结果。[S8；S10]
 
-`account` 恢复批次也有两臂各十次完整且合格观测。修正前、后首次失败为
-10.500 ± 0.850 与 10.200 ± 0.632；错误调度数为 22.900 ± 3.281 与
-24.300 ± 1.767。两臂都请求 65 个调度，每个配对的请求序列相同；默认反馈哈希
-从 18 变为 196,202。修正后的首次失败仍比论文参考值 2 高 8.2，即 +410.00%。
-该恢复批次在新宿主上独立分析，原作业的未知结果继续单列。[S13]
+`lazy01` 两臂各十次，全部完整且无内外层超时。修正前、后首次失败位置为
+8.500 ± 1.581 和 8.200 ± 0.422；错误调度数为 11.600 ± 0.843 和
+9.900 ± 1.912，均为均值 ± 样本标准差。两臂各请求 39 个调度，打印的序列相同。
+默认反馈哈希从 8 变为 185,480，说明修正确实影响了反馈读取。修正后的首次
+失败仍高于论文的 3。哈希是辅助 stdout 记录，其大小没有覆盖率百分比的含义。
+[S12；S2，§8]
 
-两个案例修正后的首次失败均值配对差都是 -0.300，样本标准差分别为
-1.337（`lazy01`）和 1.160（`account`）。错误调度数的配对均值变化分别为
--1.700 与 +1.400，方向不同。可以明确陈述字段解码已对齐、实际反馈哈希改变、
-请求枚举不变及首次失败偏差仍在；这些样本不支持统一的效果或性能提升结论。
-均值和样本标准差是同案例内的描述性统计，不额外假设同宿主重复运行相互独立。
+`account` 恢复批次也有两臂各十次完整且合格的观测。修正前、后首次失败为
+10.500 ± 0.850 和 10.200 ± 0.632；错误调度数为 22.900 ± 3.281 和
+24.300 ± 1.767。两臂各请求 65 个调度，每对请求序列相同；默认反馈哈希从
+18 变为 196,202。修正后的首次失败仍比论文的 2 高 8.2，即 +410.00%。
+这些数值都来自恢复宿主，原 account 作业的结果仍然未知。[S13]
 
-可以用 `account` 的源码解释“请求调度”和“实际交错”的关系。初值为
-`x=1, y=2, z=4`；存款和取款都完成后，余额为 -1，而故意写错的断言要求 -5。
-历史日志第二个请求 `[[1,1,1],[0,0,2,2,2]]` 把检查线程和取款线程放在共同的最后
-一个 period。取款先获得互斥锁时，检查线程随后能看见两个完成标志并进入错误断言；
-检查线程先取得锁时，`withdraw_done` 仍为假，条件分支跳过断言。
-这是源码支持的条件解释；确定某一次记录实际走了哪条顺序，还需要验证过的执行轨迹。
-它不能充当新批次某次结果的实测原因。[S2，§8.3；S9]
+两个案例的首次失败位置配对均值差都是 -0.300，样本标准差分别为
+1.337（`lazy01`）和 1.160（`account`）。错误调度数的配对均值差分别为
+-1.700 和 +1.400。可以据此得出：字段解码已对齐、反馈哈希改变、请求枚举保持
+相同，而首次失败差距仍在；失败数量的变化方向因案例而异。这里使用同案例内的
+描述性统计，同宿主重复运行是否独立还没有额外证据。
+
+### Why can the same request lead to different observations?
+
+`account` 提供了一个具体例子。初值是 `x=1, y=2, z=4`，存款和取款都完成后，
+余额为 -1，故意写错的断言却要求 -5。历史日志的第二个请求
+`[[1,1,1],[0,0,2,2,2]]` 把检查线程和取款线程放在同一个最后 period。
+如果取款先获得互斥锁，检查线程随后就会看到两个完成标志，进入错误断言；
+如果检查线程先获得锁，`withdraw_done` 仍为假，条件分支会跳过断言。
+源码允许这两条执行路径。要判断某次记录实际走了哪一条，还需要经过验证的
+执行轨迹。[S2，§8.3；S9]
 
 ### Twostage source mechanism and the member replay
 
-**English message:** Separate field locks permit the reader to observe a
-partially published update. The source and assertion constrain a necessary
-partial order.
+**English message:** Separate field locks let the reader observe a partially
+published update. The source and assertion identify a necessary partial order.
 
-默认输入只有一个写线程A和一个读线程B。A在第一把锁下写入字段1=1并解锁，
-再在第二把锁下更新字段2。B通过第一个字段的非零检查，保存t1=1，再读取第二
-个字段。到达第48行断言意味着B保存了t2=0，违反t2=t1+1。这个偏序由源码和
-断言共同推出。A是否在B取样后、断言终止前已经写入2，原记录没有给出答案。
-讲解表必须标注“source-derived partial order”，保留具体指令顺序未知的范围。[S14]
+默认输入只有一个写线程 A 和一个读线程 B。A 在第一把锁下写入字段 1=1，
+解锁后再在第二把锁下更新字段 2。B 通过第一个字段的非零检查，保存 t1=1，
+再读取第二个字段。到达第 48 行断言，说明 B 保存了 t2=0，违反 t2=t1+1。
+这就是由源码和断言推出的必要偏序。A 是否在 B 取样后、断言终止前已经写入 2，
+原记录没有给出答案。因此，表格标为“source-derived partial order”。[S14]
 
-何博宇选择主批次PERIOD第1次运行的第4个请求及其错误见证，在11月15日的新
-宿主上固定重放五次，五次都在重放标记之后出现相同的funcB第48行断言。
-重建目标的记录哈希与原归档一致。见证第一行是yield矩阵，后面的历史报错文字
-不会作为目标程序输入。驱动返回0本身不足以判断断言是否发生。[S14；S15]
+何博宇选择主批次 PERIOD 第 1 次运行、第 4 个请求的错误见证，在 11 月 15 日的
+新宿主上连续重放五次，五次都在重放标记之后出现 funcB 第 48 行断言。
+重建目标的记录哈希与原归档一致。输入是见证第一行的 yield 矩阵，后面的历史
+报错文字不传给目标程序；是否触发断言要检查实际输出，单看驱动返回 0 不够。
+[S14；S15]
 
-这五次观测说明该输入在记录的build和host上五次命中。它不增加106/96/43的
-探索实验分母。早期reorder_3的4/5与后来两批每种倍率20/20仍分别保留，早期
-漏报原因继续未明；twostage是不同程序及不同输入的研究。[S2，§5.4–§5.5]
+这五次重放描述这个输入在记录构建和宿主上的结果，单独计数。reorder_3 早期
+的 4/5 和后来两批每种倍率 20/20 也各自保留；早期那一次为什么未触发，仍没有
+得到解释。它们与 twostage 使用不同程序和输入。[S2，§5.4–§5.5]
 
 ## 6. A controlled extension
 
-**English message:** On the selected `reorder_3` program, depth 2 detected the
-known failure while exploring fewer schedules than depth 3.
+**English message:** On `reorder_3`, depth 2 detected the known failure while
+exploring fewer schedules than depth 3.
 
-原深度扩展每个条件运行三次；深度 1、2、3 的枚举数分别为 3、13、27，
-发现目标错误的运行数为 0/3、3/3、3/3。深度 2 相对深度 3 少探索 51.85%。
-它说明这个程序上的覆盖与搜索成本取舍；深度 1 的未发现结果仅对应这个边界。
-更深的设置发现更多触发失败的调度，但没有据此增加“不同缺陷”的数量。[S2，§6]
+深度扩展每种条件运行三次。depth 1、2、3 的枚举数分别为 3、13、27，发现错误的
+运行数为 0/3、3/3、3/3；depth 2 比 depth 3 少探索 51.85%。这展示了该程序上的
+搜索成本与覆盖范围取舍。depth 1 的结果表示这个边界内未观察到失败；较深设置
+中的多条失败调度也可能指向同一个缺陷。[S2，§6]
 
-九份扩展日志显示相同的嵌套结构：3个depth-1请求和13个depth-2请求均为27个
-depth-3请求的前缀。depth 3按顺序含3个两period、10个三period、14个四period请求。
-depth 2和3的六次运行都在第6个请求`[[0],[2],[0,1,1]]`首次失败，位于新增的
-三period层。源码的setter依次写`a=1`、`b=-1`，checker只接受`(0,0)`或`(1,-1)`。
-该请求分开一个setter的首个关键点与剩余工作，让checker在两者之间运行，允许
-出现中间状态`(1,0)`。讲解应标明依据是请求和源码，逐条内存操作的真实轨迹仍未知。[S2，§6]
+九份日志呈现出相同的嵌套结构：3 个 depth-1 请求和 13 个 depth-2 请求，都是
+27 个 depth-3 请求的前缀。depth 3 依次包含 3 个两 period、10 个三 period、
+14 个四 period 请求。depth 2 和 3 的六次运行都在第 6 个请求
+`[[0],[2],[0,1,1]]` 首次失败，位于新增的三 period 层。
+
+源码中的 setter 依次写 `a=1`、`b=-1`，checker 只接受 `(0,0)` 或 `(1,-1)`。
+这个请求分开一个 setter 的首个关键点和剩余工作，让 checker 有机会在中间
+读取 `(1,0)`。解释依据是请求顺序和源码，原记录没有逐条内存操作轨迹。[S2，§6]
 
 ## 7. Evidence demonstration
 
-演示统一使用11月22日验收中的六份twostage日志及何博宇的独立复算，路径与
-Slide 13一致。演示前在本地打开以下文件，网络不可用时也能继续讲解。[S17–S18]
+用 11 月 22 日验收中的六份 twostage 日志，展示一个统计值怎样从原始输出算出来。
+演示与 Slide 13 一致。提前下载这些文件，现场就不依赖网络。[S17–S18]
 
-1. 打开[验收范围记录](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)，说明twostage只是30次比较中的6次，不是11月15日的5次单见证重放。
-2. 打开[twostage records.json](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/records.json)，确认两种方法各三次、三个配对及240秒外层上限。
-3. 打开[序列化第二份日志](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/author_serialized_abi16_r02.txt)，定位`test 0029`后的第一个`[Error Found]`。错误编号`NO.1`表示第一个报错，其请求位置是29。
-4. 对照另外两次的首次失败位置4和4，计算均值`37/3 = 12.3333`、样本标准差`25/√3 = 14.4338`。三次均枚举33个请求；每次完整搜索可以触发多个失败请求。
-5. 运行下面的只读复算，再对照[独立汇总](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)。说明文件摘要验证完整性，原始日志重算验证统计口径。
+1. 打开[验收范围记录](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)。先定位 twostage：它占这批 30 次比较中的 6 次；11 月 15 日的 5 次单见证重放另列。
+2. 打开 [twostage records.json](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/records.json)，确认两种方法各三次、三个配对和 240 秒外层上限。
+3. 在[序列化第二份日志](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/author_serialized_abi16_r02.txt)中，找到 `test 0029` 后第一个 `[Error Found]`。`NO.1` 是报错序号，对应的请求位置为 29。
+4. 另外两次首次失败位置都是 4。三个数 4、29、4 给出均值 `37/3 = 12.3333`，样本标准差 `25/√3 = 14.4338`。三次都枚举了 33 个请求，每次完整搜索可能触发多个失败请求。
+5. 运行下面的复算命令，再对照[独立汇总](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)。文件摘要检查完整性，从日志重算则检查统计口径。
 
 从仓库根目录运行：
 
@@ -208,24 +211,26 @@ Slide 13一致。演示前在本地打开以下文件，网络不可用时也能
 python3 scripts/recount_twostage_acceptance.py
 ```
 
-命令核对六份原始日志、完成状态及六项已发布统计。PERIOD首次失败位置为4、4、4；
-序列化为4、29、4，两方法的枚举均值均为33。输出保留每份日志的失败请求ID，
-不会重放见证或启动新工作负载。若展示时间较短，现场只讲第3–5步，其他来源作为
-答疑入口。项目级`make audit`另外验证所有已归档研究，运行记录与验收日期分开。
+命令核对六份原始日志、完成状态和六项已发布统计。PERIOD 首次失败位置为
+4、4、4；序列化为 4、29、4；两种方法的枚举均值都是 33。输出还列出每份日志的
+失败请求 ID。整个演示只读归档，现场无需重放见证或启动新工作负载。时间较短时，
+讲第 3–5 步即可，其他文件留作答疑。项目级 `make audit` 则可复查全部归档研究，
+检查日期与原实验日期分别记录。
 
 ### Contribution attribution
 
-孙皓扬组织实验协议、组内测量、仓库整合与报告。李扬烁提交独立account宿主结果，
-之后在PR #3补充序列核对和来源审查，并在PR #5核对报告追溯路径、补齐正文图表
-引用。何博宇先提交四线程核数，在PR #4提交twostage源码、偏序说明和五次重放，
-再在PR #6独立复算组内验收的六份日志并改进展示内容。
-按各自原始PR和提交记录归属，二次审查按实际工作范围说明。实施、执行和写作
-辅助见报告的使用说明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S18]
+孙皓扬组织实验协议、组内测量、仓库整合和报告。李扬烁提交独立 account 宿主
+结果，随后在 PR #3 补充序列与来源审查，在 PR #5 核对报告追溯路径和正文图表
+引用。何博宇提交四线程核数，在 PR #4 提交 twostage 源码、偏序说明和五次重放，
+再在 PR #6 复算组内验收的六份日志并修改展示内容。
 
-备讲分工可按已提交工作安排：孙皓扬解释两项主张、控制设计和各批次分母；
-李扬烁解释独立account宿主与报告数字追溯；何博宇解释twostage必要偏序和上述
-六日志复算。每位成员应能回答对应的“实际观察了什么、仍不知道什么、原始证据在哪”。
-这是准备安排，实际发言和交叉复核完成后再记录姓名与日期。
+贡献按原始 PR 和提交记录说明。二次审查与原始测量分别归属，实施、执行和写作
+辅助见报告使用声明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S18]
+
+准备时可这样分工：孙皓扬讲研究问题、控制设计和各批次样本；李扬烁讲独立宿主
+和数字追溯；何博宇讲 twostage 的必要偏序和六日志复算。每个人都练习回答
+“观察到了什么、还有什么不清楚、证据在哪里”。发言和交叉复核完成后，再记录
+实际参与者与日期。
 
 ## 8. Questions to prepare
 
@@ -243,7 +248,7 @@ python3 scripts/recount_twostage_acceptance.py
 | Does a zero standard deviation prove determinism? | It describes the observed repeated metric. Execution traces and other failure metrics can still vary, and a finite sample does not establish universal behavior. |
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
-| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
+| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
 | Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
 | What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
 | Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
@@ -252,13 +257,13 @@ python3 scripts/recount_twostage_acceptance.py
 
 ## 9. Closing message
 
-**English message:** The selected study supports a bounded reduction in explored
-schedules against one adapted released baseline. The capacity correction aligns
-the decoded fields and changes observed feedback. First-failure gaps persist in
-both audited cases. Our overall verdict is partial reproduction.
+**English message:** PERIOD explored fewer schedules in four of our five cases
+against the adapted released baseline. Correcting the capacity aligned the
+fields and changed the feedback, but first-failure gaps remained in both cases.
+Our overall verdict is partial reproduction.
 
-结束时展示当前报告、复现命令和证据入口，让听众能检查结论。所用样本、方法和
-未解决问题应与最终发布版本一致。
+结束时给出报告、复现命令和证据入口。听众可以沿同一条路径检查今天展示的结果，
+也能看到仍待解释的问题。
 
 ## Sources
 
@@ -266,8 +271,8 @@ both audited cases. Our overall verdict is partial reproduction.
   ICSE 2022, DOI: 10.1145/3510003.3510178.
   [Original paper](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf),
   sections 2.2 and 3 for the method; Table 2 for paper references.
-- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md), with numbered tables,
-  figures, scoped verdicts and original data references at the final `v1.0` handoff.
+- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md), with numbered tables,
+  figures, scoped verdicts and original data references at the `v1.0.1` revision.
 - S3. [Registered comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md).
 - S4. [Compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
   and [source/attribution record](../docs/SOURCES.md).

@@ -294,3 +294,12 @@ by `v1.0`, whose publishing job requires successful Linux/Windows checks and a
 verified document/source manifest. The tag and its own workflow provide the
 publication evidence; earlier green runs establish only their own revisions.
 Personal rehearsal and course upload remain separate student actions.
+
+### Document revision — 24 November
+
+The report, slides and Chinese speaking notes were revised for clearer reading
+and oral delivery. The README now puts the findings, downloads and reproduction
+commands before the historical studies. Experimental tables, raw logs and
+member attribution are preserved. The document revision uses `v1.0.1`, keeping
+the initial `v1.0` release intact. The validation record tracks the new exports
+and checks at their actual source revision.

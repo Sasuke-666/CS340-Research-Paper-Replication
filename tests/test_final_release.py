@@ -9,6 +9,7 @@ import sys
 import tempfile
 import textwrap
 import unittest
+import zipfile
 from unittest.mock import patch
 
 import test_final_submission as fixtures
@@ -22,8 +23,11 @@ from package_final_submission import package
 class ReleaseService:
     """Model remote state; unexpected mutations fail the test immediately."""
     def __init__(self):
+        self.tag_name = 'v1.0'
         self.release = None
         self.tag = None
+        self.prior_releases = []
+        self.prior_tags = {}
         self.calls = []
         self.creations = []
         self.fail_upload = False
@@ -38,17 +42,19 @@ class ReleaseService:
             endpoint = command[-1].split(release.REPOSITORY + '/', 1)[1]
             status = self.read_status
             if endpoint.startswith('releases?'):
-                body = [self.release] if self.release else []
-            elif endpoint == 'git/ref/tags/v1.0':
-                if self.tag is None:
+                body = self.prior_releases + ([self.release] if self.release else [])
+            elif endpoint.startswith('git/ref/tags/'):
+                tag = endpoint.removeprefix('git/ref/tags/')
+                target = self.tag if tag == self.tag_name else self.prior_tags.get(tag)
+                if target is None:
                     status, body = 404, {'message': 'Not Found'}
                 else:
-                    body = {'ref': 'refs/tags/v1.0', 'object': {'type': 'commit', 'sha': self.tag}}
+                    body = {'ref': 'refs/tags/' + tag, 'object': {'type': 'commit', 'sha': target}}
             else:
                 raise AssertionError('Unexpected API read: ' + endpoint)
             return subprocess.CompletedProcess(command, 0 if status == 200 else 1,
                 'HTTP/2.0 {} Fixture\nContent-Type: application/json\n\n{}'.format(status, json.dumps(body)), '')
-        if command[1:4] != ['release', 'create', 'v1.0']:
+        if command[1:4] != ['release', 'create', self.tag_name]:
             raise AssertionError('Unexpected remote mutation: ' + repr(command))
         self.creations.append(command)
         target = command[command.index('--target') + 1]
@@ -56,7 +62,7 @@ class ReleaseService:
         paths = [Path(name) for name in command[notes_index + 1:]]
         assets = [{'name': path.name, 'size': path.stat().st_size, 'state': 'uploaded',
                    'digest': 'sha256:' + hashlib.sha256(path.read_bytes()).hexdigest()} for path in paths]
-        self.release = {'tag_name': 'v1.0', 'draft': self.fail_upload, 'prerelease': False,
+        self.release = {'tag_name': self.tag_name, 'draft': self.fail_upload, 'prerelease': False,
                         'name': command[command.index('--title') + 1],
                         'body': Path(command[notes_index]).read_text(),
                         'published_at': None if self.fail_upload else '2026-11-24T12:00:00Z',
@@ -126,6 +132,41 @@ class FinalReleaseTests(unittest.TestCase):
                 self.assertEqual(self.service.release, before)
                 self.assertEqual(len(self.service.creations), 1)
 
+    def test_patch_release_preserves_the_original_tag_and_all_original_assets(self):
+        self.publish()
+        original_release = copy.deepcopy(self.service.release)
+        original_tag = self.service.tag
+        self.data['tag'] = 'v1.0.1'
+        (self.root / 'submission/FINAL_RELEASE.json').write_text(json.dumps(self.data))
+        self.git('add', 'submission/FINAL_RELEASE.json')
+        self.git('commit', '--quiet', '-m', 'Freeze a separate patch release')
+        self.target = self.git('rev-parse', 'HEAD')
+        package(self.root, self.bundle)
+        self.service.tag_name = 'v1.0.1'
+        self.service.prior_releases = [copy.deepcopy(original_release)]
+        self.service.prior_tags = {'v1.0': original_tag}
+        self.service.release = self.service.tag = None
+
+        result = self.publish()
+        self.assertEqual(result['tag'], 'v1.0.1')
+        self.assertEqual(result['url'], 'https://github.com/' + release.REPOSITORY + '/releases/tag/v1.0.1')
+        self.assertEqual(result['assets_with_verified_remote_digest'], 7)
+        self.assertEqual(self.service.tag, self.target)
+        self.assertEqual(self.service.release['name'], 'CS340 PERIOD final submission v1.0.1')
+        self.assertEqual(self.service.prior_releases, [original_release])
+        self.assertEqual(self.service.prior_tags, {'v1.0': original_tag})
+        with zipfile.ZipFile(self.bundle) as bundle:
+            self.assertEqual(json.loads(bundle.read('DELIVERY.json'))['tag'], 'v1.0.1')
+            self.assertIn(b'/releases/tag/v1.0.1\n', bundle.read('START_HERE.txt'))
+        self.assertEqual(self.publish()['status'], 'already_published')
+        self.assertEqual([c[3] for c in self.service.creations], ['v1.0', 'v1.0.1'])
+        self.service.tag = 'b' * 40
+        with self.assertRaisesRegex(ValueError, 'different commit'):
+            self.publish()
+        self.assertEqual(self.service.prior_releases, [original_release])
+        self.assertEqual(self.service.prior_tags, {'v1.0': original_tag})
+        self.assertEqual(len(self.service.creations), 2)
+
     def test_failed_upload_preserves_draft_and_rerun_does_not_complete_it(self):
         self.service.fail_upload = True
         with self.assertRaisesRegex(ValueError, 'Release creation failed'):
@@ -166,12 +207,28 @@ class FinalReleaseTests(unittest.TestCase):
             output = self.temp / 'step-output'
             output.write_text('')
             environment = dict(os.environ, GITHUB_SHA=self.git('rev-parse', 'HEAD'),
-                               GITHUB_OUTPUT=str(output))
+                               GITHUB_OUTPUT=str(output), PYTHONPATH=str(ROOT / 'scripts'))
             subprocess.run([sys.executable, '-c', block], cwd=self.root, env=environment,
                            check=True, capture_output=True, text=True)
             return output.read_text().strip()
 
         self.assertEqual(ready(), 'ready=true')
+        self.data.update(tag='v1.0.1', status='preparing')
+        (self.root / 'submission/FINAL_RELEASE.json').write_text(json.dumps(self.data))
+        self.git('add', 'submission/FINAL_RELEASE.json')
+        self.git('commit', '--quiet', '-m', 'Prepare the next source revision')
+        self.assertEqual(ready(), 'ready=false')
+        self.data['status'] = 'ready'
+        (self.root / 'submission/FINAL_RELEASE.json').write_text(json.dumps(self.data))
+        self.git('add', 'submission/FINAL_RELEASE.json')
+        self.git('commit', '--quiet', '-m', 'Freeze the next ready delivery')
+        self.assertEqual(ready(), 'ready=true')
+        self.data['status'] = 'preparng'
+        (self.root / 'submission/FINAL_RELEASE.json').write_text(json.dumps(self.data))
+        self.git('add', 'submission/FINAL_RELEASE.json')
+        self.git('commit', '--quiet', '-m', 'Record a malformed fixture status')
+        with self.assertRaises(subprocess.CalledProcessError):
+            ready()
         (self.root / 'unrelated.txt').write_text('Later unrelated change\n')
         self.git('add', 'unrelated.txt')
         self.git('commit', '--quiet', '-m', 'An unrelated later change')

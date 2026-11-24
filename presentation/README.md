@@ -1,100 +1,95 @@
 # Final presentation materials
 
-Final content revision: 24 November 2026, Macau/Beijing time.
+Content revision: 24 November 2026, Macau/Beijing time (v1.0.1).
 
-[SLIDES.md](SLIDES.md) is the maintained source for a fourteen-slide English
-presentation. Each slide has screen text, Chinese speaker notes and
-specific evidence links. The [talk and defence outline](TALK_OUTLINE.md) adds a
-short archive demonstration and answers to likely questions. The
-[expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md) remains authoritative for the
-scientific results and complete deviations.
+[SLIDES.md](SLIDES.md) contains the fourteen slides, with concise English text,
+Chinese speaker notes and sources for each slide. The [talk and defence
+outline](TALK_OUTLINE.md) explains the results in more detail and includes an
+offline demonstration. Use the [expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md)
+for the full analysis and experimental details.
 
-The scope includes the paper's method, two tested claims, the five-case
-comparison, depth extension, capacity diagnostic, independent account host and
-twostage source/witness study. It credits the supplementary account audit and
-later report traceability review. The final source also credits PR #6's
-independent recount of the six twostage calls in the 22 November acceptance.
-Earlier deliveries retain their own dates.
+## Presentation files
 
-## Final deliverables and maintained source
-
-The final delivery uses a fourteen-slide editable PowerPoint and its PDF
-preview, exported from this maintained source:
+The editable PowerPoint and its PDF preview are available through
+[submission/](../submission/README.md):
 
 - `CS340_PERIOD_Final_Presentation_20261124.pptx`
 - `CS340_PERIOD_Final_Presentation_20261124.pdf`
 
-The export preserves Chinese speaker notes, editable data tables and the
-native schedule-count chart. The actual final export and visual checks are
-recorded in [FINAL_VALIDATION_20261124.md](../docs/FINAL_VALIDATION_20261124.md).
-The final editable deck and PDF are frozen in [submission/](../submission/README.md)
-and distributed with `v1.0`; the content source remains independently readable.
-Current report and contribution citations use the final `v1.0` revision;
-historical data and protocol citations keep their fixed commits. The deck
-explains each driver's depth-to-period mapping, including the common 2–4
-range for two-thread twostage, and preserves the original statistical scopes.
-The [talk outline](TALK_OUTLINE.md) gives one offline demonstration: independently
-recount six twostage acceptance logs and trace the serialized first-failure
-values 4, 29 and 4 to the published mean and sample SD. Preparing or checking
-these artifacts does not record a rehearsal or delivered presentation by the
-members.
+The deck has fourteen slides, nine editable data tables and one native chart.
+Chinese explanations and evidence links are in the speaker notes. The
+[v1.0.1 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1)
+packages these files with the report and member handbook. The
+[validation record](../docs/FINAL_VALIDATION_20261124.md) documents the export
+and visual review. Current report and contribution links use `v1.0.1`;
+references to historical protocols and measurements retain their fixed commits
+and original dates.
 
-## Course format and scope
+## Talk sequence and demonstration
 
-The instructor's project document refers to a separate Presentation Instruction.
-That source is not in the inspected repository. The tentative presentation date
-is 1 December 2026. Final duration, slide count, required speaking allocation,
-submission format and marking details remain subject to the actual instruction.
-The fourteen-slide count is a content choice. The outline does not
-assign marks or certify completed member presentations. The cover names the
-three confirmed contributors. The fourth-member allocation remains unresolved.
+The talk begins with periodical scheduling and the two claims, C1 and C2. It
+then presents the five-case comparison, explains the failure metrics that differ
+from the paper, and examines the capacity correction and depth extension.
+The final sections cover the independent account host, twostage's failure
+mechanism and the member reviews.
 
-Use the maintained report for the newest measured results. Whenever a new batch
-is included, state its actual date, method labels, sample sizes and host scope.
-Keep earlier failed, censored and complete observations in their proper batches.
-The original layout study's unavailable `account` archive is preserved in the
-[evidence-availability record](../experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json).
-The completed [new-host recovery](../results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md)
-has 20 complete eligible calls and ten pairs, kept separate from the
-[original lazy01 sample](../results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md),
-which also has 20 complete eligible calls and ten pairs. The missing original
-`account` denominator remains unknown. The corrected reader aligns with the
-native field offsets in both cases. The observed first-failure gaps remain in
-the corrected arms.
+Slide 13 follows six twostage acceptance logs from raw output to the reported
+statistics. The [talk outline](TALK_OUTLINE.md) gives the files and the read-only
+command. The serialized first-failure positions 4, 29 and 4 yield a mean of
+12.3333 and a sample SD of 14.4338. This demonstration can run offline after the
+repository is downloaded.
 
-## Scientific boundaries
+## Results and their scope
 
-- C1 is **partially supported** and C2 is **supported within the stated
-  comparison**. Overall verdict: **partially reproduced**. At depth d=3, the
-  released PERIOD driver enumerates p=2 through 4; the released serialized driver
-  enumerates p=N through N+2, where N is the observed thread count at enumeration setup. The
-  period ranges coincide for N=2 and differ for N>2. The comparison also
-  retains other driver differences.
-- The primary comparison and four-thread follow-up account for 106 attempts,
-  96 complete calls and 43 complete pairs. Keep the independent host's 20 calls,
-  capacity diagnostic's 40 readable calls and twostage's five replays separate.
-- The 22 November engineering acceptance has 30 complete comparisons and
-  15 pairs across five case hosts, plus 40 separate witness diagnostics. Its
-  own n=3 summaries are not pooled with historical estimates. PR #6 independently
-  recounts six of these already archived comparison calls; it adds no measurement.
-- A printed request sequence and a saved yield matrix specify scheduling input.
-  The twostage explanation derives a necessary partial order from the source
-  and matching assertion. A unique realized instruction trace remains unknown.
-- Twostage 5/5 describes the selected witness on the recorded build and host.
-  Earlier reorder_3 replay studies retain their own 4/5 and 20/20-per-setting
-  denominators. All measured dates remain unchanged.
-- Show mean and sample SD with the actual n. Keep per-host times separate.
-  A coverage hash's magnitude has no coverage-percentage interpretation.
+The overall verdict is **partially reproduced**. C1 is **partially supported**:
+selected enumeration totals match, while several failure metrics differ. C2 is
+**supported within the stated comparison**: PERIOD explores fewer schedules in
+four cases and ties in twostage.
 
-## Using the content source
+Depth d follows each released driver's rule. PERIOD enumerates p=2 through
+d+1; the serialized driver enumerates p=N through d+N−1, where N is the thread
+count observed at enumeration setup. At d=3, two-thread twostage uses 2–4
+periods in both drivers. The ranges differ for N>2, and other driver differences
+also remain. C2 concerns these released configurations.
 
-Keep the English screen text concise and Chinese explanations in speaker notes.
-Retain per-slide source links. Tables and numerical charts should remain
-editable, including labels, values and denominators. Label the twostage mechanism
-as a source-derived partial order. The talk outline includes an offline evidence
-demonstration that launches no new workload.
+Keep the following studies separate when presenting their numbers:
 
-The final visual review checks every slide for legibility, text fit, exact data,
-speaker notes and citations. Keep contribution and assistance statements
-consistent with report section 10. The [final submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md)
-records the remaining course-facing actions separately from artifact readiness.
+- The main comparison and four-thread follow-up contain 106 attempts,
+  96 complete calls and 43 complete pairs. The independent account host adds
+  its own 20 calls, and the capacity diagnostic has 40 readable calls.
+- The capacity diagnostic uses 20 complete eligible calls and ten pairs from
+  [the original lazy01 batch](../results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md)
+  and another 20 calls and ten pairs from
+  [the account recovery](../results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md).
+  The [original account archive was unavailable](../experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json),
+  so its denominator remains unknown. Correcting the reader aligns the native
+  field offsets in both cases; the first-failure gaps remain.
+- Twostage's 5/5 result describes five replays of one selected witness on the
+  recorded build and host. Earlier reorder_3 studies have separate results
+  of 4/5 and 20/20 per setting.
+- The 22 November acceptance contains 30 complete comparisons and 15 pairs
+  across five case hosts, plus 40 witness diagnostics. Its n=3 summaries are
+  separate from the historical estimates. PR #6 recounts six of these existing
+  comparison calls and contributes a secondary analysis.
+
+Use mean and sample SD with the actual n, and compare times within their case
+and host. A coverage hash's magnitude has no coverage-percentage meaning.
+The twostage table gives a necessary partial order inferred from the source and
+matching assertion. The recorded yield matrix specifies scheduling input;
+the unique instruction trace remains unknown.
+
+## Course arrangements and preparation
+
+The project document refers to a separate Presentation Instruction, which is
+absent from the inspected materials. The tentative presentation date is
+1 December 2026. Confirm the actual date, duration, slide limit, speaking
+allocation and submission format against that instruction. Fourteen slides is
+the current content choice. The cover lists the three confirmed contributors;
+the fourth-member arrangement still needs confirmation.
+
+Use the [member handbook](../docs/MEMBER_ACTIONS_ZH.md) to prepare individual
+explanations and handovers. Describe contributions and assistance consistently
+with report section 10. Record rehearsal, personal participation and course
+submission when they actually occur. The [final submission
+checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md) tracks the remaining course
+actions.

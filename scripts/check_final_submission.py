@@ -16,6 +16,38 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def checked_release_tag(value):
+    """Accept the original submission and positive, bounded patch revisions."""
+    require(isinstance(value, str) and
+            re.fullmatch(r'v1\.0(?:\.[1-9][0-9]{0,5})?', value) is not None,
+            'Unsupported final release tag')
+    return value
+
+
+def publication_candidate(root, expected_commit):
+    """Only a ready manifest changed by this exact commit can enter publication."""
+    root = Path(root).resolve()
+    head = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'],
+                                   text=True).strip()
+    require(head == expected_commit, 'Checkout differs from the workflow commit')
+    name = 'submission/FINAL_RELEASE.json'
+    if not (root / name).is_file():
+        return False
+    history = subprocess.check_output(
+        ['git', '-C', str(root), 'rev-list', '--parents', '-n', '1', 'HEAD'],
+        text=True).split()
+    command = (['diff', '--name-only', '--no-renames', history[1], 'HEAD', '--', name]
+               if len(history) > 1 else ['ls-tree', '--name-only', 'HEAD', '--', name])
+    changed = subprocess.check_output(['git', '-C', str(root), *command], text=True)
+    if name not in changed.splitlines():
+        return False
+    data = json.loads((root / name).read_text(encoding='utf-8'))
+    require(data.get('schema_version') == 1, 'Unsupported final manifest schema')
+    checked_release_tag(data.get('tag'))
+    require(data.get('status') in ('preparing', 'ready'), 'Invalid final manifest status')
+    return data['status'] == 'ready'
+
+
 def checked_path(root, name):
     require(isinstance(name, str), 'Manifest paths must be strings')
     relative = PurePosixPath(name)
@@ -45,8 +77,9 @@ def check(root, manifest=None, check_commit=True):
     root = Path(root).resolve()
     manifest = manifest or root / 'submission/FINAL_RELEASE.json'
     data = json.loads(Path(manifest).read_text(encoding='utf-8'))
-    require(data.get('schema_version') == 1 and data.get('tag') == 'v1.0'
-            and data.get('status') == 'ready', 'Final release is not ready')
+    require(data.get('schema_version') == 1 and data.get('status') == 'ready',
+            'Final release is not ready')
+    tag = checked_release_tag(data.get('tag'))
     revision, label, _ = report_identity(root)
     require(label == 'Final report' and data.get('report_revision') == revision.isoformat(),
             'Final report revision differs from the release')
@@ -101,7 +134,7 @@ def check(root, manifest=None, check_commit=True):
                     require(package.testzip() is None, 'Damaged Office package: ' + name)
                     main = 'word/document.xml' if path.suffix == '.docx' else 'ppt/presentation.xml'
                     require(main in package.namelist(), 'Invalid Office document: ' + name)
-    return {'tag': data['tag'], 'report_revision': data['report_revision'],
+    return {'tag': tag, 'report_revision': data['report_revision'],
             'source_commit': commit, 'verified_documents': len(artifacts),
             'verified_sources': len(source_rows), 'git_commit_verified': git_commit_verified,
             'status': 'passed'}

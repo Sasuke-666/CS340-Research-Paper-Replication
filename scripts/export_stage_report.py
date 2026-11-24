@@ -197,6 +197,7 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
     doc.core_properties.title = title_text
     doc.core_properties.subject = 'CS340 ' + report_label.lower() + '; revision ' + report_date.isoformat()
     doc.core_properties.author = 'CS340 project repository'
+    doc.core_properties.comments = ''
     doc.core_properties.created = datetime.now(timezone.utc)
     doc.core_properties.modified = doc.core_properties.created
     header = sec.header.paragraphs[0]; header.text = 'CS340 | Operating Systems | ' + report_label

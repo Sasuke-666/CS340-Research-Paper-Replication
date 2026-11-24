@@ -13,7 +13,7 @@ from check_final_submission import check, checked_path, require
 from package_final_submission import package
 
 REPOSITORY = 'Sasuke-666/CS340-Research-Paper-Replication'
-TITLE = 'CS340 PERIOD final submission v1.0'
+TITLE = 'CS340 PERIOD final submission'
 
 
 def gh_json(repository, endpoint, missing=False):
@@ -63,13 +63,13 @@ def remote_tag_commit(repository, tag):
     return obj['sha']
 
 
-def verify_release(release, tag_commit, target, assets):
-    require(release is not None and release.get('tag_name') == 'v1.0',
+def verify_release(release, tag_commit, target, assets, tag):
+    require(release is not None and release.get('tag_name') == tag,
             'The final release is missing')
     require(release.get('draft') is False and release.get('prerelease') is False
             and release.get('published_at'),
-            'Existing v1.0 is unpublished or a prerelease; it was left unchanged')
-    require(tag_commit == target, 'Existing v1.0 points to a different or missing commit')
+            'Existing ' + tag + ' is unpublished or a prerelease; it was left unchanged')
+    require(tag_commit == target, 'Existing ' + tag + ' points to a different or missing commit')
     remote = release.get('assets', [])
     require(len(remote) == len(assets) and {row.get('name') for row in remote} == set(assets),
             'Existing release assets are incomplete or unexpected; they were left unchanged')
@@ -93,6 +93,7 @@ def publish(root, bundle, repository, target):
     head = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip()
     require(head == target, 'The checkout differs from the requested release commit')
     receipt = check(root)
+    tag = receipt['tag']
     require(receipt['git_commit_verified'], 'Publication requires verified Git ancestry and sources')
     manifest = json.loads((root / 'submission/FINAL_RELEASE.json').read_text(encoding='utf-8'))
     expected_name = 'CS340_Final_Deliverables_' + receipt['report_revision'].replace('-', '') + '.zip'
@@ -108,25 +109,27 @@ def publish(root, bundle, repository, target):
                          'sha256': hashlib.sha256(path.read_bytes()).hexdigest()} for path in paths}
     require(len(assets) == 7, 'The final release requires exactly seven distinct assets')
     notes = checked_path(root, 'submission/RELEASE_NOTES.md')
-    existing = remote_release(repository, 'v1.0')
-    tag_commit = remote_tag_commit(repository, 'v1.0')
-    require(tag_commit in (None, target), 'Existing v1.0 points to a different commit; it was left unchanged')
+    existing = remote_release(repository, tag)
+    tag_commit = remote_tag_commit(repository, tag)
+    require(tag_commit in (None, target),
+            'Existing ' + tag + ' points to a different commit; it was left unchanged')
     state = 'already_published'
     if existing is None:
-        command = ['gh', 'release', 'create', 'v1.0', '--repo', repository,
-                   '--target', target, '--title', TITLE, '--notes-file', str(notes)]
+        command = ['gh', 'release', 'create', tag, '--repo', repository,
+                   '--target', target, '--title', TITLE + ' ' + tag,
+                   '--notes-file', str(notes)]
         command.extend(str(path) for path in paths)
         created = subprocess.run(command, capture_output=True, text=True)
         require(created.returncode == 0,
                 'Release creation failed; any draft or uploaded assets were left unchanged. '
                 + created.stderr.strip())
-        existing = remote_release(repository, 'v1.0')
-        tag_commit = remote_tag_commit(repository, 'v1.0')
+        existing = remote_release(repository, tag)
+        tag_commit = remote_tag_commit(repository, tag)
         state = 'published'
-    digest_verified = verify_release(existing, tag_commit, target, assets)
-    return {'status': state, 'tag': 'v1.0', 'commit': target, 'verified_assets': len(assets),
+    digest_verified = verify_release(existing, tag_commit, target, assets, tag)
+    return {'status': state, 'tag': tag, 'commit': target, 'verified_assets': len(assets),
             'assets_with_verified_remote_digest': digest_verified,
-            'url': 'https://github.com/' + repository + '/releases/tag/v1.0'}
+            'url': 'https://github.com/' + repository + '/releases/tag/' + tag}
 
 
 if __name__ == '__main__':

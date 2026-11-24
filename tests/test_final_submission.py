@@ -87,6 +87,18 @@ class FinalSubmissionTests(unittest.TestCase):
         self.assertEqual(result['verified_documents'], 6)
         self.assertFalse(result['git_commit_verified'])
 
+    def test_patch_tags_keep_the_checks_and_reject_invalid_release_names(self):
+        for tag in ('v1.0', 'v1.0.1', 'v1.0.999999'):
+            with self.subTest(tag=tag):
+                data = dict(self.data, tag=tag)
+                result = self.run_check(data)
+                self.assertEqual(result['tag'], tag)
+                self.assertEqual(result['verified_documents'], 6)
+        for tag in ('v1.0.0', 'v1.0.01', 'v1.0.1000000', 'v1.1',
+                    'v1.0.1/other', 'v1.0.1\n', 'v1.0.1 --draft', '', None, 1):
+            with self.subTest(tag=tag), self.assertRaisesRegex(ValueError, 'release tag'):
+                self.run_check(dict(self.data, tag=tag))
+
     def test_source_or_export_change_requires_new_manifest(self):
         for section in ('sources', 'artifacts'):
             path = self.root / self.data[section][0]['path']
@@ -103,6 +115,7 @@ class FinalSubmissionTests(unittest.TestCase):
             lambda d: d['sources'].pop(),
             lambda d: d.update(report_revision='2026-11-25'),
             lambda d: d.update(tag='v2.0'),
+            lambda d: d.update(status='preparing'),
         ):
             data = copy.deepcopy(self.data)
             mutate(data)

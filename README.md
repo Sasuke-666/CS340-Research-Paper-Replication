@@ -1,277 +1,61 @@
 # CS340 — PERIOD Research Paper Replication
 
-Operating Systems · Academic Year 2026–2027 · Public course repository
+Operating Systems · Academic Year 2026–2027
 
-**Selected paper:** *Controlled Concurrency Testing via Periodical Scheduling*
-(ICSE 2022). The group confirmed its selection to the project maintainer on
-7 November 2026. This is the date of that confirmation.
+We reproduced selected experiments from *Controlled Concurrency Testing via
+Periodical Scheduling* (ICSE 2022). The study asks whether PERIOD recovers the
+paper's schedule counts and failure-discovery results, and how it compares with
+the authors' released serialized driver on five small concurrent programs.
 
-## Review the current submission
+Our conclusion is **partially reproduced**. The selected schedule counts agree
+with the paper, and PERIOD explores fewer schedules in four of the five cases
+under our stated driver settings. Failure-discovery results differ. The report
+examines those differences through a depth-bound extension, a controlled
+shared-memory capacity change and independent member checks.
 
-| Review question | Report and evidence entry |
+## Start here
+
+| To do | Entry point |
 | --- | --- |
-| What was reproduced? | [Report §§1–4, Tables 2–5](report/EXPANDED_REPORT.md): two bounded claims, paper gaps, complete/censored samples and matched method comparisons |
-| Are the discrepancies explained? | [Report §5](report/EXPANDED_REPORT.md#5-discrepancy-analysis-and-controlled-checks) and [capacity diagnostic §8](report/EXPANDED_REPORT.md#8-controlled-shared-memory-capacity-diagnostic): scoped interface repair, failure distributions and controlled checks |
-| What is the original extension? | [Report §6, Table 7](report/EXPANDED_REPORT.md#6-single-factor-depth-bound-extension), [registered protocol](experiments/2026-11-07/FOLLOWUP_PROTOCOL.md) and [retained depth logs](results/2026-11-07/followup/) |
-| Can a reader build and verify it? | [Clone and audit](#clone-and-verify-the-archived-evidence), [fresh build/run instructions](#independently-rebuild-and-run-a-comparison), [new-host acceptance protocol](experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md), [source and license](docs/SOURCES.md) |
-| Are setup differences and contributions explicit? | [Report Appendix A](report/EXPANDED_REPORT.md#appendix-a-complete-setup-deviations), [contributions](docs/CONTRIBUTIONS.csv), [member reviews](docs/reviews/) and [dated weekly progress](docs/WEEKLY_PROGRESS.md) |
-| Where are the readable deliverables and demonstration? | [Report exports](report/README.md), [final presentation and content source](presentation/README.md), [one-number evidence demonstration](presentation/TALK_OUTLINE.md) |
-| Which requirements are confirmed? | [Supplied course criteria and unresolved external items](docs/COURSE_REQUIREMENTS.md), [current member actions](docs/MEMBER_ACTIONS_ZH.md) and [final validation record](docs/FINAL_VALIDATION_20261124.md) |
+| Read the findings | [English report](report/EXPANDED_REPORT.md), especially §§1–4 for results, §5 for discrepancies, §6 for the extension and §8 for the capacity study |
+| Download the final documents | [Report, presentation and Chinese handbook](submission/README.md), or the [complete v1.0.1 bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1) |
+| Check the archived evidence | [Clone and run the offline checks](#clone-and-verify-the-archived-evidence); no Docker workload is needed |
+| Run a new experiment | [Linux/Docker instructions](#independently-rebuild-and-run-a-comparison), including settings and expected runtime |
+| Prepare the presentation | [Fourteen-slide source](presentation/SLIDES.md), [Chinese speaking notes and questions](presentation/TALK_OUTLINE.md), [member preparation](docs/MEMBER_ACTIONS_ZH.md) |
+| Check course requirements and contributions | [Rubric map](docs/FINAL_SUBMISSION_CHECKLIST.md), [actual contributions](docs/CONTRIBUTIONS.csv), [weekly progress](docs/WEEKLY_PROGRESS.md) and [course requirements](docs/COURSE_REQUIREMENTS.md) |
 
-The current verdict is **partially reproduced**. Schedule-count agreement and
-configuration-specific reductions coexist with failure-discovery discrepancies.
-The report explains the method-specific meaning of depth, the shape of the
-observed failure distributions and the mechanism behind the depth extension.
-The acceptance protocol tests present-day execution in a separate new-host
-scope; its result never replaces the historical studies or missing observations.
+## Final documents — 24 November 2026
 
-**Fresh-host acceptance passed on 22 November:**
-[run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
-rebuilt and ran all five cases. The independent
-[acceptance receipt](results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)
-confirms **30/30 complete eligible comparison calls, 15 complete method pairs,
-40/40 complete diagnostic calls and five successful benchmark builds**.
-All 948 archived evidence files match their manifest, with no missing or extra
-files. No comparison had an inner timeout, outer timeout or budget truncation.
-Run `make audit-acceptance` to verify this batch without launching a workload.
-Its [per-case results](results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)
-retain their own hosts and dates.
+The final report includes all six member pull requests. He Boyu's
+[PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
+recounts the six twostage acceptance logs and corrects the presentation wording.
+His Windows audit also identified a path-format problem, now covered by native
+Windows archive checks.
 
-## Final revision — 24 November 2026
+The [v1.0.1 document revision](submission/README.md) has clearer report prose,
+shorter slide text and Chinese notes written for oral delivery. It contains the
+English report in PDF and Word, an editable fourteen-slide presentation and PDF,
+and a Chinese submission handbook in Word and PDF. The initial `v1.0` release
+remains available. Each version records its document hashes and source commit
+in `submission/FINAL_RELEASE.json`; publication follows successful Linux and
+Windows checks. See the [validation record](docs/FINAL_VALIDATION_20261124.md)
+for the checks performed on each revision.
 
-The [final report](report/EXPANDED_REPORT.md) incorporates all six accepted
-member pull requests. [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
-adds He Boyu's independent recount of the six twostage acceptance logs and
-clarifies the presentation. Its Windows path-comparison finding led to portable
-summary paths and deterministic text output, with a native Windows archive check.
-The original member commits, experiment dates and cohort boundaries are preserved.
-
-The final documents are collected in [submission/](submission/README.md): the
-English report as PDF and editable Word, a fourteen-slide editable presentation
-and PDF, and a Chinese submission/defence handbook. The release workflow verifies
-the frozen document hashes and source revision after both Linux Python versions
-and the Windows archive job pass. It then publishes the final `v1.0` tag and
-[downloadable delivery bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0).
-The [final validation record](docs/FINAL_VALIDATION_20261124.md) records the actual
-checks; the [submission checklist](docs/FINAL_SUBMISSION_CHECKLIST.md) maps the
-course criteria to evidence. Course-platform submission and the members' oral
-presentation have their own recorded completion status.
-
-`make audit` verifies raw evidence and checked summaries, then checks report
-Tables 2–12 against those records. The report check covers sample sizes,
-means and sample standard deviations, reported gaps, paired-difference
-signs, missing observations and separate batch scopes. It also checks all
-18 numbered captions, their narrative references and four figure paths.
-The additional explanation audit verifies 66 checksummed source/log files and
-recounts the new failure frequencies, depth layers and nested request prefixes.
-It does not independently validate every prose claim, the paper itself or
-rendered figure/document layout. The synthetic regression cases never enter
-experimental results.
-Word and PDF exports preserve clickable source links; local evidence links
-resolve to the exporting checkout's immutable repository revision when Git
-metadata is available.
-
-`make deliverables` creates the English PDF/Word report and Chinese member
-checklist in `report/export/`. Their default names and dates come from
-`report/REVISION_DATE`, currently **2026-11-24**, which must agree with the
-report header. Dependencies are in `requirements-report.txt`.
-The [14-slide presentation source](presentation/SLIDES.md) and
-[Chinese explanation and defence outline](presentation/TALK_OUTLINE.md)
-include the five twostage witness replays and the separate member/diagnostic
-scopes. The formal presentation instructions still need course confirmation.
-
-## Windows archive verification
-
-Native Windows supports the read-only evidence checks. Preserve archived bytes
-when cloning, since Git line-ending conversion changes their recorded digests:
-
-```powershell
-git clone -c core.autocrlf=false https://github.com/Sasuke-666/CS340-Research-Paper-Replication.git
-cd CS340-Research-Paper-Replication
-$env:PYTHONUTF8 = "1"
-python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
-python scripts/recount_twostage_acceptance.py
-```
-
-The CI job `windows-archive-audit` also checks the historical comparison, layout,
-independent member evidence and report. Fresh benchmark builds and executions
-use the documented x86_64 Linux/Docker environment below. The member's original
-Windows failure transcript remains preserved in [PR #6's audit record](docs/reviews/1240000576-audit-20261122.txt).
-
-## Member integration — 16 November 2026
-
-PRs [#3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3)
-and [#4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
-are merged with their original member commits and authors preserved.
-The [closeout record](docs/INTEGRATION_20261116.md) records the decision and scope.
-
-- Li Yangshuo: [supplementary account evidence review](docs/reviews/1240001156-account-supplement.md).
-  This is secondary analysis of existing batches. The independent 8 November
-  experiment remains credited through PR #2; prior group work retains its
-  attribution. No new experiment or first-discovery claim is added by PR #3.
-- He Boyu: [twostage source analysis](docs/reviews/1240000576-twostage-witness-review.md),
-  [trace evidence table](docs/reviews/1240000576-twostage-trace.md),
-  [Chinese summary](docs/reviews/1240000576-twostage-summary-zh.md) and
-  [five-replay record](results/member-reruns/1240000576-twostage-43681034375/README.md).
-  Five fresh calls on 15 November produced the selected assertion. This single
-  witness and new host remain separate from earlier exploration statistics.
-
-`make audit-member-reviews` independently checks 40 account request sequences,
-all 12 new replay-file checksums, and the assertion after the reproduction marker
-in each of five calls. A missing assertion, timeout or digest mismatch fails the
-check. It is included in `make audit` and both continuous-check environments.
-The scripts introduced for this integration are maintainer verification work,
-not another student's new experiment. Original member scripts and logs are unchanged.
-
-The 16 November report revision included the contributions and new witness scope.
-Current exports use the revision date documented above. Member delivery dates remain 14–15 November;
-these merges and integration checks occurred on 16 November. This is a stage
-closeout, with personal explanation and final course submission still separate.
-
-## Third-week study — 14 November 2026
-
-The [current English report](report/EXPANDED_REPORT.md) includes the original
-five-case comparison, the separately submitted independent `account` host,
-and the controlled shared-memory layout study registered in
-[`bddb831`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/commit/bddb831319679c30586d9bbe689fb11b897f1a14).
-The [new protocol](experiments/2026-11-14/LAYOUT_PROTOCOL.md) compares the released
-PERIOD driver (`capacity1990`) with a copy changing just one array-capacity
-constant (`capacity3964`). Native runtime and benchmark code are unchanged.
-Both arms use the same built binary and host within each case, with fresh
-private IPC state and ten AB/BA pairs for each of `account` and `lazy01`.
-The original [workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202)
-archived twenty complete `lazy01` invocations. Its `account` job ended with
-failure; the raw result artifact and job log remained unavailable after two
-final checks. Its actual attempt count and scientific outcomes remain unknown.
-The [original final observations](experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json)
-are preserved. The [separate recovery protocol](experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md)
-was published in `ea273fe4` before
-[account recovery run 43575584325](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325).
-It fixes twenty new account invocations using the original measurement bytes
-on a new host. The original lazy01 and recovery account batches have separate
-audits and are never pooled with the missing original account measurements.
-This is a separate diagnostic question and evidence scope.
-
-Both readable case batches have twenty complete eligible calls and ten pairs.
-The original lazy01 archive has 304 outer-manifest entries; recovery account has
-571. Every entry passed an independent hash check. The one-constant repair
-changes the observed feedback hash while keeping the requested schedules
-unchanged: 65 for account and 39 for lazy01. Corrected first-failure positions
-remain 10.200 ± 0.632 and 8.200 ± 0.422, respectively, against paper references
-2 and 3. Timing and failure-yield changes have mixed directions. These results
-support the existing **partially reproduced** verdict and narrow the diagnosis;
-they do not justify a general speed or detection improvement. See report
-Tables 10–12 and Figure 4 for the actual samples and paired differences.
-
-`make audit` also verifies the merged member batch, including its 880 manifest
-entries and twenty original logs. The updated report includes a complete setup
-deviations table in its exported PDF, alongside source modifications and actual
-contribution records. See the [course-evidence review](docs/QUALITY_REVIEW_20261114.md),
-[current member actions](docs/MEMBER_ACTIONS_ZH.md) and
-[talk and defence outline](presentation/TALK_OUTLINE.md).
-
-## Member submissions — 8 November 2026
-
-Both member submissions are integrated into the default branch with their
-original commits and authors preserved:
-
-- Li Yangshuo, 李扬烁 (1240001156; `barkhorn996`), submitted a new `account`
-  batch: ten complete runs per method on one WSL2 host, with a preserved
-  image-pull failure, environment records and raw evidence. See the
-  [member review](docs/reviews/1240001156-clean-run.md),
-  [batch summary](results/member-reruns/1240001156-account-20261108T122201Z-summary/SUMMARY.md)
-  and [PR #2](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/2).
-- He Boyu, 何博宇 (1240000576; `heboyu0714`), submitted the
-  [four-thread archived-evidence review](docs/reviews/1240000576-evidence-audit.md)
-  with executable recount code, 26 checked comparison logs and a separate
-  treatment of the ten censored serialized runs. See
-  [PR #1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/1).
-
-The new account batch is a separate host scope. It does not change the counts
-or statistics of the 7 November study below. Actual submissions and assistance
-are recorded in [contributions](docs/CONTRIBUTIONS.csv) and
-[the usage statement](docs/AI_USAGE.md). The member recounts and checks add
-verification evidence; no additional experiments were run for integration.
-
-## Stage progress — 7 November 2026
-
-Read the [final English report](report/EXPANDED_REPORT.md) for the
-current study, claim-by-claim assessment and limitations. The
-[historical pilot report](report/PILOT_REPORT.md) remains available with its
-original evidence. The overall work is a reduced-scale replication in progress.
-The [dated progress record](docs/WEEKLY_PROGRESS.md) preserves the actual
-weeks of work, and the [expanded validation record](docs/VALIDATION_EXPANDED_20261107.md)
-links the 98-test result and independent evidence audits.
-
-| Evidence batch | Scope | Interpretation and status |
-| --- | --- | --- |
-| Historical pilot and follow-up | 9 pilot runs, 9 depth-extension runs and 15 fixed-witness replays: **33 test/replay invocations**; six builds and one scheduling probe recorded separately | Selected schedule counts matched the paper; error counts and replay outcomes varied. These observations retain their original scope. |
-| Original-driver comparison, run `42380929383` | Five cases, ten planned repetitions per method, with a separate replay diagnostic | Preserve the original `author_serialized` driver failures as failed execution. They are excluded from valid comparison observations and never interpreted as zero detected errors. |
-| Compatible-driver study, run `42381922637` | Five cases, ten paired repetitions per case: `period` versus `author_serialized_abi16`; 100 comparison attempts | Archived: **90 complete observations and 10 observations censored at the 120-second outer limit**. All ten censored observations are `reorder_4` with `author_serialized_abi16`. |
-| Four-thread completion follow-up, run `42384122902` | `reorder_4` only; three paired repetitions; 240-second outer limit | **6/6 complete and eligible observations; three complete pairs.** Archived and independently audited. The protocol was registered in commit `15ae481` before measurement. |
-
-The five cases are `reorder_3`, `reorder_4`, `account`, `lazy01` and `twostage`.
-They cover four program families and 2/3/4 threads. For each case, both methods
-use the same built binary, depth 3, schedule budget 10,000 and alternating AB/BA
-execution order. The compatible serialized method copies the current driver's
-shared-memory interface and four array element types into the authors' older
-driver; the serialized scheduling section is preserved. Its explicit label is
-`author_serialized_abi16`. Correspondence with the paper's historical Serial
-implementation remains a limitation, even where individual counts agree.
-
-The compatible batch contains 80 complete observations across `reorder_3`,
-`account`, `lazy01` and `twostage`, plus ten complete PERIOD observations for
-`reorder_4`. The ten serialized `reorder_4` attempts all reach the 120-second
-outer limit. Thus four cases provide ten complete timing pairs each;
-`reorder_4` provides no complete timing pair at this limit. Its censored times
-are not substituted as exact completion times, and partial schedule counts are
-not used as completed enumeration totals. The separate 40 replay-diagnostic
-invocations and five builds are recorded outside the 100 comparison attempts.
-
-The four-thread follow-up preserves the program, input, depth, schedule budget,
-drivers and internal timeout. It increases the outer watchdog to 240 seconds
-and uses three declared pairs on a new host. Its observations remain a separate
-batch; the ten earlier censored observations stay in the archive. Both methods
-from the follow-up are used together for its matched comparison.
-
-The two compatible batches contain **96 complete observations (90 + 6)** and
-ten censored observations across 106 attempts. The matched analysis has
-**43 complete pairs: 40 from four primary cases and three from the four-thread
-follow-up**. The ten earlier PERIOD `reorder_4` observations remain in the
-primary batch; they are not pooled with the three new observations.
-
-The [audited four-thread summary](results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)
-reports the following values (mean ± sample SD, `n = 3` per method):
-
-| Method | Explored schedules | First failing schedule | Buggy schedules | Whole-driver seconds |
-| --- | ---: | ---: | ---: | ---: |
-| PERIOD | 100 ± 0 | 9 ± 0 | 12 ± 0 | 21.84 ± 0.50 |
-| `author_serialized_abi16` | 384 ± 0 | 47 ± 0 | 86.33 ± 1.15 | 133.96 ± 2.70 |
-
-These are observations from one matched host and declared configuration.
-Serial first-failure and buggy-schedule counts differ from the paper
-references, so schedule-count agreement alone does not establish full
-replication of the historical Serial implementation.
-
-Keep the original-driver and compatible-driver batches separate. Exclude failed
-original-driver observations from valid-sample statistics, and retain every
-attempt in the evidence record. Comparisons of elapsed time use matched pairs
-within one case and batch; separate hosted machines are separate timing scopes.
-
-- [Compatible-driver workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42381922637) and [its preserved evidence](results/2026-11-07/comparison-42381922637).
-- [Original-driver workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42380929383) and [its preserved evidence](results/2026-11-07/comparison-42380929383).
-- [Four-thread follow-up workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42384122902), [preserved evidence](results/2026-11-07/comparison-42384122902) and [registered protocol](experiments/2026-11-07/REORDER4_TIMEOUT_FOLLOWUP.md).
-- [Registered expanded protocol and amendments](experiments/2026-11-07/COMPARISON_PROTOCOL.md) and [compatibility protocol](experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md).
-- [Historical pilot evidence manifest](results/2026-11-07/manifest.json): 126 raw files.
-- [Pilot workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42368129299) and [follow-up workflow](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42369166599).
-- [Pilot protocol](experiments/2026-11-07/PROTOCOL.md) and [follow-up protocol](experiments/2026-11-07/FOLLOWUP_PROTOCOL.md).
-- [Environment differences](docs/DEVIATIONS.csv), [sources and license](docs/SOURCES.md), [actual contributions](docs/CONTRIBUTIONS.csv) and [academic disclosure](docs/AI_USAGE.md).
+The latest fresh-host run was completed on **22 November**.
+[Run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
+rebuilt all five cases and produced **30 complete comparison calls, 15 complete
+method pairs, 40 complete diagnostic calls and five successful builds**.
+The [acceptance receipt](results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)
+accounts for all 948 archived evidence files. No comparison reached an inner
+timeout, outer timeout or schedule-budget limit. This engineering check has
+its own [case and host records](results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md);
+the historical studies below keep their original samples.
 
 ## Clone and verify the archived evidence
 
-The repository is public. Read-only cloning requires no collaborator permission.
-Local checks and summaries require Git, Make and Python 3.9 or later; they use the
-Python standard library. From a new directory:
+Local checks require Git, Make and Python 3.9 or later. The evidence audits use
+the Python standard library and read the archived files without running the
+benchmarks. Start from a new directory:
 
 ```bash
 git clone https://github.com/Sasuke-666/CS340-Research-Paper-Replication.git
@@ -334,6 +118,32 @@ missing first failures stay missing. The summary does not turn execution
 failures into valid zero-error results. Unit-test fixtures are synthetic test
 inputs and are separate from measured experiments.
 
+The report audit checks Tables 2–12 against those records, including sample
+sizes, means, sample standard deviations, signed differences and missing values.
+It also checks 18 numbered captions, their references in the text and four figure
+paths. The explanation audit checks 66 source/log files and recounts failure
+frequencies, depth layers and nested request prefixes. These checks cover the
+recorded data and references; visual review is recorded separately for the
+exported documents. Synthetic regression fixtures are kept out of the results.
+
+## Windows archive verification
+
+Native Windows supports the read-only evidence checks. Preserve archived bytes
+when cloning, since Git line-ending conversion changes their recorded digests:
+
+```powershell
+git clone -c core.autocrlf=false https://github.com/Sasuke-666/CS340-Research-Paper-Replication.git
+cd CS340-Research-Paper-Replication
+$env:PYTHONUTF8 = "1"
+python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
+python scripts/recount_twostage_acceptance.py
+```
+
+The CI job `windows-archive-audit` also checks the historical comparison, layout,
+independent member evidence and report. Fresh benchmark builds and executions
+use the documented x86_64 Linux/Docker environment below. The member's original
+Windows failure transcript remains preserved in [PR #6's audit record](docs/reviews/1240000576-audit-20261122.txt).
+
 ## Independently rebuild and run a comparison
 
 Use an isolated, disposable **x86_64 Linux machine** with Git, Bash, GNU timeout,
@@ -355,8 +165,9 @@ printf 'Evidence directory: %s\n' "$EVIDENCE_PATH"
 ```
 
 `make comparison` calls `scripts/period_container_compatible.sh`, using the
-compatible serialized method. The five supported `CASE` values are listed
-above. Each selected case plans ten repetitions per method. Use a fresh output
+compatible serialized method. Supported `CASE` values are `reorder_3`,
+`reorder_4`, `account`, `lazy01` and `twostage`. Each selected case plans ten
+repetitions per method. Use a fresh output
 directory for every attempt, including retries. The archived `reorder_4`
 serialized attempts reached the 120-second limit; keep any such result as
 censored. Save failures and inspect the actual records before reporting
@@ -530,18 +341,130 @@ can be viewed without installing plotting dependencies. The separately scoped
 capacity study produces `results/2026-11-14/figures/layout_comparison.svg`, using
 only its independently audited summary and displaying actual metric denominators.
 The export command
-creates `CS340_PERIOD_Expanded_Report_20261122.docx` and
-`CS340_PERIOD_Expanded_Report_20261122.pdf` in `report/export/`; exporting does
+creates `CS340_PERIOD_Final_Report_20261124.docx` and
+`CS340_PERIOD_Final_Report_20261124.pdf` in `report/export/`; exporting does
 not execute experiments or alter observations.
 
-The [separate Chinese member action checklist](docs/MEMBER_ACTIONS_ZH.md) and
-[individual review template](docs/reviews/REVIEW_TEMPLATE.md) distinguish accepted
-contributions from remaining group preparation. To create an editable Word checklist:
+The [Chinese handbook](docs/MEMBER_ACTIONS_ZH.md) covers submission and member
+preparation. To export its editable Word copy:
 
 ```bash
 make checklist
 ```
 
+Export names and dates come from `report/REVISION_DATE`, currently 2026-11-24,
+and must match the report header. Report evidence links point to the exporting
+checkout's exact commit when Git metadata is available. The files in
+`report/export/` are working exports; reviewed release copies are in
+`submission/`.
+
+## Archived studies and member work
+
+The group confirmed the paper selection to the maintainer on 7 November 2026.
+The [weekly record](docs/WEEKLY_PROGRESS.md) gives the dates of subsequent work.
+The table below separates the experiments used in the report.
+
+| Evidence batch | Sample and outcome | Record |
+| --- | --- | --- |
+| Historical pilot and follow-up | Nine pilot runs, nine depth-extension runs and fifteen witness replays: 33 invocations; six builds and one scheduling probe counted separately | [Pilot report](report/PILOT_REPORT.md), [126-file manifest](results/2026-11-07/manifest.json), [follow-up protocol](experiments/2026-11-07/FOLLOWUP_PROTOCOL.md) |
+| Original serialized driver, 7 November | Driver failures prevented a valid method comparison; failed attempts are retained and excluded from valid-sample statistics | [Run 42380929383](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42380929383), [archive](results/2026-11-07/comparison-42380929383) |
+| Compatible-driver comparison, 7 November | Five cases, ten planned pairs per case: 100 attempts, 90 complete calls and ten serialized `reorder_4` calls censored at 120 seconds | [Protocol](experiments/2026-11-07/COMPARISON_PROTOCOL.md), [run 42381922637](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42381922637), [summary](results/2026-11-07/summaries/comparison-42381922637/SUMMARY.md) |
+| Four-thread completion follow-up, 7 November | Three `reorder_4` pairs on a new host with a 240-second limit; all six calls complete | [Registered protocol](experiments/2026-11-07/REORDER4_TIMEOUT_FOLLOWUP.md), [run 42384122902](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42384122902), [summary](results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md) |
+| Li Yangshuo's independent `account` run, 8 November | Twenty complete calls and ten pairs on one WSL2 host | [Member review](docs/reviews/1240001156-clean-run.md), [batch summary](results/member-reruns/1240001156-account-20261108T122201Z-summary/SUMMARY.md) |
+| Capacity diagnostic, 14 November | Original `lazy01` and recovery `account`: twenty complete calls and ten pairs each, on separate hosts; the original `account` outcomes remain unknown | [Protocol](experiments/2026-11-14/LAYOUT_PROTOCOL.md), [lazy01 summary](results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md), [recovery account summary](results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md) |
+| He Boyu's selected twostage witness, 15 November | Five fresh replays, all reaching the selected assertion | [Replay archive](results/member-reruns/1240000576-twostage-43681034375/README.md), [source analysis](docs/reviews/1240000576-twostage-witness-review.md) |
+
+### Main comparison
+
+The five cases are `reorder_3`, `reorder_4`, `account`, `lazy01` and `twostage`:
+four program families with two, three or four threads. Each method pair uses
+the same built binary, depth 3 and a 10,000-schedule budget, with AB/BA execution
+order. Each driver uses its own depth definition: PERIOD searches periods
+2 through d+1; the serialized driver searches N through d+N−1 for N threads.
+[Report §2](report/EXPANDED_REPORT.md#2-experimental-setup-and-registered-design)
+explains this distinction and the two-thread case where the ranges coincide.
+The comparison method, `author_serialized_abi16`, copies the current
+driver's shared-memory interface and four array element types into the authors'
+older serialized driver. Its scheduling section is preserved. The
+[compatibility protocol](experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
+documents this change and the limits of comparison with the paper's historical
+Serial implementation.
+
+The compatible study and four-thread follow-up together contain **106 attempts,
+96 complete calls and 43 complete pairs**: forty pairs from the four primary
+cases and three from the follow-up. At the original 120-second limit,
+`reorder_4` has ten complete PERIOD calls and no complete serialized call, so it
+provides no complete timing pair. Those censored prefixes remain in the archive;
+their partial schedule counts are not used as finished enumeration totals.
+The separate forty replay-diagnostic calls and five builds are outside the
+100 comparison attempts.
+
+The four-thread follow-up uses a longer outer watchdog and a new host, retaining
+the program, input, depth, schedule budget, drivers and internal timeout. Its
+means and sample standard deviations (`n = 3` per method) are:
+
+| Method | Explored schedules | First failing schedule | Buggy schedules | Whole-driver seconds |
+| --- | ---: | ---: | ---: | ---: |
+| PERIOD | 100 ± 0 | 9 ± 0 | 12 ± 0 | 21.84 ± 0.50 |
+| `author_serialized_abi16` | 384 ± 0 | 47 ± 0 | 86.33 ± 1.15 | 133.96 ± 2.70 |
+
+Serial's first-failure position and buggy-schedule count differ from the paper.
+Schedule-count agreement therefore supports only part of the reproduction.
+Elapsed times are compared within a case and host; the earlier PERIOD calls
+are not pooled with the follow-up.
+
+### Capacity diagnostic
+
+The [registered intervention](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/commit/bddb831319679c30586d9bbe689fb11b897f1a14)
+changes one Python array-capacity constant from 1990 to 3964. Native runtime and
+benchmark code are unchanged. Each case uses the same binary and host for both
+conditions, fresh private IPC state and ten AB/BA pairs.
+
+[Run 43570556202](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556202)
+archived twenty complete `lazy01` calls. Its `account` job failed, and neither
+the raw artifact nor the job log was available after two final checks. The
+[observations](experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json)
+record that uncertainty. A separate
+[recovery protocol](experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md), committed
+as `ea273fe4` before
+[run 43575584325](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325),
+fixed twenty new `account` calls using the same measurement bytes on a new host.
+Recovery results keep their own sample; the unavailable original results remain
+unknown.
+
+The original lazy01 archive has 304 manifest entries and recovery account has
+571; all pass the hash audit. The capacity change alters the observed feedback
+hash while preserving the requested schedules: 39 for lazy01 and 65 for account.
+Corrected first-failure positions are 8.200 ± 0.422 and 10.200 ± 0.632,
+respectively, against paper references 3 and 2. Timing and failure-yield changes
+have mixed directions. Report Tables 10–12 and Figure 4 explain what this
+intervention resolves and which discrepancies remain.
+
+### Member contributions
+
+All six member PRs are merged with their original authors and dates:
+
+- Li Yangshuo's [PR #2](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/2)
+  contributes the independent account experiment, including the initial image-
+  pull failure, environment records and raw logs. [PR #3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3)
+  adds a [secondary account review](docs/reviews/1240001156-account-supplement.md),
+  and [PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5)
+  checks report traceability and adds missing narrative references.
+- He Boyu's [PR #1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/1)
+  recounts 26 four-thread logs and treats the ten censored attempts separately.
+  [PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
+  contributes twostage source analysis, a [necessary-order table](docs/reviews/1240000576-twostage-trace.md),
+  a [Chinese explanation](docs/reviews/1240000576-twostage-summary-zh.md) and five
+  fresh witness replays. [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
+  checks the final twostage statistics and presentation.
+
+`make audit` verifies the independent account batch's 880 manifest entries and
+twenty logs. `make audit-member-reviews` checks forty account request sequences,
+all twelve new witness-file checksums and the selected assertion after the
+reproduction marker in each replay. A missing assertion, timeout or checksum
+mismatch fails the check. The [integration record](docs/INTEGRATION_20261116.md)
+and [contribution ledger](docs/CONTRIBUTIONS.csv) distinguish the members' work
+from maintainer verification.
 
 ## Repository layout
 
@@ -568,8 +491,8 @@ The three confirmed member identities are recorded in [the team table](docs/TEAM
 | 何博宇 | 1240000576 | heboyu0714 |
 
 The fourth member remains to be confirmed through the course's group allocation
-process. Both member accounts had verified write access on 8 November and their
-substantive submissions are merged, as documented above. The registration receipt
+process. Both member accounts had verified write access on 8 November, and all six
+member submissions are merged. The registration receipt
 and any later course allocation still need their actual evidence.
 
 Every commit message includes the actual responsible student's ID and full name,
@@ -585,7 +508,7 @@ any new review still require actual participation. Use the [Chinese member actio
 [course requirement checklist](docs/COURSE_REQUIREMENTS.md).
 Presentation is tentatively 1 December 2026. Its separate rubric and the exact
 final-report deadline still require verification. The final report must be in
-English and submitted as PDF. The final repository delivery is identified by
-`v1.0`; its verified files and complete source/evidence bundle are available
-through the release link above. The course portal receipt and oral presentation
+English and submitted as PDF. The initial final submission is tagged
+`v1.0`; the clearer document revision is `v1.0.1`. The release links provide
+the reviewed documents and complete source/evidence bundles. The course portal receipt and oral presentation
 remain actions for the registered members.

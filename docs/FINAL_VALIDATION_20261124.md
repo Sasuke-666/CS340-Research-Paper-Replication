@@ -3,8 +3,8 @@
 The owner identified 23–29 November as the final working week and requested
 completion of the repository, report and presentation. The supplied instructor
 requirements were read again in full. The technical delivery uses the final
-`v1.0` release; course submission and the actual oral presentation are separate
-events. All dates below describe actions that actually occurred.
+`v1.0` release, followed by the `v1.0.1` document revision in section 6.
+Course submission and the oral presentation have their own completion records.
 
 ## 1. Accepted member work
 
@@ -50,7 +50,7 @@ serialized twostage first failures 4, 29, 4, with mean 12.3333 and sample SD
 14.4338. Source-derived necessary ordering stays distinct from a measured
 instruction trace. Report/slide contribution statements include all six PRs.
 
-## 4. Verification ledger
+## 4. Verification of v1.0
 
 Local source validation on 24 November completed all 162 unit tests with
 zero failures and zero skips, with the pinned report dependencies installed.
@@ -78,18 +78,17 @@ The source-only commit correctly skipped document publication because it had
 no final manifest. This supplies revision-specific evidence for the Windows
 path/newline repair, without claiming Windows benchmark execution.
 
-The [final manifest](../submission/FINAL_RELEASE.json) binds all six reviewed
+The [v1.0 manifest](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/submission/FINAL_RELEASE.json) binds all six reviewed
 documents to this source commit and the exact source-file bytes. Original Git
 history and upstream credit were preserved.
 
-The frozen-document commit runs the Linux/Windows gates again at its exact
-commit before its publishing job creates `v1.0` and uploads the six documents
-and complete ZIP. The [release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0)
-identifies the final commit and assets; the corresponding [workflow run](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/workflows/repository-checks.yml)
-records its checks and publishing outcome. This gate cannot move an existing
-tag or replace mismatched published assets. `DELIVERY.json` in the ZIP and the
-manifest retain the source, repository and document identities independently
-of a download filename.
+Frozen-document commit `7634e7e381983d5092f9a3e764d0b84f2e4263b7` passed
+the Linux/Windows checks in [run 45351419681](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45351419681).
+Its publishing job created [v1.0](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0)
+on 24 November at 15:53:40 UTC+8, with the six documents and complete ZIP.
+The workflow cannot move an existing tag or replace mismatched assets.
+`DELIVERY.json` and the manifest record the source, repository and document
+identities independently of the download filename.
 
 ## 5. Course-facing actions
 
@@ -101,3 +100,22 @@ The release does not assert a portal upload, personal rehearsal or final mark.
 
 The [rubric map](FINAL_SUBMISSION_CHECKLIST.md) links every published report and
 repository criterion to its evidence.
+
+## 6. Document revision v1.0.1
+
+The report paragraphs now follow the experiment and its interpretation more
+directly. The slide text is shorter, and the Chinese notes are written for oral
+delivery. The README puts reading and reproduction instructions before the
+historical studies. This revision changes no measurements or member attribution.
+
+Compared with `c2f41f89d8b1dd9a777602ddff651d78acd068bc`, all 116 report
+table lines, 18 caption lines and four figure references are unchanged. Fixed
+historical source links are unchanged; current document links use `v1.0.1`.
+The README's thirteen command blocks are also unchanged.
+
+Local source checks passed all 164 unit tests with no failures or skips, using
+the pinned report dependencies. `make audit` passed, including the 321 bound
+report cells and the explanation check's 66 source/log files. The added release
+tests verify that a document patch publishes separately while preserving the
+existing `v1.0` tag and all its assets. A preparing manifest skips publication;
+only a ready, verified document manifest can trigger it.
