@@ -18,6 +18,20 @@ class ComparisonTests(unittest.TestCase):
     def test_duplicate_rejected(self): self.assertFalse(parse_log(self.fixture().replace('0002','0001'))['complete_markers'])
     def test_prefix_counted(self): self.assertTrue(parse_log(self.fixture().replace('0002:', '0002 for prefix [0]:'))['complete_markers'])
     def test_inconsistent_total_rejected(self): self.assertFalse(parse_log(self.fixture().replace('Interleavings: 1','Interleavings: 2'))['complete_markers'])
+    def test_error_after_end_marker_rejected(self):
+        text=self.fixture()+'[Error Found]: NO.2 assertion failed\n'
+        self.assertFalse(parse_log(text)['complete_markers'])
+    def test_duplicate_end_or_footer_rejected(self):
+        for suffix in ('End Testing!\n','Round\t0\t2\n'):
+            with self.subTest(suffix=suffix):
+                self.assertFalse(parse_log(self.fixture()+suffix)['complete_markers'])
+    def test_schedule_beyond_budget_rejected(self):
+        text=self.fixture().replace('Round\t0\t2','Round\t0\t3')+'test 0003: [[2]]\n[Error Found]: NO.2 assertion failed\n'
+        result=parse_log(text,budget=2)
+        self.assertFalse(result['complete_markers'])
+        self.assertTrue(result['budget_reached'])
+    def test_error_before_any_test_rejected(self):
+        self.assertFalse(parse_log('[Error Found]: NO.1 assertion failed\n'+self.fixture())['complete_markers'])
     def test_diagnostic_patch_exact(self):
         s='int(Period*1.5)\n        process.communicate()\n        sys.exit()'
         out=diagnostic_source(s);self.assertIn('target_returncode',out);self.assertIn('CS340_REPLAY_SCALE',out)

@@ -1,10 +1,10 @@
 # English final report
 
 [EXPANDED_REPORT.md](EXPANDED_REPORT.md) is the current report, revised on
-24 November 2026. The reviewed PDF and editable Word copy are in
-[submission/](../submission/README.md). Release `v1.0.1` improves the report's
-writing and navigation while preserving its measurements, tables and scientific
-conclusions. The original `v1.0` release and [PILOT_REPORT.md](PILOT_REPORT.md)
+25 November 2026. The reviewed PDF and editable Word copy are in
+[submission/](../submission/README.md). Release `v1.0.2` records PRs #7 and #8 and the final validation repairs.
+Experimental measurements, numerical result tables and scientific conclusions
+retain their original scope. The `v1.0` and `v1.0.1` releases and [PILOT_REPORT.md](PILOT_REPORT.md)
 remain available as earlier versions.
 
 ## Read the report
@@ -18,8 +18,9 @@ host records. Appendix A collects the setup differences. The final sections
 record contributions, references and the required usage statement.
 
 Use the [final submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md) to
-match the evidence to the course criteria. The [validation record](../docs/FINAL_VALIDATION_20261124.md)
-documents the original final integration. Earlier checks remain in
+match the evidence to the course criteria. The [validation record](../docs/FINAL_VALIDATION_20261125.md)
+documents this integration. Earlier checks remain in
+[24 November final validation](../docs/FINAL_VALIDATION_20261124.md),
 [22 November validation](../docs/VALIDATION_20261122.md),
 [16 November integration](../docs/INTEGRATION_20261116.md),
 [14 November validation](../docs/VALIDATION_20261114.md) and
@@ -36,8 +37,8 @@ make report
 
 The exporter writes these working copies to `report/export/`:
 
-- `CS340_PERIOD_Final_Report_20261124.pdf`
-- `CS340_PERIOD_Final_Report_20261124.docx`
+- `CS340_PERIOD_Final_Report_20261125.pdf`
+- `CS340_PERIOD_Final_Report_20261125.docx`
 
 [REVISION_DATE](REVISION_DATE) controls the default filenames and footer date;
 an explicit date that disagrees with it is rejected. Working exports are ignored

@@ -22,6 +22,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
           persist-credentials: false
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -47,8 +48,20 @@ jobs:
         run: make audit-acceptance PYTHON=python
       - name: Independently recount the six twostage acceptance logs
         run: make audit-twostage PYTHON=python
+      - name: Audit independent acceptance metrics and validation records
+        run: make audit-validation PYTHON=python
       - name: Check report tables against audited measurements
         run: make audit-report PYTHON=python
+      - name: Check every ready document manifest
+        shell: python
+        run: |
+          import json, subprocess, sys
+          from pathlib import Path
+          manifest = Path('submission/FINAL_RELEASE.json')
+          if manifest.is_file() and json.loads(manifest.read_text())['status'] == 'ready':
+              subprocess.run([sys.executable, 'scripts/check_final_submission.py'], check=True)
+          else:
+              print('Document revision is preparing; final document verification follows the ready manifest.')
       - name: Build readable report exports
         if: matrix.python-version == '3.12'
         run: |
@@ -133,6 +146,12 @@ jobs:
         run: python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
       - name: Independently recount the six twostage acceptance logs
         run: python scripts/recount_twostage_acceptance.py
+      - name: Audit independent acceptance metrics and validation records
+        shell: python
+        run: |
+          import subprocess, sys
+          subprocess.run([sys.executable, 'scripts/audit_1240001156_acceptance_metrics.py'], check=True)
+          subprocess.run([sys.executable, 'scripts/audit_1240001156_validation_evidence.py', '--check'], check=True)
       - name: Audit original evidence, member reviews and report traceability
         shell: python
         run: |
@@ -186,10 +205,21 @@ jobs:
         if: steps.freeze.outputs.ready == 'true'
         run: python scripts/check_final_submission.py
       - name: Build the complete final delivery bundle
+        id: bundle
         if: steps.freeze.outputs.ready == 'true'
-        run: python scripts/package_final_submission.py --output "$RUNNER_TEMP/CS340_Final_Deliverables_20261124.zip"
+        shell: python
+        run: |
+          import os, subprocess, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          from report_config import report_identity
+          revision, _, _ = report_identity(Path.cwd())
+          bundle = Path(os.environ['RUNNER_TEMP']) / ('CS340_Final_Deliverables_' + revision.strftime('%Y%m%d') + '.zip')
+          subprocess.run([sys.executable, 'scripts/package_final_submission.py', '--output', str(bundle)], check=True)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write('path=' + str(bundle) + '\n')
       - name: Publish or verify the unchanged final release
         if: steps.freeze.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/publish_final_release.py --bundle "$RUNNER_TEMP/CS340_Final_Deliverables_20261124.zip" --repository "$GITHUB_REPOSITORY" --target "$GITHUB_SHA"
+        run: python scripts/publish_final_release.py --bundle "${{ steps.bundle.outputs.path }}" --repository "$GITHUB_REPOSITORY" --target "$GITHUB_SHA"

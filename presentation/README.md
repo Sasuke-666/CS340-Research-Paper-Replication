@@ -1,11 +1,11 @@
 # Final presentation materials
 
-Content revision: 24 November 2026, Macau/Beijing time (v1.0.1).
+Content revision: 25 November 2026, Macau/Beijing time (v1.0.2).
 
 [SLIDES.md](SLIDES.md) contains the fourteen slides, with concise English text,
 Chinese speaker notes and sources for each slide. The [talk and defence
 outline](TALK_OUTLINE.md) explains the results in more detail and includes an
-offline demonstration. Use the [expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md)
+offline demonstration. Use the [expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md)
 for the full analysis and experimental details.
 
 ## Presentation files
@@ -13,15 +13,15 @@ for the full analysis and experimental details.
 The editable PowerPoint and its PDF preview are available through
 [submission/](../submission/README.md):
 
-- `CS340_PERIOD_Final_Presentation_20261124.pptx`
-- `CS340_PERIOD_Final_Presentation_20261124.pdf`
+- `CS340_PERIOD_Final_Presentation_20261125.pptx`
+- `CS340_PERIOD_Final_Presentation_20261125.pdf`
 
 The deck has fourteen slides, nine editable data tables and one native chart.
 Chinese explanations and evidence links are in the speaker notes. The
-[v1.0.1 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1)
+[v1.0.2 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.2)
 packages these files with the report and member handbook. The
-[validation record](../docs/FINAL_VALIDATION_20261124.md) documents the export
-and visual review. Current report and contribution links use `v1.0.1`;
+[validation record](../docs/FINAL_VALIDATION_20261125.md) documents the export
+and visual review. Current report and contribution links use `v1.0.2`;
 references to historical protocols and measurements retain their fixed commits
 and original dates.
 
@@ -70,7 +70,8 @@ Keep the following studies separate when presenting their numbers:
 - The 22 November acceptance contains 30 complete comparisons and 15 pairs
   across five case hosts, plus 40 witness diagnostics. Its n=3 summaries are
   separate from the historical estimates. PR #6 recounts six of these existing
-  comparison calls and contributes a secondary analysis.
+  comparison calls and contributes a secondary analysis. PR #7 adds synthetic recount tests;
+  PR #8 adds independent audit and parser checks. Neither adds measurement calls.
 
 Use mean and sample SD with the actual n, and compare times within their case
 and host. A coverage hash's magnitude has no coverage-percentage meaning.

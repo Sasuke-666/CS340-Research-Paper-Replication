@@ -1,12 +1,13 @@
 # Final submission and rubric map
 
-Prepared 24 November 2026, Macau/Beijing time (UTC+08:00). The owner confirmed
-23–29 November as the final working week. PR #6 is integrated, and `v1.0` is
-published. The `v1.0.1` document revision uses the same Linux/Windows checks and
-six-document manifest. This map uses the five-page instructor
-project document, read in full on 24 November. [The requirements record](COURSE_REQUIREMENTS.md)
+Prepared 25 November 2026, Macau/Beijing time (UTC+08:00). The owner confirmed
+23–29 November as the final working week. This closeout integrates PRs #7 and #8
+and synchronizes the source and six documents for `v1.0.2`; `v1.0` and `v1.0.1`
+remain available. This map uses the five-page instructor
+project document, reread in full on 25 November. [The requirements record](COURSE_REQUIREMENTS.md)
 distinguishes its clauses from internal preparation choices. Actual publication,
-tag and delivery status are recorded in [final validation](FINAL_VALIDATION_20261124.md).
+tag and delivery status are recorded in [final validation](FINAL_VALIDATION_20261125.md)
+and the [contribution closeout](PROJECT_CLOSEOUT_20261125.md).
 
 ## 1. Final deliverables
 
@@ -42,7 +43,7 @@ evidence; the teaching team assigns the mark.
 | Weekly commits | 30% | [Dated progress](WEEKLY_PROGRESS.md) retains earlier push evidence; publish this week's substantive final integration with real identity/date and verify its own workflow |
 | Reproducibility/environment | 25% | README commands, pinned source/dependency image, scripted workloads and host records; [22 November acceptance](VALIDATION_20261122.md#6-subsequent-strict-review-and-live-acceptance) rebuilt all five cases and recorded 30 complete comparisons plus 40 separate diagnostics |
 | README/code quality | 25% | README purpose/setup/build/run/output/runtime guidance; [Makefile](../Makefile), [source credit](SOURCES.md), retained upstream license and documented modifications |
-| Individual contributions | 10% | [Roster](TEAM.csv), [contribution ledger](CONTRIBUTIONS.csv) and original member-account PRs; [PR #6 review](reviews/1240000576-presentation-check-20261122.md) adds secondary verification and rehearsal corrections, with original measurement attribution preserved |
+| Individual contributions | 10% | [Roster](TEAM.csv), [contribution ledger](CONTRIBUTIONS.csv), report Table 13 and original member-account PRs #1–#8; the [closeout map](PROJECT_CLOSEOUT_20261125.md) distinguishes original measurements, secondary review, tests and maintainer fixes |
 | Commit/repository management | 10% | Meaningful messages with name/student ID; tracked-file checks and `.gitignore`; preserved provenance; actual verified final revision tagged `v1.0` |
 
 The group weekly-push rule and the per-member substantive-contribution rule
@@ -70,16 +71,18 @@ a unique measured instruction trace is unavailable.
 
 ## 5. Final closeout sequence and actual status
 
-1. PR #6 was normally merged on 24 November as `7941e2b049bf80cddb0b8be723411badedab19b7`.
-   Its 22 November member submission date is preserved. The final revision
-   repairs archive portability and reconciles the report, slides, contributions
-   and revision date.
+1. PR #7 was normally merged on 25 November as `e81bf14524c26dda4de4142ae7e4f7c5ca5d3674`.
+   PR #8's original head is `69484e39843a9cb5610246abe35183bfd36fca13`.
+   The integration preserves both members' 24 November commits and records the
+   subsequent parser/path fixes and date clarifications as maintainer work.
 2. The release checks `make check`, `make audit`, native Windows archive
-   verification, and the frozen export/source hashes. Final page/slide review
-   and the published revision's own CI results appear in the validation record.
-3. The initial release is tagged `v1.0`. The clearer report and presentation
-   revision is `v1.0.1`; its `submission/` manifest and bundle record the exact
-   source commit and document hashes. Both releases remain available.
+   verification and the frozen export/source hashes. The independent acceptance
+   metric and validation-manifest audits now run in both Linux and Windows CI.
+   Final page/slide review and the exact source CI appear in the validation record.
+3. The initial final release is tagged `v1.0`, the prose revision is `v1.0.1`,
+   and this integrated closeout is `v1.0.2`. Its `submission/` manifest and bundle
+   record the exact source commit and document hashes. Earlier releases remain
+   available. A ready manifest is checked even when another source file changes.
 4. Submit through the confirmed course route and retain the actual receipt.
    Use [the Chinese guide](MEMBER_ACTIONS_ZH.md) for member preparation and the
    internal ten-minute rehearsal. Personal explanation is established by the

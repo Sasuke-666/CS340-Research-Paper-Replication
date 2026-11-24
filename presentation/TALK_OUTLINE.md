@@ -1,9 +1,9 @@
 # PERIOD replication: talk and defence outline
 
-Content revision: 24 November 2026, Macau/Beijing time (v1.0.1).
+Content revision: 25 November 2026, Macau/Beijing time (v1.0.2).
 Use this outline with the [fourteen slides](SLIDES.md). It explains the results
 in Chinese, gives concise English messages and provides an offline demonstration
-and answers to likely questions. The [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md)
+and answers to likely questions. The [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md)
 contains the full analysis. Confirm the official duration and speaking
 arrangements before choosing how much of the material to present.
 
@@ -224,8 +224,17 @@ python3 scripts/recount_twostage_acceptance.py
 引用。何博宇提交四线程核数，在 PR #4 提交 twostage 源码、偏序说明和五次重放，
 再在 PR #6 复算组内验收的六份日志并修改展示内容。
 
+11 月 24 日，何博宇在 PR #7 提交三项合成日志回归测试：完整日志的指标计数、
+同一请求的重复报错按一个失败调度计数，以及摘要匹配但缺少结束标记时拒绝接收。
+李扬烁在 PR #8 提交 v1.0.1 发布与原生 Windows 核验、验收档案独立重算、
+解析器加固和验证证据清单。其独立脚本复算原有 30 次比较，并对照 JSON、CSV
+和 Markdown 汇总。两项 PR 均未新增实验调用。[S19–S20]
+
+最终整合中的校验边界修复与日期校正，另列为孙皓扬授权的维护工作。原成员提交
+和整合修改保留各自的提交记录，原始测量仍属于对应的实验批次。
+
 贡献按原始 PR 和提交记录说明。二次审查与原始测量分别归属，实施、执行和写作
-辅助见报告使用声明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S18]
+辅助见报告使用声明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S20]
 
 准备时可这样分工：孙皓扬讲研究问题、控制设计和各批次样本；李扬烁讲独立宿主
 和数字追溯；何博宇讲 twostage 的必要偏序和六日志复算。每个人都练习回答
@@ -248,12 +257,13 @@ python3 scripts/recount_twostage_acceptance.py
 | Does a zero standard deviation prove determinism? | It describes the observed repeated metric. Execution traces and other failure metrics can still vary, and a finite sample does not establish universal behavior. |
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
-| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
+| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
 | Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
 | What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
 | Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
 | Is the 22 November acceptance part of the original 106/96/43 accounting? | It is a separate registered engineering batch: 30 complete comparisons, 15 pairs and 40 additional diagnostics on new hosts. Historical statistics are unchanged. See S17. |
 | Did PR #6 produce six new twostage runs? | It independently recounts six already archived acceptance calls and improves the presentation. The original group acceptance and the member's secondary review have separate attribution. See S18. |
+| Did PRs #7 and #8 add measurements? | PR #7 adds three synthetic-log regression tests. PR #8 checks release and Windows evidence, recounts the existing acceptance archive, and strengthens parsers and evidence provenance. Original measurement counts remain unchanged. Integration repairs have separate attribution. See S19–S20. |
 
 ## 9. Closing message
 
@@ -271,8 +281,8 @@ Our overall verdict is partial reproduction.
   ICSE 2022, DOI: 10.1145/3510003.3510178.
   [Original paper](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf),
   sections 2.2 and 3 for the method; Table 2 for paper references.
-- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/report/EXPANDED_REPORT.md), with numbered tables,
-  figures, scoped verdicts and original data references at the `v1.0.1` revision.
+- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md), with numbered tables,
+  figures, scoped verdicts and original data references at the `v1.0.2` revision.
 - S3. [Registered comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md).
 - S4. [Compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
   and [source/attribution record](../docs/SOURCES.md).
@@ -311,3 +321,11 @@ Our overall verdict is partial reproduction.
 - S18. [He Boyu's six-log recount and presentation review](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2aea86e1f35fdd8f2b482aec5f4b65b0568f0c9a/docs/reviews/1240000576-presentation-check-20261122.md)
   and [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6),
   submitted 22 November and integrated 24 November 2026; secondary analysis of the group acceptance archive.
+- S19. [He Boyu's synthetic twostage regression tests](../tests/test_recount_twostage_acceptance.py)
+  and [PR #7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/7),
+  submitted 24 November 2026. Three synthetic fixtures test recount semantics and incomplete-log rejection.
+- S20. Li Yangshuo's [release and Windows audit](../docs/validation/1240001156-release-windows-audit-20261124.md),
+  [acceptance parser review](../docs/validation/1240001156-acceptance-parser-hardening-20261124.md),
+  [independent metrics and evidence manifest](../docs/validation/1240001156-evidence-chain-20261124.md),
+  and [PR #8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/8),
+  submitted 24 November 2026. These audits verify existing evidence and keep original measurement ownership.

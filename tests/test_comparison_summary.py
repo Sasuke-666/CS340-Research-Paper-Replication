@@ -109,6 +109,47 @@ class RawLogTests(unittest.TestCase):
         result = summary.parse_raw_log(text)
         self.assertIn("unattributed or repeated error event", result["parse_problems"])
 
+    def test_events_after_end_marker_are_rejected(self):
+        text = raw_log(["runner"], 3, [2], 1.0) + "test 0004: [[2]]\n[Error Found]: NO.2 assertion failed\n"
+        result = summary.parse_raw_log(text)
+        self.assertFalse(result["complete_markers"])
+        self.assertIn("invalid completion marker order or events after end marker", result["parse_problems"])
+
+    def test_duplicate_end_or_footer_is_rejected(self):
+        base = raw_log(["runner"], 3, [2], 1.0)
+        for suffix in ("End Testing!\n", "Total Error Interleavings: 1\n", "Round\t0\t\t3\n"):
+            with self.subTest(suffix=suffix):
+                result = summary.parse_raw_log(base + suffix)
+                self.assertFalse(result["complete_markers"])
+
+    def test_required_footer_order_is_enforced(self):
+        base = raw_log(["runner"], 3, [2], 1.0)
+        marker = "End Testing!\n"
+        self.assertFalse(summary.parse_raw_log(base.replace(marker, "", 1) + marker)["complete_markers"])
+
+    def test_footer_whitespace_cannot_bypass_marker_order(self):
+        base = raw_log(["runner"], 3, [2], 1.0)
+        for prefix in ("Total Error Interleavings:", "Round", "Runner"):
+            line = next(line for line in base.splitlines() if line.startswith(prefix))
+            for whitespace in (" ", "\t"):
+                with self.subTest(footer=prefix, whitespace=repr(whitespace)):
+                    padded = base.replace(line + "\n", line + whitespace + "\n", 1)
+                    self.assertTrue(summary.parse_raw_log(padded)["complete_markers"])
+                    marker = "End Testing!\n"
+                    inverted = padded.replace(marker, "", 1) + marker
+                    result = summary.parse_raw_log(inverted)
+                    self.assertFalse(result["complete_markers"])
+                    self.assertIn(
+                        "invalid completion marker order or events after end marker",
+                        result["parse_problems"],
+                    )
+
+    def test_split_footer_marker_cannot_disable_order_validation(self):
+        base = raw_log(["runner"], 3, [2], 1.0)
+        text = base.replace("Total Error Interleavings: 1\n",
+                            "Total Error Interleavings:\n1\n", 1)
+        self.assertFalse(summary.parse_raw_log(text)["complete_markers"])
+
     def test_crash_preserves_null_outcome(self):
         result = summary.parse_raw_log(raw_log(["runner"], 0, [], 0.3, -11, False))
         self.assertEqual(result["runner"]["exit_code"], -11)

@@ -303,3 +303,9 @@ commands before the historical studies. Experimental tables, raw logs and
 member attribution are preserved. The document revision uses `v1.0.1`, keeping
 the initial `v1.0` release intact. The validation record tracks the new exports
 and checks at their actual source revision.
+
+### Member validation and final closeout — 24–25 November
+
+He Boyu submitted PR #7 on 24 November: three synthetic regressions for the twostage recount. It was normally merged as `e81bf14524c26dda4de4142ae7e4f7c5ca5d3674`. Li Yangshuo submitted PR #8 the same day, ending at `69484e39843a9cb5610246abe35183bfd36fca13`: release/Windows verification, independent acceptance metrics and parser/manifest checks. Their original authors and dates remain in history.
+
+The 25 November integration closes three further parser/path boundaries, corrects two audit date labels with an explicit explanation, adds the independent audits to continuous checks, and synchronizes the contribution ledger, report, slides and handbook for v1.0.2. It adds no measurements. The [closeout record](PROJECT_CLOSEOUT_20261125.md) identifies the completed scope and actual contribution evidence; the [validation record](FINAL_VALIDATION_20261125.md) records tests, document review, source commit and release verification. Course registration, actual submission and personal rehearsal retain their own completion evidence.

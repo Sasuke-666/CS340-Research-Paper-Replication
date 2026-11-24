@@ -1,6 +1,6 @@
 # PERIOD Replication and Controlled Diagnostics
 
-CS340 Operating Systems · Final report revised 24 November 2026. The measurements below keep their original dates. The 14 November layout diagnostic, 15 November twostage replay and 22 November engineering acceptance are separate studies.
+CS340 Operating Systems · Final report revised 25 November 2026. The measurements below keep their original dates. The 14 November layout diagnostic, 15 November twostage replay and 22 November engineering acceptance are separate studies.
 
 Group members: 孙皓扬 (1240001201), 李扬烁 (1240001156), 何博宇 (1240000576). A fourth member has yet to be confirmed. Section 10 records each member's contribution and review status.
 
@@ -318,9 +318,11 @@ The PERIOD/serialized request totals were 27/30, 100/384, 65/136, 39/60 and 33/3
 
 He Boyu's PR #6 independently recounts the acceptance batch's six twostage logs and clarifies the presentation's source explanation [13]. PERIOD first fails at requests 4, 4 and 4; the serialized calls first fail at 4, 29 and 4. Each explores 33 requests. For the serialized driver, the first-failure mean is 37/3 = 12.3333 and the sample SD is 25/sqrt(3) = 14.4338. These are three complete searches per method on the acceptance host. They are separate from both the 15 November five-call fixed-witness replay and the historical comparison. The recount offers a short offline demonstration: follow an assertion in a raw log through to its reported statistic.
 
+Two submissions on 24 November extend the validation work. He Boyu added three synthetic regressions for the twostage recount: first-error indexing, duplicate errors within one schedule and rejection of a missing end marker [14]. Li Yangshuo audited the v1.0.1 assets and Windows analysis path, independently reconstructed the acceptance metrics, and added parser and evidence-manifest checks [15]. Integration review subsequently tightened footer whitespace/order handling, rejected events outside the acceptance test body and confined validation paths to the repository. These checks reuse existing logs and add no experimental samples.
+
 The original pilot/follow-up contains 33 test/replay calls, six builds and one capability probe. The probe successfully requested SCHED_DEADLINE in that environment; it does not trace every instruction in later runs. The expanded comparisons, diagnostics, setup failures and partial attempts have their own records, with dates preserved in the logs and commits.
 
-The progress record starts with repository preparation on 24 October and substantive safeguard/test work on 30 October. Measurements followed on 7, 8, 14, 15 and 22 November, with final integration on 24 November. Original authors and dates remain in Git history. The course document specifies Sunday 23:59 checks but gives no explicit timezone or first calendar check. The group uses Macau/Beijing time for planning and records that assumption [3].
+The progress record starts with repository preparation on 24 October and substantive safeguard/test work on 30 October. Measurements followed on 7, 8, 14, 15 and 22 November, with final integration on 24–25 November. Original authors and dates remain in Git history. The course document specifies Sunday 23:59 checks but gives no explicit timezone or first calendar check. The group uses Macau/Beijing time for planning and records that assumption [3].
 
 ## 10. Conclusion, limitations and contributions
 
@@ -336,11 +338,11 @@ Table 13 records the member contributions and their source submissions.
 
 | Member | Recorded contribution | Submission evidence |
 | --- | --- | --- |
-| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed identities and authorized studies and integration; coordinated the registered fresh-host acceptance, evidence checks and final report/presentation handoff | Protocols bddb831, ea273fe4 and 2de3787; acceptance archive 7284180; member PR integrations and dated contribution record [7, 12] |
-| Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent 20-call account rerun and retained setup failure; later added supplementary cross-batch review, provenance clarification and a report traceability audit, with no new measurements | PR #2: 8ce522d and 9f30843 [5]; PR #3: 94a35c3 and d907517 [10]; PR #5: 7ac3a655 [11] |
-| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit, twostage source-derived partial order and five witness replays; independently recounted six later acceptance logs and revised the presentation | PR #1: b02adef5 [7]; PR #4 and run 43681034375 [9]; PR #6: 9b0f265 and 2aea86e [13] |
+| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed identities and authorized studies and integration; coordinated the registered fresh-host acceptance, evidence checks, member integrations and final report/presentation handoff; authorized the final parser fixes and release reconciliation | Protocols bddb831, ea273fe4 and 2de3787; acceptance archive 7284180; member PR integrations and dated contribution record [7, 12] |
+| Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent 20-call account rerun and retained setup failure; later added cross-batch and report traceability reviews, release/Windows verification, independent acceptance metrics and parser checks | PR #2: 8ce522d and 9f30843 [5]; PR #3: 94a35c3 and d907517 [10]; PR #5: 7ac3a655 [11]; PR #8: 69484e3 [15] |
+| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit, twostage source-derived partial order and five witness replays; independently recounted six later acceptance logs, revised the presentation and added three synthetic recount regressions | PR #1: b02adef5 [7]; PR #4 and run 43681034375 [9]; PR #6: 9b0f265 and 2aea86e [13]; PR #7: 95731d9 and e4db8da [14] |
 
-The usage statement below explains the assistance used for implementation, execution, auditing and drafting. Table 13 identifies work submitted through each member's account. The report, presentation and evidence are available in the v1.0.1 editorial revision; the original v1.0 release remains available.
+The usage statement below explains the assistance used for implementation, execution, auditing and drafting. Table 13 identifies work submitted through each member's account. The report, presentation and evidence are available in v1.0.2. The v1.0 and v1.0.1 releases preserve the earlier deliveries. The dated contribution record distinguishes measurements, secondary analysis, tests and integration. Later work receives its own date and evidence.
 
 Personal explanation and cross-review depend on the members' actual participation. Course communication must still confirm the fourth-member arrangement, registration receipt, final deadline and submission portal, and the separate presentation rubric. The prepared materials record the technical delivery, while the course upload and presentation require their own completion records.
 
@@ -385,7 +387,7 @@ https://github.com/wcventure/PERIOD
 [4] Registered protocols and exact study archives in the project repository. Main comparison workflow: https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42381922637
 
 [5] Li Yangshuo's independent account rerun and separately audited summary, 8 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0.1/results/member-reruns/1240001156-account-20261108T122201Z-summary
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0.2/results/member-reruns/1240001156-account-20261108T122201Z-summary
 
 [6] Capacity-layout protocol, registration bddb831, and original study workflow, 14 November 2026.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/bddb831319679c30586d9bbe689fb11b897f1a14/experiments/2026-11-14/LAYOUT_PROTOCOL.md
@@ -394,22 +396,22 @@ Recovery registration ea273fe4 and separate account evidence:
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/ea273fe4b6e49bd1f8f5c5b7c964c02aaf22d144/experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325
 
-[7] Dated contributions and member evidence reviews, final integration 24 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/CONTRIBUTIONS.csv
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0.1/docs/reviews
+[7] Dated contributions and member evidence reviews, final integration 25 November 2026.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/CONTRIBUTIONS.csv
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0.2/docs/reviews
 
 [8] Independent scientific review of the controlled layout diagnostic, 14 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/LAYOUT_DIAGNOSTIC_REVIEW_20261114.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/LAYOUT_DIAGNOSTIC_REVIEW_20261114.md
 
 [9] He Boyu, twostage source and witness study, PR #4, submitted 15 November 2026; integrated 16 November.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/reviews/1240000576-twostage-witness-review.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/reviews/1240000576-twostage-witness-review.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43681034375
 
 [10] Li Yangshuo, supplementary account evidence review, PR #3, 14 November 2026; provenance clarification 15 November; integrated 16 November.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/reviews/1240001156-account-supplement.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/reviews/1240001156-account-supplement.md
 
 [11] Li Yangshuo, report traceability audit and figure/table reference corrections, PR #5, 22 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.1/docs/reviews/1240001156-report-traceability-audit.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/reviews/1240001156-report-traceability-audit.md
 
 [12] Registered fresh-host engineering acceptance, 22 November 2026. Protocol 2de3787; run 45015126850, attempt 1; independent receipt and separately scoped summaries.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md
@@ -418,3 +420,10 @@ https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/8b3102c64214
 [13] He Boyu, independent recount of six archived twostage acceptance calls and presentation review, PR #6, submitted 22 November and integrated 24 November 2026. Secondary review; original measurements belong to the registered group acceptance batch.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2aea86e1f35fdd8f2b482aec5f4b65b0568f0c9a/docs/reviews/1240000576-presentation-check-20261122.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6
+
+[14] He Boyu, three synthetic regression tests for the twostage acceptance recount, PR #7, submitted 24 November 2026.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/7
+
+[15] Li Yangshuo, release and Windows audit, independent acceptance metrics and evidence-parser checks, PR #8, submitted 24 November 2026; maintainer corrections and integration on 25 November.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/8
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/FINAL_VALIDATION_20261125.md

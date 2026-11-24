@@ -1,0 +1,12 @@
+reorder_3 comparisons=6 pairs=3 diagnostics=40 builds=1
+reorder_4 comparisons=6 pairs=3 diagnostics=0 builds=1
+account comparisons=6 pairs=3 diagnostics=0 builds=1
+lazy01 comparisons=6 pairs=3 diagnostics=0 builds=1
+twostage comparisons=6 pairs=3 diagnostics=0 builds=1
+MANIFEST_FILES=948
+HASH_ERRORS=0
+TOTAL_COMPARISONS=30
+TOTAL_PAIRS=15
+TOTAL_DIAGNOSTICS=40
+TOTAL_BUILDS=5
+STATUS_PROBLEMS=0

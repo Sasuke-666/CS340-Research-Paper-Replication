@@ -44,7 +44,7 @@ def export(source, target):
     footer.add_run('%d 年 %d 月 %d 日｜第 ' % (report_date.year,report_date.month,report_date.day)).font.size=Pt(8)
     field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
     footer.add_run(' 页').font.size=Pt(8)
-    doc.core_properties.title='CS340 PERIOD 最终提交与三人答辩手册'
+    doc.core_properties.title='CS340 PERIOD 最终提交与成员答辩手册'
     doc.core_properties.author='CS340 project repository'
     doc.core_properties.comments=''
     doc.core_properties.created=datetime.now(timezone.utc)

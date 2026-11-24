@@ -1,17 +1,17 @@
 # Final submission documents
 
-Revision: 24 November 2026. The `v1.0.1` release contains these six reviewed files:
+Revision: 25 November 2026. The `v1.0.2` release contains these six reviewed files:
 
 | File | Use |
 | --- | --- |
-| [English report PDF](CS340_PERIOD_Final_Report_20261124.pdf) | Required report submission format |
-| [Editable report](CS340_PERIOD_Final_Report_20261124.docx) | Editable Word copy with the same scientific content |
-| [Editable presentation](CS340_PERIOD_Final_Presentation_20261124.pptx) | Fourteen English slides with Chinese speaker notes, native tables and chart |
-| [Presentation PDF](CS340_PERIOD_Final_Presentation_20261124.pdf) | Portable slide preview and offline fallback |
-| [Chinese submission handbook](CS340_Final_Submission_Handbook_20261124.docx) | Editable submission, member preparation and defence guide |
-| [Handbook PDF](CS340_Final_Submission_Handbook_20261124.pdf) | Portable copy of the guide |
+| [English report PDF](CS340_PERIOD_Final_Report_20261125.pdf) | Required report submission format |
+| [Editable report](CS340_PERIOD_Final_Report_20261125.docx) | Editable Word copy with the same scientific content |
+| [Editable presentation](CS340_PERIOD_Final_Presentation_20261125.pptx) | Fourteen English slides with Chinese speaker notes, native tables and chart |
+| [Presentation PDF](CS340_PERIOD_Final_Presentation_20261125.pdf) | Portable slide preview and offline fallback |
+| [Chinese submission handbook](CS340_Final_Submission_Handbook_20261125.docx) | Editable submission, member preparation and defence guide |
+| [Handbook PDF](CS340_Final_Submission_Handbook_20261125.pdf) | Portable copy of the guide |
 
-The [release page](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1)
+The [release page](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.2)
 also supplies one ZIP with all six documents and the complete tracked repository,
 including protocols, failed/censored outcomes and raw evidence. Git metadata,
 credentials and compiled benchmark outputs are excluded. `DELIVERY.json` in the
@@ -22,13 +22,13 @@ used to produce it. From a checkout, verify the files and build the bundle with:
 
 ```sh
 python3 scripts/check_final_submission.py
-python3 scripts/package_final_submission.py --output /tmp/CS340_Final_Deliverables_20261124.zip
+python3 scripts/package_final_submission.py --output /tmp/CS340_Final_Deliverables_20261125.zip
 ```
 
-This revision improves the report's prose, the slide wording and the Chinese
-speaking notes. Tables, experimental results and the scientific conclusion are
-unchanged. The initial [v1.0 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0)
-remains available.
+This revision integrates PRs #7 and #8, closes three further parser/path
+boundaries, corrects audit dates and synchronizes the contribution record.
+Experimental results and the scientific conclusion keep their original scope. The initial [v1.0 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0)
+and the [v1.0.1 revision](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1) remain available.
 
 Readable sources are in `report/`, `presentation/` and `docs/`. Regenerating the
 reports creates working copies in `report/export/`; timestamps and evidence
@@ -38,6 +38,6 @@ and credits the original authors.
 
 Publication follows successful Linux Python and Windows archive checks. Existing
 tags and published files cannot be replaced by this workflow. The
-[validation record](../docs/FINAL_VALIDATION_20261124.md) documents the checks,
+[validation record](../docs/FINAL_VALIDATION_20261125.md) documents the checks,
 and the [rubric map](../docs/FINAL_SUBMISSION_CHECKLIST.md) links the course
 criteria to the submitted work.

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "tag": "v1.0.1",
-  "status": "ready",
-  "report_revision": "2026-11-24",
+  "tag": "v1.0.2",
+  "status": "preparing",
+  "report_revision": "2026-11-25",
   "source_commit": "58266473e462e096f1701e91f9a136cd98cf0300",
   "source_validation_run": "https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45383684921",
   "sources": [

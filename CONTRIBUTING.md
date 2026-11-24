@@ -63,3 +63,18 @@ Keep the documented work scope, review status and source attribution accurate.
 Credit academic sources and original contributors separately.
 Do not generate results, student identities or progress dates to fill a template.
 Do not backdate history or create empty commits to simulate weekly progress.
+
+## Contributions after a release
+
+Each release records the work present at its source and delivery commits.
+Existing authors, dates and measurement attribution stay attached to that work.
+Record later contributions with their own dates, responsible accounts, changed
+files and review results. A new review, test or correction should identify the
+earlier work it builds on. Report contributions by this evidence and keep
+personal explanation or rehearsal status separate from automated checks.
+
+Team membership follows the teaching team's confirmed registration. Update the
+roster when that information is available; membership and authorship of an
+earlier result are separate facts. The dated
+[closeout record](docs/PROJECT_CLOSEOUT_20261125.md) identifies the current
+delivery and the course arrangements still awaiting confirmation.

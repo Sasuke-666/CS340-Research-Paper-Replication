@@ -18,28 +18,30 @@ shared-memory capacity change and independent member checks.
 | To do | Entry point |
 | --- | --- |
 | Read the findings | [English report](report/EXPANDED_REPORT.md), especially §§1–4 for results, §5 for discrepancies, §6 for the extension and §8 for the capacity study |
-| Download the final documents | [Report, presentation and Chinese handbook](submission/README.md), or the [complete v1.0.1 bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.1) |
+| Download the final documents | [Report, presentation and Chinese handbook](submission/README.md), or the [complete v1.0.2 bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.2) |
 | Check the archived evidence | [Clone and run the offline checks](#clone-and-verify-the-archived-evidence); no Docker workload is needed |
 | Run a new experiment | [Linux/Docker instructions](#independently-rebuild-and-run-a-comparison), including settings and expected runtime |
 | Prepare the presentation | [Fourteen-slide source](presentation/SLIDES.md), [Chinese speaking notes and questions](presentation/TALK_OUTLINE.md), [member preparation](docs/MEMBER_ACTIONS_ZH.md) |
 | Check course requirements and contributions | [Rubric map](docs/FINAL_SUBMISSION_CHECKLIST.md), [actual contributions](docs/CONTRIBUTIONS.csv), [weekly progress](docs/WEEKLY_PROGRESS.md) and [course requirements](docs/COURSE_REQUIREMENTS.md) |
 
-## Final documents — 24 November 2026
+## Final documents — 25 November 2026
 
-The final report includes all six member pull requests. He Boyu's
-[PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
-recounts the six twostage acceptance logs and corrects the presentation wording.
-His Windows audit also identified a path-format problem, now covered by native
-Windows archive checks.
+The final report records all eight member pull requests. He Boyu's
+[PR #7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/7)
+adds three synthetic-log regression tests for the twostage recount. Li Yangshuo's
+[PR #8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/8)
+adds release and Windows checks, independent acceptance metrics and parser
+integrity checks. Maintainer review closes three further parser/path boundary
+cases and clarifies the dates and scope of the retained validation records.
 
-The [v1.0.1 document revision](submission/README.md) has clearer report prose,
-shorter slide text and Chinese notes written for oral delivery. It contains the
-English report in PDF and Word, an editable fourteen-slide presentation and PDF,
-and a Chinese submission handbook in Word and PDF. The initial `v1.0` release
-remains available. Each version records its document hashes and source commit
-in `submission/FINAL_RELEASE.json`; publication follows successful Linux and
-Windows checks. See the [validation record](docs/FINAL_VALIDATION_20261124.md)
-for the checks performed on each revision.
+The [v1.0.2 revision](submission/README.md) contains the English report in PDF
+and Word, an editable fourteen-slide presentation and PDF, and a Chinese
+submission handbook in Word and PDF. The `v1.0` and `v1.0.1` releases remain
+available. Each version records its document hashes and source commit in
+`submission/FINAL_RELEASE.json`; publication follows Linux and Windows checks.
+The [closeout record](docs/PROJECT_CLOSEOUT_20261125.md) maps the completed work
+to its contributors. The [validation record](docs/FINAL_VALIDATION_20261125.md)
+records the checks for this revision. These changes add no benchmark samples.
 
 The latest fresh-host run was completed on **22 November**.
 [Run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
@@ -341,8 +343,8 @@ can be viewed without installing plotting dependencies. The separately scoped
 capacity study produces `results/2026-11-14/figures/layout_comparison.svg`, using
 only its independently audited summary and displaying actual metric denominators.
 The export command
-creates `CS340_PERIOD_Final_Report_20261124.docx` and
-`CS340_PERIOD_Final_Report_20261124.pdf` in `report/export/`; exporting does
+creates `CS340_PERIOD_Final_Report_20261125.docx` and
+`CS340_PERIOD_Final_Report_20261125.pdf` in `report/export/`; exporting does
 not execute experiments or alter observations.
 
 The [Chinese handbook](docs/MEMBER_ACTIONS_ZH.md) covers submission and member
@@ -352,7 +354,7 @@ preparation. To export its editable Word copy:
 make checklist
 ```
 
-Export names and dates come from `report/REVISION_DATE`, currently 2026-11-24,
+Export names and dates come from `report/REVISION_DATE`, currently 2026-11-25,
 and must match the report header. Report evidence links point to the exporting
 checkout's exact commit when Git metadata is available. The files in
 `report/export/` are working exports; reviewed release copies are in
@@ -442,7 +444,7 @@ intervention resolves and which discrepancies remain.
 
 ### Member contributions
 
-All six member PRs are merged with their original authors and dates:
+All eight member PRs are integrated with their original authors and dates:
 
 - Li Yangshuo's [PR #2](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/2)
   contributes the independent account experiment, including the initial image-
@@ -450,6 +452,9 @@ All six member PRs are merged with their original authors and dates:
   adds a [secondary account review](docs/reviews/1240001156-account-supplement.md),
   and [PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5)
   checks report traceability and adds missing narrative references.
+  [PR #8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/8)
+  audits the release and Windows analysis path, independently recounts the
+  acceptance metrics, and adds parser and validation-manifest checks.
 - He Boyu's [PR #1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/1)
   recounts 26 four-thread logs and treats the ten censored attempts separately.
   [PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
@@ -457,6 +462,8 @@ All six member PRs are merged with their original authors and dates:
   a [Chinese explanation](docs/reviews/1240000576-twostage-summary-zh.md) and five
   fresh witness replays. [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
   checks the final twostage statistics and presentation.
+  [PR #7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/7)
+  protects the recount with three synthetic regression cases.
 
 `make audit` verifies the independent account batch's 880 manifest entries and
 twenty logs. `make audit-member-reviews` checks forty account request sequences,
@@ -465,6 +472,12 @@ reproduction marker in each replay. A missing assertion, timeout or checksum
 mismatch fails the check. The [integration record](docs/INTEGRATION_20261116.md)
 and [contribution ledger](docs/CONTRIBUTIONS.csv) distinguish the members' work
 from maintainer verification.
+
+`make audit-validation` independently checks the acceptance metrics and the
+member validation manifest. It is included in `make audit` and Linux/Windows
+continuous checks. The [closeout record](docs/PROJECT_CLOSEOUT_20261125.md)
+distinguishes original measurements, secondary review, tests and later
+maintenance, with links to the actual submissions.
 
 ## Repository layout
 
@@ -491,8 +504,8 @@ The three confirmed member identities are recorded in [the team table](docs/TEAM
 | 何博宇 | 1240000576 | heboyu0714 |
 
 The fourth member remains to be confirmed through the course's group allocation
-process. Both member accounts had verified write access on 8 November, and all six
-member submissions are merged. The registration receipt
+process. Both member accounts had verified write access on 8 November, and all eight
+member submissions are integrated. The registration receipt
 and any later course allocation still need their actual evidence.
 
 Every commit message includes the actual responsible student's ID and full name,
@@ -509,6 +522,7 @@ any new review still require actual participation. Use the [Chinese member actio
 Presentation is tentatively 1 December 2026. Its separate rubric and the exact
 final-report deadline still require verification. The final report must be in
 English and submitted as PDF. The initial final submission is tagged
-`v1.0`; the clearer document revision is `v1.0.1`. The release links provide
+`v1.0`; the prose revision is `v1.0.1` and the final member integration is
+`v1.0.2`. The release links provide
 the reviewed documents and complete source/evidence bundles. The course portal receipt and oral presentation
 remain actions for the registered members.

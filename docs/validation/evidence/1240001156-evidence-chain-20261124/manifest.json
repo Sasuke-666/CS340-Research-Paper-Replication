@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "scope": "Independent parser, acceptance-metrics and evidence-provenance audit",
+  "files": [
+    {
+      "path": "scripts/audit_1240001156_acceptance_metrics.py",
+      "bytes": 18098,
+      "sha256": "ce42da8dfc2711499ac0fe20000eaa3a31a5093044bd8f109faee4147372be3b"
+    },
+    {
+      "path": "scripts/audit_1240001156_validation_evidence.py",
+      "bytes": 4799,
+      "sha256": "5d4ed1e7a9164ed5bc1303a06ab84a3ecc7bb6f1a0ce81166bd298ba69c7dde6"
+    },
+    {
+      "path": "tests/test_1240001156_parser_contract.py",
+      "bytes": 3915,
+      "sha256": "e75cdea5fa086c550f272368761dac53494fb8b41ccc04fcde68b71ebc5fed3d"
+    },
+    {
+      "path": "tests/test_1240001156_acceptance_metrics.py",
+      "bytes": 5619,
+      "sha256": "fbc748927c6d56a5afe6d93081003266396ff792f30eed4c2e060b1eab5ce059"
+    },
+    {
+      "path": "tests/test_1240001156_validation_evidence.py",
+      "bytes": 5045,
+      "sha256": "0bfb196aa1d4ee95d6e22fd5e078033c3cb706ae7c222b875412be1fc2fa7534"
+    },
+    {
+      "path": "docs/validation/1240001156-evidence-chain-20261124.md",
+      "bytes": 6164,
+      "sha256": "7819ec3bf04982f320f89059873770efbfe414be5a2393785fe2d8f9bd6a24ea"
+    },
+    {
+      "path": "docs/validation/evidence/1240001156-evidence-chain-20261124/parser-contract-tests.log",
+      "bytes": 447,
+      "sha256": "e3dc7cf2e6f5ab4c2067fd75d65def4257fddb394b3761b4e82f1996ef1a6c56"
+    },
+    {
+      "path": "docs/validation/evidence/1240001156-evidence-chain-20261124/acceptance-metrics-audit.log",
+      "bytes": 195,
+      "sha256": "214d0cc40f916114c912129d59b74d3bb4a15249a38e140c30f6c8fa7b35d52c"
+    },
+    {
+      "path": "docs/validation/evidence/1240001156-evidence-chain-20261124/acceptance-metrics-tests.log",
+      "bytes": 815,
+      "sha256": "60c7f738aade9b642d59375c219df682a5deb075bc8d28614e127f5b29715c84"
+    },
+    {
+      "path": "docs/validation/evidence/1240001156-evidence-chain-20261124/validation-evidence-tests.log",
+      "bytes": 719,
+      "sha256": "46a06c00f079affd3819a956e346ed446987e867609fa9462ada955fbe2927bb"
+    }
+  ]
+}
