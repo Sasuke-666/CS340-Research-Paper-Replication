@@ -64,7 +64,7 @@ class ReportPackageLinkTests(unittest.TestCase):
             source = root / 'report/EXPANDED_REPORT.md'
             source.write_text(
                 '# Evidence export fixture\n\n'
-                'Stage report revised 22 November 2026.\n\n'
+                'Final report revised 22 November 2026.\n\n'
                 '[Rows](../results/evidence rows.csv), [batch](../results/), '
                 '[section](#evidence) and [external](https://example.org/?a=1&b=2#section).\n\n'
                 '## References\n\nFixture references.\n', encoding='utf-8')
@@ -72,6 +72,7 @@ class ReportPackageLinkTests(unittest.TestCase):
             (root / 'report/AI_STATEMENT.md').write_text('', encoding='utf-8')
             ref = 'a' * 40
             docx_path, pdf_path = exporter.export(root, root / 'export', repository_ref=ref)
+            self.assertTrue(docx_path.name.startswith('CS340_PERIOD_Final_Report_'))
             prefix = exporter.REPOSITORY_URL
             expected = {
                 prefix + '/blob/' + ref + '/results/evidence%20rows.csv',
@@ -80,6 +81,7 @@ class ReportPackageLinkTests(unittest.TestCase):
                 'https://example.org/?a=1&b=2#section',
             }
             with ZipFile(docx_path) as package:
+                self.assertIn(b'Final report', package.read('word/header1.xml'))
                 relationships = ET.fromstring(package.read('word/_rels/document.xml.rels'))
                 links = [node for node in relationships if node.attrib['Type'].endswith('/hyperlink')]
                 self.assertEqual({node.attrib['Target'] for node in links}, expected)

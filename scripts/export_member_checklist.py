@@ -38,13 +38,13 @@ def export(source, target):
         doc.styles[name].font.bold=True
         doc.styles[name].paragraph_format.keep_with_next=True
     normal=doc.styles['Normal'];normal.paragraph_format.widow_control=True
-    header=sec.header.paragraphs[0];header.text='CS340 操作系统｜组员行动清单'
+    header=sec.header.paragraphs[0];header.text='CS340 操作系统｜最终提交与答辩'
     header.runs[0].font.size=Pt(8)
     footer=sec.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
     footer.add_run('%d 年 %d 月 %d 日｜第 ' % (report_date.year,report_date.month,report_date.day)).font.size=Pt(8)
     field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
     footer.add_run(' 页').font.size=Pt(8)
-    doc.core_properties.title='CS340 PERIOD 组员本人行动清单'
+    doc.core_properties.title='CS340 PERIOD 最终提交与三人答辩手册'
     doc.core_properties.author='CS340 project repository'
     doc.core_properties.created=datetime.now(timezone.utc)
     doc.core_properties.modified=doc.core_properties.created
@@ -144,5 +144,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path)
     args=p.parse_args()
-    target=args.output or root/('report/export/CS340_Member_Action_Checklist_'+revision_date(root).strftime('%Y%m%d')+'.docx')
+    target=args.output or root/('report/export/CS340_Final_Submission_Handbook_'+revision_date(root).strftime('%Y%m%d')+'.docx')
     export(root/'docs/MEMBER_ACTIONS_ZH.md',target)

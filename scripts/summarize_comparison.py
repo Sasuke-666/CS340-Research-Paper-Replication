@@ -303,7 +303,7 @@ def summarize_batch(batch, expected_repeats=10, expected_diagnostics=20, expecte
                 observation = parsed["target_observation"] or {}
                 trial.update({"target_returncode": observation.get("target_returncode"),
                     "calibrated_period": observation.get("calibrated_period"),
-                    "log": str(path.relative_to(batch)), "log_sha256": actual_hash,
+                    "log": path.relative_to(batch).as_posix(), "log_sha256": actual_hash,
                     "host_scope": provenance[case]["host_scope"], "binary_sha256": binary_hash,
                     "complete": complete, "integrity_ok": not issues,
                     "eligible": complete and not issues,
@@ -435,7 +435,8 @@ def summarize_batch(batch, expected_repeats=10, expected_diagnostics=20, expecte
 def write_outputs(summary, output):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    (output / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False)+"\n", encoding="utf-8")
+    # Keep derived artifacts identical on Windows and POSIX audit hosts.
+    (output / "summary.json").write_bytes((json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False)+"\n").encode("utf-8"))
     fields = ("case", "phase", "method", "condition", "repeat", "position", "started_utc", "host_scope",
               "binary_sha256", "complete", "integrity_ok", "eligible", "exit_code", "timed_out",
               "elapsed_seconds", "schedules", "first_error", "buggy_schedules", "error_event_count",
@@ -483,7 +484,7 @@ def write_outputs(summary, output):
             cell(pair["serial_over_period_time_ratio"])))
     lines.extend(["", "Detailed paper gaps, diagnostic outcomes, Wilson intervals, paired discordances and provenance are in `summary.json`; every attempted trial is in `all_trials.csv`.", "", "## Limits and integrity findings", ""])
     lines.extend("- "+x for x in summary["warnings"]+summary["integrity_errors"])
-    (output / "SUMMARY.md").write_text("\n".join(lines)+"\n", encoding="utf-8")
+    (output / "SUMMARY.md").write_bytes(("\n".join(lines)+"\n").encode("utf-8"))
 
 
 def check_outputs(summary, output):

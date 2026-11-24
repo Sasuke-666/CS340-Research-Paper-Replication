@@ -15,8 +15,8 @@ Operating Systems · Academic Year 2026–2027 · Public course repository
 | What is the original extension? | [Report §6, Table 7](report/EXPANDED_REPORT.md#6-single-factor-depth-bound-extension), [registered protocol](experiments/2026-11-07/FOLLOWUP_PROTOCOL.md) and [retained depth logs](results/2026-11-07/followup/) |
 | Can a reader build and verify it? | [Clone and audit](#clone-and-verify-the-archived-evidence), [fresh build/run instructions](#independently-rebuild-and-run-a-comparison), [new-host acceptance protocol](experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md), [source and license](docs/SOURCES.md) |
 | Are setup differences and contributions explicit? | [Report Appendix A](report/EXPANDED_REPORT.md#appendix-a-complete-setup-deviations), [contributions](docs/CONTRIBUTIONS.csv), [member reviews](docs/reviews/) and [dated weekly progress](docs/WEEKLY_PROGRESS.md) |
-| Where are the readable deliverables and demonstration? | [Report exports](report/README.md), [presentation source and delivered rehearsal formats](presentation/README.md), [one-number evidence demonstration](presentation/TALK_OUTLINE.md) |
-| Which requirements are confirmed? | [Supplied course criteria and unresolved external items](docs/COURSE_REQUIREMENTS.md), [current member actions](docs/MEMBER_ACTIONS_ZH.md) and [validation record](docs/VALIDATION_20261122.md) |
+| Where are the readable deliverables and demonstration? | [Report exports](report/README.md), [final presentation and content source](presentation/README.md), [one-number evidence demonstration](presentation/TALK_OUTLINE.md) |
+| Which requirements are confirmed? | [Supplied course criteria and unresolved external items](docs/COURSE_REQUIREMENTS.md), [current member actions](docs/MEMBER_ACTIONS_ZH.md) and [final validation record](docs/FINAL_VALIDATION_20261124.md) |
 
 The current verdict is **partially reproduced**. Schedule-count agreement and
 configuration-specific reductions coexist with failure-discovery discrepancies.
@@ -37,15 +37,25 @@ Run `make audit-acceptance` to verify this batch without launching a workload.
 Its [per-case results](results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)
 retain their own hosts and dates.
 
-## Current revision — 22 November 2026
+## Final revision — 24 November 2026
 
-The [current report](report/EXPANDED_REPORT.md) includes the accepted member
-studies and [PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5),
-Li Yangshuo's report traceability audit. Original authors and experiment dates
-are preserved. This revision adds automatic numerical checks, deeper source/log
-analysis, corrected execution entry points and synchronized report/checklist
-exports. See the [validation record](docs/VALIDATION_20261122.md)
-and [current member actions](docs/MEMBER_ACTIONS_ZH.md).
+The [final report](report/EXPANDED_REPORT.md) incorporates all six accepted
+member pull requests. [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
+adds He Boyu's independent recount of the six twostage acceptance logs and
+clarifies the presentation. Its Windows path-comparison finding led to portable
+summary paths and deterministic text output, with a native Windows archive check.
+The original member commits, experiment dates and cohort boundaries are preserved.
+
+The final documents are collected in [submission/](submission/README.md): the
+English report as PDF and editable Word, a fourteen-slide editable presentation
+and PDF, and a Chinese submission/defence handbook. The release workflow verifies
+the frozen document hashes and source revision after both Linux Python versions
+and the Windows archive job pass. It then publishes the final `v1.0` tag and
+[downloadable delivery bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0).
+The [final validation record](docs/FINAL_VALIDATION_20261124.md) records the actual
+checks; the [submission checklist](docs/FINAL_SUBMISSION_CHECKLIST.md) maps the
+course criteria to evidence. Course-platform submission and the members' oral
+presentation have their own recorded completion status.
 
 `make audit` verifies raw evidence and checked summaries, then checks report
 Tables 2–12 against those records. The report check covers sample sizes,
@@ -63,12 +73,30 @@ metadata is available.
 
 `make deliverables` creates the English PDF/Word report and Chinese member
 checklist in `report/export/`. Their default names and dates come from
-`report/REVISION_DATE`, currently **2026-11-22**, which must agree with the
+`report/REVISION_DATE`, currently **2026-11-24**, which must agree with the
 report header. Dependencies are in `requirements-report.txt`.
-The [14-slide rehearsal source](presentation/SLIDES.md) and
+The [14-slide presentation source](presentation/SLIDES.md) and
 [Chinese explanation and defence outline](presentation/TALK_OUTLINE.md)
 include the five twostage witness replays and the separate member/diagnostic
 scopes. The formal presentation instructions still need course confirmation.
+
+## Windows archive verification
+
+Native Windows supports the read-only evidence checks. Preserve archived bytes
+when cloning, since Git line-ending conversion changes their recorded digests:
+
+```powershell
+git clone -c core.autocrlf=false https://github.com/Sasuke-666/CS340-Research-Paper-Replication.git
+cd CS340-Research-Paper-Replication
+$env:PYTHONUTF8 = "1"
+python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
+python scripts/recount_twostage_acceptance.py
+```
+
+The CI job `windows-archive-audit` also checks the historical comparison, layout,
+independent member evidence and report. Fresh benchmark builds and executions
+use the documented x86_64 Linux/Docker environment below. The member's original
+Windows failure transcript remains preserved in [PR #6's audit record](docs/reviews/1240000576-audit-20261122.txt).
 
 ## Member integration — 16 November 2026
 
@@ -167,7 +195,7 @@ verification evidence; no additional experiments were run for integration.
 
 ## Stage progress — 7 November 2026
 
-Read the [expanded English stage report](report/EXPANDED_REPORT.md) for the
+Read the [final English report](report/EXPANDED_REPORT.md) for the
 current study, claim-by-claim assessment and limitations. The
 [historical pilot report](report/PILOT_REPORT.md) remains available with its
 original evidence. The overall work is a reduced-scale replication in progress.
@@ -523,10 +551,11 @@ make checklist
 | `tests/` | Repository and experiment-helper tests |
 | `experiments/2026-11-07/`, `experiments/2026-11-14/` | Protocols and explicit amendments |
 | `results/2026-11-07/`, `results/2026-11-14/`, `results/member-reruns/` | Separate raw evidence batches, hashes and derived results |
-| `report/EXPANDED_REPORT.md` | Current English stage report |
+| `report/EXPANDED_REPORT.md` | Final English report source |
 | `report/PILOT_REPORT.md` | Historical pilot report |
 | `docs/` | Requirements, sources, deviations, team and review records |
-| `presentation/` | Evidence-linked bilingual explanation and defence outline; final format awaits the separate course instructions |
+| `presentation/` | English slide content, Chinese speaker notes and defence outline |
+| `submission/` | Frozen final documents, content manifest and release notes |
 
 ## Team and course commitments
 
@@ -556,5 +585,7 @@ any new review still require actual participation. Use the [Chinese member actio
 [course requirement checklist](docs/COURSE_REQUIREMENTS.md).
 Presentation is tentatively 1 December 2026. Its separate rubric and the exact
 final-report deadline still require verification. The final report must be in
-English and submitted as PDF. This repository records a stage of the project;
-the final `v1.0` release follows completion and review.
+English and submitted as PDF. The final repository delivery is identified by
+`v1.0`; its verified files and complete source/evidence bundle are available
+through the release link above. The course portal receipt and oral presentation
+remain actions for the registered members.

@@ -45,6 +45,8 @@ jobs:
         run: make audit-member-reviews PYTHON=python
       - name: Audit completed fresh-host acceptance evidence
         run: make audit-acceptance PYTHON=python
+      - name: Independently recount the six twostage acceptance logs
+        run: make audit-twostage PYTHON=python
       - name: Check report tables against audited measurements
         run: make audit-report PYTHON=python
       - name: Build readable stage-report exports
@@ -81,3 +83,120 @@ jobs:
           path: ${{ runner.temp }}/CS340_Progress_*.zip
           if-no-files-found: error
           retention-days: 30
+
+  windows-archive-audit:
+    name: Windows archived evidence audit
+    runs-on: windows-2025
+    timeout-minutes: 5
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUTF8: '1'
+    steps:
+      - name: Preserve archived bytes during checkout
+        run: git config --global core.autocrlf false
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Test portable archive audits and strict raw-byte checks
+        run: python -m unittest discover -s tests -p test_portable_archives.py -v
+      - name: Audit archived comparison batches and independent member rerun
+        shell: python
+        run: |
+          import subprocess, sys
+          for batch in ('42380166815', '42381557337'):
+              subprocess.run([sys.executable, 'scripts/summarize_comparison.py',
+                  'results/2026-11-07/comparison-' + batch, '--manifest-only'], check=True)
+          for batch, options in (('42380929383', []), ('42381922637', []),
+                                 ('42384122902', ['--cases', 'reorder_4', '--repeats', '3'])):
+              subprocess.run([sys.executable, 'scripts/summarize_comparison.py',
+                  'results/2026-11-07/comparison-' + batch, '--output',
+                  'results/2026-11-07/summaries/comparison-' + batch, '--check'] + options, check=True)
+          subprocess.run([sys.executable, 'scripts/summarize_comparison.py',
+              'results/member-reruns/1240001156-account-20261108T122201Z', '--cases', 'account',
+              '--repeats', '10', '--output',
+              'results/member-reruns/1240001156-account-20261108T122201Z-summary', '--check'], check=True)
+      - name: Audit archived controlled-layout studies
+        shell: python
+        run: |
+          import subprocess, sys
+          for batch, case in (('layout-43570556202', 'lazy01'),
+                              ('layout-recovery-43575584325', 'account')):
+              subprocess.run([sys.executable, 'scripts/summarize_layout.py',
+                  'results/2026-11-14/' + batch, '--cases', case, '--output',
+                  'results/2026-11-14/summaries/' + batch + '-' + case, '--check'], check=True)
+      - name: Audit completed fresh-host acceptance evidence
+        run: python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check
+      - name: Independently recount the six twostage acceptance logs
+        run: python scripts/recount_twostage_acceptance.py
+      - name: Audit original evidence, member reviews and report traceability
+        shell: python
+        run: |
+          import subprocess, sys
+          for script in ('check_repository.py', 'verify_period_evidence.py',
+                         'audit_period_results.py', 'audit_member_reviews.py',
+                         'audit_report.py', 'audit_report_explanations.py'):
+              subprocess.run([sys.executable, 'scripts/' + script], check=True)
+
+  final-release:
+    name: Publish the verified final submission
+    needs: [repository-checks, windows-archive-audit]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'Sasuke-666/CS340-Research-Paper-Replication'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: final-release-v1.0
+      cancel-in-progress: false
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUTF8: '1'
+    steps:
+      - name: Preserve frozen bytes during checkout
+        run: git config --global core.autocrlf false
+      - name: Check out the exact passing commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Detect a final-manifest change in this commit
+        id: freeze
+        shell: python
+        run: |
+          import os, subprocess
+          from pathlib import Path
+          head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          if head != os.environ['GITHUB_SHA']:
+              raise SystemExit('Checkout differs from the workflow commit')
+          name = 'submission/FINAL_RELEASE.json'
+          ready = False
+          if Path(name).is_file():
+              history = subprocess.check_output(['git', 'rev-list', '--parents', '-n', '1', 'HEAD'], text=True).split()
+              command = (['git', 'diff', '--name-only', '--no-renames', history[1], 'HEAD', '--', name]
+                         if len(history) > 1 else ['git', 'ls-tree', '--name-only', 'HEAD', '--', name])
+              ready = name in subprocess.check_output(command, text=True).splitlines()
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write('ready=' + str(ready).lower() + '\n')
+          print('Final manifest changed; checking the frozen submission.' if ready
+                else 'No final-manifest change in this commit; release publication skipped.')
+      - name: Verify frozen documents and their source commit
+        if: steps.freeze.outputs.ready == 'true'
+        run: python scripts/check_final_submission.py
+      - name: Build the complete final delivery bundle
+        if: steps.freeze.outputs.ready == 'true'
+        run: python scripts/package_final_submission.py --output "$RUNNER_TEMP/CS340_Final_Deliverables_20261124.zip"
+      - name: Publish or verify the unchanged final release
+        if: steps.freeze.outputs.ready == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/publish_final_release.py --bundle "$RUNNER_TEMP/CS340_Final_Deliverables_20261124.zip" --repository "$GITHUB_REPOSITORY" --target "$GITHUB_SHA"

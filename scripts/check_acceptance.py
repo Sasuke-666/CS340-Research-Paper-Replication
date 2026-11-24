@@ -99,7 +99,7 @@ def main():
             raise ValueError("Acceptance receipt differs from independently audited evidence")
     else:
         audit.write_outputs(summary, output)
-        target.write_text(json.dumps(receipt, indent=2, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
+        target.write_bytes((json.dumps(receipt, indent=2, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8"))
     print(json.dumps(receipt, indent=2, ensure_ascii=False))
     return 0 if receipt["accepted"] else 1
 

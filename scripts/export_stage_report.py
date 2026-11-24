@@ -13,7 +13,7 @@ import subprocess
 import tempfile
 from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
-from report_config import revision_date
+from report_config import report_identity
 
 
 REPOSITORY_URL = 'https://github.com/Sasuke-666/CS340-Research-Paper-Replication'
@@ -167,7 +167,7 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
     from reportlab.pdfgen.canvas import Canvas
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, CondPageBreak
 
-    canonical_date = revision_date(root)
+    canonical_date, report_label, _ = report_identity(root)
     repository_ref = repository_ref or repository_revision(root)
     if report_date is not None and report_date != canonical_date:
         raise ValueError('--date must match report/REVISION_DATE and the report header')
@@ -178,7 +178,8 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
     statement = (root / 'report/AI_STATEMENT.md').read_text(encoding='utf-8')
     parsed = list(blocks(text.replace('## References', statement + '\n## References')))
     output.mkdir(parents=True, exist_ok=True)
-    stem = stem or 'CS340_PERIOD_Expanded_Report_' + report_date.strftime('%Y%m%d')
+    default_stem = 'CS340_PERIOD_Final_Report_' if report_label == 'Final report' else 'CS340_PERIOD_Expanded_Report_'
+    stem = stem or default_stem + report_date.strftime('%Y%m%d')
     title_text = next(b[2] for b in parsed if b[0] == 'heading' and b[1] == 1)
     docx_path, pdf_path = output / (stem + '.docx'), output / (stem + '.pdf')
     doc = Document(); sec = doc.sections[0]
@@ -194,14 +195,14 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
         style = doc.styles[name]; style.font.name = 'Arial'; style.font.size = Pt(size)
         style.font.color.rgb = __import__('docx').shared.RGBColor.from_string('000000')
     doc.core_properties.title = title_text
-    doc.core_properties.subject = 'CS340 stage report; revision ' + report_date.isoformat()
+    doc.core_properties.subject = 'CS340 ' + report_label.lower() + '; revision ' + report_date.isoformat()
     doc.core_properties.author = 'CS340 project repository'
     doc.core_properties.created = datetime.now(timezone.utc)
     doc.core_properties.modified = doc.core_properties.created
-    header = sec.header.paragraphs[0]; header.text = 'CS340 | Operating Systems | Stage report'
+    header = sec.header.paragraphs[0]; header.text = 'CS340 | Operating Systems | ' + report_label
     header.runs[0].font.size = Pt(8)
     footer = sec.footer.paragraphs[0]; footer.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    footer.add_run('Stage report | ' + display_date + ' | Page ').font.size = Pt(8)
+    footer.add_run(report_label + ' | ' + display_date + ' | Page ').font.size = Pt(8)
     fld = OxmlElement('w:fldSimple'); fld.set(qn('w:instr'), 'PAGE'); footer._p.append(fld)
     register_pdf_fonts()
     body = ParagraphStyle('Body', fontName='CS340Sans', fontSize=10.2, leading=14,
@@ -332,7 +333,7 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
         def page(canvas, document):
             canvas.saveState(); canvas.setFont('CS340Sans', 8)
             canvas.setFillColor(colors.HexColor('#526573'))
-            canvas.drawString(42, A4[1]-25, 'CS340 | Operating Systems | Stage report')
+            canvas.drawString(42, A4[1]-25, 'CS340 | Operating Systems | ' + report_label)
             canvas.drawRightString(A4[0]-42, 24, display_date + ' | Page %d' % document.page)
             canvas.restoreState()
 

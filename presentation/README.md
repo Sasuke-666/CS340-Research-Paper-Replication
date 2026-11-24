@@ -1,39 +1,43 @@
-# Presentation preparation
+# Final presentation materials
 
-Content revision: 22 November 2026, Macau/Beijing time.
+Final content revision: 24 November 2026, Macau/Beijing time.
 
 [SLIDES.md](SLIDES.md) is the maintained source for a fourteen-slide English
-rehearsal presentation. Each slide has screen text, Chinese speaker notes and
+presentation. Each slide has screen text, Chinese speaker notes and
 specific evidence links. The [talk and defence outline](TALK_OUTLINE.md) adds a
 short archive demonstration and answers to likely questions. The
-[expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md) remains authoritative for the
+[expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md) remains authoritative for the
 scientific results and complete deviations.
 
 The scope includes the paper's method, two tested claims, the five-case
 comparison, depth extension, capacity diagnostic, independent account host and
 twostage source/witness study. It credits the supplementary account audit and
-later report traceability review. The twelve-slide draft dated 14 November
-remains an earlier delivery.
+later report traceability review. The final source also credits PR #6's
+independent recount of the six twostage calls in the 22 November acceptance.
+Earlier deliveries retain their own dates.
 
-## Delivered rehearsal and maintained source
+## Final deliverables and maintained source
 
-The 22 November delivery has been re-exported from the current source as a
-fourteen-slide editable PowerPoint and its PDF preview:
+The final delivery uses a fourteen-slide editable PowerPoint and its PDF
+preview, exported from this maintained source:
 
-- `CS340_PERIOD_Presentation_20261122.pptx`
-- `CS340_PERIOD_Presentation_20261122.pdf`
+- `CS340_PERIOD_Final_Presentation_20261124.pptx`
+- `CS340_PERIOD_Final_Presentation_20261124.pdf`
 
-The exported deck retains fourteen Chinese speaker-note sections, nine editable
-native tables and one native chart with an embedded data workbook. All fourteen
-slides were inspected individually in both the presentation preview and the
-exported PDF, with no clipped text or overlapping evidence found. The generated
-delivery files remain separate from the tracked content source. This delivery
-fixes report and contribution citations at published revision `2de3787`. It explains the released drivers' different depth-to-period
-ranges, the first-failure frequencies and the depth extension's nested request
-layers. Original data and protocol citations retain their historical revisions.
-The talk outline includes clickable evidence and a scoped recount command.
-The same filenames above now contain this reviewed export. An actual rehearsal
-or formal presentation by the members remains a separate activity.
+The export preserves Chinese speaker notes, editable data tables and the
+native schedule-count chart. The actual final export and visual checks are
+recorded in [FINAL_VALIDATION_20261124.md](../docs/FINAL_VALIDATION_20261124.md).
+The final editable deck and PDF are frozen in [submission/](../submission/README.md)
+and distributed with `v1.0`; the content source remains independently readable.
+Current report and contribution citations use the final `v1.0` revision;
+historical data and protocol citations keep their fixed commits. The deck
+explains each driver's depth-to-period mapping, including the common 2–4
+range for two-thread twostage, and preserves the original statistical scopes.
+The [talk outline](TALK_OUTLINE.md) gives one offline demonstration: independently
+recount six twostage acceptance logs and trace the serialized first-failure
+values 4, 29 and 4 to the published mean and sample SD. Preparing or checking
+these artifacts does not record a rehearsal or delivered presentation by the
+members.
 
 ## Course format and scope
 
@@ -41,7 +45,7 @@ The instructor's project document refers to a separate Presentation Instruction.
 That source is not in the inspected repository. The tentative presentation date
 is 1 December 2026. Final duration, slide count, required speaking allocation,
 submission format and marking details remain subject to the actual instruction.
-The fourteen-slide count is an internal rehearsal choice. The outline does not
+The fourteen-slide count is a content choice. The outline does not
 assign marks or certify completed member presentations. The cover names the
 three confirmed contributors. The fourth-member allocation remains unresolved.
 
@@ -64,11 +68,15 @@ the corrected arms.
   comparison**. Overall verdict: **partially reproduced**. At depth d=3, the
   released PERIOD driver enumerates p=2 through 4; the released serialized driver
   enumerates p=N through N+2, where N is the observed thread count at enumeration setup. The
-  comparison retains these different absolute period ranges and other driver
-  differences.
+  period ranges coincide for N=2 and differ for N>2. The comparison also
+  retains other driver differences.
 - The primary comparison and four-thread follow-up account for 106 attempts,
   96 complete calls and 43 complete pairs. Keep the independent host's 20 calls,
   capacity diagnostic's 40 readable calls and twostage's five replays separate.
+- The 22 November engineering acceptance has 30 complete comparisons and
+  15 pairs across five case hosts, plus 40 separate witness diagnostics. Its
+  own n=3 summaries are not pooled with historical estimates. PR #6 independently
+  recounts six of these already archived comparison calls; it adds no measurement.
 - A printed request sequence and a saved yield matrix specify scheduling input.
   The twostage explanation derives a necessary partial order from the source
   and matching assertion. A unique realized instruction trace remains unknown.
@@ -86,7 +94,7 @@ editable, including labels, values and denominators. Label the twostage mechanis
 as a source-derived partial order. The talk outline includes an offline evidence
 demonstration that launches no new workload.
 
-After producing a deck, inspect every slide for legibility, text fit, exact data,
-speaker notes and citations. Record the actual delivered artifact and review
-status in the dated project validation record. Keep contribution and assistance
-statements consistent with report section 10.
+The final visual review checks every slide for legibility, text fit, exact data,
+speaker notes and citations. Keep contribution and assistance statements
+consistent with report section 10. The [final submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md)
+records the remaining course-facing actions separately from artifact readiness.

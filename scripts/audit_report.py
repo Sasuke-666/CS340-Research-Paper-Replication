@@ -9,7 +9,6 @@ validate every narrative claim, the original paper, visual layout or actual
 memory-operation traces, and it does not execute a benchmark.
 """
 import argparse
-from calendar import month_name
 from collections import Counter
 import json
 import math
@@ -18,7 +17,7 @@ import re
 import sys
 
 from audit_period_results import audit as audit_historical
-from report_config import revision_date
+from report_config import revision_date, revision_marker
 
 
 PIN = 'cb8deb9a176e5bb292d70d46557dd61dc0e98069'
@@ -243,8 +242,7 @@ def load_evidence(root):
     bind(12, ['Case / pairs', 'First-failure delta', 'Schedule-count delta', 'Buggy-count delta', 'Elapsed-second delta'],
          change_rows, layout_sources, [0, 1, 2, 3, 4])
     return {'tables': tables, 'root': root, 'revision_date': revision.isoformat(),
-            'revision_marker': 'Stage report revised {} {} {}.'.format(
-                revision.day, month_name[revision.month], revision.year)}
+            'revision_marker': revision_marker(root)}
 
 
 def narrative_references(text):

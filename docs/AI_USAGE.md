@@ -25,6 +25,8 @@ separately; their work is not attributed to the group.
 | 2026-11-22, strict acceptance review | Reviewed likely grading weaknesses against the supplied requirements, repaired pilot/layout/archive entry points, independently recounted evidence for deeper scientific explanations, corrected current navigation, registered and executed a bounded fresh-host acceptance batch, and preserved clickable report-export evidence links | Registration `2de3787`; run `45015126850`; archive `7284180`; `experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md`; `scripts/check_acceptance.py`; `report/EXPANDED_REPORT.md`; dated validation record | Owner requested these improvements. The first acceptance attempt produced 30 complete comparison calls and 40 separate complete diagnostic calls, preserved with new host scopes. No invented instructor requirement, guaranteed mark, another member's work or personal approval is claimed. |
 | 2026-11-22, twostage acceptance review | Ran the two archive checks, traced a Windows path comparison failure, independently counted six raw logs, compared sample statistics with the published table, and revised the English rehearsal text and Chinese notes. | [Member review](reviews/1240000576-presentation-check-20261122.md), [audit transcript](reviews/1240000576-audit-20261122.txt), commit `9b0f26532723a82994830841feb1f35fa6472a02` | Requested by He Boyu and submitted through his account. Measurements remain attributed to the group acceptance batch. Personal rehearsal and human sign-off remain pending. |
 
+| 2026-11-24, final integration and delivery | Verified and normally merged PR #6; repaired portable path/text serialization and added native Windows archive checks; finalized the English report, editable presentation and Chinese handbook; checked document/source integrity and prepared the v1.0 release | Merge `7941e2b`; `docs/FINAL_VALIDATION_20261124.md`; `submission/FINAL_RELEASE.json`; final document sources | Owner requested final-week completion. Original member authors and measurement dates remain intact. This maintenance adds no workload measurements and does not certify personal rehearsal or course-platform submission. |
+
 Experimental measurements come from the archived process output, not invented
 values. Automation-generated tests use explicitly synthetic fixtures; those
 fixtures are not research observations. The group must check the interpretation,
@@ -41,4 +43,5 @@ No history was rewritten to remove earlier disclosures. This concise statement
 replaces repetitive tool-specific narration in the current document. Exact
 historical assistance details and logs remain available in Git history. Any
 additional disclosure requested by the instructor takes precedence over this
-summary. No final report, final presentation or completed human review is implied.
+summary. The final documents record their revision and verification separately;
+actual human rehearsal and course-platform submission are not certified by this record.

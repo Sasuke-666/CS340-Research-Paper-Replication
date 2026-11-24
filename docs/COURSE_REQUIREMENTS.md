@@ -1,11 +1,20 @@
-# Instructor requirements and verification status
+# Instructor requirements and final-week scope
 
 Source: instructor-provided CS340 Research Paper Replication, 5 pages,
 Academic Year 2026–2027. The earlier supplied copy was checked on 14 November.
 All five pages of the supplied `2609_CS340_Research_Paper_Replication(9).pdf`
-were checked again on 22 November 2026; the requirements below are unchanged.
-Page numbers refer to that source. Later course announcements and the separate
-Presentation Instruction remain outside that source.
+were read again on 24 November 2026; the requirements below are unchanged.
+Page numbers refer to that source. The separately supplied seven-page
+`CS340_Operating_Systems_2609_Course Syllabus(20261116-200257).pdf` was also
+read. Its page 5 assigns 20% of the course grade to Paper Presentation; it
+does not specify how the three project scores below are combined.
+
+The owner confirmed that 23–29 November is the project's final working week.
+The group uses Macau/Beijing time (UTC+08:00) for its 24 November closeout.
+This is the current work plan. The project's exact final submission time and
+the separate Presentation Instruction still require the course source.
+See [the final submission map](FINAL_SUBMISSION_CHECKLIST.md) and
+[the Chinese submission and defence guide](MEMBER_ACTIONS_ZH.md) for execution.
 
 ## Team and submission scope — page 1
 
@@ -15,6 +24,7 @@ Presentation Instruction remain outside that source.
 - Paper changes require a TA request by November 1, 2026.
 - Presentation: December 1, tentative.
 - Submit group information and the reproduction GitHub repository link via the supplied form.
+- Registration form: <https://v.wjx.cn/vm/rZCQLSE.aspx>.
 - Final report, presentation and Git history are separately assessed out of 100%.
 - The document does not state how those three scores are combined.
 
@@ -32,6 +42,16 @@ Write in English. Word or LaTeX is allowed; submit PDF.
 
 Claim verdicts: supported, partially supported, not supported, inconclusive.
 Overall verdict: reproduced, partially reproduced, not reproduced.
+
+## Presentation — page 3
+
+The group delivers a final presentation. Its format, structure and assessment
+criteria are assigned to the separate Presentation Instruction. Searches of
+the accessible supplied files on 24 November did not locate that document or
+a later final-submission notice. The five-page project source gives no
+presentation duration, slide count, speaking allocation, language, live-demo
+requirement or presentation upload format. The group's rehearsal materials
+and ten-minute practice plan are internal preparation choices.
 
 ## Git history — pages 3–4
 
@@ -59,18 +79,23 @@ Every member makes substantive commits from their own account. Use `.gitignore`.
 Do not commit build outputs, disk images, large traces, credentials or files
 larger than 50 MB. Tag the final version `v1.0`.
 
-## Still unresolved
+## Three external facts to confirm for final delivery
 
-1. Exact team-registration closing time.
-2. First calendar date/timezone of weekly Git checks.
-3. Exact final-report/final-repository deadline.
-4. Separate Presentation Instruction and its grading details.
-5. Required GitHub identities and access method for the teaching team.
-6. Fourth member or teaching-team assignment, and the registration-form receipt.
-   The owner confirmed the PERIOD selection. At the later 8 November inspection,
-   `barkhorn996` (Li Yangshuo) and `heboyu0714` (He Boyu) both had effective `write`
-   permission and had submitted substantive member PRs. Their identities and
-   evidence are recorded in `TEAM.csv` and `CONTRIBUTIONS.csv`.
+1. **Final submission:** the exact report/repository deadline, upload location,
+   any required filenames, and the actual submission receipt after uploading.
+2. **Presentation:** the separate Presentation Instruction and the confirmed
+   date/session, duration and other stated delivery requirements. December 1
+   remains the tentative date printed in the supplied project document.
+3. **Group registration:** the recorded group/paper/repository registration and
+   the teaching team's fourth-member allocation or permission for the three
+   confirmed students. [TEAM.csv](TEAM.csv) records the real known members.
 
-The repository is public as requested by the owner. Local hooks are an
-implementation choice; the teacher does not require them in the supplied document.
+The older uncertainty about the registration closing hour and first calendar
+date/timezone of weekly checks remains a historical limitation. It does not
+prevent final material preparation. The weekly rule is a meaningful group
+push each week; substantive own-account contributions are also required from
+every member. The source specifies no per-person weekly quota, PR workflow,
+oral sign-off file, extra reviewer form or special teaching-team access setup.
+The repository is public. Local hooks and internal review procedures are
+implementation choices. Keep registration receipts private where they contain
+personal information; a minimal verified status is sufficient for this record.

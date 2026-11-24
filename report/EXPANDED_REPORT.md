@@ -1,6 +1,6 @@
 # PERIOD Replication and Controlled Diagnostics
 
-CS340 Operating Systems · Stage report revised 22 November 2026. Original measurements retain their actual dates; the 14 November layout diagnostic and 15 November twostage replay are separate studies.
+CS340 Operating Systems · Final report revised 24 November 2026. Original measurements retain their actual dates; the 14 November layout diagnostic, 15 November twostage replay and 22 November engineering acceptance remain separate studies.
 
 Confirmed member identities: 孙皓扬 (1240001201), 李扬烁 (1240001156), 何博宇 (1240000576). The fourth member remains to be confirmed. Individual contribution and review status are stated in section 10.
 
@@ -37,7 +37,7 @@ The primary batch and four-thread follow-up record Ubuntu 18.04.5 container user
 
 Each comparison uses depth 3 and a 10,000-schedule budget. Ten serially executed repetition pairs alternate method order AB/BA. The primary outer invocation limit is 120 seconds. All ten four-thread serialized calls reached it; other primary comparisons completed. The separately registered four-thread follow-up uses three paired repetitions and a 240-second outer limit. These six calls completed. No eligible complete call recorded an inner timeout. Fixed-key shared memory makes concurrent invocations within one container inappropriate. Source and binary hashes are captured; generated executables are deliberately not committed, so the archived binary hash is a provenance record rather than a hash that can be recomputed from the archive itself.
 
-Depth here is the released drivers' bug-depth setting d, distinct from the number of periods p. The [parallel driver](../results/2026-11-07/comparison-42381922637/reorder_3/source/run_PDS.py) iterates over p=2 through d+1; its [scheduler](../results/2026-11-07/comparison-42381922637/reorder_3/source/sbp_sched_mixed_end.py) places one thread's key points in each preceding period and permits multiple threads in the final period. The [serialized driver](../results/2026-11-07/comparison-42381922637/reorder_3/source/run_OldPDS_abi16.py) iterates over p=N through d+N-1, where N is the observed thread count at enumeration setup. For the three-thread case at d=3, the [PERIOD log](../results/2026-11-07/comparison-42381922637/reorder_3/period_r01.txt) prints periods 2, 3 and 4, while the [serialized log](../results/2026-11-07/comparison-42381922637/reorder_3/author_serialized_abi16_r01.txt) prints 3, 4 and 5. C2 thus compares the released configurations using their own depth definitions. The absolute period limits differ, and retained driver differences prevent isolating scheduler choice as the sole factor [1, section 3.2.1; 2]. An explored schedule counts a printed test request and its target execution attempt. Calibration and default-system runs precede these counted requests; one request can permit several realized interleavings.
+Depth here is the released drivers' bug-depth setting d, distinct from the number of periods p. The [parallel driver](../results/2026-11-07/comparison-42381922637/reorder_3/source/run_PDS.py) iterates over p=2 through d+1; its [scheduler](../results/2026-11-07/comparison-42381922637/reorder_3/source/sbp_sched_mixed_end.py) places one thread's key points in each preceding period and permits multiple threads in the final period. The [serialized driver](../results/2026-11-07/comparison-42381922637/reorder_3/source/run_OldPDS_abi16.py) iterates over p=N through d+N-1, where N is the observed thread count at enumeration setup. For the three-thread case at d=3, the [PERIOD log](../results/2026-11-07/comparison-42381922637/reorder_3/period_r01.txt) prints periods 2, 3 and 4, while the [serialized log](../results/2026-11-07/comparison-42381922637/reorder_3/author_serialized_abi16_r01.txt) prints 3, 4 and 5. For the two-thread twostage case, both ranges are 2 through 4. C2 thus compares the released configurations using their own depth definitions. The absolute period ranges differ when N exceeds 2; retained driver differences also prevent isolating scheduler choice as the sole factor [1, section 3.2.1; 2]. An explored schedule counts a printed test request and its target execution attempt. Calibration and default-system runs precede these counted requests; one request can permit several realized interleavings.
 
 The expanded protocol was committed at 6faea36 before its first measurements. Compatibility protocol 7251fb2 followed observation of original-driver failure; 09cfa0a corrected runner method selection before the repeated adapted batch. Adaptation was specified from source/interface evidence, with no tuning to the paper's counts. Earlier attempts are retained: run 42380166815 failed during source loading before benchmark execution; run 42380929383 contains 50 complete PERIOD calls, 50 original serialized-driver crashes and 40 diagnostics; run 42381557337 stopped after one PERIOD call per case due to a runner label error. Run 42381922637 repeats the full predefined sample, including its ten censored outcomes. Follow-up protocol 15ae481 then specified run 42384122902: only reorder_4, three AB/BA/AB pairs, a longer outer watchdog, and unchanged source, program, internal target timeout, depth and schedule budget. The reduced sample meets the course minimum while bounding the additional work. Both methods run again on the follow-up host; its data are not pooled with the primary host.
 
@@ -298,9 +298,13 @@ The 16 November integration adds a strict offline member-review check to the def
 
 The 22 November report audit [11] prompted an automatic traceability check. It binds Tables 2–12 to the separately checked summaries, historical raw-log recount and native-layout records. It verifies rounded statistics, denominators, paper-gap calculations, paired-difference directions, unknown outcomes and batch labels. All 18 table/figure captions require unique labels and narrative references; four local figure targets must exist. Synthetic mutations test that wrong values, missing references and scope changes are rejected. This check covers the declared bindings, not every narrative claim or rendered layout. A single maintained revision date controls the report and checklist exports.
 
+The separately registered 22 November engineering acceptance tested the repaired build/run entry points on five fresh case hosts [12]. Protocol commit 2de3787 preceded run 45015126850, attempt 1. It fixed three calls per method per case, depth 3, a 10,000-schedule budget and a 240-second outer limit. All 30 comparison calls completed and were eligible, forming 15 within-case pairs. Forty additional reorder_3 witness diagnostic calls, twenty per declared multiplier, completed and contained the matching assertion. Five benchmark builds succeeded; the outer manifest accounts for 948 raw files. No comparison recorded an inner timeout, outer timeout or budget stop. The observed PERIOD/serialized request totals were 27/30, 100/384, 65/136, 39/60 and 33/33 in case order reorder_3, reorder_4, account, lazy01 and twostage. This batch supplies evidence that the registered build/run path worked on its recorded hosts. Its own n=3 summaries remain separate from Tables 2–12 and the earlier 106 attempts, 96 complete calls and 43 complete pairs; a successful acceptance does not guarantee execution on every machine or exact future failure observations.
+
+He Boyu's subsequent PR #6 independently recounts the six twostage comparison logs in that acceptance batch and improves the presentation's source explanation [13]. PERIOD first fails at requests 4, 4 and 4; the serialized calls first fail at 4, 29 and 4. Each call explores 33 requests. The serialized first-failure mean is 37/3 = 12.3333 and its sample SD is 25/sqrt(3) = 14.4338. These values describe three complete searches per method on the acceptance host. They add no invocation to the 15 November five-call fixed-witness replay or to the historical comparison. The raw-log recount, the matching summary and the precise contribution scope provide a compact offline demonstration of how an observed assertion becomes a reported statistic.
+
 The original pilot/follow-up comprises 33 test/replay invocations, six builds and one capability probe. The latter successfully requested SCHED_DEADLINE in that earlier environment; it is not proof about every instruction of later execution. Expanded comparisons, diagnostics, setup failures and partial attempts are reported separately above. Logs and actual commit dates preserve this chronology.
 
-The dated progress record separates initial repository preparation on 24 October, substantive safeguard/test work on 30 October, and the measured PERIOD studies on 7 November. Nothing is backdated to fill a previous week. Weekly progress continues beyond this stage; the supplied course document sets Sunday 23:59 checks but does not explicitly identify the timezone or first calendar check. Group planning uses Macau/Beijing local time and an earlier internal cutoff [3].
+The dated progress record separates initial repository preparation on 24 October, substantive safeguard/test work on 30 October, the measured studies on 7, 8, 14, 15 and 22 November, and the final integration on 24 November. Original dates and authors remain in the history. The supplied course document sets Sunday 23:59 checks but does not explicitly identify the timezone or first calendar check; the final records retain these limits and use Macau/Beijing local time for group planning [3].
 
 ## 10. Conclusion, limitations and contributions
 
@@ -314,11 +318,11 @@ Table 13 records the member contributions and their source submissions.
 
 | Member | Recorded contribution | Submission evidence |
 | --- | --- | --- |
-| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed identities, authorized studies and integration; classified secondary review separately from new witness evidence; requested strict offline checks, automatic report traceability and synchronized documents | Protocol bddb831; earlier integration 0dc19a8; merges 94d0e9b, 9bb7e6c and 7ba2d8f; dated contribution record [7] |
+| Sun Haoyang, 孙皓扬, 1240001201, Sasuke-666 | Confirmed identities and authorized studies and integration; coordinated the registered fresh-host acceptance, evidence checks and final report/presentation handoff | Protocols bddb831, ea273fe4 and 2de3787; acceptance archive 7284180; member PR integrations and dated contribution record [7, 12] |
 | Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent 20-call account rerun and retained setup failure; later added supplementary cross-batch review, provenance clarification and a report traceability audit, with no new measurements | PR #2: 8ce522d and 9f30843 [5]; PR #3: 94a35c3 and d907517 [10]; PR #5: 7ac3a655 [11] |
-| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit; later submitted twostage source analysis, a trace evidence table, five fresh witness replays, scripts and a Chinese summary | PR #1: b02adef5 [7]; PR #4: 62cbb795, 6f186ddc and c78fd1c; run 43681034375 [9] |
+| He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit, twostage source-derived partial order and five witness replays; independently recounted six later acceptance logs and revised the presentation | PR #1: b02adef5 [7]; PR #4 and run 43681034375 [9]; PR #6: 9b0f265 and 2aea86e [13] |
 
-The required usage statement below records assistance with implementation, execution, auditing and drafting. Member submissions establish the work actually published through those accounts. Personal explanation and subsequent human cross-review remain to be recorded by the members themselves. The fourth-member allocation, registration receipt, final submission date and separate presentation rubric require the actual course communication. This expanded stage report supports the current review; final English PDF submission and v1.0 tagging belong to the verified final version.
+The required usage statement below records assistance with implementation, execution, auditing and drafting. Member submissions establish the work published through those accounts. The reviewed report, presentation source and evidence form the final repository handoff identified by v1.0. Personal explanation and human cross-review must be recorded from the members' actual participation. The fourth-member allocation, registration receipt, exact submission deadline/portal and separate presentation rubric require the course communication; preparing these final materials does not record a course submission or a delivered presentation.
 
 ## Appendix A Complete setup deviations
 
@@ -345,6 +349,7 @@ Table A1 consolidates the consequential deviations from the paper setup.
 | Timing metric | Published experimental environment and metrics | Whole Python-driver wall time, including calibration and reporting | Secondary implementation observation; neither native execution time nor separately measured time-to-first-failure |
 | Layout evidence recovery | Original two-case protocol, ten pairs each | Original lazy01 archive retained; original account failed without readable logs or results; new account batch separately registered with original runner bytes | Original account actual counts remain unknown; recovery host and all outcomes remain separate |
 | Twostage witness follow-up | Archived two-worker input from PERIOD test 4 | Five stock-driver replays on 15 November; Intel Xeon Platinum 8573C, four permitted CPUs, kernel 7.0.0-1017-azure, pinned container; 30-second wrapper limit | Separate input/host scope, no capacity modification; five observed assertions do not establish universal replay reliability [9] |
+| Fresh-host engineering acceptance | Existing registered build/run path and published comparison settings | 22 November: five case hosts, three calls per method per case, 240-second outer limit; 30 complete comparisons and 40 separate diagnostics | Independent acceptance scope; earlier estimates and their missing/censored observations remain unchanged [12] |
 | Evidence and dependency limits | Paper's original testbed | Source, commands, logs, manifests and binary hashes retained; generated binaries excluded | Binary hashes record provenance; rebuilds can differ; no unsupported byte-for-byte binary replication claim |
 
 ## References
@@ -360,7 +365,7 @@ https://github.com/wcventure/PERIOD
 [4] Registered protocols and exact study archives in the project repository. Main comparison workflow: https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42381922637
 
 [5] Li Yangshuo's independent account rerun and separately audited summary, 8 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/main/results/member-reruns/1240001156-account-20261108T122201Z-summary
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0/results/member-reruns/1240001156-account-20261108T122201Z-summary
 
 [6] Capacity-layout protocol, registration bddb831, and original study workflow, 14 November 2026.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/bddb831319679c30586d9bbe689fb11b897f1a14/experiments/2026-11-14/LAYOUT_PROTOCOL.md
@@ -369,19 +374,27 @@ Recovery registration ea273fe4 and separate account evidence:
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/ea273fe4b6e49bd1f8f5c5b7c964c02aaf22d144/experiments/2026-11-14/ACCOUNT_RECOVERY_PROTOCOL.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325
 
-[7] Dated contributions and member evidence reviews, revised 22 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/CONTRIBUTIONS.csv
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/main/docs/reviews
+[7] Dated contributions and member evidence reviews, final integration 24 November 2026.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/CONTRIBUTIONS.csv
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0/docs/reviews
 
 [8] Independent scientific review of the controlled layout diagnostic, 14 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/LAYOUT_DIAGNOSTIC_REVIEW_20261114.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/LAYOUT_DIAGNOSTIC_REVIEW_20261114.md
 
 [9] He Boyu, twostage source and witness study, PR #4, submitted 15 November 2026; integrated 16 November.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/reviews/1240000576-twostage-witness-review.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/reviews/1240000576-twostage-witness-review.md
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43681034375
 
 [10] Li Yangshuo, supplementary account evidence review, PR #3, 14 November 2026; provenance clarification 15 November; integrated 16 November.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/reviews/1240001156-account-supplement.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/reviews/1240001156-account-supplement.md
 
 [11] Li Yangshuo, report traceability audit and figure/table reference corrections, PR #5, 22 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/docs/reviews/1240001156-report-traceability-audit.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/reviews/1240001156-report-traceability-audit.md
+
+[12] Registered fresh-host engineering acceptance, 22 November 2026. Protocol 2de3787; run 45015126850, attempt 1; independent receipt and separately scoped summaries.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1
+
+[13] He Boyu, independent recount of six archived twostage acceptance calls and presentation review, PR #6, submitted 22 November and integrated 24 November 2026. Secondary review; original measurements belong to the registered group acceptance batch.
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2aea86e1f35fdd8f2b482aec5f4b65b0568f0c9a/docs/reviews/1240000576-presentation-check-20261122.md
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6

@@ -362,7 +362,7 @@ def summarize_batch(batch, expected_cases=CASES, expected_repeats=10):
             trial = {key: record.get(key) for key in ("case", "condition", "repeat", "position", "started_utc",
                      "finished_utc", "exit_code", "timed_out", "elapsed_seconds", "binary_sha256")}
             trial.update({key: parsed[key] for key in ("schedules", "first_error", "buggy_schedules", "error_event_count", "inner_timeouts")})
-            trial.update(log=str((directory / record["log"]).relative_to(batch)), log_sha256=actual_hash,
+            trial.update(log=(directory / record["log"]).relative_to(batch).as_posix(), log_sha256=actual_hash,
                          complete=complete, eligible=False, integrity_ok=not issues, issues=issues,
                          schedule_sequence_sha256=sequence_hash, error_labels=sorted(set(labels)),
                          assertion_error_events=sum(label.strip() == "assertion failed" for label in labels),
@@ -463,7 +463,8 @@ def summarize_batch(batch, expected_cases=CASES, expected_repeats=10):
 def write_outputs(summary, output):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    (output / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # Keep derived artifacts identical on Windows and POSIX audit hosts.
+    (output / "summary.json").write_bytes((json.dumps(summary, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     fields = ("case", "condition", "repeat", "position", "started_utc", "finished_utc", "exit_code", "timed_out",
               "complete", "eligible", "integrity_ok", "schedules", "first_error", "buggy_schedules", "inner_timeouts",
               "elapsed_seconds", "schedule_sequence_sha256", "schedule_payload_complete", "prefix_schedule_count", "cleanup_killed_before",
@@ -519,7 +520,7 @@ def write_outputs(summary, output):
     lines += ["", "## Interpretation limits", ""] + ["- " + item for item in summary["warnings"]]
     if summary["integrity_errors"]:
         lines += ["", "## Integrity findings", ""] + ["- " + item for item in summary["integrity_errors"]]
-    (output / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (output / "SUMMARY.md").write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
 
 
 def check_outputs(summary, output):

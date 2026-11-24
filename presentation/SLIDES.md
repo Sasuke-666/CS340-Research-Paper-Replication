@@ -1,6 +1,6 @@
-# PERIOD rehearsal presentation source
+# PERIOD final presentation source
 
-Revised 22 November 2026, Macau/Beijing time. Fourteen total slides. English screen text and Chinese speaker notes. Official presentation duration, speaking allocation and format remain to be confirmed. These instructions specify content and do not certify a completed presentation.
+Final content revision: 24 November 2026, Macau/Beijing time. Fourteen slides with English screen text and Chinese speaker notes. This source prepares the final repository handoff; actual presentation and course submission are recorded separately. Duration and speaking allocation follow the course instructions.
 
 ## Slide 01: PERIOD Replication
 
@@ -8,19 +8,19 @@ Revised 22 November 2026, Macau/Beijing time. Fourteen total slides. English scr
 
 - Controlled concurrency testing via periodical scheduling
 - CS340 Operating Systems
-- Rehearsal draft, 22 November 2026
+- Final project presentation, 24 November 2026
 - Sun Haoyang  1240001201
 - Li Yangshuo  1240001156
 - He Boyu  1240000576
 
 ### Chinese speaker notes
 
-本组复现PERIOD论文中五个程序的指定结果，并通过控制实验研究实现差异。今天先解释方法与两项主张，再展示复现结果、差异及成员独立证据。三位姓名对应已确认成员；正式讲解时长与分工仍以课程通知为准。本稿用于排练。
+本组复现PERIOD论文中五个程序的指定结果，并通过控制实验研究实现差异。先解释方法与两项主张，再展示结果、差异和成员独立证据。封面列出已确认的三位成员。本稿为11月24日最终内容版本；讲解者按课程规定安排时长与分工，实际展示情况另行记录。
 
 ### Sources
 
 - [Wen et al., ICSE 2022, DOI 10.1145/3510003.3510178](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
-- [Group report, sections 1 and 10](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, sections 1 and 10](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 
 ## Slide 02: Periods and bounded search
 
@@ -40,7 +40,7 @@ A requested schedule constrains execution. The realized order still needs eviden
 ### Sources
 
 - [Paper, sections 2.2 and 3](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
-- [Group report, section 1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, section 1](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 
 ## Slide 03: Claims and experimental setup
 
@@ -60,7 +60,7 @@ C1同时比较枚举总数、首次失败位置和错误调度数。C2比较两�
 
 ### Sources
 
-- [Group report, sections 1–2 and Appendix A](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, sections 1–2 and Appendix A](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Registered comparison protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPARISON_PROTOCOL.md)
 - [Compatibility protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
 - Enumeration bounds in the archived [PERIOD driver](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/reorder_3/source/run_PDS.py#L636-L647) and [serialized driver](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/reorder_3/source/run_OldPDS_abi16.py#L617-L630)
@@ -78,13 +78,15 @@ C1同时比较枚举总数、首次失败位置和错误调度数。C2比较两�
 
 Separate evidence: 20 independent-host calls, 40 readable capacity calls and 5 twostage replays.
 
+22 November acceptance: 30 comparisons / 15 pairs, plus 40 diagnostic calls.
+
 ### Chinese speaker notes
 
-主批次100次驱动调用等于50组计划方法配对。十次四线程序列化调用到达120秒上限，因此90次完整调用只能提供40组完整配对。后续研究在另一个宿主用240秒上限固定运行三对，六次都完整。106、96、43是这两项研究的记账总数，统计仍按案例与宿主分别报告。李的20次独立宿主、布局诊断40次可读调用、何的5次重放都使用各自分母。原布局account实际次数未知。
+主批次100次驱动调用等于50组计划方法配对。十次四线程序列化调用到达120秒上限，因此90次完整调用只能提供40组完整配对。后续研究在另一个宿主用240秒上限固定运行三对，六次都完整。106、96、43只合计这两项研究，统计仍按案例与宿主分别报告。李的20次独立宿主、布局诊断40次可读调用、何的5次重放都另列；原布局account实际次数未知。11月22日新宿主工程验收另有30次完整比较、15对，以及40次独立诊断调用。五个case各用自己的新宿主，旧统计不因验收通过而扩大分母。
 
 ### Sources
 
-- [Group report, sections 2, 5.2, 7 and 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, sections 2, 5.2, 7 and 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Four-thread completion summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)
 
 ## Slide 05: Four cases require fewer schedules
@@ -110,7 +112,7 @@ Original comparison and four-thread follow-up. Ten pairs per case, except three 
 
 ### Sources
 
-- [Group report, Table 4 and C2 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, Table 4 and C2 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Primary comparison summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42381922637/SUMMARY.md)
 - [Four-thread follow-up summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)
 
@@ -134,7 +136,7 @@ Mean ± sample SD, n=10. First failure is an enumeration position.
 
 ### Sources
 
-- [Group report, Table 2 and C1 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, Table 2 and C1 verdict](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Paper Table 2](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf)
 
 ## Slide 07: A controlled capacity correction
@@ -157,7 +159,7 @@ One driver constant changes within each pair. Target binary and native runtime r
 
 ### Sources
 
-- [Group report, section 8.1 and Table 9](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, section 8.1 and Table 9](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Registered capacity protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-14/LAYOUT_PROTOCOL.md)
 
 ## Slide 08: The correction leaves first-failure gaps
@@ -181,7 +183,7 @@ Mean ± sample SD, n=10 per condition. Original account outcomes remain unknown.
 
 ### Sources
 
-- [Group report, Tables 10–12 and section 8.3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, Tables 10–12 and section 8.3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Account recovery summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-14/summaries/layout-recovery-43575584325-account/SUMMARY.md)
 - [Original lazy01 summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-14/summaries/layout-43570556202-lazy01/SUMMARY.md)
 
@@ -204,7 +206,7 @@ Mean ± sample SD, n=3. Depth 2 explores 51.85% fewer schedules than depth 3.
 
 ### Sources
 
-- [Group report, section 6 and Table 7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, section 6 and Table 7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Registered follow-up protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/FOLLOWUP_PROTOCOL.md)
 
 ## Slide 10: Independent account host corroboration
@@ -226,7 +228,7 @@ Mean ± sample SD, n=10 per method. Keep this host separate from the primary bat
 
 ### Sources
 
-- [Group report, section 7 and Table 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, section 7 and Table 8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Independent account summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/member-reruns/1240001156-account-20261108T122201Z-summary/SUMMARY.md)
 - [Supplementary account audit](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/docs/reviews/1240001156-account-supplement.md)
 
@@ -237,12 +239,12 @@ Mean ± sample SD, n=10 per method. Keep this host separate from the primary bat
 
 | Step | Actor | Event inferred from source and assertion |
 | --- | --- | --- |
-| 1 | Writer A | Set data1Value to 1 under data1Lock, then release it. |
-| 2 | Reader B | Under data1Lock, pass the guard and copy 1 into t1. |
-| 3 | Reader B | Under data2Lock, copy the initial data2Value of 0 into t2. |
-| 4 | Reader B | The two local values satisfy t2 ≠ t1 + 1. Line 48 calls assert(0). |
+| 1 | Writer A | Under lock 1: publish field 1 = 1, then unlock. |
+| 2 | Reader B | Under lock 1: pass the guard; retain t1 = 1. |
+| 3 | Reader B | Under lock 2: sample field 2 = 0 into t2. |
+| 4 | Reader B | 0 ≠ 1 + 1; reach the line-48 assertion. |
 
-A releases data1Lock before acquiring data2Lock for the second update. The witness records the line-48 assertion. Exact preemption points remain unknown.
+Source-derived partial order. The witness records the assertion; exact preemption points remain unknown.
 
 ### Chinese speaker notes
 
@@ -267,7 +269,7 @@ A releases data1Lock before acquiring data2Lock for the second update. The witne
 | reorder_3, run 42380929383 | Same fixed witness | 20/20 at each multiplier |
 | reorder_3, run 42381922637 | Same fixed witness | 20/20 at each multiplier |
 
-22 November acceptance: 30 complete comparison calls (15 pairs), including 6 twostage calls (3 pairs). Another 40 calls tested the reorder_3 witness.
+22 November acceptance is separate: 30 comparisons / 15 pairs, plus 40 diagnostics.
 
 ### Chinese speaker notes
 
@@ -278,7 +280,7 @@ A releases data1Lock before acquiring data2Lock for the second update. The witne
 ### Sources
 
 - [Twostage replay evidence](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/member-reruns/1240000576-twostage-43681034375/README.md)
-- [Group report, sections 5.4–5.5 and Table 6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, sections 5.4–5.5 and Table 6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - 22 November [per-case comparison summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md), [acceptance counts](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json) and [reorder_3 diagnostic breakdown](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/summary.json)
 
 ## Slide 13: Contributions and evidence trail
@@ -288,22 +290,26 @@ A releases data1Lock before acquiring data2Lock for the second update. The witne
 
 | Confirmed contributor | Submitted work |
 | --- | --- |
-| Sun Haoyang / 1240001201 | Registered comparisons and diagnostics. Integrated evidence, audits and reports. |
+| Sun Haoyang / 1240001201 | Coordinated registered studies, fresh-host acceptance and final integration. |
 | Li Yangshuo / 1240001156 | Independent account rerun. Supplementary audit, PR #3. Report traceability, PR #5. |
-| He Boyu / 1240000576 | Four-thread evidence audit. Twostage source analysis and five witness replays, PR #4. |
+| He Boyu / 1240000576 | Four-thread audit; twostage source/replays, PR #4; six-log recount and slides, PR #6. |
 
-Original contributions and assistance statements appear in report section 10.
+Offline demonstration: six twostage logs → independent recount → published summary.
 
 ### Chinese speaker notes
 
-按实际提交范围说明贡献。孙皓扬组织协议、研究与整合；李扬烁贡献独立account宿主，并在PR #3做二次证据审查，在PR #5核对报告数值与引用；何博宇贡献四线程核数和twostage机制及五次重放。检查同一批数据可以形成有效审查贡献，应与原始测量归属区分。实施、执行和写作辅助详见报告使用声明。演示可以选报告Table 4的65与136，沿summary、records、原日志Round/Total行追溯，再展示make audit实际结果。
+按实际提交范围说明贡献。孙皓扬协调注册研究、组内验收和最终整合；李扬烁贡献独立account宿主、PR #3二次审查及PR #5报告追溯；何博宇贡献四线程核数、PR #4的twostage机制与五次重放，并在PR #6独立复算组内11月22日验收的六份twostage日志。PR #6没有新增测量，也不改原验收归属。实施、执行和写作辅助详见报告使用声明。
+
+离线演示统一使用scripts/recount_twostage_acceptance.py。先看序列化第二份日志：首次报错跟在test 0029后面，因此三个首次失败位置是4、29、4；其均值为37/3=12.3333，样本标准差为25/√3=14.4338。运行独立复算后对照已保存summary，每种方法三次搜索、每次33个请求。这个命令只读旧档案，不会重放或启动新工作负载。预先打开源码、原日志和summary；现场网络不可用时继续使用本地副本。
 
 ### Sources
 
-- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
-- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/docs/CONTRIBUTIONS.csv)
+- [Group report, section 10 and contribution table](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
+- [Contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/CONTRIBUTIONS.csv)
 - [Li Yangshuo report traceability PR #5](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5)
 - [He Boyu twostage PR #4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/4)
+- [He Boyu independent six-log recount and presentation PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6)
+- [Six-log recount source](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/scripts/recount_twostage_acceptance.py)
 
 ## Slide 14: Verdict and remaining question
 
@@ -322,5 +328,5 @@ Verification entry point: make audit
 
 ### Sources
 
-- [Group report, verdicts and limitations](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- [Group report, verdicts and limitations](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 - [Repository and reproducibility instructions](https://github.com/Sasuke-666/CS340-Research-Paper-Replication)

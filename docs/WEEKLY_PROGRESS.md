@@ -257,3 +257,40 @@ above with their actual contributions and remaining personal preparation.
 29 November: presentation rehearsal and final clean-environment reproduction.
 These are proposed internal milestones, not additional instructor deadlines.
 Continue substantive weekly work and push it before each weekly check.
+
+## Final working week — 23 to 29 November 2026
+
+24 November: the owner confirmed that this is the final project working week
+and requested completion of the remaining deliverables. The final closeout
+started from main `8b3102c64214e53782ca0496b61c81f50fb17ff1`. It follows the
+already completed 22 November five-case fresh-host acceptance; its 30 comparison
+calls, 15 pairs and 40 separate diagnostic calls keep their original date and
+host scopes. No new experiment is claimed by preparing final documents.
+
+The supplied five-page project instructions and seven-page syllabus were read
+again. [The requirements record](COURSE_REQUIREMENTS.md) distinguishes formal
+clauses, the owner's final-week confirmation and internal preparation.
+The [English rubric/delivery map](FINAL_SUBMISSION_CHECKLIST.md) and
+[Chinese submission/defence guide](MEMBER_ACTIONS_ZH.md) organize final material
+checks and three-person rehearsal. The remaining course information is limited
+to the exact submission route/deadline, separate presentation instructions and
+group-registration/fourth-member arrangements.
+
+He Boyu's PR #6 was submitted on 22 November, with inspected branch head
+`2aea86e1f35fdd8f2b482aec5f4b65b0568f0c9a`, and normally merged on 24 November as
+`7941e2b049bf80cddb0b8be723411badedab19b7`. It independently recounts the six
+twostage acceptance calls, records the Windows path-format comparison failure
+alongside successful Linux checks, and corrects rehearsal wording and batch
+labels. Its actual contribution is evidence review and presentation revision.
+The original acceptance measurements remain attributed to the group run, and
+the earlier member submission date remains unchanged.
+
+This week's closeout includes demonstrated archive path/newline portability
+repairs, native Windows archive checks, PR #6 integration and synchronized final
+report/presentation sources. All six final documents have been exported and
+visually checked. [The final validation record](FINAL_VALIDATION_20261124.md)
+records the source checks and document review. The final delivery is identified
+by `v1.0`, whose publishing job requires successful Linux/Windows checks and a
+verified document/source manifest. The tag and its own workflow provide the
+publication evidence; earlier green runs establish only their own revisions.
+Personal rehearsal and course upload remain separate student actions.

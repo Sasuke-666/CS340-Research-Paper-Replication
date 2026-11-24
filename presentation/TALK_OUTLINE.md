@@ -1,10 +1,10 @@
 # PERIOD replication: talk and defence outline
 
-Revised for group study on 22 November 2026, Macau/Beijing time. The
-[fourteen-slide rehearsal source](SLIDES.md) provides English screen text,
+Final content revision: 24 November 2026, Macau/Beijing time. The
+[fourteen-slide presentation source](SLIDES.md) provides English screen text,
 Chinese speaker notes and per-slide citations. The slide count is an internal
 content choice. Official duration, speaking allocation and marking details
-remain to be verified. The maintained [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+remain to be verified. The maintained [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md)
 is authoritative for the latest findings. No completed personal presentation
 is inferred from these materials.
 
@@ -38,8 +38,9 @@ C2 在相同宿主、程序、输入和已构建二进制上比较两个具体�
 
 这里的depth是发布驱动的bug-depth参数d。PERIOD遍历p=2到d+1，序列化驱动
 遍历p=N到d+N−1，N是枚举开始时观测到的线程数。以三线程d=3为例，
-PERIOD的period数为2、3、4，序列化为3、4、5。C2比较这两个已发布配置，
-绝对period边界和其他保留的驱动差异均属于比较范围，不能据此单独归因于调度器。[S2，§2]
+PERIOD的period数为2、3、4，序列化为3、4、5。双线程twostage则都是2、3、4。
+C2比较这两个已发布配置；线程数决定绝对边界是否不同，其他保留的驱动差异也
+属于比较范围，不能据此单独归因于调度器。[S2，§2]
 
 序列化方法名称始终使用 `author_serialized_abi16`。原作者旧驱动与当前运行时存在
 共享内存接口不兼容，本组按已记录补丁完成最小适配。论文历史 Serial 可执行程序
@@ -58,6 +59,7 @@ separate; preserve every failed or censored attempt.
 | Li Yangshuo's separate `account` rerun | 20 complete calls, 10 per method | Independent host corroboration; separate statistics |
 | Readable capacity diagnostic | 40 complete calls across two case/host scopes | 10 complete pairs per case; separate statistics |
 | He Boyu's `twostage` witness study | 5 completed replays of one selected input | Separate build/host observation; no paired exploration design |
+| 22 November engineering acceptance | 30 complete comparison calls; 40 additional diagnostic calls | 15 comparison pairs across five separate case hosts; independent n=3 summaries |
 
 说明：一次配对需要同批次的两个条件都完整结束。原批次四线程 PERIOD 的十次结果
 仍是完整观测，但没有对应的完整序列化运行，因而不能组成十个完整耗时配对。
@@ -77,6 +79,12 @@ separate; preserve every failed or censored attempt.
 恢复批次已完成 20 次尝试，全部完整且合格，共十对；Git 归档与备用 ZIP 均已保存。[S13]
 它的新观测不能替代原作业的缺失观测，
 也不能把原作业的未知尝试数记为零。演示按实际归档分别讲清案例和宿主范围。
+
+11月22日验收预先以`2de3787`登记，随后运行`45015126850` attempt 1。
+五个程序各在新宿主完成两种方法、每种三次比较，共30次、15对；另有40次
+reorder_3固定见证诊断，两种倍率各20次。所有比较均完整且无内外超时或预算截断。
+这验证了记录环境中的构建和执行入口。验收使用独立汇总，不扩大历史106/96/43，
+也不保证换一台机器后每次都会得到相同的失败位置。[S17]
 
 ## 4. The clearest result
 
@@ -185,45 +193,39 @@ depth 2和3的六次运行都在第6个请求`[[0],[2],[0,1,1]]`首次失败，�
 
 ## 7. Evidence demonstration
 
-选择一个能当场解释的数字，演示“报告—汇总—记录—原始日志—摘要校验”的路径。
-建议使用四线程后续批次，因为六条调用及三对关系清晰。[S5；S7]
+演示统一使用11月22日验收中的六份twostage日志及何博宇的独立复算，路径与
+Slide 13一致。演示前在本地打开以下文件，网络不可用时也能继续讲解。[S17–S18]
 
-1. 在[报告第 4 节的 Table 4](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md#4-matched-comparison-and-efficiency-interpretation)找到 PERIOD 100 与序列化 384，再对照[该批次独立汇总](../results/2026-11-07/summaries/comparison-42384122902/SUMMARY.md)。
-2. 打开[六条调用的 records.json](../results/2026-11-07/comparison-42384122902/reorder_4/records.json)，确认方法、重复编号和实际状态。
-3. 对照[period_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/period_r01.txt)和[author_serialized_abi16_r01.txt](../results/2026-11-07/comparison-42384122902/reorder_4/author_serialized_abi16_r01.txt)的完成标记与计数。
-4. 解释 `(384 - 100) / 384 = 73.96%`，并展示另两对得到相同总数。
-5. 说明清单摘要验证文件完整性，独立复算验证统计口径；两者各有用途。
+1. 打开[验收范围记录](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json)，说明twostage只是30次比较中的6次，不是11月15日的5次单见证重放。
+2. 打开[twostage records.json](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/records.json)，确认两种方法各三次、三个配对及240秒外层上限。
+3. 打开[序列化第二份日志](../results/2026-11-22/acceptance-45015126850-attempt1/twostage/author_serialized_abi16_r02.txt)，定位`test 0029`后的第一个`[Error Found]`。错误编号`NO.1`表示第一个报错，其请求位置是29。
+4. 对照另外两次的首次失败位置4和4，计算均值`37/3 = 12.3333`、样本标准差`25/√3 = 14.4338`。三次均枚举33个请求；每次完整搜索可以触发多个失败请求。
+5. 运行下面的只读复算，再对照[独立汇总](../results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md)。说明文件摘要验证完整性，原始日志重算验证统计口径。
 
-在仓库根目录运行下面的独立复算命令，核对同一六调用批次及其已保存汇总：
+从仓库根目录运行：
 
 ```sh
-python3 scripts/summarize_comparison.py \
-  results/2026-11-07/comparison-42384122902 \
-  --cases reorder_4 --repeats 3 \
-  --output results/2026-11-07/summaries/comparison-42384122902 \
-  --check
+python3 scripts/recount_twostage_acceptance.py
 ```
 
-预期核对范围为六次完整调用、两种方法各三次、三组完整配对；两方法的枚举均值
-分别为 100 和 384，样本标准差均为 0。`--check` 核对已保存汇总并保留原始档案，
-该命令不会启动新实验。正式现场演示方式仍结合最终展示要求安排。
-
-这些总数来自驱动的`Round`/`Total`行和顺序test记录；runner footer记录退出码、
-超时状态与总耗时。可以在仓库根目录运行`make audit`，验证现有原始文件和汇总。
-该命令只检查归档，不启动新工作负载。
-
-补充见证演示：打开
-[twostage 第一次重放日志](../results/member-reruns/1240000576-twostage-43681034375/replay-1.txt)，
-定位`Perform Reproduction!`之后的匹配断言，再运行`make audit-member-reviews`，
-核验40份account序列和五次twostage重放证据。现场可用实际保存的检查输出。[S15]
+命令核对六份原始日志、完成状态及六项已发布统计。PERIOD首次失败位置为4、4、4；
+序列化为4、29、4，两方法的枚举均值均为33。输出保留每份日志的失败请求ID，
+不会重放见证或启动新工作负载。若展示时间较短，现场只讲第3–5步，其他来源作为
+答疑入口。项目级`make audit`另外验证所有已归档研究，运行记录与验收日期分开。
 
 ### Contribution attribution
 
 孙皓扬组织实验协议、组内测量、仓库整合与报告。李扬烁提交独立account宿主结果，
 之后在PR #3补充序列核对和来源审查，并在PR #5核对报告追溯路径、补齐正文图表
-引用。何博宇先提交四线程核数，再在PR #4提交twostage源码、偏序说明和五次重放。
+引用。何博宇先提交四线程核数，在PR #4提交twostage源码、偏序说明和五次重放，
+再在PR #6独立复算组内验收的六份日志并改进展示内容。
 按各自原始PR和提交记录归属，二次审查按实际工作范围说明。实施、执行和写作
-辅助见报告的使用说明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S16]
+辅助见报告的使用说明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S18]
+
+备讲分工可按已提交工作安排：孙皓扬解释两项主张、控制设计和各批次分母；
+李扬烁解释独立account宿主与报告数字追溯；何博宇解释twostage必要偏序和上述
+六日志复算。每位成员应能回答对应的“实际观察了什么、仍不知道什么、原始证据在哪”。
+这是准备安排，实际发言和交叉复核完成后再记录姓名与日期。
 
 ## 8. Questions to prepare
 
@@ -234,17 +236,19 @@ python3 scripts/summarize_comparison.py \
 | Does the first failing schedule measure time to bug? | It is a one-based enumeration position. Whole-driver elapsed time includes calibration and other work; time to the first error was not separately measured. |
 | Is 120 seconds the serialized completion time? | The ten runs were stopped at the outer bound. Their completion times and final totals are missing; the observed prefixes remain available. |
 | Why did the old serialized driver crash? | Source and syscall evidence supports the shared-memory size/type incompatibility; archived probes and the scoped adapter are in report §5.1. |
-| Does depth 3 impose the same period bound on both drivers? | PERIOD enumerates p=2 through d+1; the released serialized driver enumerates p=N through d+N−1. Three threads at d=3 give 2–4 versus 3–5 periods. C2 concerns these released configurations. See report §2. |
+| Does depth 3 impose the same period bound on both drivers? | PERIOD enumerates p=2 through d+1; the released serialized driver enumerates p=N through d+N−1. Three threads at d=3 give 2–4 versus 3–5 periods; two-thread twostage gives 2–4 for both. C2 concerns the released configurations. See report §2. |
 | Does the adapter prove historical Serial identity? | Its changes are documented and the serialized scheduling section is preserved. Other released-driver differences remain, and the exact historical executable is unverified. |
 | Is the result a general speedup? | Timing observations concern the specified implementations within matched cases and hosts. Case totals and host times are not pooled into a universal speedup. |
 | Why preserve the replay miss? | The original fixed witness hit 4/5. Later two-setting diagnostics each hit 20/20 per setting and did not explain that miss. These batches retain separate scopes. |
 | Does a zero standard deviation prove determinism? | It describes the observed repeated metric. Execution traces and other failure metrics can still vary, and a finite sample does not establish universal behavior. |
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
-| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
+| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
 | Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
 | What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
 | Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
+| Is the 22 November acceptance part of the original 106/96/43 accounting? | It is a separate registered engineering batch: 30 complete comparisons, 15 pairs and 40 additional diagnostics on new hosts. Historical statistics are unchanged. See S17. |
+| Did PR #6 produce six new twostage runs? | It independently recounts six already archived acceptance calls and improves the presentation. The original group acceptance and the member's secondary review have separate attribution. See S18. |
 
 ## 9. Closing message
 
@@ -262,8 +266,8 @@ both audited cases. Our overall verdict is partial reproduction.
   ICSE 2022, DOI: 10.1145/3510003.3510178.
   [Original paper](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf),
   sections 2.2 and 3 for the method; Table 2 for paper references.
-- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md), with numbered tables,
-  figures, scoped verdicts and original data references, frozen at publication `2de3787` for this rehearsal.
+- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0/report/EXPANDED_REPORT.md), with numbered tables,
+  figures, scoped verdicts and original data references at the final `v1.0` handoff.
 - S3. [Registered comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md).
 - S4. [Compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
   and [source/attribution record](../docs/SOURCES.md).
@@ -296,3 +300,9 @@ both audited cases. Our overall verdict is partial reproduction.
   [PR #3](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/3), and
   [PR #5 report traceability audit](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/5),
   submitted 22 November 2026, Macau/Beijing time.
+- S17. [Registered fresh-host acceptance protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/experiments/2026-11-22/ACCEPTANCE_PROTOCOL.md)
+  and [independent acceptance receipt](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json),
+  original run `45015126850`, attempt 1, 22 November 2026.
+- S18. [He Boyu's six-log recount and presentation review](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2aea86e1f35fdd8f2b482aec5f4b65b0568f0c9a/docs/reviews/1240000576-presentation-check-20261122.md)
+  and [PR #6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/6),
+  submitted 22 November and integrated 24 November 2026; secondary analysis of the group acceptance archive.
