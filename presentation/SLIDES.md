@@ -49,19 +49,21 @@ A requested schedule constrains execution. The realized order still needs eviden
 - C1: Do the selected Table 2 counts and failure metrics reproduce?
 - C2: Under released depth rules, does PERIOD reduce search and still find failure?
 - Five programs from four families. Depth d=3. Budget 10,000.
-- Baseline: author_serialized_abi16. Different period bounds. Same case host and binary.
+- Each pair uses one host and binary. Period bounds depend on the driver and thread count.
+- Baseline: author_serialized_abi16.
 
 Source cb8deb9. Image sha256:8f47d8b9…59fbc. Full pins and deviations appear in the report.
 
 ### Chinese speaker notes
 
-C1同时比较枚举总数、首次失败位置和错误调度数。C2比较两个发布版驱动各自深度规则下的配置：PERIOD遍历period数p=2到d+1，序列化驱动遍历p=N到d+N−1，N为枚举开始时观测到的线程数。三线程d=3时，两者分别覆盖p=2、3、4与p=3、4、5。因此数值相同的depth并不对应相同的绝对period边界，保留的驱动差异也使本比较无法把效果单独归因于调度器。源代码固定在cb8deb9，镜像固定到摘要，每批次另记录宿主和内核。原序列化接口需要最小适配，其历史可执行程序同一性仍未证明。结论限于五个选定程序和上述配置。
+C1同时比较枚举总数、首次失败位置和错误调度数。C2比较两个发布版驱动各自深度规则下的配置。PERIOD遍历period数p=2到d+1，序列化驱动遍历p=N到d+N−1，N为枚举开始时观测到的线程数。取d=3，三线程的reorder_3分别覆盖2至4和3至5，双线程的twostage则都覆盖2至4。即使边界相同，两种驱动仍各用自己的调度规则，这项比较无法把效果单独归因于调度器。源代码固定在cb8deb9，镜像固定到摘要，每批次另记录宿主和内核。原序列化接口需要最小适配，其历史可执行程序同一性仍未证明。结论限于五个选定程序和上述配置。
 
 ### Sources
 
 - [Group report, sections 1–2 and Appendix A](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
 - [Registered comparison protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPARISON_PROTOCOL.md)
 - [Compatibility protocol](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
+- Enumeration bounds in the archived [PERIOD driver](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/reorder_3/source/run_PDS.py#L636-L647) and [serialized driver](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/reorder_3/source/run_OldPDS_abi16.py#L617-L630)
 
 ## Slide 04: Attempts, completions and pairs
 
@@ -100,11 +102,11 @@ Native editable chart data:
 | lazy01 | 39 | 60 |
 | twostage | 33 | 33 |
 
-Explored schedules. n=10 pairs per case, except reorder_4 n=3. Twostage ties at 33.
+Original comparison and four-thread follow-up. Ten pairs per case, except three for reorder_4. Twostage ties at 33.
 
 ### Chinese speaker notes
 
-五行均为同案例同宿主的比较，两种发布驱动各自使用第3页说明的depth到period映射。四线程使用独立完成研究的三对，其余四案例使用十对，每行枚举数的样本标准差为0。减少比例依次是10.00%、73.96%、52.21%、35.00%、0%。每次完整调用均发现目标错误。这支持限定配置内的C2，调度总数的减少不能直接推导首次失败更早或所有程序更快。
+五行均为同案例同宿主的比较，两种发布驱动各自使用第3页说明的depth到period映射。四线程使用原补充实验的三对，其余四个案例各使用原主批次的十对，每行枚举数的样本标准差为0。减少比例依次是10.00%、73.96%、52.21%、35.00%、0%。每次完整调用均发现目标错误。这支持限定配置内的C2，调度总数的减少不能直接推导首次失败更早或所有程序更快。
 
 ### Sources
 
@@ -233,24 +235,25 @@ Mean ± sample SD, n=10 per method. Keep this host separate from the primary bat
 ### English screen text
 
 
-| Step | Actor | Source-required observation |
+| Step | Actor | Event inferred from source and assertion |
 | --- | --- | --- |
-| 1 | Writer A | Publish field 1 = 1 under lock 1. |
-| 2 | Reader B | Pass the guard and retain local t1 = 1. |
-| 3 | Reader B | Sample field 2 = 0 before its update. |
-| 4 | Reader B | Check 0 ≠ 1 + 1 and reach the assertion. |
+| 1 | Writer A | Set data1Value to 1 under data1Lock, then release it. |
+| 2 | Reader B | Under data1Lock, pass the guard and copy 1 into t1. |
+| 3 | Reader B | Under data2Lock, copy the initial data2Value of 0 into t2. |
+| 4 | Reader B | The two local values satisfy t2 ≠ t1 + 1. Line 48 calls assert(0). |
 
-Source-derived necessary partial order. Exact preemption points remain unknown.
+A releases data1Lock before acquiring data2Lock for the second update. The witness records the line-48 assertion. Exact preemption points remain unknown.
 
 ### Chinese speaker notes
 
-twostage默认一个写线程A和一个读线程B，两个字段用不同锁保护。A先发布字段1=1，B随后通过非零检查保存t1=1，再在第二把锁下读到字段2旧值0，最终断言失败。这里是源代码和断言共同限定的必要偏序。原日志并未记录每个操作的时间戳或唯一锁顺序；A可能在B取样后、程序终止前写入字段2。图表中不要将推断标成观测轨迹。
+默认只有一个写线程A和一个读线程B，两个共享字段初值都是0。A在第一把锁下把data1Value写成1，释放锁后，若执行到第24行，就在第二把锁下读回它，把data2Value写成2。B分两次加锁取样。能走到第48行，说明B通过非零检查时拿到了t1=1，随后把第二个字段的旧值0存入t2。即使A此后写入2，B的局部副本仍是0。原日志记录了调度请求和报错，见证记录了funcB第48行断言。表中的取样值和必要先后来自源码推导，日志没有逐次记录锁操作或抢占点。
 
 ### Sources
 
 - [Twostage source analysis](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/docs/reviews/1240000576-twostage-witness-review.md)
 - [Source-derived partial order](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/docs/reviews/1240000576-twostage-trace.md)
 - [Archived original C source](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/2026-11-07/comparison-42381922637/twostage/source/twostage_bad.c)
+- Original [PERIOD request and error](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/twostage/period_r01.txt#L32-L34) and [saved assertion witness](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-07/comparison-42381922637/twostage/witnesses/period/r01/000001_0000004_assertion-failed#L1-L4)
 
 ## Slide 12: Replay evidence keeps its own scope
 
@@ -264,16 +267,19 @@ twostage默认一个写线程A和一个读线程B，两个字段用不同锁保�
 | reorder_3, run 42380929383 | Same fixed witness | 20/20 at each multiplier |
 | reorder_3, run 42381922637 | Same fixed witness | 20/20 at each multiplier |
 
-These are separate studies. Later diagnostics leave the earlier reorder_3 miss unexplained.
+22 November acceptance: 30 complete comparison calls (15 pairs), including 6 twostage calls (3 pairs). Another 40 calls tested the reorder_3 witness.
 
 ### Chinese speaker notes
 
-何博宇用原twostage第1次PERIOD运行第4个请求的见证，进行五次预先固定的重放。全部在Perform Reproduction标记之后出现相同funcB第48行断言。重建二进制的记录摘要与原归档相同，驱动返回0本身不能证明目标失败。该结果只覆盖此输入、此build和host。下面保留不同程序reorder_3的早期4/5与两个后续批次，每个后续批次的两种倍率分别20/20。早期漏报的原因仍未解释。
+11月15日何博宇提交的研究选用了原twostage第1次PERIOD运行第4个请求的见证。归档的五次连续重放均在Perform Reproduction标记之后出现funcB第48行断言。重建二进制的摘要与原归档相同。5/5只适用于这个见证、构建和宿主，判断依据是实际断言输出。表中的reorder_3早期为4/5，随后两个批次均为每种倍率20/20，早期一次未触发的原因仍未解释。
+
+11月22日，组内在新宿主验收批次中对五个程序完成30次比较，形成15组配对。其中twostage两种方法各运行3次，共6次搜索、3组配对。另有40次reorder_3诊断，两种倍率各20次。原主批次与四线程补充实验合计的106次尝试、96次完整调用、43组完整配对沿用第4页口径。
 
 ### Sources
 
 - [Twostage replay evidence](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/be8688609e9da8aeb0e1eeaf5a60d115486ed1bf/results/member-reruns/1240000576-twostage-43681034375/README.md)
 - [Group report, sections 5.4–5.5 and Table 6](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/2de378771adbeeced2709f9bc4ca436799848197/report/EXPANDED_REPORT.md)
+- 22 November [per-case comparison summary](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/SUMMARY.md), [acceptance counts](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/acceptance.json) and [reorder_3 diagnostic breakdown](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/8b3102c64214e53782ca0496b61c81f50fb17ff1/results/2026-11-22/summaries/acceptance-45015126850-attempt1/summary.json)
 
 ## Slide 13: Contributions and evidence trail
 
