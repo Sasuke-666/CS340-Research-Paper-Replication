@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "comparison_trials": 30,
+  "method_groups": 10,
+  "paired_case_rows": 5,
+  "csv_comparison_rows": 30,
+  "summary_method_rows": 10,
+  "summary_paired_rows": 5
+}
