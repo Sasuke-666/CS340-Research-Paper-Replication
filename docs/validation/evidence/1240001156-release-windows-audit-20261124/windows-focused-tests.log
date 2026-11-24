@@ -1,0 +1,39 @@
+test_counts (tests.test_period_comparison.ComparisonTests.test_counts) ... ok
+test_diagnostic_patch_exact (tests.test_period_comparison.ComparisonTests.test_diagnostic_patch_exact) ... ok
+test_diagnostic_patch_fails_closed (tests.test_period_comparison.ComparisonTests.test_diagnostic_patch_fails_closed) ... ok
+test_duplicate_end_or_footer_rejected (tests.test_period_comparison.ComparisonTests.test_duplicate_end_or_footer_rejected) ... ok
+test_duplicate_rejected (tests.test_period_comparison.ComparisonTests.test_duplicate_rejected) ... ok
+test_error_after_end_marker_rejected (tests.test_period_comparison.ComparisonTests.test_error_after_end_marker_rejected) ... ok
+test_error_before_any_test_rejected (tests.test_period_comparison.ComparisonTests.test_error_before_any_test_rejected) ... ok
+test_failed_invocation_cannot_inherit_old_witnesses (tests.test_period_comparison.ComparisonTests.test_failed_invocation_cannot_inherit_old_witnesses) ... ok
+test_inconsistent_total_rejected (tests.test_period_comparison.ComparisonTests.test_inconsistent_total_rejected) ... ok
+test_missing_remains_missing (tests.test_period_comparison.ComparisonTests.test_missing_remains_missing) ... ok
+test_no_end_rejected (tests.test_period_comparison.ComparisonTests.test_no_end_rejected) ... ok
+test_only_new_case_directories_supply_witnesses (tests.test_period_comparison.ComparisonTests.test_only_new_case_directories_supply_witnesses) ... ok
+test_prefix_counted (tests.test_period_comparison.ComparisonTests.test_prefix_counted) ... ok
+test_schedule_beyond_budget_rejected (tests.test_period_comparison.ComparisonTests.test_schedule_beyond_budget_rejected) ... ok
+test_cli_case_and_repetition_design_survives_read_only_audit (tests.test_comparison_summary.BatchTests.test_cli_case_and_repetition_design_survives_read_only_audit) ... ok
+test_legacy_failure_is_not_zero_result (tests.test_comparison_summary.BatchTests.test_legacy_failure_is_not_zero_result) ... ok
+test_manifest_binary_and_order_are_checked (tests.test_comparison_summary.BatchTests.test_manifest_binary_and_order_are_checked) ... ok
+test_manual_numeric_recount_and_pairs (tests.test_comparison_summary.BatchTests.test_manual_numeric_recount_and_pairs) ... ok
+test_outer_timeout_preserves_observed_prefix_and_excludes_completion_estimate (tests.test_comparison_summary.BatchTests.test_outer_timeout_preserves_observed_prefix_and_excludes_completion_estimate) ... ok
+test_published_summary_is_audited_without_rewriting (tests.test_comparison_summary.BatchTests.test_published_summary_is_audited_without_rewriting) ... ok
+test_record_hash_is_checked_independently_of_manifest (tests.test_comparison_summary.BatchTests.test_record_hash_is_checked_independently_of_manifest) ... ok
+test_ansi_prefix_and_event_numbers (tests.test_comparison_summary.RawLogTests.test_ansi_prefix_and_event_numbers) ... ok
+test_crash_preserves_null_outcome (tests.test_comparison_summary.RawLogTests.test_crash_preserves_null_outcome) ... ok
+test_duplicate_end_or_footer_is_rejected (tests.test_comparison_summary.RawLogTests.test_duplicate_end_or_footer_is_rejected) ... ok
+test_events_after_end_marker_are_rejected (tests.test_comparison_summary.RawLogTests.test_events_after_end_marker_are_rejected) ... ok
+test_gap_in_schedule_ordinals_is_rejected (tests.test_comparison_summary.RawLogTests.test_gap_in_schedule_ordinals_is_rejected) ... ok
+test_inconsistent_footer_is_rejected (tests.test_comparison_summary.RawLogTests.test_inconsistent_footer_is_rejected) ... ok
+test_replay_successful_target_does_not_establish_assertion (tests.test_comparison_summary.RawLogTests.test_replay_successful_target_does_not_establish_assertion) ... ok
+test_replay_target_failure_is_separate_from_wrapper_success (tests.test_comparison_summary.RawLogTests.test_replay_target_failure_is_separate_from_wrapper_success) ... ok
+test_required_footer_order_is_enforced (tests.test_comparison_summary.RawLogTests.test_required_footer_order_is_enforced) ... ok
+test_unattributed_error_is_rejected (tests.test_comparison_summary.RawLogTests.test_unattributed_error_is_rejected) ... ok
+test_paper_gaps (tests.test_comparison_summary.StatisticsTests.test_paper_gaps) ... ok
+test_sample_sd_and_empty_denominators (tests.test_comparison_summary.StatisticsTests.test_sample_sd_and_empty_denominators) ... ok
+test_wilson_and_paired_exact_test (tests.test_comparison_summary.StatisticsTests.test_wilson_and_paired_exact_test) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.329s
+
+OK

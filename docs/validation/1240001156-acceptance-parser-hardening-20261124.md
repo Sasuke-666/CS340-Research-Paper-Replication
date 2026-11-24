@@ -131,11 +131,15 @@ Validation results:
 - `make audit`: status 0.
 - Integrity checks for historical, member, capacity and acceptance batches: passed.
 - Report-table checks: passed.
+- Native Windows Python 3.14.7 focused regression check: **34 tests passed**, exit code 0.
+
+The two affected test modules were downloaded from this PR's final source revision and rerun in the existing isolated Windows Python 3.14.7 environment. This closes the cross-platform loop for the parser changes without modifying any archived evidence or experimental result.
 
 Transcripts:
 
 - `evidence/1240001156-release-windows-audit-20261124/parser-hardening-tests.log`
 - `evidence/1240001156-release-windows-audit-20261124/parser-hardening-audit.log`
+- `evidence/1240001156-release-windows-audit-20261124/windows-focused-tests.log`
 
 ## 6. Scope and limits
 
