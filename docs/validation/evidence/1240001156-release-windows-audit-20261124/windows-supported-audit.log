@@ -1,0 +1,725 @@
+=== python -m unittest discover -s tests -p test_portable_archives.py -v ===
+test_raw_log_line_endings_are_still_manifest_protected (test_portable_archives.PortableArchiveTests.test_raw_log_line_endings_are_still_manifest_protected) ... ok
+test_windows_relative_paths_match_published_linux_outputs (test_portable_archives.PortableArchiveTests.test_windows_relative_paths_match_published_linux_outputs) ... ok
+test_windows_text_defaults_preserve_published_summary_bytes (test_portable_archives.PortableArchiveTests.test_windows_text_defaults_preserve_published_summary_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.799s
+
+OK
+=== python scripts/check_repository.py ===
+PASS: checked repository file rules. No experiment result has been verified.
+=== python scripts/verify_period_evidence.py ===
+{
+  "verified_manifest_files": 126,
+  "verified_command_logs": 40,
+  "replay_expected_signatures": {
+    "reorder_3_bad": {
+      "hits": 4,
+      "trials": 5
+    },
+    "reorder_4_bad": {
+      "hits": 5,
+      "trials": 5
+    },
+    "df": {
+      "hits": 5,
+      "trials": 5
+    }
+  },
+  "pilot_schedule_lists_identical": {
+    "pilot:smoke_double_free": true,
+    "pilot:CS.reorder_3_bad": true,
+    "pilot:CS.reorder_4_bad": true
+  }
+}
+=== python scripts/audit_period_results.py ===
+{
+  "scope": "Independent re-count of the archived 2026-11-07 study; no new experiments",
+  "raw_files": 126,
+  "command_logs": 40,
+  "test_and_replay_invocations": 33,
+  "phase_counts": {
+    "followup/build": 3,
+    "followup/deadline_probe": 1,
+    "followup/extension": 9,
+    "followup/replay": 15,
+    "pilot/build": 3,
+    "pilot/run": 9
+  },
+  "replays": {
+    "df": {
+      "trials": 5,
+      "signature_hits": 5
+    },
+    "reorder_3_bad": {
+      "trials": 5,
+      "signature_hits": 4
+    },
+    "reorder_4_bad": {
+      "trials": 5,
+      "signature_hits": 5
+    }
+  },
+  "summaries": [
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "first_error_schedule",
+      "measured_n": 0,
+      "missing_n": 3,
+      "mean": null,
+      "sample_sd": null
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 0,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 1,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 0.3714896983333347,
+      "sample_sd": 0.09181401000924173
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 13,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 2,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 2,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 2.876649674666666,
+      "sample_sd": 0.19804243659557694
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 27,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 5,
+      "sample_sd": 1.7320508075688772
+    },
+    {
+      "batch": "followup",
+      "case": "reorder_3_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6.459186292666672,
+      "sample_sd": 1.974968747473522
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0,
+      "paper_reference": 6,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 27,
+      "sample_sd": 0.0,
+      "paper_reference": 27,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0,
+      "paper_reference": 6,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_3_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 7.334859932999994,
+      "sample_sd": 0.20388812596489228
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 11.666666666666666,
+      "sample_sd": 2.309401076758503,
+      "paper_reference": 9,
+      "absolute_delta": 2.666666666666666,
+      "relative_delta_percent": 29.629629629629626
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 100,
+      "sample_sd": 0.0,
+      "paper_reference": 100,
+      "absolute_delta": 0,
+      "relative_delta_percent": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 10.666666666666666,
+      "sample_sd": 2.309401076758503,
+      "paper_reference": 12,
+      "absolute_delta": -1.333333333333334,
+      "relative_delta_percent": -11.111111111111116
+    },
+    {
+      "batch": "pilot",
+      "case": "CS.reorder_4_bad",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 17.474733094333335,
+      "sample_sd": 3.5082850081813977
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "first_error_schedule",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "observed_schedule_count",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 6,
+      "sample_sd": 0.0
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "reported_buggy_schedules",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 3.6666666666666665,
+      "sample_sd": 0.5773502691896257
+    },
+    {
+      "batch": "pilot",
+      "case": "smoke_double_free",
+      "depth": 3,
+      "metric": "elapsed_seconds",
+      "measured_n": 3,
+      "missing_n": 0,
+      "mean": 7.756688809666675,
+      "sample_sd": 1.042484404449214
+    }
+  ]
+}
+
+=== python scripts/audit_member_reviews.py ===
+PASS: 40 archived account logs match the two declared request sequences; 12 replay files match their checksums; 5/5 post-reproduction assertions.
+Offline evidence verification only; no new measurements or personal explanation certified.
+=== python scripts/audit_report.py ===
+{
+  "integrity_ok": true,
+  "errors": [],
+  "revision_date": "2026-11-24",
+  "quantitative_tables": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "checked_cells": 321,
+  "quantitative_or_missingness_cells": 236,
+  "caption_count": 18,
+  "coverage": [
+    {
+      "table": "2",
+      "rows": 15,
+      "checked_cells": 90,
+      "quantitative_or_missingness_cells": 60,
+      "sources": [
+        "results/2026-11-07/summaries/comparison-42381922637/summary.json"
+      ]
+    },
+    {
+      "table": "3",
+      "rows": 15,
+      "checked_cells": 90,
+      "quantitative_or_missingness_cells": 60,
+      "sources": [
+        "results/2026-11-07/summaries/comparison-42381922637/summary.json",
+        "results/2026-11-07/summaries/comparison-42384122902/summary.json"
+      ]
+    },
+    {
+      "table": "4",
+      "rows": 5,
+      "checked_cells": 20,
+      "quantitative_or_missingness_cells": 15,
+      "sources": [
+        "results/2026-11-07/summaries/comparison-42381922637/summary.json",
+        "results/2026-11-07/summaries/comparison-42384122902/summary.json"
+      ]
+    },
+    {
+      "table": "5",
+      "rows": 5,
+      "checked_cells": 20,
+      "quantitative_or_missingness_cells": 15,
+      "sources": [
+        "results/2026-11-07/summaries/comparison-42381922637/summary.json",
+        "results/2026-11-07/summaries/comparison-42384122902/summary.json"
+      ]
+    },
+    {
+      "table": "6",
+      "rows": 3,
+      "checked_cells": 9,
+      "quantitative_or_missingness_cells": 6,
+      "sources": [
+        "results/2026-11-07/followup/followup.json",
+        "results/2026-11-07/summaries/comparison-42380929383/summary.json",
+        "results/2026-11-07/summaries/comparison-42381922637/summary.json"
+      ]
+    },
+    {
+      "table": "7",
+      "rows": 3,
+      "checked_cells": 18,
+      "quantitative_or_missingness_cells": 18,
+      "sources": [
+        "results/2026-11-07/followup/followup.json",
+        "results/2026-11-07/extension_summary.csv"
+      ]
+    },
+    {
+      "table": "8",
+      "rows": 2,
+      "checked_cells": 10,
+      "quantitative_or_missingness_cells": 8,
+      "sources": [
+        "results/member-reruns/1240001156-account-20261108T122201Z-summary/summary.json"
+      ]
+    },
+    {
+      "table": "9",
+      "rows": 3,
+      "checked_cells": 12,
+      "quantitative_or_missingness_cells": 9,
+      "sources": [
+        "results/2026-11-14/layout-recovery-43575584325/account/runtime_layout.json",
+        "results/2026-11-14/layout-recovery-43575584325/account/synthetic_decode_probe.json",
+        "results/2026-11-14/layout-43570556202/lazy01/runtime_layout.json",
+        "results/2026-11-14/layout-43570556202/lazy01/synthetic_decode_probe.json"
+      ]
+    },
+    {
+      "table": "10",
+      "rows": 3,
+      "checked_cells": 18,
+      "quantitative_or_missingness_cells": 15,
+      "sources": [
+        "experiments/2026-11-14/account-evidence-failure/FINAL_OBSERVATION.json",
+        "results/2026-11-14/summaries/layout-43570556202-lazy01/summary.json",
+        "results/2026-11-14/summaries/layout-recovery-43575584325-account/summary.json"
+      ]
+    },
+    {
+      "table": "11",
+      "rows": 4,
+      "checked_cells": 24,
+      "quantitative_or_missingness_cells": 20,
+      "sources": [
+        "results/2026-11-14/summaries/layout-recovery-43575584325-account/summary.json",
+        "results/2026-11-14/summaries/layout-43570556202-lazy01/summary.json"
+      ]
+    },
+    {
+      "table": "12",
+      "rows": 2,
+      "checked_cells": 10,
+      "quantitative_or_missingness_cells": 10,
+      "sources": [
+        "results/2026-11-14/summaries/layout-recovery-43575584325-account/summary.json",
+        "results/2026-11-14/summaries/layout-43570556202-lazy01/summary.json"
+      ]
+    }
+  ],
+  "scope": "Tables 2–12, registered sample/batch/difference definitions, captions, narrative callouts, figure paths and report revision date. Underlying evidence audits run separately; original-paper accuracy, all prose, SVG plotting contents and final visual layout require their own review."
+}
+=== python scripts/audit_report_explanations.py ===
+{
+  "integrity_ok": true,
+  "evidence_verification": {
+    "hash_and_size_checked_files": 66,
+    "raw_logs": 61,
+    "source_and_configuration_files": 5,
+    "manifests": [
+      "results/2026-11-07/comparison-42381922637/archive_manifest.json",
+      "results/2026-11-07/manifest.json"
+    ]
+  },
+  "comparison_frequency_results": [
+    {
+      "case": "account",
+      "method": "period",
+      "n": 10,
+      "first_error_frequency": {
+        "10": 9,
+        "11": 1
+      }
+    },
+    {
+      "case": "lazy01",
+      "method": "period",
+      "n": 10,
+      "first_error_frequency": {
+        "8": 10
+      }
+    },
+    {
+      "case": "twostage",
+      "method": "period",
+      "n": 10,
+      "first_error_frequency": {
+        "4": 9,
+        "17": 1
+      },
+      "buggy_count_frequency": {
+        "1": 1,
+        "2": 9
+      }
+    },
+    {
+      "case": "account",
+      "method": "author_serialized_abi16",
+      "n": 10,
+      "first_error_frequency": {
+        "4": 8,
+        "20": 1,
+        "25": 1
+      }
+    },
+    {
+      "case": "lazy01",
+      "method": "author_serialized_abi16",
+      "n": 10,
+      "first_error_frequency": {
+        "4": 8,
+        "16": 1,
+        "24": 1
+      }
+    }
+  ],
+  "three_thread_depth_period_pairs": {
+    "period": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "author_serialized_abi16": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ]
+  },
+  "extension_runs_checked": 9,
+  "extension_request_counts": {
+    "1": 3,
+    "2": 13,
+    "3": 27
+  },
+  "all_extension_sequences_equal_corresponding_depth3_prefix": true,
+  "depth3_request_count_by_periods": {
+    "2": 3,
+    "3": 10,
+    "4": 14
+  },
+  "first_failure_at_depth2_and_depth3": 6,
+  "request_6": [
+    [
+      0
+    ],
+    [
+      2
+    ],
+    [
+      0,
+      1,
+      1
+    ]
+  ],
+  "source_checks": "Thread counts, creation order, setter write order, checker condition and key-point configuration.",
+  "prose_automatically_bound": false,
+  "scope": "Checks the archived evidence underlying the named explanations. Natural-language report prose is not automatically bound or validated; requested-order and source checks do not reconstruct actual memory-operation traces or establish causal effects."
+}
+=== python scripts/summarize_comparison.py results/2026-11-07/comparison-42380166815 --manifest-only ===
+{
+  "scope": "manifest-only; no complete scientific sample required",
+  "manifest_count": 1,
+  "checked_file_entries": 135,
+  "integrity_ok": true,
+  "integrity_errors": []
+}
+=== python scripts/summarize_comparison.py results/2026-11-07/comparison-42381557337 --manifest-only ===
+{
+  "scope": "manifest-only; no complete scientific sample required",
+  "manifest_count": 1,
+  "checked_file_entries": 254,
+  "integrity_ok": true,
+  "integrity_errors": []
+}
+=== python scripts/summarize_comparison.py results/2026-11-07/comparison-42380929383 --output results/2026-11-07/summaries/comparison-42380929383 --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 100,
+    "comparison_complete": 50,
+    "comparison_eligible": 50,
+    "diagnostic_attempts": 40
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "D:\\documents\\operating_system\\CS340-v1.0.1-release-audit\\extracted-supported\\Repository\\results\\2026-11-07\\summaries\\comparison-42380929383"
+}
+=== python scripts/summarize_comparison.py results/2026-11-07/comparison-42381922637 --output results/2026-11-07/summaries/comparison-42381922637 --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 100,
+    "comparison_complete": 90,
+    "comparison_eligible": 90,
+    "diagnostic_attempts": 40
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "D:\\documents\\operating_system\\CS340-v1.0.1-release-audit\\extracted-supported\\Repository\\results\\2026-11-07\\summaries\\comparison-42381922637"
+}
+=== python scripts/summarize_comparison.py results/2026-11-07/comparison-42384122902 --cases reorder_4 --repeats 3 --output results/2026-11-07/summaries/comparison-42384122902 --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 6,
+    "comparison_complete": 6,
+    "comparison_eligible": 6,
+    "diagnostic_attempts": 0
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "D:\\documents\\operating_system\\CS340-v1.0.1-release-audit\\extracted-supported\\Repository\\results\\2026-11-07\\summaries\\comparison-42384122902"
+}
+=== python scripts/summarize_comparison.py results/member-reruns/1240001156-account-20261108T122201Z --cases account --repeats 10 --output results/member-reruns/1240001156-account-20261108T122201Z-summary --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "comparison_attempts": 20,
+    "comparison_complete": 20,
+    "comparison_eligible": 20,
+    "diagnostic_attempts": 0
+  },
+  "integrity_error_count": 0,
+  "integrity_errors": [],
+  "mode": "check",
+  "output": "D:\\documents\\operating_system\\CS340-v1.0.1-release-audit\\extracted-supported\\Repository\\results\\member-reruns\\1240001156-account-20261108T122201Z-summary"
+}
+=== python scripts/summarize_layout.py results/2026-11-14/layout-43570556202 --cases lazy01 --output results/2026-11-14/summaries/layout-43570556202-lazy01 --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "planned_workload_attempts": 20,
+    "workload_attempts": 20,
+    "workload_complete": 20,
+    "workload_eligible": 20,
+    "complete_pairs": 10
+  },
+  "integrity_errors": []
+}
+=== python scripts/summarize_layout.py results/2026-11-14/layout-recovery-43575584325 --cases account --output results/2026-11-14/summaries/layout-recovery-43575584325-account --check ===
+{
+  "integrity_ok": true,
+  "denominators": {
+    "planned_workload_attempts": 20,
+    "workload_attempts": 20,
+    "workload_complete": 20,
+    "workload_eligible": 20,
+    "complete_pairs": 10
+  },
+  "integrity_errors": []
+}
+=== python scripts/check_acceptance.py results/2026-11-22/acceptance-45015126850-attempt1 --output results/2026-11-22/summaries/acceptance-45015126850-attempt1 --check ===
+{
+  "schema_version": 1,
+  "scope": "Fresh-host engineering acceptance; separate from historical estimates",
+  "batch": "acceptance-45015126850-attempt1",
+  "cases": [
+    "reorder_3",
+    "reorder_4",
+    "account",
+    "lazy01",
+    "twostage"
+  ],
+  "repeats_per_method": 3,
+  "outer_timeout_seconds": 240,
+  "accepted": true,
+  "problems": [],
+  "comparison_counts": {
+    "comparison_attempts": 30,
+    "comparison_complete": 30,
+    "comparison_eligible": 30,
+    "diagnostic_attempts": 40
+  },
+  "complete_pairs": 15,
+  "diagnostic_eligible": 40
+}
+=== python scripts/recount_twostage_acceptance.py ===
+period_r01.txt: 33 schedules; first=4; failing=2 [4, 17]; complete
+period_r02.txt: 33 schedules; first=4; failing=3 [4, 17, 29]; complete
+period_r03.txt: 33 schedules; first=4; failing=2 [4, 17]; complete
+  first_error: 4.0000 +/- 0.0000 (n=3)
+  schedules: 33.0000 +/- 0.0000 (n=3)
+  buggy_schedules: 2.3333 +/- 0.5774 (n=3)
+author_serialized_abi16_r01.txt: 33 schedules; first=4; failing=3 [4, 17, 29]; complete
+author_serialized_abi16_r02.txt: 33 schedules; first=29; failing=1 [29]; complete
+author_serialized_abi16_r03.txt: 33 schedules; first=4; failing=2 [4, 17]; complete
+  first_error: 12.3333 +/- 14.4338 (n=3)
+  schedules: 33.0000 +/- 0.0000 (n=3)
+  buggy_schedules: 2.0000 +/- 1.0000 (n=3)
+PASS: six raw logs and six mean/sample-SD cells agree with the archived records and summary.
+WINDOWS_SUPPORTED_AUDIT=PASS

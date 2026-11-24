@@ -1,0 +1,25 @@
+=== report export unit tests ===
+test_external_query_is_preserved_and_invalid_local_targets_fail (test_report_exports.ReportLinkTests.test_external_query_is_preserved_and_invalid_local_targets_fail) ... ok
+test_labels_files_directories_and_fragments_keep_destinations (test_report_exports.ReportLinkTests.test_labels_files_directories_and_fragments_keep_destinations) ... ok
+test_docx_relationships_and_pdf_annotations_preserve_evidence_links (test_report_exports.ReportPackageLinkTests.test_docx_relationships_and_pdf_annotations_preserve_evidence_links) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.370s
+
+OK
+export\CS340_PERIOD_Final_Report_20261122.docx
+export\CS340_PERIOD_Final_Report_20261122.pdf
+=== export report ===
+report\export\CS340_PERIOD_Final_Report_20261124.docx
+report\export\CS340_PERIOD_Final_Report_20261124.pdf
+=== final submission verify ===
+{
+  "tag": "v1.0.1",
+  "report_revision": "2026-11-24",
+  "source_commit": "58266473e462e096f1701e91f9a136cd98cf0300",
+  "verified_documents": 6,
+  "verified_sources": 25,
+  "git_commit_verified": false,
+  "status": "passed"
+}
+WINDOWS_REPORT_EXPORT=PASS
