@@ -87,7 +87,7 @@ def fixture(batch, incomplete=False):
     for repetition, condition, position, elapsed in settings:
         timed_out = incomplete and repetition == 1 and condition == "capacity3964"
         first = 2 if condition == "capacity1990" else 1
-        lines = ["coverage_hashID: " + ("17" if condition == "capacity1990" else "23")]
+        lines = ["coverage_hashID: " + ("17" if condition == "capacity1990" else "23"), "Start Testing!"]
         for number in range(1, 4):
             lines.append("test {:04d}: [[0], [1]]".format(number))
             if number == first:
@@ -244,7 +244,7 @@ class LayoutAuditTests(unittest.TestCase):
         # Pinned source prints ordinal 4 before the budget=3 guard, then exits.
         # Only three schedule requests exist; the raw Round footer still says 4.
         text = ("Started UTC: 2026-11-14T00:00:00+00:00\nCommand: [\"python3\"]\n"
-                "test 0001: [[0], [1]]\ntest 0002: [[1], [0]]\n"
+                "Start Testing!\ntest 0001: [[0], [1]]\ntest 0002: [[1], [0]]\n"
                 "[Error Found]: NO.1 assertion failed\n"
                 "test 0003: [[0, 1]]\ntest 0004: End Testing!\n"
                 "Total Error Interleavings: 1\nTotal Timeouts Interleavings: 0\nRound 0 4\n"

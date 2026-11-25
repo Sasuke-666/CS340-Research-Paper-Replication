@@ -4,6 +4,30 @@ Dates use Macau / Beijing local time (UTC+08:00) unless marked UTC. Work is
 recorded on the date it actually occurred. The supplied assignment states a
 Sunday 23:59 check without explicitly specifying its timezone.
 
+## Weekly push evidence through 25 November
+
+The following GitHub server records identify when each selected revision
+reached `main`. Times are Macau/Beijing (UTC+08:00). The planning windows
+use Monday–Sunday. The instructor's first exact check date and timezone are
+unverified. For the initial stage, the branch-creation timestamp marks the
+publication of the first commit. For the following weeks, the linked Actions
+pages corroborate the push and the [repository activity API](https://api.github.com/repos/Sasuke-666/CS340-Research-Paper-Replication/activity?ref=refs%2Fheads%2Fmain&per_page=100)
+reports the push times shown.
+
+| Planning window | Server time (UTC+08:00) | Substantive revision |
+| --- | --- | --- |
+| Initial registration stage | 24 Oct 23:50:11 | `1829541`, initial plan, evidence conventions, environment capture and repository checks. Branch-creation activity 47638697412. |
+| 26 Oct–1 Nov | 30 Oct 06:49:16 | [`99ec61a`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/40968740864), repairs, regression tests and CI. |
+| 2–8 Nov | 7 Nov 23:24:30 | [`7affd30`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/42386236242), expanded comparison analysis and audits. |
+| 9–15 Nov | 14 Nov 15:19:25 | [`bddb831`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43570556197), registered capacity protocol, isolated runner and checks. |
+| 16–22 Nov | 16 Nov 19:02:45 | [`c85b56a`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43854224918), integrated member-review evidence and offline audits. |
+| 23–29 Nov | 25 Nov 04:19:58 | [`0940ffb`](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45479682950), integrated member audits, parser/path fixes and CI. |
+
+The notes below describe the project at their original dates. On 25 November
+the group leader relayed the instructor's confirmation of the three students
+in [TEAM.csv](TEAM.csv). The [submission map](FINAL_SUBMISSION_CHECKLIST.md)
+tracks the current registration, upload and presentation facts.
+
 ## Initial registration stage
 
 24 October 2026: commit `1829541` initializes the repository, reproduction plan,
@@ -308,4 +332,13 @@ and checks at their actual source revision.
 
 He Boyu submitted PR #7 on 24 November: three synthetic regressions for the twostage recount. It was normally merged as `e81bf14524c26dda4de4142ae7e4f7c5ca5d3674`. Li Yangshuo submitted PR #8 the same day, ending at `69484e39843a9cb5610246abe35183bfd36fca13`: release/Windows verification, independent acceptance metrics and parser/manifest checks. Their original authors and dates remain in history.
 
-The 25 November integration closes three further parser/path boundaries, corrects two audit date labels with an explicit explanation, adds the independent audits to continuous checks, and synchronizes the contribution ledger, report, slides and handbook for v1.0.2. It adds no measurements. The [closeout record](PROJECT_CLOSEOUT_20261125.md) identifies the completed scope and actual contribution evidence; the [validation record](FINAL_VALIDATION_20261125.md) records tests, document review, source commit and release verification. Course registration, actual submission and personal rehearsal retain their own completion evidence.
+The 25 November integration closes three further parser/path boundaries, corrects two audit date labels with an explicit explanation, adds the independent audits to continuous checks, and synchronizes the contribution ledger, report, slides and handbook for v1.0.2. It adds no measurements. The [v1.0.2 validation record](FINAL_VALIDATION_20261125.md) records the tests, document review, source commit and release checks for that revision. Course registration, actual submission and personal rehearsal retain their own completion evidence.
+
+
+### Three-person revision — 25 November
+
+The leader relayed the instructor's confirmation that the group consists of
+孙皓扬, 李扬烁 and 何博宇. The v1.0.3 revision adopts that roster across the
+current submission materials and keeps the course registration receipt,
+upload and personal rehearsal as distinct items. The [current closeout](PROJECT_CLOSEOUT_20261125.md)
+links the submission materials and records the scope of each contribution.

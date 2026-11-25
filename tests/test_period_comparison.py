@@ -8,7 +8,27 @@ from run_period_comparison import parse_log,diagnostic_source,new_output_folders
 
 class ComparisonTests(unittest.TestCase):
     def fixture(self):
-        return 'test 0001: [[0]]\ntest 0002: [[1]]\n[Error Found]: NO.1 AF\nEnd Testing!\nTotal Error Interleavings: 1\nRound\t0\t2\n'
+        return 'Start Testing!\ntest 0001: [[0]]\ntest 0002: [[1]]\n[Error Found]: NO.1 AF\nEnd Testing!\nTotal Error Interleavings: 1\nRound\t0\t2\n'
+    def test_both_parsers_exclude_events_outside_the_measured_region(self):
+        from summarize_comparison import parse_raw_log
+        base = self.fixture().replace('Round', 'Total Timeouts Interleavings: 0\nRound')
+        base += 'Runner exit_code=0 timed_out=False elapsed_seconds=0.5\n'
+        first = 'test 0001: [[0]]\n'
+        malformed = (
+            (base.replace('Start Testing!\n' + first, first + 'Start Testing!\n'), 1),
+            (base.replace('Start Testing!\n', ''), 0),
+            (base.replace('Start Testing!', 'Start Testing!\nStart Testing!'), 0),
+            (base.replace('End Testing!', '[Error Found]: NO.2 AF\nEnd Testing!')
+                 .replace('Total Error Interleavings: 1', 'Total Error Interleavings: 2'), 2),
+        )
+        for parser in (parse_log, parse_raw_log):
+            self.assertTrue(parser(base)['complete_markers'])
+            for log, expected in malformed:
+                with self.subTest(parser=parser.__name__, expected=expected):
+                    result = parser(log)
+                    self.assertFalse(result['complete_markers'])
+                    self.assertEqual(result['schedules'], expected)
+
     def test_counts(self):
         r=parse_log(self.fixture());self.assertTrue(r['complete_markers']);self.assertEqual(r['first_error'],2)
     def test_missing_remains_missing(self):

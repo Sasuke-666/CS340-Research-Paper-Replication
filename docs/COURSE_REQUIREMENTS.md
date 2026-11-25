@@ -1,32 +1,33 @@
 # Instructor requirements and final-week scope
 
-Source: instructor-provided CS340 Research Paper Replication, 5 pages,
-Academic Year 2026–2027. The earlier supplied copy was checked on 14 November.
-All five pages of the supplied `2609_CS340_Research_Paper_Replication(9).pdf`
-were read again on 24 November 2026; the requirements below are unchanged.
-Page numbers refer to that source. The separately supplied seven-page
-`CS340_Operating_Systems_2609_Course Syllabus(20261116-200257).pdf` was also
-read. Its page 5 assigns 20% of the course grade to Paper Presentation; it
-does not specify how the three project scores below are combined.
+The page references below follow the team's dated reading of the five-page
+`2609_CS340_Research_Paper_Replication(9).pdf` (24 November 2026, academic
+year 2026–2027) and its earlier review of the seven-page
+`CS340_Operating_Systems_2609_Course Syllabus(20261116-200257).pdf`.
+The syllabus review records a 20% course weight for Paper Presentation on
+page 5. The group has no published weighting for combining the report,
+presentation and Git scores. The two original PDFs were not available for
+direct inspection in the 25 November Mac handover. The rubric below retains
+the team's prior reading and its page references.
 
-The owner confirmed that 23–29 November is the project's final working week.
-The group uses Macau/Beijing time (UTC+08:00) for its 24 November closeout.
-This is the current work plan. The project's exact final submission time and
-the separate Presentation Instruction still require the course source.
-See [the final submission map](FINAL_SUBMISSION_CHECKLIST.md) and
-[the Chinese submission and defence guide](MEMBER_ACTIONS_ZH.md) for execution.
+On 25 November the group leader relayed the instructor's confirmation that
+孙皓扬, 李扬烁 and 何博宇 constitute the complete group. Their IDs and GitHub
+accounts are in the [roster](TEAM.csv). The leader designated 23–29 November
+as the final working week, using Macau/Beijing time (UTC+08:00). The group
+registration receipt, final upload arrangements and presentation notice are
+tracked separately in the [submission map](FINAL_SUBMISSION_CHECKLIST.md).
 
 ## Team and submission scope — page 1
 
-- Four members per group; the teaching team assigns additional members to smaller groups.
+- The original handout specified four students per group and allocation by
+  the teaching team for smaller groups. The instructor's subsequent decision
+  for this group, as relayed by the leader, is the three-person roster above.
 - Reproduce one paper from the supplied list.
-- Team formation: October 25. No exact closing time is stated.
-- Paper changes require a TA request by November 1, 2026.
-- Presentation: December 1, tentative.
-- Submit group information and the reproduction GitHub repository link via the supplied form.
-- Registration form: <https://v.wjx.cn/vm/rZCQLSE.aspx>.
-- Final report, presentation and Git history are separately assessed out of 100%.
-- The document does not state how those three scores are combined.
+- Team formation was set for 25 October. The handout gave no closing hour.
+- Paper changes required a TA request by 1 November 2026.
+- The presentation date in the handout was **1 December, tentative**.
+- Submit group details and the reproduction repository via the [registration form](https://v.wjx.cn/vm/rZCQLSE.aspx). On 25 November the publicly readable form displayed its title, “课堂小组信息及复现GitHub链接收集问卷”, and the closed status “此问卷处于停止状态，无法作答！” The page supplied neither a closing time nor a receipt for this group.
+- The final report, presentation and Git history are separately assessed out of 100%.
 
 ## Report — pages 2–3
 
@@ -86,16 +87,13 @@ larger than 50 MB. Tag the final version `v1.0`.
 2. **Presentation:** the separate Presentation Instruction and the confirmed
    date/session, duration and other stated delivery requirements. December 1
    remains the tentative date printed in the supplied project document.
-3. **Group registration:** the recorded group/paper/repository registration and
-   the teaching team's fourth-member allocation or permission for the three
-   confirmed students. [TEAM.csv](TEAM.csv) records the real known members.
+3. **Group registration:** the receipt or course record showing submission of
+   the three members, selected paper and repository. A private receipt may be
+   retained by the leader. The instructor's grouping decision is recorded above.
 
-The older uncertainty about the registration closing hour and first calendar
-date/timezone of weekly checks remains a historical limitation. It does not
-prevent final material preparation. The weekly rule is a meaningful group
-push each week; substantive own-account contributions are also required from
-every member. The source specifies no per-person weekly quota, PR workflow,
-oral sign-off file, extra reviewer form or special teaching-team access setup.
-The repository is public. Local hooks and internal review procedures are
-implementation choices. Keep registration receipts private where they contain
-personal information; a minimal verified status is sufficient for this record.
+The handout gave no registration closing hour, timezone for weekly checks or
+first exact check date. [Weekly progress](WEEKLY_PROGRESS.md) identifies server
+evidence by date. The weekly requirement is one meaningful push by the group.
+Each member separately needs substantive work from their own account. Internal
+rehearsal, review templates and local hooks support the project without creating
+additional grading rules.

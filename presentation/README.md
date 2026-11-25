@@ -1,11 +1,11 @@
 # Final presentation materials
 
-Content revision: 25 November 2026, Macau/Beijing time (v1.0.2).
+Content revision: 25 November 2026, Macau/Beijing time (v1.0.3).
 
 [SLIDES.md](SLIDES.md) contains the fourteen slides, with concise English text,
 Chinese speaker notes and sources for each slide. The [talk and defence
 outline](TALK_OUTLINE.md) explains the results in more detail and includes an
-offline demonstration. Use the [expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md)
+offline demonstration. Use the [expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/report/EXPANDED_REPORT.md)
 for the full analysis and experimental details.
 
 ## Presentation files
@@ -18,12 +18,26 @@ The editable PowerPoint and its PDF preview are available through
 
 The deck has fourteen slides, nine editable data tables and one native chart.
 Chinese explanations and evidence links are in the speaker notes. The
-[v1.0.2 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.2)
+[v1.0.3 release](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.3)
 packages these files with the report and member handbook. The
-[validation record](../docs/FINAL_VALIDATION_20261125.md) documents the export
-and visual review. Current report and contribution links use `v1.0.2`;
+[validation record](../docs/FINAL_VALIDATION_V1_0_3.md) documents the export
+and visual review. Current report and contribution links use `v1.0.3`;
 references to historical protocols and measurements retain their fixed commits
 and original dates.
+
+## 从源文件导出
+
+在仓库根目录运行 `make presentation`。它使用 Python 标准库和 LibreOffice，
+将 PPTX 与演示 PDF 写入 `report/export/`。英文正文、表格、中文备注和证据链接
+来自 [SLIDES.md](SLIDES.md)。[可编辑版式](SLIDE_LAYOUT.pptx) 保存文本位置、表格样式
+及带工作簿的原生图表。导出程序核对图表缓存、工作簿与第 5 页数据，并将 PDF
+直接从生成的 PPTX 转换。复建发布版本时可显式指定清单中的完整源提交：
+
+```sh
+python3 scripts/export_presentation.py --source-commit <source_commit> --output-dir report/export
+```
+
+组内演练顺序与可选计时见[三人讲解提纲](TALK_OUTLINE.md)。
 
 ## Talk sequence and demonstration
 
@@ -85,8 +99,8 @@ The project document refers to a separate Presentation Instruction, which is
 absent from the inspected materials. The tentative presentation date is
 1 December 2026. Confirm the actual date, duration, slide limit, speaking
 allocation and submission format against that instruction. Fourteen slides is
-the current content choice. The cover lists the three confirmed contributors;
-the fourth-member arrangement still needs confirmation.
+the group’s content choice. On 25 November, the team lead relayed the instructor’s
+confirmation that Sun Haoyang, Li Yangshuo and He Boyu form the project team.
 
 Use the [member handbook](../docs/MEMBER_ACTIONS_ZH.md) to prepare individual
 explanations and handovers. Describe contributions and assistance consistently

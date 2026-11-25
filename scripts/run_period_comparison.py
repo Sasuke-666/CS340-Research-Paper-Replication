@@ -21,12 +21,22 @@ def parse_log(text, budget=10000):
     seen, failed, current = [], [], None
     end_count, end_at, total_at, footer_at = 0, None, None, None
     invalid_order = False
+    start_count = inner_timeouts = 0
     for index, line in enumerate(text.splitlines()):
+        if line == 'Start Testing!':
+            start_count += 1
+            continue
         if line == 'End Testing!':
             end_count += 1
             end_at = index
             continue
         m = re.match(r'^test\s+(\d+)(?: for prefix [^:]+)?:\s*(.+)$', line)
+        is_error = '[Error Found]:' in line
+        timeout_events = len(re.findall(r'\[Timeout\s', line))
+        if (m or is_error or timeout_events) and (start_count != 1 or end_count):
+            invalid_order = True
+            continue
+        inner_timeouts += timeout_events
         if m:
             ordinal = int(m[1])
             if ordinal > budget:
@@ -38,10 +48,8 @@ def parse_log(text, budget=10000):
             total_at = index
         if re.match(r'^Round\s+0\s+\d+\s*$', line):
             footer_at = index
-        if '[Error Found]:' in line:
+        if is_error:
             failed.append(current)
-        if end_at is not None and (m or '[Error Found]:' in line):
-            invalid_order = True
     totals = re.findall(r'(?m)^Total Error Interleavings:\s*(\d+)', text)
     rounds = re.findall(r'(?m)^Round\s+0\s+(\d+)\s*$', text)
     total = totals[0] if len(totals) == 1 else None
@@ -52,11 +60,12 @@ def parse_log(text, budget=10000):
     valid = (bool(seen) and len(seen) == len(set(seen)) and
              seen == list(range(1, len(seen) + 1)) and round_count is not None and
              min(int(round_count), budget) == len(seen) and total is not None and
-             errors == len(failed) and None not in failed and end_count == 1 and
+             errors == len(failed) and len(set(failed)) == len(failed) and None not in failed and
+             start_count == end_count == 1 and
              ordered_footer and not invalid_order)
     return {'schedules':len(seen),'first_error':failed[0] if failed else None,
             'buggy_schedules':errors,'error_event_count':len(failed),
-            'complete_markers':valid,'inner_timeouts':len(re.findall(r'\[Timeout\s',text)),
+            'complete_markers':valid,'inner_timeouts':inner_timeouts,
             'budget_reached':bool(round_count is not None and int(round_count) >= budget)}
 
 

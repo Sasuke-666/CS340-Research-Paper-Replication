@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 import statistics
+from summary_output import staged_summary
 
 REFERENCE = {
     'smoke_double_free': {'first_error_schedule': 3, 'observed_schedule_count': 6, 'reported_buggy_schedules': 4},
@@ -40,7 +41,8 @@ def summarize(records, directory):
             rows.append({'case': case, 'metric': metric, 'paper_reference': reference,
                          'attempted_runs': len(all_runs), 'complete_runs': len(accepted),
                          'measured_n': len(values), 'mean': mean, 'sample_sd': sd,
-                         'absolute_difference': delta,
+                         'signed_difference': delta,
+                         'absolute_difference': abs(delta) if delta is not None else None,
                          'relative_difference_percent': delta / reference * 100 if delta is not None and reference else None,
                          'comparison_status': 'pilot_observation_requires_witness_review' if len(values) >= 3 else 'insufficient_complete_runs'})
     return rows
@@ -52,11 +54,12 @@ def main():
     args = parser.parse_args()
     records = json.loads((args.evidence / 'runs.json').read_text())
     rows = summarize(records, args.evidence)
-    with (args.evidence / 'summary.csv').open('w', newline='') as output:
-        writer = csv.DictWriter(output, fieldnames=list(rows[0]))
-        writer.writeheader()
-        writer.writerows(rows)
-    (args.evidence / 'summary.json').write_text(json.dumps(rows, indent=2) + '\n')
+    with staged_summary(args.evidence, ('summary.csv', 'summary.json')) as stage:
+        with (stage / 'summary.csv').open('w', newline='') as output:
+            writer = csv.DictWriter(output, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+        (stage / 'summary.json').write_text(json.dumps(rows, indent=2) + '\n')
     print(json.dumps(rows, indent=2))
 
 

@@ -21,18 +21,25 @@ METRICS = ('first_error_schedule', 'observed_schedule_count', 'reported_buggy_sc
 
 def recount(text):
     text = re.sub(r'\x1b\[[0-9;]*m', '', text)
-    blocks = re.split(r'(?m)^test\s+(\d+):', text)
+    lines = text.splitlines()
+    if lines.count('Start Testing!') != 1 or lines.count('End Testing!') != 1:
+        raise ValueError('Expected one Start Testing! and one End Testing!')
+    start, end = lines.index('Start Testing!'), lines.index('End Testing!')
+    outside = lines[:start] + lines[end + 1:]
+    if start >= end or any(re.match(r'^test\s+\d+:', line) or '[Error Found]:' in line for line in outside):
+        raise ValueError('Request or failure outside the measured testing region')
+    body = '\n'.join(lines[start + 1:end])
+    footer = '\n'.join(lines[end + 1:])
+    blocks = re.split(r'(?m)^test\s+(\d+):', body)
     numbers = [int(blocks[i]) for i in range(1, len(blocks), 2)]
     if not numbers or numbers != list(range(1, len(numbers) + 1)):
         raise ValueError('Missing, duplicate or non-contiguous schedule numbers')
     failures = [int(blocks[i]) for i in range(1, len(blocks), 2)
                 if '[Error Found]:' in blocks[i + 1]]
-    events = text.count('[Error Found]:')
-    totals = re.findall(r'(?m)^Total Error Interleavings:\s*(\d+)\s*$', text)
+    events = body.count('[Error Found]:')
+    totals = re.findall(r'(?m)^Total Error Interleavings:\s*(\d+)\s*$', footer)
     if events != len(failures) or len(totals) != 1 or int(totals[0]) != len(failures):
         raise ValueError('Failure events, distinct failing schedules and final total disagree')
-    if text.count('End Testing!') != 1:
-        raise ValueError('Exploration did not reach exactly one end marker')
     return {'first_error_schedule': failures[0] if failures else None,
             'observed_schedule_count': len(numbers),
             'reported_buggy_schedules': len(failures)}
@@ -103,23 +110,28 @@ def audit(root):
                        **stats([r[metric] for r in records]))
             if folder == 'pilot' and case in PAPER and metric in METRICS:
                 reference = PAPER[case][METRICS.index(metric)]
-                row.update(paper_reference=reference, absolute_delta=row['mean'] - reference,
-                           relative_delta_percent=(row['mean'] / reference - 1) * 100)
+                signed = row['mean'] - reference
+                row.update(paper_reference=reference, signed_delta=signed, absolute_delta=abs(signed),
+                           relative_delta_percent=100 * signed / reference)
             summaries.append(row)
     replay_counts = {}
     for case, trials in sorted(replay.items()):
         if sorted(x[0] for x in trials) != [1, 2, 3, 4, 5]:
             raise ValueError('Expected exactly five distinct replay repetitions')
         replay_counts[case] = {'trials': 5, 'signature_hits': sum(x[1] for x in trials)}
-    # Compare independently recomputed pilot means/SDs with the published JSON.
+    # The archived pilot CSV contains the derived measurements and paper gaps.
     with (batch / 'pilot/summary.csv').open(newline='') as handle:
         published = list(csv.DictReader(handle))
     for row in (x for x in summaries if x['batch'] == 'pilot'):
         matches = [x for x in published if x['case'] == row['case'] and x['metric'] == row['metric']]
         if len(matches) != 1:
             raise ValueError('Published summary row missing or duplicated')
-        for key in ('mean', 'sample_sd', 'measured_n'):
-            a, b = matches[0][key], row[key]
+        columns = {'mean': 'mean', 'sample_sd': 'sample_sd', 'measured_n': 'measured_n'}
+        if 'paper_reference' in row:
+            columns.update(paper_reference='paper_reference', signed_difference='signed_delta',
+                           absolute_difference='absolute_delta', relative_difference_percent='relative_delta_percent')
+        for key, recounted in columns.items():
+            a, b = matches[0][key], row[recounted]
             a = float(a) if a != '' else None
             if (a is None or b is None) and a != b:
                 raise ValueError('Published missingness differs')
@@ -156,7 +168,11 @@ def main():
     args = p.parse_args(); result = audit(args.root)
     text = json.dumps(result, indent=2, allow_nan=False) + '\n'
     if args.output:
-        args.output.parent.mkdir(parents=True, exist_ok=True); args.output.write_text(text)
+        from summary_output import staged_summary
+        if (args.root / 'results').resolve() in args.output.resolve().parents:
+            p.error("Write the audit transcript outside archived experiment results")
+        with staged_summary(args.output.parent, (args.output.name,)) as stage:
+            (stage / args.output.name).write_text(text, encoding='utf-8')
     print(text)
 
 

@@ -2,10 +2,10 @@
 
 [EXPANDED_REPORT.md](EXPANDED_REPORT.md) is the current report, revised on
 25 November 2026. The reviewed PDF and editable Word copy are in
-[submission/](../submission/README.md). Release `v1.0.2` records PRs #7 and #8 and the final validation repairs.
-Experimental measurements, numerical result tables and scientific conclusions
-retain their original scope. The `v1.0` and `v1.0.1` releases and [PILOT_REPORT.md](PILOT_REPORT.md)
-remain available as earlier versions.
+[submission/](../submission/README.md). The current release is `v1.0.3`. The report identifies the three confirmed
+members and traces their work through PRs #1–#8. Measurement batches and
+conclusions retain their original scope. [PILOT_REPORT.md](PILOT_REPORT.md)
+and the earlier tags preserve the earlier work.
 
 ## Read the report
 
@@ -18,7 +18,7 @@ host records. Appendix A collects the setup differences. The final sections
 record contributions, references and the required usage statement.
 
 Use the [final submission checklist](../docs/FINAL_SUBMISSION_CHECKLIST.md) to
-match the evidence to the course criteria. The [validation record](../docs/FINAL_VALIDATION_20261125.md)
+match the evidence to the course criteria. The [validation record](../docs/FINAL_VALIDATION_V1_0_3.md)
 documents this integration. Earlier checks remain in
 [24 November final validation](../docs/FINAL_VALIDATION_20261124.md),
 [22 November validation](../docs/VALIDATION_20261122.md),
@@ -47,10 +47,11 @@ includes them in its downloadable snapshot. `SNAPSHOT.json` identifies the commi
 and report revision, so use the run for the version being reviewed. The frozen
 files in `submission/` are the copies checked for delivery.
 
-The PDF exporter embeds its fonts and uses the members' confirmed romanized
-names. Word retains their Chinese names. Converting Word to PDF also preserves
-those names when the renderer has the required CJK fonts. The two paths can
-paginate differently; their scientific content and student IDs are the same.
+Both report formats show the members' Chinese names, romanizations and student
+IDs. The PDF embeds an eight-character TrueType subset of Noto Sans SC,
+derived from Google Fonts' [pinned upstream font](https://github.com/google/fonts/blob/83c62e30d87daa70216dab6b984d00d20d96d585/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf)
+at weight 400. The subset ships with its [SIL Open Font License](fonts/OFL.txt).
+Word and the standalone PDF can paginate differently.
 
 For reproduction and numerical checks, start with the repository README,
 registered protocols, raw manifests and `make audit`. Report formatting alone
@@ -61,7 +62,6 @@ does not verify a result.
 The course requires the report in English as a PDF. Confirm the exact deadline,
 portal and any naming rule from the course notice, then retain the upload receipt.
 The [course requirements](../docs/COURSE_REQUIREMENTS.md) and
-[Chinese member handbook](../docs/MEMBER_ACTIONS_ZH.md) list the remaining group
-registration and presentation arrangements. The handbook supports task assignment
+[Chinese member handbook](../docs/MEMBER_ACTIONS_ZH.md) list the registration receipt and pending presentation details. The handbook supports task assignment
 and rehearsal; the English report is the academic submission. An editable
 [review template](../docs/reviews/REVIEW_TEMPLATE.md) is also available.

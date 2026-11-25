@@ -1,51 +1,9 @@
-# CS340 PERIOD final submission v1.0.2
+# CS340 PERIOD 最终提交修订 v1.0.3
 
-Final report and presentation revision: 25 November 2026.
+本次交付供孙皓扬、李扬烁和何博宇三人提交与答辩使用。组长于 2026 年 11 月 25 日转述了教师对三人组的确认。附件包括英文报告 PDF 和 Word、含中文备注的可编辑 PPTX 和演示 PDF、中文手册 Word 和 PDF，以及完整源码证据 ZIP。课程要求的 v1.0 和后续 v1.0.1、v1.0.2 均保留。
 
-This release integrates the two member submissions made on 24 November and
-closes the remaining issues found in their review. The study covers five
-programs, a depth-bound extension, controlled capacity diagnostics and independent
-member work. Its conclusion remains **partially reproduced**.
+五个案例的 PERIOD 枚举总数与论文一致，与兼容序列化驱动相比四个减少、一个持平。首错位置与触发失败的请求数仍有差异，总体结论为部分复现。历史比较和四线程后续共 106 次尝试、96 次完整、43 对完整配对。深度、容量、成员实验与 11 月 22 日验收分别统计。本次修订没有新增基准调用。
 
-## Changes in this revision
+在 ZIP 的 Repository 目录下运行 `python3 scripts/recount_twostage_acceptance.py`，可离线核对报告中三对 twostage 的结果。完整核验可运行 `make check` 和 `make audit`。源码、文档摘要和 Linux／Windows 核验入口见 [本版验证记录](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/docs/FINAL_VALIDATION_V1_0_3.md)。ZIP 中的 DELIVERY.json 记录交付提交。
 
-- Preserves He Boyu's PR #7: three synthetic regressions for the twostage recount.
-- Preserves Li Yangshuo's PR #8: release/Windows verification, independent
-  acceptance metrics, stricter parsers and a validation evidence manifest.
-- Adds maintainer fixes for footer whitespace/order, events outside the accepted
-  test body and symbolic-link parent directories. Five targeted test methods
-  exercise the reproduced boundary cases.
-- Clarifies two audit date labels using the verified 24 November submission
-  date. Original transcripts remain unchanged, with their execution scope
-  stated separately from the exact-revision continuous checks.
-- Runs the independent metric and manifest audits in `make audit` and Linux/
-  Windows CI. Every ready final manifest is checked for source drift.
-- Updates the report, fourteen-slide presentation, Chinese handbook and dated
-  contribution map. The six documents and complete ZIP share one verified
-  source and delivery manifest.
-
-No new benchmark measurements were made for this revision. The historical
-numeric results, raw evidence and study denominators retain their original
-scope. The `v1.0` and `v1.0.1` tags and assets remain available unchanged.
-
-## Download and reproduce
-
-The six individual files are attached. The complete ZIP contains the same
-documents, the tracked repository and raw evidence without Git metadata.
-Read `Repository/README.md` in that bundle, or clone the repository at `v1.0.2`.
-
-`make check` validates the maintained code and repository rules. `make audit`
-recounts preserved evidence and verifies the report and validation records.
-The main experiments use the README's pinned x86_64 Linux/Docker procedure.
-
-The 22 November fresh-host acceptance has its own 30 complete comparison calls,
-15 pairs, 40 separate diagnostic calls and five successful builds. It does not
-replace the historical 106 attempts, 96 complete calls and 43 complete pairs.
-The independent member run, depth extension, capacity batches and five fixed-
-witness replays retain their own denominators.
-
-The [closeout record](../docs/PROJECT_CLOSEOUT_20261125.md) identifies each
-member's verified work. The [validation record](../docs/FINAL_VALIDATION_20261125.md)
-identifies the source, tests, document review and delivery checks. Course
-registration, submission and presentation arrangements are recorded when their
-actual confirmations are available.
+本版同步了三人名单、答辩分工和六份文档的生成路径，也修复了归档解析与汇总输出边界。正式提交入口、课程回执及三人的现场讲解按实际课程记录确认。

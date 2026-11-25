@@ -8,6 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
+sys.path.insert(0, str(ROOT / 'scripts'))
 
 def load(name):
     spec = importlib.util.spec_from_file_location(name, ROOT / 'scripts' / (name + '.py'))
@@ -30,11 +31,20 @@ class PilotTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_colored_output(self):
-        self.log.write_text('test 0001: x\ntest 0002: y\n\x1b[31m[Error Found]: NO.1 AF\x1b[0m\nEnd Testing!\n')
+        self.log.write_text('Start Testing!\ntest 0001: x\ntest 0002: y\n\x1b[31m[Error Found]: NO.1 AF\x1b[0m\nEnd Testing!\n')
         result = pilot.read_metrics(self.log)
         self.assertEqual(result['first_error_schedule'], 2)
         self.assertEqual(result['observed_schedule_count'], 2)
         self.assertTrue(result['end_marker'])
+
+    def test_only_the_measured_region_contributes_events(self):
+        raw = ('test 0001: before\nStart Testing!\ntest 0001: measured\n'
+               'End Testing!\n[Error Found]: NO.1 after\n')
+        self.log.write_text(raw)
+        result = pilot.read_metrics(self.log)
+        self.assertEqual(result['observed_schedule_count'], 1)
+        self.assertIsNone(result['first_error_schedule'])
+        self.assertFalse(result['end_marker'])
 
     def test_missing_output_stays_missing(self):
         self.log.write_text('Permission denied\n')
@@ -43,7 +53,7 @@ class PilotTests(unittest.TestCase):
         self.assertFalse(result['end_marker'])
 
     def test_timeout_is_separate_from_bug(self):
-        self.log.write_text('test 0001: x\n[Timeout 5]: NO.1\n')
+        self.log.write_text('Start Testing!\ntest 0001: x\n[Timeout 5]: NO.1\n')
         result = pilot.read_metrics(self.log)
         self.assertEqual(result['timeout_reports'], 1)
         self.assertEqual(result['reported_buggy_schedules'], 0)
@@ -77,6 +87,12 @@ class PilotTests(unittest.TestCase):
         row = next(r for r in rows if r['case'] == 'CS.reorder_3_bad' and r['metric'] == 'elapsed_seconds')
         self.assertEqual(row['mean'], 2.)
         self.assertEqual(row['sample_sd'], 1.)
+
+    def test_signed_and_absolute_paper_gaps(self):
+        rows = summary.summarize([self.fixture(reported_buggy_schedules=5)], self.root)
+        gap = next(r for r in rows if r['case'] == 'CS.reorder_3_bad' and r['metric'] == 'reported_buggy_schedules')
+        self.assertEqual((gap['signed_difference'], gap['absolute_difference']), (-1, 1))
+        self.assertAlmostEqual(gap['relative_difference_percent'], -100/6)
 
     def test_missing_case_is_not_zero_measurement(self):
         rows = summary.summarize([], self.root)

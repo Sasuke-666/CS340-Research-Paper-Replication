@@ -65,6 +65,7 @@ Retain the original selection rationale, failed attempts and measurement dates.
 
 The published requirements include substantive contributions from each member's
 own account, meaningful weekly pushes, a final English PDF, a presentation
-following the separate instruction and a final `v1.0` tag. Current registration,
-team-allocation and final-submission information still requires the actual
-course evidence identified in [COURSE_REQUIREMENTS.md](COURSE_REQUIREMENTS.md).
+following the separate instruction and a final `v1.0` tag. The group leader subsequently relayed the instructor’s confirmation of the
+three students in [TEAM.csv](TEAM.csv). Evidence for the registration receipt,
+final deadline and presentation arrangements is tracked separately in
+[COURSE_REQUIREMENTS.md](COURSE_REQUIREMENTS.md).

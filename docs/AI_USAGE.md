@@ -34,6 +34,8 @@ understand the code and record actual review dates and reviewers before final
 submission. No statement here asserts that another member personally executed,
 independently authored, or approved work without evidence.
 
+On 25 November the group leader relayed the instructor's three-member decision and authorized assisted maintenance for v1.0.3. The assistant audited archived records, corrected software and documentation, prepared the six exports and checked the delivery. This work added no benchmark observations or independent student review.
+
 Repository commits made through the owner's authenticated connection identify
 that account and the course-required student name/ID. Automated archive commits
 identify the automation account and name the requesting owner in the subject;

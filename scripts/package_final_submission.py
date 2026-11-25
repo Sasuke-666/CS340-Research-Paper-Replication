@@ -24,8 +24,15 @@ def package(root, output):
     receipt = check(root)
     manifest = json.loads((root / 'submission/FINAL_RELEASE.json').read_text(encoding='utf-8'))
     commit = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip()
-    paths = subprocess.check_output(['git', '-C', str(root), 'ls-files', '-z']).decode().split('\0')
-    tracked = {name for name in paths if name}
+    listing = subprocess.check_output(['git', '-C', str(root), 'ls-tree', '-rz', commit])
+    modes = {}
+    for record in listing.split(b'\0'):
+        if record:
+            header, name = record.split(b'\t', 1)
+            mode, kind, _ = header.split()
+            require(kind == b'blob' and mode in (b'100644', b'100755'), 'Unsupported Git entry')
+            modes[name.decode('utf-8')] = int(mode, 8)
+    tracked = set(modes)
     required = {'submission/FINAL_RELEASE.json'} | {
         row['path'] for row in manifest['sources'] + manifest['artifacts']}
     require(required <= tracked, 'The manifest, sources and final documents must all be tracked')
@@ -33,10 +40,11 @@ def package(root, output):
     timestamp = (revision.year, revision.month, revision.day, 0, 0, 0)
     output.parent.mkdir(parents=True, exist_ok=True)
 
-    def add(bundle, name, content):
+    def add(bundle, name, content, mode=0o100644):
         entry = zipfile.ZipInfo(name, timestamp)
         entry.compress_type = zipfile.ZIP_DEFLATED
-        entry.external_attr = 0o100644 << 16
+        entry.create_system = 3
+        entry.external_attr = mode << 16
         bundle.writestr(entry, content)
 
     # Assemble off to the side; a failed build must not truncate an existing bundle.
@@ -48,7 +56,7 @@ def package(root, output):
                 add(bundle, path.name, path.read_bytes())
             for name in sorted(tracked):
                 path = checked_path(root, name)
-                add(bundle, 'Repository/' + name, path.read_bytes())
+                add(bundle, 'Repository/' + name, path.read_bytes(), modes[name])
             delivery = dict(receipt, repository_commit=commit,
                             repository_url='https://github.com/Sasuke-666/CS340-Research-Paper-Replication',
                             documents=manifest['artifacts'],

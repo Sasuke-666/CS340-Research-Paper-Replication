@@ -1,9 +1,9 @@
 PYTHON ?= python3
 EVIDENCE_DIR ?= results/local-$(shell date -u +%Y%m%dT%H%M%SZ)
 
-.PHONY: help check pilot followup comparison summarize report checklist deliverables audit summarize-comparisons audit-comparisons audit-member layout audit-layout summarize-layout audit-member-reviews audit-report audit-acceptance audit-twostage audit-validation
+.PHONY: help check pilot followup comparison summarize report checklist presentation deliverables audit summarize-comparisons audit-comparisons audit-member layout audit-layout summarize-layout audit-member-reviews audit-report audit-acceptance audit-twostage audit-validation
 help:
-	@printf '%s\n' 'make check: unit tests and repository checks' 'make pilot: build and run the pinned three-case pilot in Docker' 'make followup: controlled depth extension and fixed-witness replay' 'make comparison CASE=reorder_3: ten paired repetitions with the compatible serialized baseline' 'make summarize: regenerate the archived summaries' 'make audit: verify raw evidence, summaries and report tables' 'make audit-report: check report numbers, scope and references' 'make deliverables: export the dated report and member checklist' 'make layout CASE=account: run the capacity-only diagnostic in Docker' 'make summarize-layout: regenerate the registered diagnostic tables' 'Override EVIDENCE_DIR for a fresh experiment output directory.'
+	@printf '%s\n' 'make check: unit tests and repository checks' 'make pilot: build and run the pinned three-case pilot in Docker' 'make followup: controlled depth extension and fixed-witness replay' 'make comparison CASE=reorder_3: ten paired repetitions with the compatible serialized baseline' 'make summarize: regenerate the archived summaries' 'make audit: verify raw evidence, summaries and report tables' 'make audit-report: check report numbers, scope and references' 'make deliverables: export all six report, slide and handbook files' 'make layout CASE=account: run the capacity-only diagnostic in Docker' 'make summarize-layout: regenerate the registered diagnostic tables' 'Override EVIDENCE_DIR for a fresh experiment output directory.'
 check:
 	$(PYTHON) -m unittest discover -s tests -v
 	$(PYTHON) scripts/check_repository.py
@@ -72,6 +72,9 @@ report: audit-report
 	$(PYTHON) scripts/export_stage_report.py
 
 checklist:
-	$(PYTHON) scripts/export_member_checklist.py
+	$(PYTHON) scripts/export_member_checklist.py --pdf
 
-deliverables: report checklist
+presentation:
+	$(PYTHON) scripts/export_presentation.py
+
+deliverables: report checklist presentation

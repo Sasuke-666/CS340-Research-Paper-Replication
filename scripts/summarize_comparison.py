@@ -16,6 +16,7 @@ from pathlib import Path
 import re
 import statistics
 import tempfile
+from summary_output import staged_summary
 
 PIN = "cb8deb9a176e5bb292d70d46557dd61dc0e98069"
 CASES = ("reorder_3", "reorder_4", "account", "lazy01", "twostage")
@@ -78,13 +79,26 @@ def parse_raw_log(text):
     clean = ANSI.sub("", text)
     ordinals, errors, error_numbers, current = [], [], [], None
     end_count, end_at, total_at, round_at, footer_at = 0, None, None, None, None
-    after_end = False
+    start_count = 0
+    outside_event = outside_error = False
+    inner_timeouts = 0
     for index, line in enumerate(clean.splitlines()):
+        if line == "Start Testing!":
+            start_count += 1
+            continue
+        active = start_count == 1 and end_count == 0
         match = re.fullmatch(r"test\s+(\d+)(?:\s+for prefix\s+[^:]+)?:\s*(.+)", line)
+        is_error = "[Error Found]:" in line
+        timeout_events = len(re.findall(r"\[Timeout\s", line))
+        if not active and (match or is_error or timeout_events):
+            outside_event = True
+            outside_error |= is_error
+            continue
+        inner_timeouts += timeout_events
         if match:
             current = int(match.group(1))
             ordinals.append(current)
-        if "[Error Found]:" in line:
+        if is_error:
             errors.append(current)
             number = re.search(r"\[Error Found\]:\s*NO\.(\d+)", line)
             error_numbers.append(int(number.group(1)) if number else None)
@@ -98,8 +112,6 @@ def parse_raw_log(text):
         elif re.fullmatch(r"Runner exit_code=-?\d+ timed_out=(?:True|False) "
                           r"elapsed_seconds=[\d.]+\s*", line):
             footer_at = index
-        if end_at is not None and (match or "[Error Found]:" in line):
-            after_end = True
     totals = re.findall(r"^Total Error Interleavings:\s*(\d+)\s*$", clean, re.M)
     timeouts = re.findall(r"^Total Timeouts Interleavings:\s*(\d+)\s*$", clean, re.M)
     rounds = re.findall(r"^Round\s+(\d+)\s+(\d+)\s*$", clean, re.M)
@@ -126,7 +138,7 @@ def parse_raw_log(text):
         problems.append("missing or repeated error-total footer")
     elif int(totals[0]) != len(errors):
         problems.append("error events disagree with error-total footer")
-    if any(x is None for x in errors) or len(set(errors)) != len(errors):
+    if outside_error or any(x is None for x in errors) or len(set(errors)) != len(errors):
         problems.append("unattributed or repeated error event")
     if error_numbers != list(range(1, len(error_numbers)+1)):
         problems.append("error event numbers are not exactly 1..E")
@@ -138,11 +150,10 @@ def parse_raw_log(text):
         problems.append("repeated end-testing marker")
     markers_present = (end_at is not None and total_at is not None and
                        round_at is not None and footer_at is not None)
-    if after_end or (end_count == 1 and
-                     (not markers_present or
+    if outside_event or (end_count == 1 and
+                     (start_count != 1 or not markers_present or
                       not (end_at < total_at < round_at < footer_at))):
         problems.append("invalid completion marker order or events after end marker")
-    inner_timeouts = len(re.findall(r"\[Timeout\s", clean))
     if len(timeouts) != 1 or int(timeouts[0]) != inner_timeouts:
         problems.append("timeout events disagree with timeout-total footer")
     observations = []
@@ -454,9 +465,18 @@ def summarize_batch(batch, expected_repeats=10, expected_diagnostics=20, expecte
                 "diagnostic_attempts": sum(r["phase"] == "diagnostic" for r in trials)}}
 
 
-def write_outputs(summary, output):
-    output = Path(output)
-    output.mkdir(parents=True, exist_ok=True)
+def write_outputs(summary, output, receipt=None):
+    names = ["summary.json", "all_trials.csv", "SUMMARY.md"]
+    if receipt is not None:
+        names.append("acceptance.json")
+    with staged_summary(output, names) as stage:
+        _write_tables(summary, stage)
+        if receipt is not None:
+            (stage / "acceptance.json").write_bytes((json.dumps(
+                receipt, indent=2, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8"))
+
+
+def _write_tables(summary, output):
     # Keep derived artifacts identical on Windows and POSIX audit hosts.
     (output / "summary.json").write_bytes((json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False)+"\n").encode("utf-8"))
     fields = ("case", "phase", "method", "condition", "repeat", "position", "started_utc", "host_scope",

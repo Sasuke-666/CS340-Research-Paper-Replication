@@ -3,7 +3,8 @@
 import argparse
 from datetime import datetime, timezone
 from pathlib import Path
-import posixpath
+from export_stage_report import repository_revision, resolve_report_link
+from office_pdf import convert_pdf
 import re
 
 from report_config import revision_date
@@ -22,7 +23,9 @@ def export(source, target):
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
     from docx.opc.constants import RELATIONSHIP_TYPE as RT
-    report_date=revision_date(source.resolve().parents[1])
+    root = source.resolve().parents[1]
+    report_date = revision_date(root)
+    source_ref = repository_revision(root)
     doc=Document();sec=doc.sections[0]
     sec.page_width,sec.page_height=Cm(21),Cm(29.7)
     sec.left_margin=sec.right_margin=Cm(1.8)
@@ -53,13 +56,18 @@ def export(source, target):
     def add_inline(paragraph, text, size=10.5, bold=False):
         """Use clickable source labels instead of filling cells with raw paths."""
         def text_run(value):
-            run=paragraph.add_run(clean(value));run.font.size=Pt(size);run.bold=bold
+            for part in re.split(r'(\*\*[^*]+\*\*)', value):
+                if not part:
+                    continue
+                run = paragraph.add_run(clean(part))
+                run.font.size = Pt(size)
+                run.bold = bold or part.startswith('**')
         position=0
         for match in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)',text):
             text_run(text[position:match.start()])
             label,url=match.groups()
             if not re.match(r'^https?://',url):
-                url='https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/main/'+posixpath.normpath('docs/'+url)
+                url = resolve_report_link(url, root, source, source_ref)
             rel=paragraph.part.relate_to(url,RT.HYPERLINK,is_external=True)
             link=OxmlElement('w:hyperlink');link.set(qn('r:id'),rel)
             run=OxmlElement('w:r');props=OxmlElement('w:rPr')
@@ -89,6 +97,8 @@ def export(source, target):
         heading=re.match(r'^(#{1,3})\s+(.+)',line)
         if heading:
             p=doc.add_heading(clean(heading[2]),len(heading[1])-1)
+            if heading[2].startswith(("三、", "五、")):
+                p.paragraph_format.page_break_before = True
             i+=1;continue
         if line.startswith('|'):
             rows=[]
@@ -144,6 +154,9 @@ if __name__=='__main__':
     root=Path(__file__).resolve().parents[1]
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path)
+    p.add_argument('--pdf',action='store_true',help='Also render the handbook PDF with LibreOffice')
     args=p.parse_args()
     target=args.output or root/('report/export/CS340_Final_Submission_Handbook_'+revision_date(root).strftime('%Y%m%d')+'.docx')
     export(root/'docs/MEMBER_ACTIONS_ZH.md',target)
+    if args.pdf:
+        print(convert_pdf(target, target.with_suffix('.pdf')))

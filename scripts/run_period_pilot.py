@@ -53,23 +53,31 @@ def execute(command, cwd, log, timeout):
 
 def read_metrics(path):
     text = re.sub(r"\x1b\[[0-9;]*m", "", path.read_text(errors="replace"))
-    schedules = [int(x) for x in re.findall(r"(?m)^test\s+(\d+):", text)]
-    current = None
-    first = None
-    errors = 0
-    for line in text.splitlines():
+    lines = text.splitlines()
+    start = lines.index("Start Testing!") if "Start Testing!" in lines else len(lines)
+    end = lines.index("End Testing!") if "End Testing!" in lines else len(lines)
+    schedules, errors = [], []
+    timeouts = 0
+    valid = lines.count("Start Testing!") == lines.count("End Testing!") == 1 and start < end
+    for index, line in enumerate(lines):
         match = re.match(r"^test\s+(\d+):", line)
+        is_error = "[Error Found]:" in line
+        timeout_count = len(re.findall(r"\[Timeout\s", line))
+        if not start < index < end:
+            if match or is_error or timeout_count:
+                valid = False
+            continue
         if match:
-            current = int(match.group(1))
-        if "[Error Found]:" in line:
-            errors += 1
-            if first is None:
-                first = current
+            schedules.append(int(match.group(1)))
+        if is_error:
+            errors.append(schedules[-1] if schedules else None)
+        timeouts += timeout_count
+    valid = (valid and bool(schedules) and schedules == list(range(1, len(schedules) + 1))
+             and None not in errors and len(errors) == len(set(errors)))
     return {"observed_schedule_count": len(schedules),
             "last_observed_schedule": max(schedules) if schedules else None,
-            "first_error_schedule": first, "reported_buggy_schedules": errors,
-            "end_marker": "End Testing!" in text,
-            "timeout_reports": len(re.findall(r"\[Timeout\s", text))}
+            "first_error_schedule": errors[0] if errors else None, "reported_buggy_schedules": len(errors),
+            "end_marker": valid, "timeout_reports": timeouts}
 
 
 def main():

@@ -10,6 +10,7 @@ import tempfile
 import unittest
 
 MODULE = Path(__file__).resolve().parents[1] / "scripts" / "summarize_comparison.py"
+sys.path.insert(0, str(MODULE.parent))
 SPEC = importlib.util.spec_from_file_location("comparison_summary", MODULE)
 summary = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(summary)
@@ -24,6 +25,7 @@ def raw_log(command, count, failures, elapsed, exit_code=0, complete=True,
     # Expected values are specified directly by each test, independently of the parser.
     lines = ["Started UTC: " + started, "Command: " + json.dumps(command)]
     if complete:
+        lines.append("Start Testing!")
         error_number = 0
         for ordinal in range(1, count + 1):
             prefix = " for prefix [0, 1]" if ordinal == 2 else ""
@@ -307,6 +309,31 @@ class BatchTests(unittest.TestCase):
             self.assertEqual(observed["printed_schedules"]["mean"], 6)
             self.assertEqual(observed["observed_first_error"]["mean"], 3)
             self.assertEqual(observed["elapsed_before_stop_seconds"]["mean"], 120)
+
+    def test_summary_links_cannot_change_source_bytes(self):
+        import os
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            batch, output = root / 'batch', root / 'derived'
+            case = fixture(batch)
+            result = self.run_fixture(batch)
+            output.mkdir()
+            raw = case / 'records.json'
+            original = raw.read_bytes()
+            alias = output / 'acceptance.json'
+            try:
+                alias.symlink_to(raw)
+            except OSError as error:
+                self.skipTest(f'Symlink creation not permitted on this host: {error}')
+            with self.assertRaisesRegex(ValueError, 'ordinary summary file'):
+                summary.write_outputs(result, output, receipt={'accepted': True})
+            self.assertEqual(raw.read_bytes(), original)
+            self.assertFalse((output / 'summary.json').exists())
+            alias.unlink()
+            os.link(raw, output / 'summary.json')
+            summary.write_outputs(result, output)
+            self.assertEqual(raw.read_bytes(), original)
+            self.assertEqual(json.loads((output / 'summary.json').read_text()), result)
 
     def test_cli_case_and_repetition_design_survives_read_only_audit(self):
         with tempfile.TemporaryDirectory() as temp:

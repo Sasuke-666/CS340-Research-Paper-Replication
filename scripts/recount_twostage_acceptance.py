@@ -24,8 +24,10 @@ def recount(path, record):
     raw = path.read_bytes()
     require(hashlib.sha256(raw).hexdigest() == record['log_sha256'], f'{path.name}: SHA-256 mismatch')
     log = re.sub(r'\x1b\[[0-9;]*m', '', raw.decode('utf-8')).splitlines()
-    start = log.index('Start Testing!')
-    end = log.index('End Testing!', start + 1)
+    for marker in ('Start Testing!', 'End Testing!'):
+        require(log.count(marker) == 1, f'{path.name}: expected exactly one {marker}')
+    start, end = log.index('Start Testing!'), log.index('End Testing!')
+    require(start < end, f'{path.name}: invalid testing marker order')
     ids, events = [], []
     for line in log[start + 1:end]:
         test = re.match(r'^test (\d+):', line)

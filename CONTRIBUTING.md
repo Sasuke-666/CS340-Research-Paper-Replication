@@ -73,8 +73,8 @@ files and review results. A new review, test or correction should identify the
 earlier work it builds on. Report contributions by this evidence and keep
 personal explanation or rehearsal status separate from automated checks.
 
-Team membership follows the teaching team's confirmed registration. Update the
-roster when that information is available; membership and authorship of an
-earlier result are separate facts. The dated
+The instructor confirmed the three students in [TEAM.csv](docs/TEAM.csv),
+as reported by the group leader on 25 November. Preserve each student's
+original authorship and contribution dates. The
 [closeout record](docs/PROJECT_CLOSEOUT_20261125.md) identifies the current
 delivery and the course arrangements still awaiting confirmation.

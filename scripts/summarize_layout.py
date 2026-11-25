@@ -18,6 +18,7 @@ import re
 import tempfile
 
 from summarize_comparison import ANSI, parse_raw_log, stats
+from summary_output import staged_summary
 
 PIN = "cb8deb9a176e5bb292d70d46557dd61dc0e98069"
 PINNED_DRIVER_SHA256 = "c6ed1312f61f7ec739e3dcead0086e0265d37f07bd88ef64d6588d3ff61a8e8f"
@@ -461,8 +462,11 @@ def summarize_batch(batch, expected_cases=CASES, expected_repeats=10):
 
 
 def write_outputs(summary, output):
-    output = Path(output)
-    output.mkdir(parents=True, exist_ok=True)
+    with staged_summary(output, ("summary.json", "all_trials.csv", "SUMMARY.md")) as stage:
+        _write_tables(summary, stage)
+
+
+def _write_tables(summary, output):
     # Keep derived artifacts identical on Windows and POSIX audit hosts.
     (output / "summary.json").write_bytes((json.dumps(summary, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     fields = ("case", "condition", "repeat", "position", "started_utc", "finished_utc", "exit_code", "timed_out",

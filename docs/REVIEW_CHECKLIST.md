@@ -1,7 +1,8 @@
 # Historical submission checklist — 8 November 2026
 
-This file preserves the early planning checkpoint and its original checkbox
-states. Current accepted member work and remaining tasks are maintained in
+The unchecked items below record the position on 8 November. On 25 November
+the group leader relayed the instructor’s confirmation of the three-person
+roster. The dated boxes are retained for historical context. Current accepted member work and remaining tasks are maintained in
 [MEMBER_ACTIONS_ZH.md](MEMBER_ACTIONS_ZH.md); both member accounts and their
 substantive submissions have since been confirmed. The independent account
 rerun was delivered on 8 November. See the

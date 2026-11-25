@@ -2,7 +2,7 @@
 
 CS340 Operating Systems · Final report revised 25 November 2026. The measurements below keep their original dates. The 14 November layout diagnostic, 15 November twostage replay and 22 November engineering acceptance are separate studies.
 
-Group members: 孙皓扬 (1240001201), 李扬烁 (1240001156), 何博宇 (1240000576). A fourth member has yet to be confirmed. Section 10 records each member's contribution and review status.
+Group members: Sun Haoyang 孙皓扬 (1240001201), Li Yangshuo 李扬烁 (1240001156), and He Boyu 何博宇 (1240000576). Section 10 records each member's contribution and review status.
 
 ## 1. Scope, claims and principal findings
 
@@ -342,9 +342,10 @@ Table 13 records the member contributions and their source submissions.
 | Li Yangshuo, 李扬烁, 1240001156, barkhorn996 | Submitted the independent 20-call account rerun and retained setup failure; later added cross-batch and report traceability reviews, release/Windows verification, independent acceptance metrics and parser checks | PR #2: 8ce522d and 9f30843 [5]; PR #3: 94a35c3 and d907517 [10]; PR #5: 7ac3a655 [11]; PR #8: 69484e3 [15] |
 | He Boyu, 何博宇, 1240000576, heboyu0714 | Submitted the 26-log four-thread audit, twostage source-derived partial order and five witness replays; independently recounted six later acceptance logs, revised the presentation and added three synthetic recount regressions | PR #1: b02adef5 [7]; PR #4 and run 43681034375 [9]; PR #6: 9b0f265 and 2aea86e [13]; PR #7: 95731d9 and e4db8da [14] |
 
-The usage statement below explains the assistance used for implementation, execution, auditing and drafting. Table 13 identifies work submitted through each member's account. The report, presentation and evidence are available in v1.0.2. The v1.0 and v1.0.1 releases preserve the earlier deliveries. The dated contribution record distinguishes measurements, secondary analysis, tests and integration. Later work receives its own date and evidence.
-
-Personal explanation and cross-review depend on the members' actual participation. Course communication must still confirm the fourth-member arrangement, registration receipt, final deadline and submission portal, and the separate presentation rubric. The prepared materials record the technical delivery, while the course upload and presentation require their own completion records.
+The report and evidence are archived in release v1.0.3. Table 13 and the dated
+contribution record [7] identify who submitted each measurement, analysis and
+test. The AI usage statement describes assistance with implementation, execution
+and writing.
 
 ## Appendix A Complete setup deviations
 
@@ -397,7 +398,7 @@ https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/ea273fe4b6e4
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43575584325
 
 [7] Dated contributions and member evidence reviews, final integration 25 November 2026.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/CONTRIBUTIONS.csv
+https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/docs/CONTRIBUTIONS.csv
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/tree/v1.0.2/docs/reviews
 
 [8] Independent scientific review of the controlled layout diagnostic, 14 November 2026.
@@ -408,7 +409,7 @@ https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/43681034375
 
 [10] Li Yangshuo, supplementary account evidence review, PR #3, 14 November 2026; provenance clarification 15 November; integrated 16 November.
-https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/reviews/1240001156-account-supplement.md
+[Account supplementary analysis and source comparison](../docs/reviews/1240001156-account-supplement.md)
 
 [11] Li Yangshuo, report traceability audit and figure/table reference corrections, PR #5, 22 November 2026.
 https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/reviews/1240001156-report-traceability-audit.md

@@ -9,7 +9,7 @@ audit = importlib.util.module_from_spec(spec); spec.loader.exec_module(audit)
 
 
 def fixture(error=True):
-    return ('test 0001: a\ntest 0002: b\n' + ('[Error Found]: NO.1 AF\n' if error else '')
+    return ('Start Testing!\ntest 0001: a\ntest 0002: b\n' + ('[Error Found]: NO.1 AF\n' if error else '')
             + 'End Testing!\nTotal Error Interleavings: ' + ('1' if error else '0') + '\n')
 
 

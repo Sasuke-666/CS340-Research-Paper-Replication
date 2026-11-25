@@ -18,7 +18,7 @@ shared-memory capacity change and independent member checks.
 | To do | Entry point |
 | --- | --- |
 | Read the findings | [English report](report/EXPANDED_REPORT.md), especially §§1–4 for results, §5 for discrepancies, §6 for the extension and §8 for the capacity study |
-| Download the final documents | [Report, presentation and Chinese handbook](submission/README.md), or the [complete v1.0.2 bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.2) |
+| Download the final documents | [Report, presentation and Chinese handbook](submission/README.md), or the [complete v1.0.3 bundle](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases/tag/v1.0.3) |
 | Check the archived evidence | [Clone and run the offline checks](#clone-and-verify-the-archived-evidence); no Docker workload is needed |
 | Run a new experiment | [Linux/Docker instructions](#independently-rebuild-and-run-a-comparison), including settings and expected runtime |
 | Prepare the presentation | [Fourteen-slide source](presentation/SLIDES.md), [Chinese speaking notes and questions](presentation/TALK_OUTLINE.md), [member preparation](docs/MEMBER_ACTIONS_ZH.md) |
@@ -26,22 +26,14 @@ shared-memory capacity change and independent member checks.
 
 ## Final documents — 25 November 2026
 
-The final report records all eight member pull requests. He Boyu's
-[PR #7](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/7)
-adds three synthetic-log regression tests for the twostage recount. Li Yangshuo's
-[PR #8](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/pull/8)
-adds release and Windows checks, independent acceptance metrics and parser
-integrity checks. Maintainer review closes three further parser/path boundary
-cases and clarifies the dates and scope of the retained validation records.
-
-The [v1.0.2 revision](submission/README.md) contains the English report in PDF
-and Word, an editable fourteen-slide presentation and PDF, and a Chinese
-submission handbook in Word and PDF. The `v1.0` and `v1.0.1` releases remain
-available. Each version records its document hashes and source commit in
-`submission/FINAL_RELEASE.json`; publication follows Linux and Windows checks.
-The [closeout record](docs/PROJECT_CLOSEOUT_20261125.md) maps the completed work
-to its contributors. The [validation record](docs/FINAL_VALIDATION_20261125.md)
-records the checks for this revision. These changes add no benchmark samples.
+Release **v1.0.3** names the three students confirmed by the instructor, as
+reported by the group leader on 25 November. It contains the English report,
+the editable presentation with Chinese speaker notes, the submission handbook
+and the archived evidence. The [rubric map](docs/FINAL_SUBMISSION_CHECKLIST.md)
+links the requirements to the work. The [validation record](docs/FINAL_VALIDATION_V1_0_3.md)
+identifies the source, checks and exported documents. The course-required
+`v1.0`, the prose revision `v1.0.1` and the member integration `v1.0.2` remain
+available in [Releases](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/releases).
 
 The latest fresh-host run was completed on **22 November**.
 [Run 45015126850](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/actions/runs/45015126850)
@@ -342,23 +334,15 @@ The expanded figures are saved under `results/2026-11-07/figures/` as
 can be viewed without installing plotting dependencies. The separately scoped
 capacity study produces `results/2026-11-14/figures/layout_comparison.svg`, using
 only its independently audited summary and displaying actual metric denominators.
-The export command
-creates `CS340_PERIOD_Final_Report_20261125.docx` and
-`CS340_PERIOD_Final_Report_20261125.pdf` in `report/export/`; exporting does
-not execute experiments or alter observations.
-
-The [Chinese handbook](docs/MEMBER_ACTIONS_ZH.md) covers submission and member
-preparation. To export its editable Word copy:
-
-```bash
-make checklist
-```
-
-Export names and dates come from `report/REVISION_DATE`, currently 2026-11-25,
-and must match the report header. Report evidence links point to the exporting
-checkout's exact commit when Git metadata is available. The files in
-`report/export/` are working exports; reviewed release copies are in
-`submission/`.
+With the report dependencies, a Cairo library, LibreOffice (`soffice` on PATH)
+and Noto Sans CJK SC visible to the renderer, `make deliverables` writes all six working files to
+`report/export/`. Use `make report`, `make checklist` or `make presentation`
+for one pair. For an isolated headless macOS installation, set
+`FONTCONFIG_FILE` to its fontconfig configuration containing the Regular and
+Bold Noto Sans CJK SC font directory. Check the rendered Chinese handbook.
+The [presentation sources](presentation/README.md) describe how
+the editable PowerPoint and its Chinese notes are assembled. The publishing
+manifest identifies the reviewed copies in `submission/` and their source revision.
 
 ## Archived studies and member work
 
@@ -503,12 +487,11 @@ The three confirmed member identities are recorded in [the team table](docs/TEAM
 | 李扬烁 | 1240001156 | barkhorn996 |
 | 何博宇 | 1240000576 | heboyu0714 |
 
-The fourth member remains to be confirmed through the course's group allocation
-process. Both member accounts had verified write access on 8 November, and all eight
-member submissions are integrated. The registration receipt
-and any later course allocation still need their actual evidence.
+On 25 November the group leader reported the instructor's confirmation that
+these three students form the complete team. All eight member submissions have
+been merged. The course registration receipt is a separate administrative record.
 
-Every commit message includes the actual responsible student's ID and full name,
+The course requires every commit message to include the actual responsible student's ID and full name,
 including merge and squash messages. Each member uses their own account for
 substantive work. The repository must receive meaningful progress each week
 before Sunday 23:59; late pushes do not recover missed weeks. The source does
@@ -523,6 +506,6 @@ Presentation is tentatively 1 December 2026. Its separate rubric and the exact
 final-report deadline still require verification. The final report must be in
 English and submitted as PDF. The initial final submission is tagged
 `v1.0`; the prose revision is `v1.0.1` and the final member integration is
-`v1.0.2`. The release links provide
+`v1.0.2`. The current submission is `v1.0.3`. The release links provide
 the reviewed documents and complete source/evidence bundles. The course portal receipt and oral presentation
 remain actions for the registered members.

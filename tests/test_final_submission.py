@@ -149,12 +149,18 @@ class FinalSubmissionTests(unittest.TestCase):
 
     def test_bundle_contains_the_complete_clean_checkout_and_survives_extraction(self):
         git = commit_fixture(self.root, self.data)
+        tool = self.root / 'run.sh'
+        tool.write_text('#!/bin/sh\nexit 0\n')
+        git('add', '--chmod=+x', 'run.sh')
+        tool.chmod(0o755)
+        git('commit', '--quiet', '-m', 'Track executable fixture')
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / 'delivery.zip'
             first = package(self.root, output)
             self.assertEqual(first['sha256'], package(self.root, output)['sha256'])
             tracked = git('ls-files').splitlines()
             with zipfile.ZipFile(output) as archive:
+                self.assertEqual(archive.getinfo('Repository/run.sh').external_attr >> 16, 0o100755)
                 names = archive.namelist()
                 self.assertEqual(len(names), len(set(names)))
                 self.assertTrue({'Repository/' + name for name in tracked} <= set(names))

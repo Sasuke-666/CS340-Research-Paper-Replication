@@ -15,13 +15,9 @@ recount of six acceptance logs, followed by PR #7's three synthetic regression
 tests. Their review records state where assistance was
 used for execution, calculation and drafting.
 
-The 22 November acceptance was a separately registered group study: 30 comparison
-calls and 40 diagnostic calls. On 24 November, the final integration merged
-PR #6, fixed portable archive checks, revised the report and presentation, and
-prepared the v1.0 delivery. The subsequent v1.0.1 revision improves the writing.
-The 25 November v1.0.2 integration preserves the two new member submissions and
-adds assisted maintainer fixes, date clarifications and document verification.
-These revisions add no measurements. The dated [development record](../docs/AI_USAGE.md)
+The group leader authorized the assisted maintenance, archive checks and
+document preparation for v1.0.3. These revisions added no benchmark
+measurements. The dated [development record](../docs/AI_USAGE.md)
 and [contribution table](../docs/CONTRIBUTIONS.csv) preserve the original authors,
 dates and study scopes. Personal rehearsal, oral understanding and course upload
 must be established through the members' own participation.

@@ -1,9 +1,9 @@
 # PERIOD replication: talk and defence outline
 
-Content revision: 25 November 2026, Macau/Beijing time (v1.0.2).
+Content revision: 25 November 2026, Macau/Beijing time (v1.0.3).
 Use this outline with the [fourteen slides](SLIDES.md). It explains the results
 in Chinese, gives concise English messages and provides an offline demonstration
-and answers to likely questions. The [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md)
+and answers to likely questions. The [report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/report/EXPANDED_REPORT.md)
 contains the full analysis. Confirm the official duration and speaking
 arrangements before choosing how much of the material to present.
 
@@ -220,8 +220,8 @@ python3 scripts/recount_twostage_acceptance.py
 ### Contribution attribution
 
 孙皓扬组织实验协议、组内测量、仓库整合和报告。李扬烁提交独立 account 宿主
-结果，随后在 PR #3 补充序列与来源审查，在 PR #5 核对报告追溯路径和正文图表
-引用。何博宇提交四线程核数，在 PR #4 提交 twostage 源码、偏序说明和五次重放，
+结果（PR #2），随后在 PR #3 补充序列与来源审查，在 PR #5 核对报告追溯路径和正文图表
+引用。何博宇在 PR #1 提交四线程核数，在 PR #4 提交 twostage 源码、偏序说明和五次重放，
 再在 PR #6 复算组内验收的六份日志并修改展示内容。
 
 11 月 24 日，何博宇在 PR #7 提交三项合成日志回归测试：完整日志的指标计数、
@@ -236,16 +236,27 @@ python3 scripts/recount_twostage_acceptance.py
 贡献按原始 PR 和提交记录说明。二次审查与原始测量分别归属，实施、执行和写作
 辅助见报告使用声明；个人讲解情况以成员实际参与为准。[S2，§10；S14–S20]
 
-准备时可这样分工：孙皓扬讲研究问题、控制设计和各批次样本；李扬烁讲独立宿主
-和数字追溯；何博宇讲 twostage 的必要偏序和六日志复算。每个人都练习回答
-“观察到了什么、还有什么不清楚、证据在哪里”。发言和交叉复核完成后，再记录
-实际参与者与日期。
+### 三人交接与内部十分钟练习
+
+以下时长供内部准备。页码对应英文幻灯片；正式要求以课程通知为准。
+
+| 时间 | 页码与主讲 | 交接提示 |
+| --- | --- | --- |
+| 0:00–4:30 | 1–9，孙皓扬 | 从并发错误引出 C1、C2；解释 106／96／43，再讲搜索量、失配和两项拓展。用“换宿主后哪些数字仍一致？”交给李。 |
+| 4:30–6:00 | 10，李扬烁 | 对比独立 account 的 65／136 和首错位置，解释同一条件内的样本标准差。用“请求为何不能确定实际交错？”交给何。 |
+| 6:00–8:00 | 11–12，何博宇 | 讲解必要偏序、一次选定输入的五次重放和观察边界，引出另一个批次的验收日志。 |
+| 8:00–9:30 | 13，李扬烁、何博宇 | 李从报告定位验收汇总与原始日志；何运行六日志复算，说明二次分析和合成测试分别验证了什么。 |
+| 9:30–10:00 | 14，孙皓扬 | 给出逐项结论、总体部分复现判断，说明尚缺哪类轨迹证据。 |
+
+若正式时长较短，孙保留第 5、6 页两个结果并口头概括拓展，李保留独立宿主对照，何用第 13 页的预存汇总代替现场运行。个人讲解和联合排练由三人实际完成后记录。
 
 ## 8. Questions to prepare
 
 | Likely question | Accurate response and evidence |
 | --- | --- |
 | Why is the conclusion only partially reproduced? | Selected enumeration totals agree; several first-failure positions and buggy counts differ. See report Tables 2–3 and C1 verdict. |
+| Does a smaller search find the failure earlier? | The search total counts all requests. First failure gives the position of the first failing request. The independent account search used 65 vs. 136 requests, yet PERIOD first failed at 8.8 on average vs. 4 for serialized. See slide 10 and report Table 8. |
+| Why use sample SD? | We estimate the mean from the same repeats and use n−1 degrees of freedom for the sample variance. Its square root describes the observed run-to-run spread. For paired changes we first subtract within each complete pair and compute the SD across those differences. See the six-log example in §7. |
 | Is a buggy schedule a distinct bug? | It is a schedule whose execution exposed a failure. Multiple schedules can expose one defect. The report does not count each as a new defect. |
 | Does the first failing schedule measure time to bug? | It is a one-based enumeration position. Whole-driver elapsed time includes calibration and other work; time to the first error was not separately measured. |
 | Is 120 seconds the serialized completion time? | The ten runs were stopped at the outer bound. Their completion times and final totals are missing; the observed prefixes remain available. |
@@ -257,7 +268,7 @@ python3 scripts/recount_twostage_acceptance.py
 | Does a zero standard deviation prove determinism? | It describes the observed repeated metric. Execution traces and other failure metrics can still vary, and a finite sample does not establish universal behavior. |
 | How can identical requested schedules produce different failure observations? | A shared final period can permit different mutex-acquisition orders. The `account` source gives a conditional example; a validated execution trace is required to attribute a particular recorded outcome. See report §8.3 and S9. |
 | How is the missing original account archive handled? | The failed job, absent artifact and unavailable logs remain documented. Its attempt/completion counts and failure cause are unknown. A registered recovery uses a new host and keeps its observable results separate. See S10. |
-| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
+| What did each member do? | Name the actual commits and evidence in [the contribution record](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/docs/CONTRIBUTIONS.csv); distinguish submitted work from human review or explanation still awaiting completion. |
 | Is the twostage table an observed instruction trace? | It gives a source-derived necessary partial order and the observed assertion. Exact preemption points, a unique lock order and final shared-state values remain unknown. See S14. |
 | What does the twostage 5/5 replay result establish? | Five consecutive calls replayed the selected witness and produced the matching assertion on the recorded build and host. It supplies no unconditional or cross-host reliability guarantee. See S15. |
 | Does the account supplementary review claim new measurements? | PR #3 analyses existing evidence and adds request-sequence checks. PR #5 audits report traceability and improves narrative figure/table callouts. Their contribution scopes remain separate from original measurements. See S16. |
@@ -281,8 +292,8 @@ Our overall verdict is partial reproduction.
   ICSE 2022, DOI: 10.1145/3510003.3510178.
   [Original paper](https://wcventure.github.io/pdf/ICSE2022_PERIOD.pdf),
   sections 2.2 and 3 for the method; Table 2 for paper references.
-- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.2/report/EXPANDED_REPORT.md), with numbered tables,
-  figures, scoped verdicts and original data references at the `v1.0.2` revision.
+- S2. [Expanded report](https://github.com/Sasuke-666/CS340-Research-Paper-Replication/blob/v1.0.3/report/EXPANDED_REPORT.md), with numbered tables,
+  figures, scoped verdicts and original data references at the `v1.0.3` revision.
 - S3. [Registered comparison protocol](../experiments/2026-11-07/COMPARISON_PROTOCOL.md).
 - S4. [Compatibility protocol](../experiments/2026-11-07/COMPATIBILITY_PROTOCOL.md)
   and [source/attribution record](../docs/SOURCES.md).

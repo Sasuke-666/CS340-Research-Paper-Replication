@@ -9,6 +9,7 @@ from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
 import re
+import json
 import subprocess
 import tempfile
 from urllib.parse import quote, unquote, urlsplit, urlunsplit
@@ -28,7 +29,12 @@ def link_parts(text):
 
 
 def repository_revision(root):
-    """Pin local evidence to this checkout; source archives use main navigation."""
+    """Use the source revision for frozen deliveries, including extracted ZIPs."""
+    manifest = Path(root) / 'submission/FINAL_RELEASE.json'
+    if manifest.is_file():
+        frozen = json.loads(manifest.read_text(encoding='utf-8'))
+        if frozen.get('status') == 'ready' and re.fullmatch(r'[0-9a-f]{40}', frozen.get('source_commit', '')):
+            return frozen['source_commit']
     try:
         revision = subprocess.check_output(
             ['git', '-C', str(root), 'rev-parse', '--verify', 'HEAD'],
@@ -78,19 +84,8 @@ def register_pdf_fonts():
     pdfmetrics.registerFontFamily('CS340Sans', normal='CS340Sans',
                                   bold='CS340Sans-Bold', italic='CS340Sans-Italic',
                                   boldItalic='CS340Sans-BoldItalic')
-
-
-def pdf_names(text):
-    """Use verified romanizations in the English PDF; Word keeps source names."""
-    for original, romanized in [('孙皓扬', 'Sun Haoyang'), ('李扬烁', 'Li Yangshuo'),
-                                ('何博宇', 'He Boyu')]:
-        text = text.replace(original, romanized)
-        text = text.replace(romanized + ' (' + romanized + ', ', romanized + ' (')
-        text = text.replace(romanized + ', ' + romanized + ', ', romanized + ', ')
-    if re.search(r'[\u3400-\u9fff]', text):
-        raise ValueError('Unmapped Chinese text in English PDF: add its verified '
-                         'romanization to pdf_names; Word retains the source text')
-    return text
+    roster = Path(__file__).resolve().parents[1] / 'report/fonts/CS340Roster.ttf'
+    pdfmetrics.registerFont(TTFont('CS340Roster', str(roster)))
 
 
 def plain(text):
@@ -223,10 +218,10 @@ def export(root, output, source=None, stem=None, report_date=None, repository_re
         value = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', value)
         value = re.sub(r'`([^`]+)`', r'<font name="CS340Sans" size="8.6">\1</font>', value)
         value = re.sub(r'(?<!\*)\*([^*]+)\*(?!\*)', r'<i>\1</i>', value)
-        return value
+        # The embedded OFL font contains the team's eight distinct Chinese characters.
+        return re.sub(r'[孙皓扬李烁何博宇]+', r'<font name="CS340Roster">\g<0></font>', value)
 
     def inline(value):
-        value = pdf_names(value)
         parts, position = [], 0
         for start, end, label, target in link_parts(value):
             parts.append(inline_text(value[position:start]))
